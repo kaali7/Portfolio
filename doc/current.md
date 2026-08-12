@@ -7,6 +7,7 @@
 - [x] Implemented Projects Section (`components/Projects.tsx`) with dark theme contrast.
 - [x] Integrated GSAP ScrollTrigger for the "Curtain Reveal" animation between Hero and Projects sections.
 - [x] Initialized Git repository.
+- [x] Established project rules and documentation enforcement policy.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
