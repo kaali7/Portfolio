@@ -15,9 +15,9 @@ export function Hero() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.5, scale: 1 }}
+          animate={{ opacity: 0.6, scale: 1.1 }}
           transition={{ duration: 2, ease: "easeOut" }}
-          className="w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[140px]"
+          className="w-[600px] h-[600px] bg-purple-600/25 rounded-full blur-[150px]"
         />
       </div>
 
@@ -64,12 +64,12 @@ export function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex-1 flex flex-col justify-center items-center my-auto">
         
         {/* Editorial Heading Behind Portrait */}
-        <div className="absolute top-[12%] md:top-[8%] w-full flex justify-center pointer-events-none z-0">
+        <div className="absolute top-[8%] md:top-[5%] w-full flex justify-center pointer-events-none z-0">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 0.85, y: 0 }}
+            animate={{ opacity: 0.8, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="text-[13vw] font-light italic tracking-tight text-white/90 leading-none select-none"
+            className="text-[13vw] font-light italic tracking-tight text-white/80 leading-none select-none"
             style={{ fontFamily: "Georgia, serif" }}
           >
             Hey, there
@@ -81,13 +81,13 @@ export function Hero() {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="hidden lg:flex absolute left-8 top-[35%] flex-col gap-3 z-20"
+          className="hidden lg:flex absolute left-8 top-[38%] flex-col gap-3 z-20"
         >
-          <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-purple-300 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <div className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-purple-300 flex items-center gap-2 shadow-lg">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             PyTorch / TensorFlow
           </div>
-          <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-white/70">
+          <div className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-white/80 shadow-lg">
             LLM Agents & RAG Architecture
           </div>
         </motion.div>
@@ -96,39 +96,74 @@ export function Hero() {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="hidden lg:flex absolute right-8 top-[35%] flex-col items-end gap-3 z-20"
+          className="hidden lg:flex absolute right-8 top-[38%] flex-col items-end gap-3 z-20"
         >
-          <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-purple-300">
+          <div className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-purple-300 shadow-lg">
             Predictive Analytics & Neural Nets
           </div>
-          <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-white/70 flex items-center gap-2">
+          <div className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md font-mono text-[11px] text-white/80 flex items-center gap-2 shadow-lg">
             Computer Vision / NLP
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-purple-400" />
           </div>
         </motion.div>
 
-        {/* Centered Image with Gradient Fade at Bottom */}
+        {/* ENLARGED PORTRAIT AVATAR IN AI GLOWING CIRCULAR PORTAL */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="relative w-64 h-80 md:w-96 md:h-[440px] lg:w-[420px] lg:h-[500px] z-10 mt-12 md:mt-16"
+          whileHover={{ scale: 1.03 }}
+          className="relative group cursor-pointer z-10 mt-6 md:mt-10"
         >
-          <Image
-            src="/me.png"
-            alt="Ashwini Portrait"
-            fill
-            className="object-cover object-top filter brightness-105 contrast-105"
-            priority
+          {/* Outer Rotating Dash Tech Ring */}
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="absolute -inset-6 md:-inset-8 rounded-full border border-dashed border-purple-500/30 pointer-events-none"
           />
-          {/* Bottom fade mask to blend portrait smoothly into the dark background */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#08080A] to-transparent pointer-events-none" />
+
+          {/* Counter-Rotating Inner Arc Ring */}
+          <motion.div 
+            animate={{ rotate: -360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute -inset-3 md:-inset-4 rounded-full border-t-2 border-b-2 border-purple-400/50 pointer-events-none"
+          />
+
+          {/* Glowing Backlight Halo */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600/40 via-purple-400/20 to-indigo-600/40 blur-xl group-hover:blur-2xl transition-all duration-500" />
+
+          {/* Circular Frame Container */}
+          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[380px] md:h-[380px] lg:w-[440px] lg:h-[440px] rounded-full p-1.5 bg-gradient-to-tr from-purple-500 via-purple-400/60 to-indigo-500 shadow-[0_0_50px_rgba(168,85,247,0.35)] overflow-hidden">
+            
+            {/* Inner Dark Background Shield */}
+            <div className="w-full h-full rounded-full bg-[#0D0D12] relative overflow-hidden flex items-end justify-center">
+              
+              {/* Subtle Radial Glow inside Circle */}
+              <div className="absolute inset-0 bg-radial-gradient from-purple-900/30 to-transparent pointer-events-none" />
+
+              {/* Enlarged Portrait Image */}
+              <div className="relative w-full h-[115%] top-4">
+                <Image
+                  src="/me.png"
+                  alt="Ashwini Portrait"
+                  fill
+                  className="object-cover object-top filter brightness-105 contrast-105 group-hover:scale-105 transition-transform duration-500"
+                  priority
+                />
+              </div>
+
+              {/* Bottom Gradient Overlay inside circle */}
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0D0D12] via-[#0D0D12]/70 to-transparent pointer-events-none" />
+            </div>
+
+          </div>
+
         </motion.div>
 
       </div>
 
       {/* Bottom Bar / Name & Headline */}
-      <div className="relative z-20 px-6 lg:px-12 py-8 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-6 border-t border-white/5">
+      <div className="relative z-20 px-6 lg:px-12 py-8 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-6 border-t border-white/5 bg-[#08080A]">
         
         {/* Bright White High Contrast Name */}
         <motion.div 
@@ -138,6 +173,7 @@ export function Hero() {
           className="flex flex-col"
         >
           <div className="font-mono text-xs text-purple-400 tracking-widest uppercase mb-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
             <span>AI & DATA SCIENCE SPECIALIST</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase">
