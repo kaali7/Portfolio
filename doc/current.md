@@ -3,7 +3,7 @@
 ## What is Completed
 - [x] Initialized Next.js project with TypeScript and Tailwind CSS.
 - [x] Set up basic folder structure and configuration (Tailwind, PostCSS, etc.).
-- [x] Upgraded Hero Section (`components/Hero.tsx`) with enlarged portrait, cybernetic rotating rings, glassmorphism tech frame, and 3D mouse-tilt physics.
+- [x] Redesigned Hero Section (`components/Hero.tsx`) with a high-contrast Dark AI/Data Science theme, enlarged portrait image, and subtle `bg.png` chalkboard roadmap background.
 - [x] Implemented Projects Section (`components/Projects.tsx`) with dark theme contrast.
 - [x] Integrated GSAP ScrollTrigger for the "Curtain Reveal" animation between Hero and Projects sections.
 - [x] Initialized Git repository.
