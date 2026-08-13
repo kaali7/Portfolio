@@ -1,24 +1,349 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+
+// Interactive Circular AI Robot Avatar with Mouse-Tracking White Eyes
+function RobotAvatar({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const pupilX = useMotionValue(0);
+  const pupilY = useMotionValue(0);
+  
+  // Liquid-smooth spring physics for realistic eye tracking
+  const smoothPupilX = useSpring(pupilX, { stiffness: 140, damping: 20, mass: 0.6 });
+  const smoothPupilY = useSpring(pupilY, { stiffness: 140, damping: 20, mass: 0.6 });
+  
+  // Head tilt rotation follow pupil X
+  const headRotate = useTransform(smoothPupilX, [-6.5, 6.5], [-4, 4]);
+
+  const [isBlinking, setIsBlinking] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [isNear, setIsNear] = useState(false);
+
+  // Typewriter effect state for HELLO!
+  const [typedText, setTypedText] = useState("");
+  const fullText = "HELLO!";
+
+  useEffect(() => {
+    if (showTooltip || isNear) {
+      let current = "";
+      let i = 0;
+      setTypedText("");
+      const interval = setInterval(() => {
+        if (i < fullText.length) {
+          current += fullText[i];
+          setTypedText(current);
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 85);
+      return () => clearInterval(interval);
+    } else {
+      setTypedText("");
+    }
+  }, [showTooltip, isNear]);
+
+  useEffect(() => {
+    // Natural eye blink loop (occasional quick double blink)
+    const interval = setInterval(() => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+        // 30% chance of double blink
+        if (Math.random() < 0.3) {
+          setTimeout(() => {
+            setIsBlinking(true);
+            setTimeout(() => setIsBlinking(false), 130);
+          }, 110);
+        }
+      }, 130);
+    }, Math.random() * 3000 + 3200);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const updateEyePosition = () => {
+      if (!containerRef.current) return;
+      const mX = mouseX.get();
+      const mY = mouseY.get();
+      if (mX === -1000 || mY === -1000) {
+        setIsNear(false);
+        return;
+      }
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const robotCenterX = rect.left + rect.width / 2;
+      const robotCenterY = rect.top + rect.height / 2;
+
+      const dx = mX - robotCenterX;
+      const dy = mY - robotCenterY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Proximity detection: show "HELLO" bubble when mouse comes within 220px
+      if (dist < 220) {
+        setIsNear(true);
+      } else {
+        setIsNear(false);
+      }
+
+      const maxOffset = 6.5;
+
+      if (dist > 0) {
+        const moveX = (dx / dist) * Math.min(dist * 0.07, maxOffset);
+        const moveY = (dy / dist) * Math.min(dist * 0.07, maxOffset);
+        pupilX.set(moveX);
+        pupilY.set(moveY);
+      }
+    };
+
+    const unsubX = mouseX.on("change", updateEyePosition);
+    const unsubY = mouseY.on("change", updateEyePosition);
+
+    return () => {
+      unsubX();
+      unsubY();
+    };
+  }, [mouseX, mouseY, pupilX, pupilY]);
+
+  const isActive = showTooltip || isNear;
+
+  return (
+    <motion.div
+      ref={containerRef}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ 
+        opacity: 1, 
+        scale: isActive ? 1.08 : 1,
+        y: isActive ? [-5, 3, -5] : [-4, 4, -4]
+      }}
+      whileHover={{ scale: 1.1 }}
+      transition={{ 
+        opacity: { duration: 0.8, delay: 0.5 },
+        scale: { type: "spring", stiffness: 220, damping: 18 },
+        y: { duration: isActive ? 2.2 : 4.5, repeat: Infinity, ease: "easeInOut" }
+      }}
+      className="relative z-30 group cursor-pointer"
+    >
+      {/* Speech Bubble Tooltip matching reference image */}
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.85 }}
+            transition={{ type: "spring", stiffness: 240, damping: 18, mass: 0.7 }}
+            className="absolute -top-14 -left-6 sm:-left-10 z-50 pointer-events-none whitespace-nowrap"
+          >
+            <div className="relative bg-[#222226] border border-white/15 px-4 py-2 rounded-2xl shadow-[0_14px_40px_rgba(0,0,0,0.9)] flex items-center justify-center min-w-[90px]">
+              <span className="font-sans font-black text-white tracking-wider text-base sm:text-lg uppercase drop-shadow-md">
+                {typedText}
+                {typedText.length < fullText.length && (
+                  <span className="inline-block w-1.5 h-4 ml-0.5 bg-white animate-pulse align-middle" />
+                )}
+              </span>
+              {/* Speech Bubble Pointer Tail */}
+              <div className="absolute -bottom-2 right-4 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-[#222226]" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Outer Clean Light Circle Widget (No Purple, Clean Neutral Border) */}
+      <motion.div 
+        style={{ rotate: headRotate }}
+        className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full bg-white text-[#08080A] shadow-[0_12px_35px_rgba(0,0,0,0.4)] border-2 border-slate-200 flex items-center justify-center p-3.5 relative transition-all duration-300 group-hover:border-slate-400 group-hover:shadow-[0_16px_45px_rgba(255,255,255,0.25)]"
+      >
+        {/* Futuristic Cute Robot SVG Illustration */}
+        <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
+          {/* Top Antenna stem and bulb */}
+          <line x1="50" y1="18" x2="50" y2="8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="50" cy="7" r="4" className="fill-white stroke-2 stroke-slate-900 animate-pulse" />
+
+          {/* Robot Ear Pods */}
+          <rect x="14" y="42" width="8" height="16" rx="4" fill="currentColor" />
+          <rect x="78" y="42" width="8" height="16" rx="4" fill="currentColor" />
+
+          {/* Main Helmet Head Dome */}
+          <rect x="20" y="20" width="60" height="58" rx="28" fill="currentColor" />
+
+          {/* Visor Screen (Dark Inner Screen Area) */}
+          <rect x="27" y="32" width="46" height="34" rx="17" className="fill-slate-950" />
+
+          {/* Eye Socket Group with Mouse-Tracking PURE WHITE Eyes */}
+          <motion.g
+            style={{
+              x: smoothPupilX,
+              y: smoothPupilY,
+              scaleY: isBlinking ? 0.08 : 1,
+              transformOrigin: "50% 46px"
+            }}
+          >
+            {/* Left Eye Pupil (PURE WHITE) */}
+            <ellipse cx="40" cy="46" rx="5.5" ry="8.5" className="fill-white" />
+            <circle cx="38.5" cy="43.5" r="1.8" className="fill-slate-900" />
+
+            {/* Right Eye Pupil (PURE WHITE) */}
+            <ellipse cx="60" cy="46" rx="5.5" ry="8.5" className="fill-white" />
+            <circle cx="58.5" cy="43.5" r="1.8" className="fill-slate-900" />
+          </motion.g>
+
+          {/* Talking Animated Mouth (Smile Line) */}
+          <motion.path 
+            d={isActive ? "M 43 56 Q 50 67 57 56" : "M 43 59 Q 50 63 57 59"} 
+            stroke="#ffffff" 
+            strokeWidth="2.8" 
+            strokeLinecap="round" 
+            fill={isActive ? "#ffffff" : "none"}
+            animate={isActive ? { scaleY: [1, 1.35, 0.75, 1.2, 1] } : { scaleY: 1 }}
+            transition={{
+              duration: 0.35,
+              repeat: isActive ? Infinity : 0,
+              ease: "easeInOut"
+            }}
+          />
+        </svg>
+
+        {/* Ambient Neutral Outer Pulse Ring */}
+        <div className="absolute -inset-1 rounded-full border border-slate-300/30 animate-ping pointer-events-none opacity-20" />
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const name = "ASHWINI";
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Mouse tracking motion values for interactive optical lens reveal
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
+  const opacityVal = useMotionValue(0);
+  // Ultra-smooth spring physics for fluid expansion (No circle -> Small -> Big)
+  const scaleVal = useMotionValue(0);
+  const smoothScale = useSpring(scaleVal, { stiffness: 90, damping: 16, mass: 0.7 });
+  const moveTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const shouldReduceMotion = useReducedMotion();
+
+  // Ultra-smooth spring physics for fluid cursor tracking & opacity
+  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.6 });
+  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.6 });
+  const smoothOpacity = useSpring(opacityVal, { stiffness: 110, damping: 16 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion) return;
+    if (!sectionRef.current) return;
+
+    // Suppress lens circle animation when cursor is over Header Navbar or Robot Avatar area
+    const isOverInteractive = (e.target as HTMLElement)?.closest("header, [data-interactive-zone='true']");
+    if (isOverInteractive) {
+      scaleVal.set(0);
+      opacityVal.set(0);
+      if (moveTimerRef.current) clearTimeout(moveTimerRef.current);
+      return;
+    }
+
+    const rect = sectionRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+
+    // Rule 2: On movement, animate from No Circle -> Small -> Big (1.0), maintain static big circle while moving
+    opacityVal.set(1);
+    scaleVal.set(1.0);
+
+    // Rule 3: When movement stops, shrink from Big -> Small -> No Circle (0) after 260ms idle
+    if (moveTimerRef.current) clearTimeout(moveTimerRef.current);
+    moveTimerRef.current = setTimeout(() => {
+      scaleVal.set(0);
+      opacityVal.set(0);
+    }, 260);
+  };
+
+  const handleMouseEnter = () => {
+    // Rule 1: Stationary mouse on enter shows no circle until movement occurs
+    if (!shouldReduceMotion) {
+      scaleVal.set(0);
+      opacityVal.set(0);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    // Rule 3: Exit to no circle
+    scaleVal.set(0);
+    opacityVal.set(0);
+    if (moveTimerRef.current) clearTimeout(moveTimerRef.current);
+  };
+
+  // Dynamic sharp radial gradient mask string for 100% crystal clear, sharp text reveal
+  const maskStyle = useTransform(
+    [smoothX, smoothY, smoothOpacity, smoothScale],
+    ([x, y, op, scale]) => {
+      const radius = 100 * Number(scale);
+      return `radial-gradient(circle ${radius}px at ${x}px ${y}px, rgba(0,0,0,${op}) 0%, rgba(0,0,0,${op}) 98.5%, rgba(0,0,0,0) 100%)`;
+    }
+  );
+
+  const lensTransform = useTransform(
+    [smoothX, smoothY, smoothScale],
+    ([x, y, scale]) => `translate3d(${Number(x) - 100}px, ${Number(y) - 100}px, 0) scale(${Number(scale)})`
+  );
+  // Mouse 3D Parallax Motion Transforms
+  const parallaxPortraitX = useTransform(smoothX, (x) => (Number(x) - 720) * 0.018);
+  const parallaxPortraitY = useTransform(smoothY, (y) => (Number(y) - 450) * 0.015);
+  
+  const parallaxTextX = useTransform(smoothX, (x) => (Number(x) - 720) * 0.028);
+  const parallaxTextY = useTransform(smoothY, (y) => (Number(y) - 450) * 0.02);
+
+  const parallaxNameX = useTransform(smoothX, (x) => (Number(x) - 720) * 0.022);
+  const parallaxNameY = useTransform(smoothY, (y) => (Number(y) - 450) * 0.018);
+
+  const parallaxCardX = useTransform(smoothX, (x) => (Number(x) - 720) * -0.02);
+  const parallaxCardY = useTransform(smoothY, (y) => (Number(y) - 450) * -0.015);
 
   const navLinks = [
-    { label: "01. WORKS", href: "#work" },
-    { label: "02. ABOUT", href: "#about" },
-    { label: "03. SERVICES", href: "#services" },
-    { label: "04. RESEARCH", href: "#research" },
+    { label: "ABOUT", href: "#about" },
+    { 
+      label: "PROJECTS", 
+      href: "#projects",
+      subLinks: [
+        { label: "Featured Projects", href: "#projects" },
+        { label: "AI / ML", href: "#projects" },
+        { label: "Data Science", href: "#projects" },
+        { label: "GenAI", href: "#projects" },
+        { label: "Full-Stack AI", href: "#projects" },
+      ]
+    },
+    { 
+      label: "RESEARCH", 
+      href: "#research",
+      subLinks: [
+        { label: "Papers Studied", href: "#research" },
+        { label: "Experiments", href: "#research" },
+        { label: "Research Notes", href: "#research" },
+      ]
+    },
+    { label: "SKILLS", href: "#skills" },
+    { label: "EXPERIENCE", href: "#experience" },
+    { label: "WRITING", href: "#writing" },
   ];
 
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#08080A] text-[#F3F4F6] select-none">
+    <section 
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#08080A] text-[#F3F4F6] select-none cursor-default"
+    >
       
-      {/* Background Chalkboard Diagram (bg.png) */}
+      {/* 1. Base Background Chalkboard Diagram (Faint Default State) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
           src="/bg.png"
@@ -30,6 +355,32 @@ export function Hero() {
         {/* Radial Dark Vignette Overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#08080A]/70 to-[#08080A]" />
       </div>
+
+      {/* 2. Interactive Spotlight Lens Layer (Crystal Clear Bright Text Reveal) */}
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden md:block"
+        style={{
+          WebkitMaskImage: maskStyle,
+          maskImage: maskStyle,
+        }}
+      >
+        <Image
+          src="/bg.png"
+          alt="Data Science Roadmap Revealed"
+          fill
+          className="object-cover opacity-100 filter brightness-220 contrast-200 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+          priority
+        />
+      </motion.div>
+
+      {/* 3. Subtle Glass Blur Optical Lens Container */}
+      <motion.div
+        className="absolute top-0 left-0 w-[200px] h-[200px] rounded-full border-0 border-transparent bg-transparent backdrop-blur-[1px] pointer-events-none z-0 hidden md:block"
+        style={{
+          transform: lensTransform,
+          opacity: smoothOpacity,
+        }}
+      />
 
       {/* Background Animated Data Streams */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20">
@@ -49,75 +400,105 @@ export function Hero() {
         ))}
       </div>
 
-      {/* Ambient Purple Glow Behind Portrait */}
+      {/* Ambient Breathing Purple Glow Behind Portrait */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.35, scale: 1 }}
-          transition={{ duration: 1.8, ease: "easeOut" }}
+          animate={{ 
+            opacity: [0.25, 0.42, 0.25], 
+            scale: [0.94, 1.08, 0.94] 
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           className="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[750px] lg:h-[750px] bg-purple-600/30 rounded-full blur-[120px] sm:blur-[160px]"
         />
       </div>
 
-      {/* Top Navigation */}
-      <header className="relative z-40 px-4 sm:px-6 lg:px-12 py-6 flex justify-between items-center text-sm font-medium tracking-wide bg-transparent backdrop-blur-sm">
-        {/* Brand Logo Signature */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex items-center"
-        >
-          <span className="font-signature text-4xl sm:text-5xl text-white font-normal tracking-wide drop-shadow-md">Ashwini</span>
-        </motion.div>
-
-        {/* Desktop Nav Links */}
-        <motion.nav 
-          initial={{ opacity: 0, y: -10 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="hidden md:flex gap-8 text-xs font-mono tracking-widest text-white/70"
-        >
-          {navLinks.map((link) => (
-            <a 
-              key={link.label}
-              href={link.href} 
-              className="hover:text-purple-400 transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </motion.nav>
-
-        {/* Right CTA & Mobile Toggle */}
-        <div className="flex items-center gap-3">
+      {/* Clean Transparent Top Navigation Bar (No Border, Transparent Background) */}
+      <header className="relative z-40 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-12 py-6 flex justify-between items-center bg-transparent">
+        <div className="w-full bg-transparent border-0 border-transparent flex justify-between items-center shadow-none">
+          {/* Brand Logo Signature */}
           <motion.div 
             initial={{ opacity: 0, y: -10 }} 
             animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex items-center"
           >
-            <a 
-              href="#contact" 
-              className="px-4 sm:px-5 py-2 text-xs font-mono tracking-wider text-white bg-purple-600/30 hover:bg-purple-600 border border-purple-500/40 rounded-full transition-all duration-300 shadow-lg shadow-purple-900/20 active:scale-95 block"
-            >
-              LET&apos;S TALK
-            </a>
+            <span className="font-signature text-3xl sm:text-4xl text-white font-normal tracking-wide drop-shadow-md">Ashwini</span>
           </motion.div>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-white/80 hover:text-white focus:outline-none"
-            aria-label="Toggle navigation menu"
+          {/* Desktop Nav Links */}
+          <motion.nav 
+            initial={{ opacity: 0, y: -10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs sm:text-sm lg:text-base font-mono font-bold tracking-widest text-white/80"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+            {navLinks.map((link) => (
+              <div key={link.label} className="relative group">
+                <a 
+                  href={link.href} 
+                  className="hover:text-white transition-colors duration-200 flex items-center gap-1.5 py-1"
+                >
+                  <span>{link.label}</span>
+                  {link.subLinks && (
+                    <svg className="w-3 h-3 text-white/50 group-hover:text-white transition-transform group-hover:rotate-180 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  )}
+                </a>
+
+                {/* Submenu Dropdown */}
+                {link.subLinks && (
+                  <div className="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50 min-w-[210px]">
+                    <div className="bg-[#08080A]/95 backdrop-blur-2xl border border-white/15 p-3 rounded-xl shadow-2xl flex flex-col gap-1.5">
+                      {link.subLinks.map((sub) => (
+                        <a
+                          key={sub.label}
+                          href={sub.href}
+                          className="text-xs sm:text-sm font-mono font-medium tracking-wider text-white/70 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors flex items-center justify-between"
+                        >
+                          <span>{sub.label}</span>
+                          <span className="text-[10px] text-white/30">└</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </motion.nav>
+
+          {/* Upgraded Right CTA & Mobile Toggle */}
+          <div className="flex items-center gap-3">
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+            >
+              <motion.a 
+                href="#contact" 
+                whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(255, 255, 255, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
+                className="px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-mono font-black tracking-wider text-[#08080A] bg-white hover:bg-slate-100 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(255,255,255,0.25)] flex items-center justify-center block"
+              >
+                <span>GET IN TOUCH</span>
+              </motion.a>
+            </motion.div>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-white/80 hover:text-white focus:outline-none"
+              aria-label="Toggle navigation menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
@@ -128,52 +509,85 @@ export function Hero() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute top-full left-0 right-0 bg-[#08080A]/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 md:hidden flex flex-col gap-4 shadow-2xl z-50"
+              className="absolute top-full left-4 right-4 bg-[#08080A]/95 backdrop-blur-xl border border-white/15 rounded-2xl px-6 py-6 md:hidden flex flex-col gap-4 shadow-2xl z-50 mt-2"
             >
               {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="font-mono text-sm tracking-widest text-white/80 hover:text-purple-400 py-1 transition-colors"
-                >
-                  {link.label}
-                </a>
+                <div key={link.label} className="flex flex-col gap-2">
+                  <a
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="font-mono text-sm tracking-widest text-white/90 hover:text-purple-400 py-1 transition-colors flex items-center justify-between"
+                  >
+                    <span>{link.label}</span>
+                  </a>
+                  {link.subLinks && (
+                    <div className="pl-3 flex flex-col gap-1 border-l border-white/10">
+                      {link.subLinks.map((sub) => (
+                        <a
+                          key={sub.label}
+                          href={sub.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="font-mono text-xs text-white/60 hover:text-white py-1"
+                        >
+                          {sub.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </motion.div>
           )}
         </AnimatePresence>
       </header>
 
-      {/* Massive Editorial Serif Heading BEHIND Portrait (z-0) */}
-      <div className="absolute top-[14%] sm:top-[16%] lg:top-[18%] inset-x-0 max-w-[1440px] mx-auto px-6 sm:px-12 md:px-16 flex justify-between items-center pointer-events-none z-0">
-        {/* DATA on Left side (shifted left so all letters are visible) */}
+      {/* Massive Editorial Serif Heading BEHIND Portrait (z-0) with 3D Parallax */}
+      <motion.div 
+        style={{
+          x: parallaxTextX,
+          y: parallaxTextY
+        }}
+        className="absolute top-[14%] sm:top-[16%] lg:top-[18%] inset-x-0 max-w-[1440px] mx-auto px-6 sm:px-12 md:px-16 flex justify-between items-center pointer-events-none z-0"
+      >
+        {/* DATA on Left side */}
         <motion.h1 
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 0.85, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="text-6xl sm:text-8xl md:text-[12vw] lg:text-[13.5vw] font-serif italic tracking-tight text-white/80 leading-none select-none drop-shadow-2xl uppercase -ml-6 sm:-ml-12 lg:-ml-18 xl:-ml-24"
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="text-6xl sm:text-8xl md:text-[12vw] lg:text-[13.5vw] font-serif italic tracking-tight text-white/80 leading-none select-none drop-shadow-2xl uppercase -ml-8 sm:-ml-16 md:-ml-20 lg:-ml-24 xl:-ml-28"
         >
           DATA
         </motion.h1>
 
         {/* AI on Right side */}
         <motion.h1 
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 0.85, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-6xl sm:text-8xl md:text-[12vw] lg:text-[13.5vw] font-serif italic tracking-tight text-white/80 leading-none select-none drop-shadow-2xl uppercase mr-[5vw] sm:mr-[8vw] lg:mr-[10vw]"
         >
           AI
         </motion.h1>
+      </motion.div>
+
+      {/* Interactive Circular AI Robot Avatar (Mouse-Tracking Eyes) */}
+      <div 
+        data-interactive-zone="true"
+        className="absolute top-[20%] sm:top-[22%] lg:top-[24%] right-[5%] sm:right-[8%] lg:right-[12%] z-30 pointer-events-auto"
+      >
+        <RobotAvatar mouseX={mouseX} mouseY={mouseY} />
       </div>
 
-      {/* CENTER PORTRAIT CUTOUT IMAGE (100% Viewport-Centered z-10) */}
+      {/* CENTER PORTRAIT CUTOUT IMAGE (3D Mouse Parallax Layer z-10) */}
       <div className="absolute bottom-0 inset-x-0 flex justify-center pointer-events-none z-10">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          style={{
+            x: parallaxPortraitX,
+            y: parallaxPortraitY
+          }}
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="relative w-[320px] h-[440px] sm:w-[480px] sm:h-[620px] md:w-[600px] md:h-[760px] lg:w-[780px] lg:h-[960px] xl:w-[880px] xl:h-[1050px] flex-shrink-0 -mb-1 sm:-mb-3"
         >
           <Image
@@ -191,49 +605,76 @@ export function Hero() {
       {/* Main Hero Body Container */}
       <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
 
-        {/* LEFT HUD CONTENT: Name Heading */}
+        {/* LEFT HUD CONTENT: Name Heading with Smooth Stagger & 3D Mouse Parallax */}
         <motion.div 
-          initial={{ opacity: 0, x: -30 }}
+          style={{
+            x: parallaxNameX,
+            y: parallaxNameY
+          }}
+          initial={{ opacity: 0, x: -35 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative z-30 flex flex-col items-center lg:items-start text-center lg:text-left max-w-xs sm:max-w-md lg:max-w-lg w-full pt-4 lg:pt-0 mb-4 lg:mb-16 lg:self-end pointer-events-auto"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-30 flex flex-col items-center lg:items-start text-center lg:text-left max-w-xs sm:max-w-md lg:max-w-lg w-full pt-4 lg:pt-0 mb-4 lg:mb-16 lg:self-end pointer-events-auto cursor-default"
         >
           <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight uppercase leading-[0.9] drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)] select-none">
             I AM <br />
-            <span className="text-white">
+            <span className="bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
               {name}
             </span>
           </h2>
         </motion.div>
 
-        {/* RIGHT HUD CONTENT: Sleek Glass Card */}
+        {/* RIGHT HUD CONTENT: Premium Futuristic AI Glass HUD Card */}
         <motion.div 
-          initial={{ opacity: 0, x: 30 }}
+          style={{
+            x: parallaxCardX,
+            y: parallaxCardY
+          }}
+          initial={{ opacity: 0, x: 35 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="relative z-30 flex flex-col items-center lg:items-end w-full sm:w-[350px] lg:w-[390px] flex-shrink-0 pb-6 lg:pb-0 lg:mb-16 lg:self-end pointer-events-auto"
+          whileHover={{ scale: 1.03, y: -5 }}
+          transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-30 flex flex-col items-center lg:items-end w-full sm:w-[360px] lg:w-[410px] flex-shrink-0 pb-6 lg:pb-0 lg:mb-16 lg:self-end pointer-events-auto group"
         >
-          {/* Glass Description Box */}
-          <div className="w-full text-sm sm:text-base font-normal text-white/90 leading-relaxed bg-black/75 backdrop-blur-xl p-5 sm:p-6 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-left">
-            <div className="flex items-center gap-2 mb-2.5 text-xs font-mono text-purple-400 tracking-wider uppercase">
-              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-              <span>AI & DATA SCIENCE</span>
+          {/* Futuristic Glass Container */}
+          <div className="relative w-full bg-[#0B0C10]/85 backdrop-blur-2xl p-6 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-left overflow-hidden transition-all duration-300 group-hover:border-white/25 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
+            
+            {/* Top Border Neon Beam Accent */}
+            <div className="absolute -top-[1px] inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-purple-400/80 to-transparent transition-all duration-500" />
+            
+            {/* HUD Bracket Accents */}
+            <span className="absolute top-2.5 right-3 text-[10px] font-mono text-white/30 tracking-widest select-none">HUD // 01</span>
+            
+            {/* Header Badge */}
+            <div className="flex items-center mb-3">
+              <span className="text-xs font-mono font-bold text-purple-300 tracking-widest uppercase">
+                AI & DATA SCIENCE
+              </span>
             </div>
-            Engineering intelligent algorithms, deep learning pipelines, and generative AI systems to extract value from complex data.
+
+            {/* Description Text */}
+            <p className="text-sm sm:text-base font-normal text-slate-200 leading-relaxed mb-4">
+              Engineering intelligent algorithms, deep learning pipelines, and generative AI systems to extract value from complex data.
+            </p>
+
+            {/* Tech Stack Chips Bar */}
+            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+              {["Deep Learning", "GenAI & LLMs", "Data Pipelines"].map((chip) => (
+                <span 
+                  key={chip}
+                  className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-[10px] font-mono text-slate-300 tracking-wider transition-colors"
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+
           </div>
         </motion.div>
 
       </div>
 
-      {/* Bottom Status Bar */}
-      <footer className="relative z-30 px-4 sm:px-6 lg:px-12 py-3.5 w-full flex justify-between items-center text-[10px] font-mono text-white/40 border-t border-white/5 bg-[#08080A]/80 backdrop-blur-sm">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-purple-500/60" />
-          <span>SCROLL TO EXPLORE</span>
-        </div>
-        <div>[01 // 05]</div>
-      </footer>
-
     </section>
   );
-}
+};
