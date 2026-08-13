@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600&family=Great+Vibes&family=Reenie+Beanie&family=Sacramento&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-signature {
+  font-family: 'Alex Brush', 'Sacramento', 'Great Vibes', 'Caveat', cursive;
+}
 
 :root {
   --background: #08080A;
