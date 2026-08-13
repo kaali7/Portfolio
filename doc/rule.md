@@ -17,3 +17,10 @@
 - Avoid defaulting to generic "AI-generated" aesthetics (like excessive purple glows, templated floating nodes, or default generic layouts). 
 - Always infer the correct "vibe" and design direction based on references before writing UI code.
 - If a design change involves new animations, prioritize smooth, purposeful native animations (e.g., Framer Motion or GSAP) over generic CSS transitions.
+
+## 3. Responsive Web Design & Testing
+- **Multi-Device Responsiveness:** Every layout, UI component, and section MUST be fully responsive and tested across all standard viewport sizes: Mobile (`< 640px`), Tablet (`640px - 1024px`), Desktop (`1024px - 1440px`), and Ultra-wide (`> 1440px`).
+- **No Overflow or Clipping:** Ensure all text, containers, HUD widgets, images, and visual overlays adapt fluidly without unexpected horizontal scrollbars, text clipping, or element overlap.
+- **Touch & Pointer Adaptations:** Interactive elements (buttons, nav menus, dropdowns, cards, cursor triggers) must function seamlessly on both touch interfaces and mouse pointer devices.
+- **Responsiveness Verification:** Whenever building or modifying UI components, verify layout scalability, spacing, and typography legibility across mobile and desktop breakpoints before finalizing.
+

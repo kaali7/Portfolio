@@ -320,18 +320,9 @@ export function Hero() {
         { label: "Full-Stack AI", href: "#projects" },
       ]
     },
-    { 
-      label: "RESEARCH", 
-      href: "#research",
-      subLinks: [
-        { label: "Papers Studied", href: "#research" },
-        { label: "Experiments", href: "#research" },
-        { label: "Research Notes", href: "#research" },
-      ]
-    },
     { label: "SKILLS", href: "#skills" },
     { label: "EXPERIENCE", href: "#experience" },
-    { label: "WRITING", href: "#writing" },
+    { label: "CONTACT", href: "#contact" },
   ];
 
   return (
@@ -541,35 +532,6 @@ export function Hero() {
         </AnimatePresence>
       </header>
 
-      {/* Massive Editorial Serif Heading BEHIND Portrait (z-0) with 3D Parallax */}
-      <motion.div 
-        style={{
-          x: parallaxTextX,
-          y: parallaxTextY
-        }}
-        className="absolute top-[14%] sm:top-[16%] lg:top-[18%] inset-x-0 max-w-[1440px] mx-auto px-6 sm:px-12 md:px-16 flex justify-between items-center pointer-events-none z-0"
-      >
-        {/* DATA on Left side */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 0.85, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-6xl sm:text-8xl md:text-[12vw] lg:text-[13.5vw] font-serif italic tracking-tight text-white/80 leading-none select-none drop-shadow-2xl uppercase -ml-8 sm:-ml-16 md:-ml-20 lg:-ml-24 xl:-ml-28"
-        >
-          DATA
-        </motion.h1>
-
-        {/* AI on Right side */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 0.85, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-6xl sm:text-8xl md:text-[12vw] lg:text-[13.5vw] font-serif italic tracking-tight text-white/80 leading-none select-none drop-shadow-2xl uppercase mr-[5vw] sm:mr-[8vw] lg:mr-[10vw]"
-        >
-          AI
-        </motion.h1>
-      </motion.div>
-
       {/* Interactive Circular AI Robot Avatar (Mouse-Tracking Eyes) */}
       <div 
         data-interactive-zone="true"
@@ -602,10 +564,58 @@ export function Hero() {
         </motion.div>
       </div>
 
+      {/* Futuristic AI Glass HUD Card (Positioned in Upper-Left Chalkboard Space per Screenshot Green Box) */}
+      <motion.div 
+        style={{
+          x: parallaxCardX,
+          y: parallaxCardY
+        }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.03, y: -3 }}
+        transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-[18%] sm:top-[20%] lg:top-[22%] left-[4%] sm:left-[6%] lg:left-[8%] z-30 w-[300px] sm:w-[340px] lg:w-[370px] pointer-events-auto group hidden sm:block"
+      >
+        {/* Futuristic Glass Container */}
+        <div className="relative w-full bg-[#0B0C10]/85 backdrop-blur-2xl p-5 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-left overflow-hidden transition-all duration-300 group-hover:border-white/25 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
+          
+          {/* Top Border Neon Beam Accent */}
+          <div className="absolute -top-[1px] inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-purple-400/80 to-transparent transition-all duration-500" />
+          
+          {/* HUD Bracket Accents */}
+          <span className="absolute top-2.5 right-3 text-[10px] font-mono text-white/30 tracking-widest select-none">HUD // 01</span>
+          
+          {/* Header Badge */}
+          <div className="flex items-center mb-2.5">
+            <span className="text-xs font-mono font-bold text-purple-300 tracking-widest uppercase">
+              AI & DATA SCIENCE
+            </span>
+          </div>
+
+          {/* Description Text */}
+          <p className="text-xs sm:text-sm font-normal text-slate-200 leading-relaxed mb-3">
+            Engineering intelligent algorithms, deep learning pipelines, and generative AI systems to extract value from complex data.
+          </p>
+
+          {/* Tech Stack Chips Bar */}
+          <div className="flex flex-wrap gap-1.5 pt-2.5 border-t border-white/10">
+            {["Deep Learning", "GenAI & LLMs", "Data Pipelines"].map((chip) => (
+              <span 
+                key={chip}
+                className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-[10px] font-mono text-slate-300 tracking-wider transition-colors"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+
+        </div>
+      </motion.div>
+
       {/* Main Hero Body Container */}
       <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
 
-        {/* LEFT HUD CONTENT: Name Heading with Smooth Stagger & 3D Mouse Parallax */}
+        {/* LEFT HUD CONTENT: Name Heading (Bottom Left) */}
         <motion.div 
           style={{
             x: parallaxNameX,
@@ -615,62 +625,16 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 flex flex-col items-center lg:items-start text-center lg:text-left max-w-xs sm:max-w-md lg:max-w-lg w-full pt-4 lg:pt-0 mb-4 lg:mb-16 lg:self-end pointer-events-auto cursor-default"
+          className="relative z-30 flex flex-col items-start text-left w-full lg:w-auto mb-4 sm:mb-8 lg:mb-12 lg:self-end -ml-2 sm:-ml-4 lg:-ml-6 pointer-events-auto cursor-default"
         >
-          <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight uppercase leading-[0.9] drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)] select-none">
-            I AM <br />
-            <span className="bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
+          <h2 className="flex flex-col items-start font-black text-white tracking-tighter uppercase leading-[0.84] drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)] select-none">
+            <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-slate-300/90 mb-1">
+              I AM
+            </span>
+            <span className="text-6xl sm:text-8xl md:text-[11vw] lg:text-[13vw] xl:text-[14.5rem] font-black bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
               {name}
             </span>
           </h2>
-        </motion.div>
-
-        {/* RIGHT HUD CONTENT: Premium Futuristic AI Glass HUD Card */}
-        <motion.div 
-          style={{
-            x: parallaxCardX,
-            y: parallaxCardY
-          }}
-          initial={{ opacity: 0, x: 35 }}
-          animate={{ opacity: 1, x: 0 }}
-          whileHover={{ scale: 1.03, y: -5 }}
-          transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 flex flex-col items-center lg:items-end w-full sm:w-[360px] lg:w-[410px] flex-shrink-0 pb-6 lg:pb-0 lg:mb-16 lg:self-end pointer-events-auto group"
-        >
-          {/* Futuristic Glass Container */}
-          <div className="relative w-full bg-[#0B0C10]/85 backdrop-blur-2xl p-6 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-left overflow-hidden transition-all duration-300 group-hover:border-white/25 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
-            
-            {/* Top Border Neon Beam Accent */}
-            <div className="absolute -top-[1px] inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-purple-400/80 to-transparent transition-all duration-500" />
-            
-            {/* HUD Bracket Accents */}
-            <span className="absolute top-2.5 right-3 text-[10px] font-mono text-white/30 tracking-widest select-none">HUD // 01</span>
-            
-            {/* Header Badge */}
-            <div className="flex items-center mb-3">
-              <span className="text-xs font-mono font-bold text-purple-300 tracking-widest uppercase">
-                AI & DATA SCIENCE
-              </span>
-            </div>
-
-            {/* Description Text */}
-            <p className="text-sm sm:text-base font-normal text-slate-200 leading-relaxed mb-4">
-              Engineering intelligent algorithms, deep learning pipelines, and generative AI systems to extract value from complex data.
-            </p>
-
-            {/* Tech Stack Chips Bar */}
-            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
-              {["Deep Learning", "GenAI & LLMs", "Data Pipelines"].map((chip) => (
-                <span 
-                  key={chip}
-                  className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-[10px] font-mono text-slate-300 tracking-wider transition-colors"
-                >
-                  {chip}
-                </span>
-              ))}
-            </div>
-
-          </div>
         </motion.div>
 
       </div>

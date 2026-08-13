@@ -35,9 +35,51 @@
   - Upgraded animations: spring head-tilt tracking (`rotate [-4.5°, 4.5°]`), natural double-blink loop, hover scale gesture (`scale: 1.08`), and dark speech bubble.
   - **Proximity Speech Bubble & Animated Talking Mouth**: Added proximity detection (`dist < 220px`) that pops up a dark rounded speech bubble with **typewriter-animated pure white `HELLO!` text**, an animated talking mouth SVG curve, and joyful body bounce gesture!
   - **Ultra-Smooth Motion Tuning**: Calibrated Framer Motion springs (`stiffness: 140, damping: 20, mass: 0.6`) for liquid-smooth eye tracking, head tilt, and speech bubble pop-up transitions.
+- [x] Implemented ultra-smooth **Curtain Reveal Scroll Transition & White Theme Reversal** (`app/page.tsx`, `components/Projects.tsx`):
+  - **Smooth GSAP Scroll Physics**: Calibrated GSAP ScrollTrigger pinning and scrub dynamics (`scrub: 0.8`, `scale: 0.94`, `opacity: 0.15`) for fluid curtain scroll transition when navigating from Hero to Projects section.
+  - **High-Contrast Pure White Theme Section**: Redesigned `Projects` section with pure white background (`bg-white`), dark high-contrast headings (`text-[#08080A]`), slate descriptions (`text-slate-600`), and dark accent elements ("minor" items reversed to black on white).
+  - **Premium Light Glass Cards**: Designed 6 project cards with crisp slate-50 background (`bg-slate-50/80 hover:bg-white`), dark category pills (`bg-slate-200/80 group-hover:bg-[#08080A] group-hover:text-white`), black circle arrow CTA buttons, tech stack chips, and smooth Framer Motion stagger animations (`staggerChildren: 0.12`).
+
+- [x] Perfected **Projects Section Docking & Full Viewport Fit** (`app/page.tsx`, `components/Projects.tsx`):
+  - **Unified GSAP ScrollTrigger Timeline**: Merged pin, scrub, and snap into a single unified GSAP timeline (`scrub: 0.5`, `snapTo: progress > 0.02 ? 1 : 0`, `delay: 0`). Eliminates scroll offset drift, ensuring the rounded top curtain docks pixel-perfect at `top: 0` on screen.
+- [x] Created **Dynamic Project Detail Case Study Pages (`app/projects/[id]/page.tsx`, `lib/projectsData.ts`)**:
+  - **Shared Projects Data Store (`lib/projectsData.ts`)**: Centralized case study data for all 6 projects including role, problem statement, solution impact, KPI metrics grid, architectural highlights, tech stack, and core code snippet.
+  - **Dynamic Case Study Page (`app/projects/[id]/page.tsx`)**: Created detailed case study view displaying full metrics grid, problem/solution breakdown, technical innovations, framework badges, Python/C++ code blueprint, and Prev/Next project navigation.
+  - **1-Click Card Navigation (`components/Projects.tsx`)**: Connected all project cards and CTA buttons to navigate directly to `/projects/${id}` when clicked.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
 - [ ] Add the Contact section.
 - [ ] Audit performance and accessibility.
+
