@@ -46,6 +46,12 @@
   - **Eliminated 3x2 Grid View**: Updated Projects section to default to the 4-space featured spotlight preview on the left + stacked list on the right (`activeId = 0` by default), exactly matching the user's annotated screenshot (`✓`).
 - [x] **Git Repository Commit**:
   - Committed all updated portfolio files (`git commit -m "feat: complete portfolio features including contact section, experience timeline, detailed project case studies, and default spotlight projects layout"`). Working tree is clean.
+- [x] **Homepage 4 Featured Projects Showcase & Dedicated `/projects` Archive Page** (`components/Projects.tsx`, `lib/projectsData.ts`, `app/projects/page.tsx`):
+  - **Homepage Focus**: Restricted homepage project section strictly to 4 featured projects (`StockMind AI`, `Medical RAG Chatbot`, `AI Gym Workout Planner`, `Speech-to-Speech AI`) with dynamic left-side spotlight preview and right-side selector list.
+  - **Hover Interactions**: Smooth left spotlight transitions (400–700ms), active project title highlighting, purple index indicator (`→ 03`), and inactive project dimming.
+  - **View All Projects Block**: Created a distinct, interactive "VIEW ALL PROJECTS →" block featuring smooth hover arrow animation (`200–400ms`), purple glow accents, text highlighting, and underline transition leading to `/projects`.
+  - **Full Portfolio Archive Page (`/projects`)**: Built a dedicated archive page with hero header ("PROJECTS — A collection of things I've built, experimented with, and learned from"), category filter pills (`ALL`, `AI / ML`, `DATA SCIENCE`, `GENAI`, `FULL-STACK AI`), search bar, project metric cards, technology tags, and case study links.
+
 
 
 

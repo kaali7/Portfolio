@@ -36,36 +36,6 @@ export function Experience() {
         "Reduced vision model latency from 45ms to 11.2ms via INT8 post-training quantization and custom TensorRT plugins"
       ],
       tags: ["YOLOv8", "TensorRT", "OpenCV", "ByteTrack", "C++", "CUDA", "NVIDIA Jetson"]
-    },
-    {
-      role: "Machine Learning Engineer",
-      company: "Neural Data Systems",
-      period: "2020 — 2022",
-      location: "Boston, MA",
-      type: "FULL-TIME",
-      impact: "180M+ Graph Edges",
-      summary: "Designed scalable temporal neural networks and graph neural network architectures for real-time market risk forecasting.",
-      achievements: [
-        "Constructed Graph Convolutional Networks (GCN) in PyTorch Geometric for dynamic node classification and fraud relationship mapping",
-        "Built real-time Neo4j cluster synchronization with Apache Kafka & Spark streaming pipelines handling 10k+ events/sec",
-        "Decreased query execution latency from 120ms to <15ms through custom graph indexing algorithms"
-      ],
-      tags: ["PyTorch Geometric", "Neo4j", "Apache Spark", "Kafka", "Python", "Three.js"]
-    },
-    {
-      role: "AI Research Fellow",
-      company: "Applied AI Institute",
-      period: "2019 — 2020",
-      location: "New York, NY",
-      type: "FELLOWSHIP",
-      impact: "3 Publications",
-      summary: "Conducted fundamental research in self-supervised representation learning and low-latency voice synthesis.",
-      achievements: [
-        "Co-authored 3 peer-reviewed conference papers on self-supervised audio-visual speech representation learning",
-        "Implemented streaming Whisper ASR and custom vocoder synthesis engines yielding sub-120ms speech translation latencies",
-        "Open-sourced neural audio processing toolkits used by over 4,000+ GitHub developers"
-      ],
-      tags: ["Whisper", "PyTorch", "Audio ML", "Self-Supervised", "Python", "TorchAudio"]
     }
   ];
 
@@ -82,25 +52,13 @@ export function Experience() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 pb-5 border-b border-slate-200"
+          className="mb-10 sm:mb-12 pb-5 border-b border-slate-200"
         >
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-purple-600 animate-pulse" />
-              <span className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase">
-                04 // CAREER TRAJECTORY
-              </span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#08080A] leading-tight">
-              Work <span className="font-black italic text-purple-600">Experience</span> & Impact
-            </h2>
-          </div>
-
-          <p className="max-w-md text-slate-600 text-xs sm:text-sm mt-4 md:mt-0 font-normal leading-relaxed">
-            A chronicle of designing, deploying, and scaling high-throughput AI pipelines, autonomous agent systems, and edge computer vision infrastructure.
-          </p>
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#08080A] leading-tight">
+            Work <span className="font-black italic text-purple-600">Experience</span> & Impact
+          </h2>
         </motion.div>
+
 
         {/* Experience Split Layout: Left Timeline Nav + Right Detailed Spotlight */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">

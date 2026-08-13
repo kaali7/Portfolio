@@ -44,25 +44,13 @@ export function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-14 pb-5 border-b border-white/10"
+          className="mb-10 sm:mb-14 pb-5 border-b border-white/10"
         >
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse" />
-              <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase">
-                05 // INITIATE COLLABORATION
-              </span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">
-              Let's Build Something <span className="font-black italic text-purple-400">Extraordinary</span>
-            </h2>
-          </div>
-
-          <p className="max-w-md text-slate-400 text-xs sm:text-sm mt-4 md:mt-0 font-normal leading-relaxed">
-            Available for technical leadership, AI architectural advisory, autonomous multi-agent design, and high-throughput machine learning infrastructure.
-          </p>
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">
+            Let's Build Something <span className="font-black italic text-purple-400">Extraordinary</span>
+          </h2>
         </motion.div>
+
 
         {/* Contact Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">

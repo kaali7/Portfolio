@@ -1,269 +1,386 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface TechItem {
+  name: string;
+  brandColor?: string;
+}
+
+interface SkillDomain {
+  id: string;
+  num: string;
+  title: string;
+  icon: string;
+  shortDesc: string;
+  technologies: TechItem[];
+  projects: { name: string; id: string }[];
+  relatedIds: string[];
+}
+
 export function Skills() {
-  const [activeCategory, setActiveCategory] = useState<string>("ALL");
-  const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
+  const [activeDomainId, setActiveDomainId] = useState<string | null>(null);
+  const [isLocked, setIsLocked] = useState<boolean>(false);
 
-  const categories = [
-    { id: "ALL", label: "ALL CAPABILITIES" },
-    { id: "AI_ML", label: "AI & DEEP LEARNING" },
-    { id: "GENAI", label: "GENAI & LLMS" },
-    { id: "AGENTS", label: "AGENTIC SYSTEMS" },
-    { id: "VISION", label: "VISION & EDGE AI" },
-    { id: "MLOPS", label: "MLOPS & CLOUD" },
-  ];
-
-  const skillGroups = [
+  const domains: SkillDomain[] = [
     {
-      title: "Deep Learning & Neural Architectures",
-      category: "AI_ML",
-      level: 96,
-      experience: "5+ Yrs",
-      icon: "🧠",
-      metric: "Multi-GPU Distributed Training",
-      description: "Designing, training, and optimizing custom Transformer, CNN, and GNN models on large-scale datasets.",
-      frameworks: ["PyTorch", "TensorFlow", "Scikit-Learn", "Ray Train", "CUDA", "PyTorch Geometric"],
-      highlights: [
-        "Distributed multi-GPU training with PyTorch FSDP & Ray",
-        "Custom attention mechanisms for high-frequency time-series",
-        "Quantization & INT8 pruning for microsecond latency"
-      ]
+      id: "ds",
+      num: "01",
+      title: "DATA SCIENCE",
+      icon: "📊",
+      shortDesc: "Exploratory analysis, statistical modeling, and data pipelines.",
+      technologies: [
+        { name: "Python", brandColor: "#3776AB" },
+        { name: "Pandas", brandColor: "#150458" },
+        { name: "NumPy", brandColor: "#4DABCF" },
+        { name: "Matplotlib", brandColor: "#11557C" },
+        { name: "Seaborn", brandColor: "#388E3C" },
+        { name: "SQL", brandColor: "#003B57" },
+        { name: "Statistics", brandColor: "#8E44AD" },
+        { name: "EDA", brandColor: "#E67E22" },
+        { name: "Feature Engineering", brandColor: "#D35400" }
+      ],
+      projects: [
+        { name: "Financial Forecasting Engine", id: "1" },
+        { name: "Multi-Modal Knowledge Graph", id: "5" }
+      ],
+      relatedIds: ["ml", "dl"]
     },
     {
-      title: "Generative AI & LLM Systems",
-      category: "GENAI",
-      level: 94,
-      experience: "3+ Yrs",
-      icon: "⚡",
-      metric: "<35ms Vector Retrieval",
-      description: "Building production RAG pipelines, fine-tuning open-weights models (Llama 3, Mistral), and vector databases.",
-      frameworks: ["LangChain", "LlamaIndex", "OpenAI API", "Pinecone", "Qdrant", "vLLM", "HuggingFace"],
-      highlights: [
-        "Hybrid sparse-dense retrieval with cross-encoder re-ranking",
-        "PEFT / LoRA fine-tuning on domain-specific datasets",
-        "Strict hallucination detection & safety guardrails"
-      ]
-    },
-    {
-      title: "Autonomous Multi-Agent Frameworks",
-      category: "AGENTS",
-      level: 92,
-      experience: "2+ Yrs",
+      id: "ml",
+      num: "02",
+      title: "MACHINE LEARNING",
       icon: "🤖",
-      metric: "94% Task Completion",
-      description: "Architecting self-reflecting, tool-using autonomous multi-agent orchestration loops for complex tasks.",
-      frameworks: ["AutoGen", "CrewAI", "LangGraph", "Python", "FastAPI", "Docker", "PostgreSQL"],
-      highlights: [
-        "ReAct decision-making loops with dynamic self-correction",
-        "Isolated Docker container sandboxes for safe tool execution",
-        "Multi-agent task delegation and consensus protocols"
-      ]
+      shortDesc: "Supervised, unsupervised, & temporal predictive algorithms.",
+      technologies: [
+        { name: "Python", brandColor: "#3776AB" },
+        { name: "Scikit-learn", brandColor: "#F7931E" },
+        { name: "Feature Engineering", brandColor: "#D35400" },
+        { name: "Model Evaluation", brandColor: "#27AE60" },
+        { name: "Predictive Modeling", brandColor: "#2980B9" },
+        { name: "XGBoost", brandColor: "#10B981" }
+      ],
+      projects: [
+        { name: "Financial Forecasting Engine", id: "1" },
+        { name: "Multi-Modal Knowledge Graph", id: "5" }
+      ],
+      relatedIds: ["ds", "dl"]
     },
     {
-      title: "Computer Vision & Edge Inferencing",
-      category: "VISION",
-      level: 90,
-      experience: "4+ Yrs",
+      id: "dl",
+      num: "03",
+      title: "DEEP LEARNING",
+      icon: "🔥",
+      shortDesc: "Neural architectures, Transformers, & multi-GPU training.",
+      technologies: [
+        { name: "PyTorch", brandColor: "#EE4C2C" },
+        { name: "TensorFlow", brandColor: "#FF6F00" },
+        { name: "Neural Networks", brandColor: "#8B5CF6" },
+        { name: "CNN", brandColor: "#EC4899" },
+        { name: "Transformers", brandColor: "#F59E0B" },
+        { name: "Deep Learning", brandColor: "#A855F7" }
+      ],
+      projects: [
+        { name: "Financial Forecasting Engine", id: "1" },
+        { name: "Speech-to-Speech Translation", id: "3" }
+      ],
+      relatedIds: ["ml", "cv", "gen_ai"]
+    },
+    {
+      id: "ai_eng",
+      num: "04",
+      title: "AI ENGINEERING",
+      icon: "⚡",
+      shortDesc: "Production ML pipelines, high-throughput APIs, & agent loops.",
+      technologies: [
+        { name: "Python", brandColor: "#3776AB" },
+        { name: "FastAPI", brandColor: "#009688" },
+        { name: "LLMs", brandColor: "#6366F1" },
+        { name: "AI APIs", brandColor: "#A855F7" },
+        { name: "AI Agents", brandColor: "#8B5CF6" },
+        { name: "RAG", brandColor: "#10B981" },
+        { name: "Docker", brandColor: "#2496ED" }
+      ],
+      projects: [
+        { name: "RAG Document Intelligence", id: "2" },
+        { name: "Autonomous Agent Framework", id: "4" },
+        { name: "Speech-to-Speech Translation", id: "3" }
+      ],
+      relatedIds: ["gen_ai", "rag", "fullstack"]
+    },
+    {
+      id: "gen_ai",
+      num: "05",
+      title: "GENERATIVE AI",
+      icon: "✨",
+      shortDesc: "LLM fine-tuning, prompt guardrails, & autonomous reasoning.",
+      technologies: [
+        { name: "LLMs", brandColor: "#6366F1" },
+        { name: "Prompt Engineering", brandColor: "#F43F5E" },
+        { name: "Embeddings", brandColor: "#3B82F6" },
+        { name: "Hugging Face", brandColor: "#FFD21E" },
+        { name: "LangChain", brandColor: "#22C55E" },
+        { name: "AI Agents", brandColor: "#8B5CF6" },
+        { name: "RAG", brandColor: "#10B981" }
+      ],
+      projects: [
+        { name: "RAG Document Intelligence", id: "2" },
+        { name: "Autonomous Agent Framework", id: "4" }
+      ],
+      relatedIds: ["rag", "ai_eng"]
+    },
+    {
+      id: "rag",
+      num: "06",
+      title: "RAG",
+      icon: "📚",
+      shortDesc: "Dense vector retrieval, hybrid search, & document grounding.",
+      technologies: [
+        { name: "Embeddings", brandColor: "#3B82F6" },
+        { name: "Vector Search", brandColor: "#0080FF" },
+        { name: "FAISS", brandColor: "#0080FF" },
+        { name: "Qdrant", brandColor: "#9333EA" },
+        { name: "LangChain", brandColor: "#22C55E" },
+        { name: "LLMs", brandColor: "#6366F1" }
+      ],
+      projects: [
+        { name: "RAG Document Intelligence", id: "2" },
+        { name: "Autonomous Agent Framework", id: "4" }
+      ],
+      relatedIds: ["gen_ai", "ai_eng"]
+    },
+    {
+      id: "cv",
+      num: "07",
+      title: "COMPUTER VISION",
       icon: "👁️",
-      metric: "120+ FPS Processing",
-      description: "Real-time object detection, spatial tracking, and video analytics optimized for edge deployment.",
-      frameworks: ["OpenCV", "YOLOv8", "TensorRT", "DeepStream", "C++", "ONNX Runtime"],
-      highlights: [
-        "TensorRT optimization for NVIDIA Jetson & T4 edge hardware",
-        "Multi-camera ByteTrack spatial object tracking",
-        "Sub-15ms video frame ingestion and violation alerting"
-      ]
+      shortDesc: "Real-time edge object tracking, YOLOv8, & TensorRT inferencing.",
+      technologies: [
+        { name: "Python", brandColor: "#3776AB" },
+        { name: "OpenCV", brandColor: "#5C3EE8" },
+        { name: "YOLOv8", brandColor: "#EE4C2C" },
+        { name: "TensorRT", brandColor: "#76B900" },
+        { name: "CNN", brandColor: "#EC4899" },
+        { name: "ByteTrack", brandColor: "#009688" }
+      ],
+      projects: [
+        { name: "High-Throughput Vision Analytics", id: "6" }
+      ],
+      relatedIds: ["dl"]
     },
     {
-      title: "MLOps, Data Pipelines & Cloud",
-      category: "MLOPS",
-      level: 88,
-      experience: "4+ Yrs",
-      icon: "☁️",
-      metric: "99.9% Uptime Production",
-      description: "Automating end-to-end ML lifecycles, continuous model monitoring, and cloud infrastructure.",
-      frameworks: ["Docker", "Kubernetes", "Apache Spark", "Kafka", "AWS / GCP", "MLflow", "Triton"],
-      highlights: [
-        "Triton Inference Server multi-model deployment",
-        "Real-time event streaming with Apache Kafka & Spark",
-        "Automated CI/CD pipelines for model retraining & evaluation"
-      ]
-    },
-    {
-      title: "Full-Stack AI Engineering",
-      category: "MLOPS",
-      level: 95,
-      experience: "5+ Yrs",
+      id: "fullstack",
+      num: "08",
+      title: "FULL-STACK AI",
       icon: "💻",
-      metric: "Microsecond WebSockets",
-      description: "Crafting reactive web interfaces, high-throughput REST / gRPC microservices, and 3D visualizers.",
-      frameworks: ["Next.js", "React", "TypeScript", "TailwindCSS", "FastAPI", "gRPC", "Three.js"],
-      highlights: [
-        "Bi-directional WebSocket streaming for speech synthesis",
-        "WebGL / Three.js 3D knowledge graph visualization",
-        "High-performance async Python & Node.js backend engines"
-      ]
+      shortDesc: "Reactive web UIs, WebSockets, & cloud AI infrastructure.",
+      technologies: [
+        { name: "React", brandColor: "#61DAFB" },
+        { name: "Next.js", brandColor: "#FFFFFF" },
+        { name: "TypeScript", brandColor: "#3178C6" },
+        { name: "Tailwind CSS", brandColor: "#06B6D4" },
+        { name: "FastAPI", brandColor: "#009688" },
+        { name: "PostgreSQL", brandColor: "#4169E1" }
+      ],
+      projects: [
+        { name: "Financial Forecasting Engine", id: "1" },
+        { name: "RAG Document Intelligence", id: "2" },
+        { name: "Multi-Modal Knowledge Graph", id: "5" }
+      ],
+      relatedIds: ["ai_eng"]
     }
   ];
 
-  const filteredSkills = activeCategory === "ALL" 
-    ? skillGroups 
-    : skillGroups.filter(s => s.category === activeCategory);
+  const handleDomainSelect = (id: string) => {
+    if (activeDomainId === id && isLocked) {
+      setActiveDomainId(null);
+      setIsLocked(false);
+    } else {
+      setActiveDomainId(id);
+      setIsLocked(true);
+    }
+  };
+
+  const handleMouseEnter = (id: string) => {
+    if (!isLocked) {
+      setActiveDomainId(id);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isLocked) {
+      setActiveDomainId(null);
+    }
+  };
+
+  const activeDomain = domains.find(d => d.id === activeDomainId) ?? null;
 
   return (
     <section 
       id="skills" 
-      className="w-full min-h-[100dvh] bg-[#08080A] text-white flex flex-col justify-start px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 rounded-t-[3rem] md:rounded-t-[4.5rem] lg:rounded-t-[5rem] shadow-[0_-35px_90px_rgba(0,0,0,0.7)] border-t-2 border-purple-500/50 relative z-30"
+      className="w-full min-h-[100dvh] bg-[#08080A] text-white flex flex-col justify-start px-4 sm:px-8 lg:px-14 pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 rounded-t-[3rem] md:rounded-t-[4.5rem] shadow-[0_-35px_90px_rgba(0,0,0,0.75)] border-t-2 border-purple-500/50 relative z-30 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto w-full relative">
         
-        {/* Section Header */}
+        {/* Minimal Editorial Section Header */}
         <motion.div 
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 sm:mb-10 pb-5 border-b border-white/10"
+          className="mb-10 sm:mb-12 pb-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4"
         >
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse" />
-              <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase">
-                03 // TECHNICAL EXPERTISE
-              </span>
-            </div>
-
+            <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase block mb-2">
+              TECHNICAL ECOSYSTEM
+            </span>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">
-              Core <span className="font-black italic text-purple-400">Skills</span> & Stack
+              DATA SCIENCE & <span className="font-black italic text-purple-400">AI ENGINEERING</span>
             </h2>
           </div>
-
-          <p className="max-w-md text-slate-400 text-xs sm:text-sm mt-4 md:mt-0 font-normal leading-relaxed">
-            Specialized engineering capabilities across deep learning architectures, autonomous agent loops, computer vision edge pipelines, and high-scale cloud platforms.
+          <p className="text-slate-400 text-xs sm:text-sm font-normal max-w-xs leading-relaxed">
+            From raw data to intelligent systems. Click or hover any domain node to explore technologies & project applications.
           </p>
         </motion.div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar scroll-smooth">
-          {categories.map((cat) => {
-            const isActive = activeCategory === cat.id;
+        {/* ORGANIC SKILL DOMAIN CIRCLES ECOSYSTEM GRAPH */}
+        <div 
+          onMouseLeave={handleMouseLeave}
+          className="w-full min-h-[560px] relative flex flex-wrap gap-6 sm:gap-8 items-center justify-center py-6"
+        >
+          {domains.map((domain) => {
+            const isActive = activeDomainId === domain.id;
+            const isRelated = activeDomain && activeDomain.relatedIds.includes(domain.id);
+            const isDimmed = activeDomainId !== null && !isActive && !isRelated;
 
             return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-300 flex-shrink-0 cursor-pointer ${
+              <motion.div
+                key={domain.id}
+                layout
+                onMouseEnter={() => handleMouseEnter(domain.id)}
+                onClick={() => handleDomainSelect(domain.id)}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                animate={{
+                  opacity: isDimmed ? 0.45 : 1,
+                  scale: isActive ? 1.05 : isDimmed ? 0.95 : 1,
+                }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                style={{
+                  zIndex: isActive ? 50 : isRelated ? 30 : 10
+                }}
+                className={`group relative transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center overflow-hidden rounded-full ${
                   isActive 
-                    ? "bg-purple-600 text-white shadow-lg shadow-purple-900/40 border border-purple-400" 
-                    : "bg-[#13131A] text-slate-400 hover:text-white border border-white/10 hover:border-purple-500/40"
+                    ? "bg-[#13131A] text-white border-2 border-purple-500 shadow-[0_0_60px_rgba(147,51,234,0.35)] w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] p-6 sm:p-8" 
+                    : "bg-[#0D0D12]/90 text-slate-300 border border-white/10 hover:border-purple-500/60 hover:bg-[#13131A] w-44 h-44 sm:w-56 sm:h-56 p-4 shadow-xl"
                 }`}
               >
-                {cat.label}
-              </button>
+                {/* Ambient Purple Glow */}
+                <div className={`absolute rounded-full blur-3xl transition-all duration-500 pointer-events-none ${
+                  isActive ? "w-72 h-72 bg-purple-500/25 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" : "w-32 h-32 bg-purple-500/10"
+                }`} />
+
+                {/* DEFAULT CIRCLE CONTENT */}
+                {!isActive ? (
+                  <div className="z-10 flex flex-col items-center justify-center gap-1.5 w-full h-full">
+                    <span className="text-2xl sm:text-3xl p-2 rounded-2xl bg-white/10 border border-white/10 mb-1 group-hover:scale-110 transition-transform">
+                      {domain.icon}
+                    </span>
+                    <span className="text-[9px] font-mono font-bold text-purple-400 tracking-widest uppercase">
+                      {domain.num} // DOMAIN
+                    </span>
+                    <h3 className="text-sm sm:text-base font-black text-white group-hover:text-purple-300 tracking-tight leading-tight px-2">
+                      {domain.title}
+                    </h3>
+                  </div>
+                ) : (
+                  /* EXPANDED LARGE CIRCLE CONTENT */
+                  <div className="z-10 w-full h-full flex flex-col items-center justify-center text-center p-2">
+                    {/* Header Badge & Title */}
+                    <div className="flex flex-col items-center gap-1 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl p-1.5 rounded-xl bg-purple-500/20 border border-purple-500/40">
+                          {domain.icon}
+                        </span>
+                        <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-600 px-2.5 py-0.5 rounded-full">
+                          ACTIVE NODE ↗
+                        </span>
+                      </div>
+                      <span className="text-[9px] font-mono font-bold text-purple-400 tracking-widest uppercase">
+                        DOMAIN // {domain.num}
+                      </span>
+                      <h3 className="text-lg sm:text-xl font-black text-purple-300 tracking-tight leading-tight">
+                        {domain.title}
+                      </h3>
+                    </div>
+
+                    {/* Short Description */}
+                    <p className="text-[11px] sm:text-xs font-normal text-slate-300 leading-tight max-w-[260px] sm:max-w-[320px] mb-3">
+                      {domain.shortDesc}
+                    </p>
+
+                    <AnimatePresence>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="w-full flex flex-col items-center gap-2.5"
+                      >
+                        {/* Technologies Section */}
+                        <div className="w-full max-w-[280px] sm:max-w-[340px]">
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-purple-400 uppercase block mb-1">
+                            TECHNOLOGIES
+                          </span>
+                          <div className="flex flex-wrap gap-1 justify-center">
+                            {domain.technologies.map((tech, tIdx) => (
+                              <motion.span
+                                key={tech.name}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: tIdx * 0.02 }}
+                                style={{
+                                  borderColor: tech.brandColor ? `${tech.brandColor}50` : "rgba(255, 255, 255, 0.15)"
+                                }}
+                                className="text-[10px] sm:text-[11px] font-mono bg-white/10 text-slate-200 border px-2.5 py-0.5 rounded-full font-medium"
+                              >
+                                {tech.name}
+                              </motion.span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Connected Projects Relationships */}
+                        <div className="w-full max-w-[280px] sm:max-w-[340px]">
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-purple-400 uppercase block mb-1">
+                            PROJECT APPLICATIONS ({domain.projects.length})
+                          </span>
+                          <div className="flex flex-wrap gap-1.5 justify-center">
+                            {domain.projects.map((proj) => (
+                              <Link
+                                key={proj.id}
+                                href={`/projects/${proj.id}`}
+                                className="text-[10px] sm:text-[11px] font-mono bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-400/50 px-2.5 py-1 rounded-lg font-bold transition-all flex items-center gap-1 group/proj"
+                              >
+                                <span>→ {proj.name}</span>
+                                <span className="text-[9px] opacity-70 group-hover/proj:translate-x-0.5 transition-transform">↗</span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                )}
+              </motion.div>
+
             );
           })}
         </div>
 
-        {/* Skills Grid Matrix */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredSkills.map((skill, i) => {
-              const isHovered = hoveredSkill === i;
-
-              return (
-                <motion.div 
-                  key={skill.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  onMouseEnter={() => setHoveredSkill(i)}
-                  onMouseLeave={() => setHoveredSkill(null)}
-                  className={`group relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden border transition-all duration-300 min-h-[310px] ${
-                    isHovered 
-                      ? "bg-[#13131A] border-purple-500 shadow-[0_20px_50px_rgba(147,51,234,0.22)] scale-[1.02] z-20" 
-                      : "bg-[#0D0D12]/90 border-white/10 hover:border-purple-500/50"
-                  }`}
-                >
-                  {/* Glowing background blob */}
-                  <div className={`absolute top-0 right-0 w-36 h-36 rounded-full blur-3xl transition-all duration-500 pointer-events-none ${
-                    isHovered ? "bg-purple-500/25 scale-125" : "bg-purple-500/5"
-                  }`} />
-
-                  {/* Top Bar: Icon, Category & Benchmark Metric */}
-                  <div className="z-10 flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl p-2 rounded-2xl bg-[#1A1A24] border border-white/10 flex items-center justify-center">
-                        {skill.icon}
-                      </span>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold text-purple-400 tracking-wider uppercase block">
-                          EXPERIENCE // {skill.experience}
-                        </span>
-                        <span className="text-xs font-mono text-slate-400 font-semibold">
-                          PROFICIENCY {skill.level}%
-                        </span>
-                      </div>
-                    </div>
-
-                    <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/15 border border-purple-500/30 px-2.5 py-1 rounded-full">
-                      {skill.metric}
-                    </span>
-                  </div>
-
-                  {/* Body Title & Description */}
-                  <div className="z-10 mb-4 flex-1">
-                    <h3 className={`text-xl font-bold tracking-tight mb-2 transition-colors duration-300 ${
-                      isHovered ? "text-purple-300" : "text-white"
-                    }`}>
-                      {skill.title}
-                    </h3>
-                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
-                      {skill.description}
-                    </p>
-                  </div>
-
-                  {/* Proficiency Meter */}
-                  <div className="z-10 mb-4">
-                    <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-purple-600 via-purple-400 to-indigo-400 rounded-full"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Tech Framework Badges */}
-                  <div className="z-10 pt-3 border-t border-white/10 flex flex-wrap gap-1.5">
-                    {skill.frameworks.map((fw, fIdx) => (
-                      <span 
-                        key={fIdx}
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded-md border transition-colors ${
-                          isHovered 
-                            ? "bg-purple-500/20 text-purple-200 border-purple-500/40" 
-                            : "bg-[#181822] text-slate-300 border-white/10"
-                        }`}
-                      >
-                        {fw}
-                      </span>
-                    ))}
-                  </div>
-
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
 
       </div>
     </section>

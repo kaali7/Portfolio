@@ -1,14 +1,12 @@
 "use client";
 
-import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import { projectsData } from "@/lib/projectsData";
 
-export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const projectId = parseInt(resolvedParams.id, 10);
+export default function ProjectDetailPage({ params }: { params: { id: string } }) {
+  const projectId = parseInt(params.id, 10);
   const project = projectsData.find((p) => p.id === projectId);
 
   if (!project) {
