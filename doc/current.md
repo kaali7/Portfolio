@@ -42,10 +42,11 @@
 
 - [x] Perfected **Projects Section Docking & Full Viewport Fit** (`app/page.tsx`, `components/Projects.tsx`):
   - **Unified GSAP ScrollTrigger Timeline**: Merged pin, scrub, and snap into a single unified GSAP timeline (`scrub: 0.5`, `snapTo: progress > 0.02 ? 1 : 0`, `delay: 0`). Eliminates scroll offset drift, ensuring the rounded top curtain docks pixel-perfect at `top: 0` on screen.
-- [x] Created **Dynamic Project Detail Case Study Pages (`app/projects/[id]/page.tsx`, `lib/projectsData.ts`)**:
-  - **Shared Projects Data Store (`lib/projectsData.ts`)**: Centralized case study data for all 6 projects including role, problem statement, solution impact, KPI metrics grid, architectural highlights, tech stack, and core code snippet.
-  - **Dynamic Case Study Page (`app/projects/[id]/page.tsx`)**: Created detailed case study view displaying full metrics grid, problem/solution breakdown, technical innovations, framework badges, Python/C++ code blueprint, and Prev/Next project navigation.
-  - **1-Click Card Navigation (`components/Projects.tsx`)**: Connected all project cards and CTA buttons to navigate directly to `/projects/${id}` when clicked.
+- [x] Set **Spotlight Layout as Default Initial View** (`components/Projects.tsx`):
+  - **Eliminated 3x2 Grid View**: Updated Projects section to default to the 4-space featured spotlight preview on the left + stacked list on the right (`activeId = 0` by default), exactly matching the user's annotated screenshot (`✓`).
+- [x] **Git Repository Commit**:
+  - Committed all updated portfolio files (`git commit -m "feat: complete portfolio features including contact section, experience timeline, detailed project case studies, and default spotlight projects layout"`). Working tree is clean.
+
 
 
 
