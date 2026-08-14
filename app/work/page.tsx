@@ -231,7 +231,7 @@ export default function WorkPage() {
                   </div>
 
                   <Link
-                    href={`/projects/${project.id}`}
+                    href={`/work/${project.id}`}
                     className="px-5 py-2.5 bg-white text-[#08080A] hover:bg-purple-500 hover:text-white rounded-full text-xs font-mono font-black tracking-wider transition-all duration-200 flex items-center gap-2 flex-shrink-0 shadow-md group/btn"
                   >
                     <span>VIEW CASE STUDY</span>

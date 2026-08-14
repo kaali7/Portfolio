@@ -22,11 +22,11 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       {/* Top Header Navigation Bar */}
       <header className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-8 pb-6 flex items-center justify-between border-b border-white/10 relative z-20">
         <Link 
-          href="/#projects" 
+          href="/work" 
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-slate-300 hover:text-white px-4 py-2 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 transition-all cursor-pointer"
         >
           <span>←</span>
-          <span>BACK TO ALL PROJECTS</span>
+          <span>BACK TO ALL WORK</span>
         </Link>
 
         <div className="flex items-center gap-3">
@@ -198,7 +198,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       <footer className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-12 mt-12 border-t border-white/10 flex items-center justify-between">
         {prevProject ? (
           <Link 
-            href={`/projects/${prevProject.id}`}
+            href={`/work/${prevProject.id}`}
             className="group flex flex-col items-start cursor-pointer"
           >
             <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-purple-400 transition-colors">
@@ -212,7 +212,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
         {nextProject && (
           <Link 
-            href={`/projects/${nextProject.id}`}
+            href={`/work/${nextProject.id}`}
             className="group flex flex-col items-end text-right cursor-pointer"
           >
             <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-purple-400 transition-colors">

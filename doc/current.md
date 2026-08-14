@@ -144,7 +144,7 @@
 - [x] Built **Dedicated `/work` & `/about` Page Routes** ([app/work/page.tsx](file:///c:/kali/product/portfolio/app/work/page.tsx), [app/about/page.tsx](file:///c:/kali/product/portfolio/app/about/page.tsx)):
   - **Dedicated Work Archive Page (`/work`)**: Built a full-featured projects & systems showcase page featuring interactive category filter pills (`ALL`, `AI / ML`, `GENAI & LLMS`, `AI SYSTEMS`, `AGENTIC AI`, `COMPUTER VISION`, `DATA ENGINEERING`), live search filter, 4-tile metric cards, technology tags (`TechIcon`), key architectural highlights, and case study links.
   - **Dedicated Editorial About Page (`/about`)**: Created an editorial biography page detailing Ashwini's background, core engineering principles, quick stat cards, 6-card technical competencies bento matrix, career milestones timeline, and clipboard email CTA.
-  - **Navbar & Card Link Connections**: Connected top header `WORK` link (`/work`), `ABOUT` link (`/about`), and the "more 4 ARCHITECTURES" card in [components/Projects.tsx](file:///c:/kali/product/portfolio/components/Projects.tsx) to open `/work` directly.
+  - **Relocated Project Detail Pages (`/work/[id]`)**: Moved project detail case study pages from `app/projects/[id]` into `app/work/[id]` ([app/work/[id]/page.tsx](file:///c:/kali/product/portfolio/app/work/%5Bid%5D/page.tsx)), updating back links to `/work` and syncing all case study links in `Projects.tsx`, `Skills.tsx`, and `app/work/page.tsx`.
 
 ## What is Pending
 - [ ] Connect remaining secondary footer links.

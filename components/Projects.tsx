@@ -126,7 +126,7 @@ export function Projects() {
                     </div>
 
                     <Link
-                      href={`/projects/${activeProject.id}`}
+                      href={`/work/${activeProject.id}`}
                       className="px-6 py-2.5 bg-[#08080A] hover:bg-purple-700 text-white rounded-full text-xs font-mono font-black tracking-wider transition-colors duration-200 shadow-md flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer group"
                     >
                       <span>VIEW FULL CASE STUDY</span>

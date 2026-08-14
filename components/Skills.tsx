@@ -416,7 +416,7 @@ export function Skills() {
                     {selectedModalDomain.projects.map((proj) => (
                       <Link
                         key={proj.id}
-                        href={`/projects/${proj.id}`}
+                        href={`/work/${proj.id}`}
                         className="inline-flex items-center gap-1 text-[11px] font-mono text-white bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/40 px-2.5 py-0.5 rounded-lg transition-all"
                       >
                         <span>{proj.name}</span>
