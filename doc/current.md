@@ -141,10 +141,14 @@
 - [x] Redesigned **Futuristic Obsidian Scrollbar System** ([app/globals.css](file:///c:/kali/product/portfolio/app/globals.css)):
   - **Eliminated Default OS Scrollbar**: Removed ugly browser-default gray track and scrollbar arrow buttons across WebKit (`Chrome`, `Edge`, `Safari`, `Brave`) and Firefox.
   - **Dark Black Floating Pill Thumb**: Styled track with obsidian black (`#08080A`), `8px` width, dark black floating pill thumb (`#1C1D24` with `2px solid #08080A` inset border), and sleek charcoal hover accent (`#2D2E3A` / `#3F3F46`).
+- [x] Streamlined **Top Navigation Bar Architecture & Enlarged Typography** ([components/Hero.tsx](file:///c:/kali/product/portfolio/components/Hero.tsx)):
+  - **Streamlined Navigation Items**: Updated top header links strictly to **`HOME`**, **`WORK`**, and **`ABOUT`**, completely removing the dropdown arrow and sub-menu for a clean, minimal design.
+  - **Enlarged Text Typography**: Scaled font sizes up to `text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest` for striking, highly legibile editorial navigation typography.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
+
 
 
 

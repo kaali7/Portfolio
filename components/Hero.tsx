@@ -308,21 +308,9 @@ export function Hero() {
   const parallaxCardY = useTransform(smoothY, (y) => (Number(y) - 450) * -0.015);
 
   const navLinks = [
-    { label: "ABOUT", href: "#about" },
-    { 
-      label: "PROJECTS", 
-      href: "#projects",
-      subLinks: [
-        { label: "Featured Projects", href: "#projects" },
-        { label: "AI / ML", href: "#projects" },
-        { label: "Data Science", href: "#projects" },
-        { label: "GenAI", href: "#projects" },
-        { label: "Full-Stack AI", href: "#projects" },
-      ]
-    },
-    { label: "SKILLS", href: "#skills" },
-    { label: "EXPERIENCE", href: "#experience" },
-    { label: "CONTACT", href: "#contact" },
+    { label: "HOME", href: "#" },
+    { label: "WORK", href: "#projects" },
+    { label: "ABOUT", href: "#skills" },
   ];
 
   return (
@@ -421,40 +409,16 @@ export function Hero() {
             initial={{ opacity: 0, y: -10 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs sm:text-sm lg:text-base font-mono font-bold tracking-widest text-white/80"
+            className="hidden md:flex items-center gap-8 lg:gap-12 text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest text-white/90"
           >
             {navLinks.map((link) => (
-              <div key={link.label} className="relative group">
-                <a 
-                  href={link.href} 
-                  className="hover:text-white transition-colors duration-200 flex items-center gap-1.5 py-1"
-                >
-                  <span>{link.label}</span>
-                  {link.subLinks && (
-                    <svg className="w-3 h-3 text-white/50 group-hover:text-white transition-transform group-hover:rotate-180 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
-                </a>
-
-                {/* Submenu Dropdown */}
-                {link.subLinks && (
-                  <div className="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50 min-w-[210px]">
-                    <div className="bg-[#08080A]/95 backdrop-blur-2xl border border-white/15 p-3 rounded-xl shadow-2xl flex flex-col gap-1.5">
-                      {link.subLinks.map((sub) => (
-                        <a
-                          key={sub.label}
-                          href={sub.href}
-                          className="text-xs sm:text-sm font-mono font-medium tracking-wider text-white/70 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors flex items-center justify-between"
-                        >
-                          <span>{sub.label}</span>
-                          <span className="text-[10px] text-white/30">└</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+              <a 
+                key={link.label}
+                href={link.href} 
+                className="hover:text-white transition-colors duration-200 py-1"
+              >
+                <span>{link.label}</span>
+              </a>
             ))}
           </motion.nav>
 
@@ -503,29 +467,14 @@ export function Hero() {
               className="absolute top-full left-4 right-4 bg-[#08080A]/95 backdrop-blur-xl border border-white/15 rounded-2xl px-6 py-6 md:hidden flex flex-col gap-4 shadow-2xl z-50 mt-2"
             >
               {navLinks.map((link) => (
-                <div key={link.label} className="flex flex-col gap-2">
-                  <a
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="font-mono text-sm tracking-widest text-white/90 hover:text-purple-400 py-1 transition-colors flex items-center justify-between"
-                  >
-                    <span>{link.label}</span>
-                  </a>
-                  {link.subLinks && (
-                    <div className="pl-3 flex flex-col gap-1 border-l border-white/10">
-                      {link.subLinks.map((sub) => (
-                        <a
-                          key={sub.label}
-                          href={sub.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="font-mono text-xs text-white/60 hover:text-white py-1"
-                        >
-                          {sub.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="font-mono text-base font-black tracking-widest text-white/90 hover:text-purple-400 py-2 transition-colors flex items-center justify-between"
+                >
+                  <span>{link.label}</span>
+                </a>
               ))}
             </motion.div>
           )}
