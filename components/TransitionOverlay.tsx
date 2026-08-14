@@ -42,37 +42,51 @@ export function TransitionOverlayProvider({
     setStage("covering");
   };
 
-  // State machine for stages
+  // Pre-fetch pending route immediately on trigger
+  useEffect(() => {
+    if (pendingHref) {
+      router.prefetch(pendingHref);
+    }
+  }, [pendingHref, router]);
+
+  // Fast state machine timing
   useEffect(() => {
     if (stage === "covering") {
-      // 1. Paint sweeps UP to cover screen
+      // 1. Snappy fluid paint sweep UP (280ms)
       const timer = setTimeout(() => {
         setStage("covered");
         if (pendingHref) {
           router.push(pendingHref);
         }
-      }, 480);
+      }, 280);
       return () => clearTimeout(timer);
     }
 
     if (stage === "covered") {
-      // 2. Hold full purple screen briefly so page mounts
+      // 2. Micro-hold (50ms) to allow DOM mount
       const timer = setTimeout(() => {
         setStage("uncovering");
-      }, 120);
+      }, 50);
       return () => clearTimeout(timer);
     }
 
     if (stage === "uncovering") {
-      // 3. Paint retracts UP off top of screen
+      // 3. Fast paint retract UP off top (300ms)
       const timer = setTimeout(() => {
         setStage("idle");
         setIsAnimating(false);
         setPendingHref(null);
-      }, 500);
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [stage, pendingHref, router]);
+
+  // If pathname updates while covered, trigger uncovering immediately
+  useEffect(() => {
+    if (stage === "covered" && pendingHref && pathname === pendingHref) {
+      setStage("uncovering");
+    }
+  }, [pathname, pendingHref, stage]);
 
   // Determine current path for Layer 1 (Accent wave)
   const getLayer1Path = () => {
@@ -112,7 +126,7 @@ export function TransitionOverlayProvider({
           <motion.div
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            exit={{ opacity: 0, transition: { duration: 0.1 } }}
             className="fixed inset-0 z-[99999] pointer-events-auto overflow-hidden select-none"
           >
             {/* Layer 1: Neon Accent Purple Fluid Wave */}
@@ -126,9 +140,9 @@ export function TransitionOverlayProvider({
                 initial={{ d: bottomPath }}
                 animate={{ d: getLayer1Path() }}
                 transition={{
-                  duration: 0.46,
+                  duration: 0.28,
                   ease: [0.76, 0, 0.24, 1],
-                  delay: stage === "covering" ? 0 : 0.04,
+                  delay: stage === "covering" ? 0 : 0.02,
                 }}
               />
             </svg>
@@ -151,9 +165,9 @@ export function TransitionOverlayProvider({
                 initial={{ d: bottomPath }}
                 animate={{ d: getLayer2Path() }}
                 transition={{
-                  duration: 0.44,
+                  duration: 0.26,
                   ease: [0.76, 0, 0.24, 1],
-                  delay: stage === "covering" ? 0.03 : 0,
+                  delay: stage === "covering" ? 0.02 : 0,
                 }}
               />
             </svg>
@@ -164,7 +178,7 @@ export function TransitionOverlayProvider({
                 initial={{ opacity: 0, scale: 0.85, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 1.08, y: -15 }}
-                transition={{ duration: 0.25 }}
+                transition={{ duration: 0.18 }}
                 className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10"
               >
                 <span className="text-purple-200/70 font-mono text-xs tracking-[0.4em] uppercase mb-2">

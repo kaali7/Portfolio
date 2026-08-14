@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { usePageTransition } from "./TransitionOverlay";
 
 interface TransitionLinkProps extends React.ComponentPropsWithoutRef<typeof Link> {
@@ -16,19 +17,35 @@ export function TransitionLink({
   href,
   className = "",
   onClick,
+  onMouseEnter,
+  onTouchStart,
   ...props
 }: TransitionLinkProps) {
+  const router = useRouter();
   const { triggerTransition, isPending } = usePageTransition();
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Invoke custom onClick handler if provided
-    if (onClick) {
-      onClick(e);
-    }
+  const isExternal = href.startsWith("http") || href.startsWith("//");
+  const isHash = href.startsWith("#");
 
-    // Bypass for external links, anchor hash links, new tabs, or if transition is already running
-    const isExternal = href.startsWith("http") || href.startsWith("//");
-    const isHash = href.startsWith("#");
+  const prefetchRoute = () => {
+    if (!isExternal && !isHash && href) {
+      router.prefetch(href);
+    }
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onMouseEnter) onMouseEnter(e);
+    prefetchRoute();
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLAnchorElement>) => {
+    if (onTouchStart) onTouchStart(e);
+    prefetchRoute();
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) onClick(e);
+
     const isNewTab = props.target === "_blank";
 
     if (isExternal || isHash || isNewTab || e.defaultPrevented || isPending) {
@@ -41,7 +58,14 @@ export function TransitionLink({
   };
 
   return (
-    <Link href={href} onClick={handleClick} className={className} {...props}>
+    <Link
+      href={href}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onTouchStart={handleTouchStart}
+      className={className}
+      {...props}
+    >
       {children}
     </Link>
   );
