@@ -130,8 +130,14 @@
   - **Fixed Bottom Robot Position (Upward Balloon Growth)**: Anchored speech balloon using `absolute bottom-full mb-4` directly above the robot avatar head. As typing animation populates text line-by-line, the speech balloon expands **UPWARDS**, while the Robot mascot avatar stays **100% fixed at the bottom** without any downward movement or layout shift.
   - **White-Line Overlapping Back To Top Button**: Positioned the purple circular action button directly overlapping the horizontal footer line (`-mt-10 sm:-mt-14 z-20`) exactly per user diagram. Scaled diameter up to `96px` (`w-20 h-20 sm:w-24 sm:h-24`), `ArrowUp` icon to `36px` (`w-7 h-7 sm:w-9 sm:h-9`), and amplified glowing pulse shadow (`shadow-[0_15px_45px_rgba(168,85,247,0.65)]`).
   - **Single Screen Desktop Fit (`100vh`)**: Fits 100% on a single screen with interactive mathematical canvas stream ($\theta, \sigma, f(x), W$) and mouse cursor radial spotlight tracking.
+- [x] Balanced **Section Scroll Travel & Smooth Curtain Pace** ([app/page.tsx](file:///c:/kali/product/portfolio/app/page.tsx)):
+  - **Identified Scroll Imbalance Root Cause**: Discovered mathematical discrepancy where Hero ➔ Projects, Projects ➔ Skills, and Skills ➔ Experience had only `100vh` scroll travel before the next curtain section arrived, while Experience ➔ Contact had a `300vh` scroll travel.
+  - **Standardized Balanced Scroll Travel (`180vh`)**: Standardized all section wrappers (`hero-wrapper`, `projects-wrapper`, `skills-wrapper`, `experience-wrapper`) to a uniform `180vh` scroll travel height without complex negative margin offsets.
+  - **Fixed Premature Low-Light Dimming**: Changed GSAP ScrollTrigger transition start from `top 30%` down to `top 10%` and increased opacity target from `0.3-0.35` (dark shadow) up to `0.85-0.88` with subtle `0.98` scale contraction. Sections now remain at **100% full brightness and crystal clarity** while being viewed, only applying a subtle depth hint during the final 10% docking moment.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
+
+
 

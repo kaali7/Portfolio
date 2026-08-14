@@ -24,12 +24,12 @@ export default function Home() {
       gsap.to(".hero-slide", {
         scrollTrigger: {
           trigger: ".projects-wrapper",
-          start: "top 20%",
+          start: "top 10%",
           end: "top top",
           scrub: true,
         },
-        opacity: 0.3,
-        scale: 0.96,
+        opacity: 0.85,
+        scale: 0.98,
         ease: "none",
       });
 
@@ -37,12 +37,12 @@ export default function Home() {
       gsap.to(".projects-slide", {
         scrollTrigger: {
           trigger: ".skills-wrapper",
-          start: "top 20%",
+          start: "top 10%",
           end: "top top",
           scrub: true,
         },
-        opacity: 0.35,
-        scale: 0.97,
+        opacity: 0.88,
+        scale: 0.98,
         ease: "none",
       });
 
@@ -50,12 +50,12 @@ export default function Home() {
       gsap.to(".skills-slide", {
         scrollTrigger: {
           trigger: ".experience-wrapper",
-          start: "top 20%",
+          start: "top 10%",
           end: "top top",
           scrub: true,
         },
-        opacity: 0.3,
-        scale: 0.96,
+        opacity: 0.85,
+        scale: 0.98,
         ease: "none",
       });
 
@@ -63,12 +63,12 @@ export default function Home() {
       gsap.to(".experience-slide", {
         scrollTrigger: {
           trigger: ".contact-wrapper",
-          start: "top 20%",
+          start: "top 10%",
           end: "top top",
           scrub: true,
         },
-        opacity: 0.4,
-        scale: 0.97,
+        opacity: 0.88,
+        scale: 0.98,
         ease: "none",
       });
 
@@ -83,29 +83,29 @@ export default function Home() {
   return (
     <SmoothScroll>
       <main ref={containerRef} className="relative bg-[#08080A] min-h-screen">
-        {/* Slide 0: Hero Wrapper (300vh total scroll travel) */}
-        <div className="hero-wrapper relative h-[300vh] z-0">
+        {/* Slide 0: Hero Wrapper (180vh total scroll travel) */}
+        <div className="hero-wrapper relative h-[180vh] z-0">
           <div className="hero-slide sticky top-0 h-[100vh] w-full overflow-hidden">
             <Hero />
           </div>
         </div>
         
-        {/* Slide 1: Projects Wrapper */}
-        <div className="projects-wrapper relative h-[300vh] z-10 -mt-[200vh]">
+        {/* Slide 1: Projects Wrapper (180vh total scroll travel) */}
+        <div className="projects-wrapper relative h-[180vh] z-10">
           <div className="projects-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
             <Projects />
           </div>
         </div>
 
-        {/* Slide 2: Skills Wrapper */}
-        <div className="skills-wrapper relative h-[300vh] z-20 -mt-[200vh]">
+        {/* Slide 2: Skills Wrapper (180vh total scroll travel) */}
+        <div className="skills-wrapper relative h-[180vh] z-20">
           <div className="skills-slide sticky top-0 h-[100vh] w-full overflow-hidden bg-[#08080A]">
             <Skills />
           </div>
         </div>
 
-        {/* Slide 3: Experience Wrapper */}
-        <div className="experience-wrapper relative h-[300vh] z-30 -mt-[200vh]">
+        {/* Slide 3: Experience Wrapper (180vh total scroll travel) */}
+        <div className="experience-wrapper relative h-[180vh] z-30">
           <div className="experience-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
             <Experience />
           </div>
