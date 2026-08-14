@@ -140,7 +140,7 @@
   - **Sub-180ms Instant Responsive Hover Physics**: Optimized hover transition springs (`stiffness: 450, damping: 22`) for instant, buttery-smooth spotlight updates when hovering over any stacked project item.
 - [x] Redesigned **Futuristic Obsidian Scrollbar System** ([app/globals.css](file:///c:/kali/product/portfolio/app/globals.css)):
   - **Eliminated Default OS Scrollbar**: Removed ugly browser-default gray track and scrollbar arrow buttons across WebKit (`Chrome`, `Edge`, `Safari`, `Brave`) and Firefox.
-  - **Dark Glass Floating Pill Thumb**: Styled track with obsidian black (`#08080A`), `8px` width, floating pill thumb (`border: 2px solid #08080A`), translucent neutral fill (`rgba(255,255,255,0.2)`), and glowing purple accent (`#A855F7`) on hover/active.
+  - **Dark Black Floating Pill Thumb**: Styled track with obsidian black (`#08080A`), `8px` width, dark black floating pill thumb (`#1C1D24` with `2px solid #08080A` inset border), and sleek charcoal hover accent (`#2D2E3A` / `#3F3F46`).
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
