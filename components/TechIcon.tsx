@@ -19,13 +19,6 @@ import {
   siNextdotjs,
   siLangchain,
   siQdrant,
-  siCplusplus,
-  siNvidia,
-  siMlflow,
-  siLinux,
-  siKubernetes,
-  siApachekafka,
-  siRedis,
   type SimpleIcon
 } from "simple-icons";
 
@@ -58,17 +51,6 @@ const iconMap: Record<string, SimpleIcon> = {
   "LangChain": siLangchain,
   "Qdrant": siQdrant,
   "SQL": siPostgresql,
-  "C++": siCplusplus,
-  "NVIDIA": siNvidia,
-  "TensorRT": siNvidia,
-  "MLflow": siMlflow,
-  "AWS": siDocker,
-  "Linux": siLinux,
-  "Kubernetes": siKubernetes,
-  "Kafka": siApachekafka,
-  "Redis": siRedis,
-  "AutoGen": siPython,
-  "LangGraph": siLangchain
 };
 
 export function TechIcon({ name, className = "w-4 h-4", color, size = 16 }: TechIconProps) {

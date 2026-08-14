@@ -114,14 +114,11 @@
   - **3D Mouse Parallax & Dynamic Radial Spotlight Beams**: Implemented spring-based 3D card tilt (`rotateX`, `rotateY`) reacting to cursor coordinates alongside a dynamic radial glass spotlight beam (`radial-gradient`) following mouse movements inside each card.
   - **Architectural HUD Modal Inspector**: Clicking any domain card opens a high-tech obsidian inspection modal with full technical descriptions, animated proficiency progress bars (0-100%), canonical code architecture snippets, and project case study links.
   - **Applied `animate` & `design-taste-frontend` Skills**: Hardware-accelerated animations (`opacity`, `transform`, `rotate`, `scale`) with snappy spring physics and reduced motion gating (`useReducedMotion()`).
-- [x] Redesigned **Interactive Work Experience & Systems Impact Section** (`components/Experience.tsx`, `components/TechIcon.tsx`):
-  - **Dual View Mode Switcher**: Added an interactive view pill allowing users to toggle seamlessly between **TIMELINE FLOW** (spatial interactive timeline) and **BENTO GRID** (high-tech matrix overview).
-  - **Aggregated Career Impact HUD Cards**: Integrated top metric counter blocks showcasing `6+ Years` AI/Data Engineering, `4.2x` Avg Throughput Boost, `15+ Production` Models, and `50M+ Docs` Sub-35ms Retrieval.
-  - **Interactive Spatial Timeline Navigation**: Connected vertical timeline with pulsating active status nodes, company badges, position period, role focus, location, and impact metrics.
-  - **Architectural System Flow Widget**: Each role features a dedicated high-contrast obsidian terminal block displaying the exact data/model pipeline architecture (e.g., `[User Prompt] ➔ [LangGraph Orchestrator] ⇄ [Qdrant Hybrid Vector DB] ➔ [vLLM Llama-3]`).
-  - **Expanded Industry Roles & Deliverables**: Included 4 detailed AI, Computer Vision, Data Science, and GPU Research positions with bulleted key deliverables and impact metrics.
-  - **Strict `simple-icons` Tech Integration**: Added simple-icons SVG support for PyTorch, TensorRT, NVIDIA, OpenCV, Docker, C++, Kubernetes, Kafka, Redis, FastAPI, PostgreSQL, and Qdrant.
-  - **Snappy Hardware-Accelerated Motion**: Built with Framer Motion spring physics (`stiffness: 450, damping: 28, mass: 0.3`) for instant sub-180ms tab switching, complete with `useReducedMotion()` gating and zero emojis.
+
+- [x] Redesigned **Clean Wall-Hanging Experience Deck & Fast Spring Motion** (`components/Experience.tsx`):
+  - **Eliminated Visible Scrollbars**: Added cross-browser `.no-scrollbar` rules (`::-webkit-scrollbar { display: none }`, `scrollbar-width: none`, `-ms-overflow-style: none`) to [globals.css](file:///c:/kali/product/portfolio/app/globals.css) and added `no-scrollbar` to `experience-slide` in [app/page.tsx](file:///c:/kali/product/portfolio/app/page.tsx) and [Experience.tsx](file:///c:/kali/product/portfolio/components/Experience.tsx).
+  - **Fixed Text Overlap & High-Contrast Legibility**: Separated timeline text labels (`CHAPTER 01`, `EdgeVision`, `CHAPTER 02`, `Autonomous AI Labs`) into a dedicated top info row with zero text overlap.
+  - **Fast Sub-160ms Scale & Rotation Motion**: Accelerated hover/selection spring parameters (`stiffness: 550, damping: 25, mass: 0.15`) for snappy card expansion.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.

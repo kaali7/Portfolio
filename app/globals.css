@@ -48,3 +48,15 @@ html.lenis, html.lenis body {
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
+
+/* Hide scrollbar for WebKit, Firefox and Edge */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  background: transparent;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
