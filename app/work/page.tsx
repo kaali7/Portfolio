@@ -4,6 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { projectsData } from "@/lib/projectsData";
+import { Search, ArrowUpRight, Cpu, Layers, Sparkles, Filter } from "lucide-react";
+
+// Design Read:
+// Reading this as: High-contrast editorial theme reversal for /work,
+// switching major background to pure high-contrast White (bg-white / bg-slate-50),
+// with Obsidian Black (text-[#08080A]) for headings/structure and Vibrant Purple
+// (text-purple-600, bg-purple-600) for highlights, metrics, and interactive CTAs.
 
 export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -34,66 +41,69 @@ export default function WorkPage() {
   });
 
   return (
-    <main className="w-full min-h-screen bg-[#08080A] text-white selection:bg-purple-500 selection:text-white pb-24">
+    <main className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white pb-24 relative overflow-hidden">
       {/* Top Header Navigation Bar */}
-      <header className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-8 pb-6 flex items-center justify-between border-b border-white/10 relative z-20">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-signature text-3xl text-white hover:text-purple-400 transition-colors"
-        >
-          <span>Ashwini</span>
-        </Link>
-
-        {/* Navigation Bar Links */}
-        <nav className="flex items-center gap-8 lg:gap-12 text-sm sm:text-base lg:text-lg font-mono font-black tracking-widest text-white/90">
-          <Link href="/" className="hover:text-white transition-colors py-1">
-            HOME
-          </Link>
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-5 flex items-center justify-between">
           <Link
-            href="/work"
-            className="text-purple-400 border-b-2 border-purple-400 py-1"
+            href="/"
+            className="flex items-center gap-2 font-signature text-3xl sm:text-4xl text-[#08080A] hover:text-purple-600 transition-colors"
           >
-            WORK
+            <span>Ashwini</span>
           </Link>
-          <Link href="/about" className="hover:text-white transition-colors py-1">
-            ABOUT
-          </Link>
-        </nav>
 
-        {/* Right CTA Button */}
-        <Link
-          href="/#contact"
-          className="px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-mono font-black tracking-wider text-[#08080A] bg-white hover:bg-slate-100 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(255,255,255,0.2)] hidden sm:block"
-        >
-          GET IN TOUCH
-        </Link>
+          {/* Navigation Bar Links */}
+          <nav className="flex items-center gap-8 lg:gap-12 text-sm sm:text-base font-mono font-black tracking-widest text-slate-700">
+            <Link href="/" className="hover:text-[#08080A] transition-colors py-1">
+              HOME
+            </Link>
+            <Link
+              href="/work"
+              className="text-purple-600 border-b-2 border-purple-600 py-1"
+            >
+              WORK
+            </Link>
+            <Link href="/about" className="hover:text-[#08080A] transition-colors py-1">
+              ABOUT
+            </Link>
+          </nav>
+
+          {/* Right CTA Button */}
+          <Link
+            href="/#contact"
+            className="px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-mono font-black tracking-wider text-white bg-[#08080A] hover:bg-purple-600 rounded-full transition-all duration-300 shadow-md hidden sm:block"
+          >
+            GET IN TOUCH
+          </Link>
+        </div>
       </header>
 
       {/* Hero Header Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-14 sm:pt-20 pb-10 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-8 border-b border-white/10 gap-6">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 pb-10 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-8 border-b border-slate-200/80 gap-6">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase bg-purple-500/10 border border-purple-500/30 px-3.5 py-1.5 rounded-full inline-block mb-4">
-              PORTFOLIO ARCHIVE // 06 PRODUCTION SYSTEMS
+            <span className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase bg-purple-50 border border-purple-200 px-3.5 py-1.5 rounded-full inline-flex items-center gap-2 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+              <span>PORTFOLIO ARCHIVE // 06 PRODUCTION SYSTEMS</span>
             </span>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-none">
-              Work & <span className="font-light italic text-purple-400">Architectures</span>
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-[#08080A] leading-none">
+              Work & <span className="font-light italic text-purple-600">Architectures</span>
             </h1>
-            <p className="text-slate-400 text-sm sm:text-base mt-4 max-w-2xl leading-relaxed font-normal">
+            <p className="text-slate-600 text-sm sm:text-base mt-4 max-w-2xl leading-relaxed font-normal">
               A comprehensive showcase of temporal machine learning models, multi-agent autonomous frameworks, vector RAG intelligence pipelines, and edge computer vision engines.
             </p>
           </div>
 
           {/* Quick Stat Pill */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex items-center gap-6 self-stretch md:self-auto">
+          <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 sm:p-5 flex items-center gap-6 self-stretch md:self-auto shadow-xs">
             <div>
-              <span className="text-xs font-mono text-slate-400 uppercase block">Deployed Models</span>
-              <span className="text-2xl font-black text-white font-mono">12+ Production</span>
+              <span className="text-xs font-mono text-slate-500 uppercase block">Deployed Models</span>
+              <span className="text-2xl font-black text-[#08080A] font-mono">12+ Production</span>
             </div>
-            <div className="w-[1px] h-10 bg-white/10" />
+            <div className="w-[1px] h-10 bg-slate-200" />
             <div>
-              <span className="text-xs font-mono text-slate-400 uppercase block">Avg mAP / Acc</span>
-              <span className="text-2xl font-black text-purple-400 font-mono">94.8%</span>
+              <span className="text-xs font-mono text-slate-500 uppercase block">Avg mAP / Acc</span>
+              <span className="text-2xl font-black text-purple-600 font-mono">94.8%</span>
             </div>
           </div>
         </div>
@@ -101,7 +111,7 @@ export default function WorkPage() {
 
       {/* Filter Bar & Search Container */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pb-10 relative z-10">
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-white/5 border border-white/10 rounded-2xl p-4">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-slate-50/90 border border-slate-200/90 rounded-2xl p-4 shadow-xs">
           
           {/* Category Filter Pills */}
           <div className="flex flex-wrap items-center gap-2">
@@ -113,8 +123,8 @@ export default function WorkPage() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`text-xs font-mono font-bold tracking-wider px-4 py-2 rounded-full transition-all cursor-pointer ${
                     isSelected
-                      ? "bg-purple-600 text-white shadow-lg shadow-purple-900/40"
-                      : "bg-white/5 text-slate-300 hover:bg-white/15 hover:text-white border border-white/5"
+                      ? "bg-purple-600 text-white shadow-md shadow-purple-500/20"
+                      : "bg-white text-slate-700 hover:bg-[#08080A] hover:text-white border border-slate-200/90"
                   }`}
                 >
                   {cat}
@@ -125,17 +135,18 @@ export default function WorkPage() {
 
           {/* Search Box */}
           <div className="relative w-full lg:w-72">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
             <input
               type="text"
               placeholder="Search by tech or title..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-black/40 border border-white/15 text-white placeholder-slate-500 text-xs font-mono px-4 py-2.5 rounded-full focus:outline-none focus:border-purple-500 transition-colors"
+              className="w-full bg-white border border-slate-200/90 text-[#08080A] placeholder-slate-400 text-xs font-mono pl-10 pr-8 py-2.5 rounded-full focus:outline-none focus:border-purple-600 shadow-xs transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-white"
+                className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-[#08080A]"
               >
                 ✕
               </button>
@@ -147,14 +158,14 @@ export default function WorkPage() {
       {/* Projects Grid Section */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         {filteredProjects.length === 0 ? (
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-12 text-center my-8">
-            <p className="text-slate-400 font-mono text-sm">No projects found matching your search query.</p>
+          <div className="bg-slate-50 border border-slate-200/90 rounded-3xl p-12 text-center my-8 shadow-xs">
+            <p className="text-slate-600 font-mono text-sm">No projects found matching your search query.</p>
             <button
               onClick={() => {
                 setSelectedCategory("ALL");
                 setSearchQuery("");
               }}
-              className="mt-4 px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-full text-xs font-mono font-bold transition-colors"
+              className="mt-4 px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-xs font-mono font-bold transition-colors shadow-xs"
             >
               Reset Filters
             </button>
@@ -167,16 +178,16 @@ export default function WorkPage() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.08, ease: "easeOut" }}
-                className="bg-slate-900/80 border border-white/15 hover:border-purple-500/80 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl hover:shadow-[0_20px_50px_rgba(147,51,234,0.18)] transition-all duration-300 group"
+                className="bg-slate-50/90 border border-slate-200/90 hover:border-purple-500 hover:bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 group"
               >
                 <div>
                   {/* Top Bar */}
-                  <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200/80 mb-5">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-xs font-mono font-bold text-[#08080A] bg-white px-3 py-1 rounded-full uppercase">
+                      <span className="text-xs font-mono font-bold text-white bg-[#08080A] px-3 py-1 rounded-full uppercase shadow-xs">
                         {project.category}
                       </span>
-                      <span className="text-xs font-mono font-bold text-purple-300 bg-purple-500/20 border border-purple-500/40 px-3 py-1 rounded-full">
+                      <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3 py-1 rounded-full">
                         {project.previewMetric}
                       </span>
                     </div>
@@ -187,32 +198,32 @@ export default function WorkPage() {
                   </div>
 
                   {/* Title & Tagline */}
-                  <h2 className="text-2xl sm:text-3xl font-black text-white group-hover:text-purple-300 transition-colors tracking-tight mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-black text-[#08080A] group-hover:text-purple-600 transition-colors tracking-tight mb-3">
                     {project.title}
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-6">
                     {project.fullDescription}
                   </p>
 
                   {/* Metrics Grid */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-4">
                     {project.metrics.map((m, mIdx) => (
-                      <div key={mIdx} className="bg-white/5 border border-white/10 rounded-xl p-2.5">
-                        <span className="text-[9px] font-mono text-slate-400 uppercase block mb-0.5">{m.label}</span>
-                        <span className="text-sm font-mono font-black text-purple-300">{m.val}</span>
+                      <div key={mIdx} className="bg-white border border-slate-200/80 rounded-xl p-2.5 shadow-2xs">
+                        <span className="text-[9px] font-mono text-slate-500 uppercase block mb-0.5">{m.label}</span>
+                        <span className="text-sm font-mono font-black text-purple-700">{m.val}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Highlights Bullet Points */}
-                  <div className="bg-purple-950/40 border border-purple-800/40 rounded-2xl p-4 my-4">
-                    <span className="text-[10px] font-mono font-bold text-purple-300 uppercase tracking-wider block mb-2">
+                  <div className="bg-purple-50/80 border border-purple-200/70 rounded-2xl p-4 my-4">
+                    <span className="text-[10px] font-mono font-bold text-purple-900 uppercase tracking-wider block mb-2">
                       KEY ARCHITECTURAL HIGHLIGHTS
                     </span>
                     <ul className="space-y-1.5">
                       {project.highlights.slice(0, 3).map((h, hIdx) => (
-                        <li key={hIdx} className="text-xs text-slate-300 flex items-start gap-2 leading-tight">
-                          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1 flex-shrink-0" />
+                        <li key={hIdx} className="text-xs text-slate-800 flex items-start gap-2 leading-tight">
+                          <span className="w-1.5 h-1.5 rounded-full bg-purple-600 mt-1 flex-shrink-0" />
                           <span>{h}</span>
                         </li>
                       ))}
@@ -221,10 +232,10 @@ export default function WorkPage() {
                 </div>
 
                 {/* Footer Tech Stack Chips & CTA Link */}
-                <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-4">
+                <div className="pt-5 border-t border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-4">
                   <div className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="text-[10px] font-mono text-slate-300 bg-white/10 border border-white/10 px-2.5 py-0.5 rounded-md font-medium">
+                      <span key={tIdx} className="text-[10px] font-mono text-slate-800 bg-white border border-slate-200 px-2.5 py-0.5 rounded-md font-medium shadow-2xs">
                         {tag}
                       </span>
                     ))}
@@ -232,10 +243,10 @@ export default function WorkPage() {
 
                   <Link
                     href={`/work/${project.id}`}
-                    className="px-5 py-2.5 bg-white text-[#08080A] hover:bg-purple-500 hover:text-white rounded-full text-xs font-mono font-black tracking-wider transition-all duration-200 flex items-center gap-2 flex-shrink-0 shadow-md group/btn"
+                    className="px-5 py-2.5 bg-[#08080A] text-white hover:bg-purple-600 rounded-full text-xs font-mono font-black tracking-wider transition-all duration-200 flex items-center gap-2 flex-shrink-0 shadow-md group/btn"
                   >
                     <span>VIEW CASE STUDY</span>
-                    <span className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform">↗</span>
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                   </Link>
                 </div>
               </motion.div>
@@ -246,8 +257,8 @@ export default function WorkPage() {
 
       {/* Initiate Collaboration CTA Banner */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-20 relative z-10">
-        <div className="bg-gradient-to-r from-purple-950/80 via-slate-900 to-[#08080A] border-2 border-purple-500/50 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-[#08080A] text-white border-2 border-purple-500/50 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
             Need a Custom AI Architecture or Model?
           </h2>

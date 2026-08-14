@@ -3,6 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Copy, Check, Sparkles, ArrowRight, Award, Terminal, Code2 } from "lucide-react";
+
+// Design Read:
+// Reading this as: High-contrast editorial theme reversal for /about,
+// switching major background to pure high-contrast White (bg-white / bg-slate-50),
+// with Obsidian Black (text-[#08080A]) for biography headlines/structure and
+// Vibrant Purple (text-purple-600, bg-purple-600) for key metrics & CTAs.
 
 export default function AboutPage() {
   const [copied, setCopied] = useState(false);
@@ -75,84 +82,87 @@ export default function AboutPage() {
   ];
 
   return (
-    <main className="w-full min-h-screen bg-[#08080A] text-white selection:bg-purple-500 selection:text-white pb-24">
+    <main className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white pb-24 relative overflow-hidden">
       {/* Top Header Navigation Bar */}
-      <header className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-8 pb-6 flex items-center justify-between border-b border-white/10 relative z-20">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-signature text-3xl text-white hover:text-purple-400 transition-colors"
-        >
-          <span>Ashwini</span>
-        </Link>
-
-        {/* Navigation Bar Links */}
-        <nav className="flex items-center gap-8 lg:gap-12 text-sm sm:text-base lg:text-lg font-mono font-black tracking-widest text-white/90">
-          <Link href="/" className="hover:text-white transition-colors py-1">
-            HOME
-          </Link>
-          <Link href="/work" className="hover:text-white transition-colors py-1">
-            WORK
-          </Link>
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-5 flex items-center justify-between">
           <Link
-            href="/about"
-            className="text-purple-400 border-b-2 border-purple-400 py-1"
+            href="/"
+            className="flex items-center gap-2 font-signature text-3xl sm:text-4xl text-[#08080A] hover:text-purple-600 transition-colors"
           >
-            ABOUT
+            <span>Ashwini</span>
           </Link>
-        </nav>
 
-        {/* Right CTA Button */}
-        <Link
-          href="/#contact"
-          className="px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-mono font-black tracking-wider text-[#08080A] bg-white hover:bg-slate-100 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(255,255,255,0.2)] hidden sm:block"
-        >
-          GET IN TOUCH
-        </Link>
+          {/* Navigation Bar Links */}
+          <nav className="flex items-center gap-8 lg:gap-12 text-sm sm:text-base font-mono font-black tracking-widest text-slate-700">
+            <Link href="/" className="hover:text-[#08080A] transition-colors py-1">
+              HOME
+            </Link>
+            <Link href="/work" className="hover:text-[#08080A] transition-colors py-1">
+              WORK
+            </Link>
+            <Link
+              href="/about"
+              className="text-purple-600 border-b-2 border-purple-600 py-1"
+            >
+              ABOUT
+            </Link>
+          </nav>
+
+          {/* Right CTA Button */}
+          <Link
+            href="/#contact"
+            className="px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-mono font-black tracking-wider text-white bg-[#08080A] hover:bg-purple-600 rounded-full transition-all duration-300 shadow-md hidden sm:block"
+          >
+            GET IN TOUCH
+          </Link>
+        </div>
       </header>
 
       {/* Main Editorial Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-16 sm:pt-24 pb-14 relative z-10">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 pb-14 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-8">
-            <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full inline-block mb-6">
-              BIOGRAPHY // SENIOR DATA SCIENTIST & AI ARCHITECT
+            <span className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase bg-purple-50 border border-purple-200 px-4 py-1.5 rounded-full inline-flex items-center gap-2 mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+              <span>BIOGRAPHY // SENIOR DATA SCIENTIST & AI ARCHITECT</span>
             </span>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight">
-              Architecting <span className="font-light italic text-purple-400">Autonomous AI</span> & Scalable Neural Systems
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-[#08080A] leading-tight">
+              Architecting <span className="font-light italic text-purple-600">Autonomous AI</span> & Scalable Neural Systems
             </h1>
-            <p className="text-slate-300 text-base sm:text-lg mt-6 leading-relaxed max-w-3xl font-normal">
+            <p className="text-slate-600 text-base sm:text-lg mt-6 leading-relaxed max-w-3xl font-normal">
               I specialize in bridging the gap between mathematical machine learning research and high-performance production engineering. Over 5+ years, I have architected high-frequency time-series forecasters, real-time edge computer vision engines, and enterprise multi-agent RAG platforms.
             </p>
 
             {/* Quick Metrics Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-white/10">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1">EXPERIENCE</span>
-                <span className="text-2xl font-black text-white font-mono">5+ Years</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-200/80">
+              <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs">
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">EXPERIENCE</span>
+                <span className="text-2xl font-black text-[#08080A] font-mono">5+ Years</span>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1">MODELS DEPLOYED</span>
-                <span className="text-2xl font-black text-purple-400 font-mono">12+ Systems</span>
+              <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs">
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">MODELS DEPLOYED</span>
+                <span className="text-2xl font-black text-purple-600 font-mono">12+ Systems</span>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1">UPTIME RECORD</span>
-                <span className="text-2xl font-black text-white font-mono">99.9%</span>
+              <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs">
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">UPTIME RECORD</span>
+                <span className="text-2xl font-black text-[#08080A] font-mono">99.9%</span>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1">DAILY FEEDS</span>
-                <span className="text-2xl font-black text-purple-400 font-mono">10M+ Events</span>
+              <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs">
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">DAILY FEEDS</span>
+                <span className="text-2xl font-black text-purple-600 font-mono">10M+ Events</span>
               </div>
             </div>
           </div>
 
           {/* Right Highlight Box */}
-          <div className="lg:col-span-4 bg-gradient-to-br from-purple-950/60 to-slate-900 border-2 border-purple-500/40 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="lg:col-span-4 bg-[#08080A] text-white border-2 border-purple-500/50 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
             <h3 className="text-xs font-mono font-bold text-purple-300 uppercase tracking-widest mb-3">
               ENGINEERING PHILOSOPHY
             </h3>
             <blockquote className="text-sm text-slate-200 font-serif italic leading-relaxed mb-6">
-              "AI models are only as valuable as their reliability in production. Rigorous mathematical foundations, low latency, and zero-hallucination guardrails define successful AI deployment."
+              &quot;AI models are only as valuable as their reliability in production. Rigorous mathematical foundations, low latency, and zero-hallucination guardrails define successful AI deployment.&quot;
             </blockquote>
 
             <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
@@ -174,17 +184,17 @@ export default function AboutPage() {
       </section>
 
       {/* Technical Competencies Bento Matrix */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-16 pb-14 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-4 border-b border-white/10">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-14 pb-14 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-4 border-b border-slate-200/80">
           <div>
-            <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase">
+            <span className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase">
               TECHNICAL MATRIX
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-1">
+            <h2 className="text-3xl sm:text-5xl font-black text-[#08080A] tracking-tight mt-1">
               Core Competencies & Stack
             </h2>
           </div>
-          <p className="text-slate-400 text-xs sm:text-sm max-w-md mt-4 md:mt-0 leading-relaxed font-normal">
+          <p className="text-slate-600 text-xs sm:text-sm max-w-md mt-4 md:mt-0 leading-relaxed font-normal">
             Domain expertise spans the entire machine learning lifecycle—from exploratory statistical modeling to high-concurrency edge deployments.
           </p>
         </div>
@@ -197,29 +207,29 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="bg-slate-900/80 border border-white/10 hover:border-purple-500/60 rounded-3xl p-6 sm:p-7 flex flex-col justify-between hover:shadow-xl transition-all group"
+              className="bg-slate-50/90 border border-slate-200/90 hover:border-purple-500 hover:bg-white rounded-3xl p-6 sm:p-7 flex flex-col justify-between shadow-2xs hover:shadow-xl transition-all group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/20 border border-purple-500/40 px-3 py-1 rounded-full uppercase">
+                  <span className="text-[10px] font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3 py-1 rounded-full uppercase">
                     {domain.badge}
                   </span>
-                  <span className="text-xs font-mono text-slate-500 font-bold">0{idx + 1}</span>
+                  <span className="text-xs font-mono text-slate-400 font-bold">0{idx + 1}</span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors mb-3">
+                <h3 className="text-xl font-bold text-[#08080A] group-hover:text-purple-600 transition-colors mb-3">
                   {domain.title}
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-6 font-normal">
+                <p className="text-xs text-slate-600 leading-relaxed mb-6 font-normal">
                   {domain.description}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-white/10">
+              <div className="pt-4 border-t border-slate-200/80">
                 <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-2">KEY TECHNOLOGIES</span>
                 <div className="flex flex-wrap gap-1.5">
                   {domain.tools.map((t, tIdx) => (
-                    <span key={tIdx} className="text-[10px] font-mono text-slate-300 bg-white/10 border border-white/10 px-2.5 py-0.5 rounded-md font-medium">
+                    <span key={tIdx} className="text-[10px] font-mono text-slate-800 bg-white border border-slate-200 px-2.5 py-0.5 rounded-md font-medium shadow-2xs">
                       {t}
                     </span>
                   ))}
@@ -231,20 +241,20 @@ export default function AboutPage() {
       </section>
 
       {/* Career Milestones Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-14 pb-16 relative z-10">
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-6 border-b border-white/10">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-10 pb-16 relative z-10">
+        <div className="bg-slate-50/90 border border-slate-200/90 rounded-3xl p-8 sm:p-12 shadow-xs">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-6 border-b border-slate-200/80">
             <div>
-              <span className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase">
+              <span className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase">
                 TRACK RECORD
               </span>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-1">
+              <h2 className="text-3xl sm:text-5xl font-black text-[#08080A] tracking-tight mt-1">
                 Experience Timeline
               </h2>
             </div>
             <Link
               href="/work"
-              className="text-xs font-mono font-bold text-purple-400 hover:text-white underline mt-4 md:mt-0"
+              className="text-xs font-mono font-bold text-purple-600 hover:text-[#08080A] underline mt-4 md:mt-0"
             >
               EXPLORE ALL 6 ARCHITECTURES →
             </Link>
@@ -252,16 +262,16 @@ export default function AboutPage() {
 
           <div className="space-y-8">
             {careerMilestones.map((item, idx) => (
-              <div key={idx} className="flex flex-col md:flex-row gap-4 md:gap-10 pb-8 border-b border-white/10 last:border-0 last:pb-0">
+              <div key={idx} className="flex flex-col md:flex-row gap-4 md:gap-10 pb-8 border-b border-slate-200/80 last:border-0 last:pb-0">
                 <div className="md:w-56 flex-shrink-0">
-                  <span className="text-xs font-mono font-bold text-purple-400 bg-purple-500/10 border border-purple-500/30 px-3 py-1 rounded-full inline-block mb-2">
+                  <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3 py-1 rounded-full inline-block mb-2">
                     {item.year}
                   </span>
-                  <h4 className="text-lg font-bold text-white">{item.role}</h4>
-                  <span className="text-xs font-mono text-slate-400 block">{item.company}</span>
+                  <h4 className="text-lg font-bold text-[#08080A]">{item.role}</h4>
+                  <span className="text-xs font-mono text-slate-500 block">{item.company}</span>
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-3xl font-normal">
                     {item.summary}
                   </p>
                 </div>
@@ -273,12 +283,12 @@ export default function AboutPage() {
 
       {/* Contact & Email Copy Section */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-10 relative z-10">
-        <div className="bg-gradient-to-r from-purple-950/80 via-slate-900 to-[#08080A] border-2 border-purple-500/50 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-[#08080A] text-white border-2 border-purple-500/50 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Let's Collaborate on AI & Data
+            Let&apos;s Collaborate on AI & Data
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
             Interested in building high-throughput machine learning models, custom RAG pipelines, or autonomous agent frameworks? Reach out directly.
           </p>
 
@@ -288,7 +298,7 @@ export default function AboutPage() {
               className="px-8 py-3.5 bg-white text-[#08080A] hover:bg-purple-400 hover:text-white rounded-full text-sm font-mono font-black tracking-wider transition-all duration-300 shadow-xl flex items-center gap-2 cursor-pointer"
             >
               <span>{copied ? "COPIED TO CLIPBOARD!" : "COPY EMAIL ADDRESS"}</span>
-              <span>{copied ? "✓" : "📋"}</span>
+              {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-[#08080A]" />}
             </button>
             <Link
               href="/#contact"
