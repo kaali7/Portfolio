@@ -47,83 +47,61 @@ export function Projects() {
             
             {/* LEFT SIDE: MAIN SPOTLIGHT SCREEN (EXPANDED BIG CARD) */}
             <div className="lg:col-span-7 xl:col-span-8 w-full h-full min-h-[540px] relative">
-              <motion.div 
-                layoutId={`project-card-surface-${activeProject.id}`}
-                transition={{ type: "spring", stiffness: 220, damping: 24 }}
-                className="w-full h-full bg-slate-50/95 text-[#08080A] border-2 border-purple-500/80 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(147,51,234,0.14)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[540px]"
-              >
-                {/* Subtle Background Radial Accent */}
-                <div className="absolute -top-16 -right-16 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={activeProject.id}
+                  initial={{ opacity: 0, scale: 0.98, y: 8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.98, y: -8 }}
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full h-full bg-slate-50/95 text-[#08080A] border-2 border-purple-500/80 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(147,51,234,0.14)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[540px]"
+                >
+                  {/* Subtle Background Radial Accent */}
+                  <div className="absolute -top-16 -right-16 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Top Control Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-200/90 z-10">
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xs font-mono font-bold tracking-wider text-white bg-[#08080A] px-3.5 py-1 rounded-full uppercase shadow-xs">
-                      {activeProject.category}
-                    </span>
-                    <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100/80 border border-purple-300 px-3 py-1 rounded-full">
-                      {activeProject.previewMetric}
+                  {/* Top Control Bar */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-200/90 z-10">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-xs font-mono font-bold tracking-wider text-white bg-[#08080A] px-3.5 py-1 rounded-full uppercase shadow-xs">
+                        {activeProject.category}
+                      </span>
+                      <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100/80 border border-purple-300 px-3 py-1 rounded-full">
+                        {activeProject.previewMetric}
+                      </span>
+                    </div>
+
+                    <span className="text-xs font-mono text-slate-400 font-bold tracking-wide">
+                      FEATURED PROJECT // 0{activeProject.id} OF 04
                     </span>
                   </div>
 
-                  <span className="text-xs font-mono text-slate-400 font-bold tracking-wide">
-                    FEATURED PROJECT // 0{activeProject.id} OF 04
-                  </span>
-                </div>
-
-                {/* Main Title & Detailed Description */}
-                <div className="my-4 z-10">
-                  <Link href={`/projects/${activeProject.id}`} className="group inline-block">
-                    <h3 className="text-2xl sm:text-4xl lg:text-4xl font-black text-[#08080A] group-hover:text-purple-700 transition-colors tracking-tight mb-2.5 flex flex-wrap items-center gap-3 cursor-pointer">
-                      <span>{activeProject.title}</span>
-                      <span className="text-xs font-mono text-purple-600 font-bold underline opacity-80 group-hover:opacity-100 transition-opacity">
-                        EXPLORE FULL DETAILS ↗
-                      </span>
-                    </h3>
-                  </Link>
-                  <AnimatePresence mode="wait">
-                    <motion.p 
-                      key={activeProject.id}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.18 }}
-                      className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed max-w-3xl"
-                    >
+                  {/* Main Title & Detailed Description */}
+                  <div className="my-4 z-10">
+                    <Link href={`/projects/${activeProject.id}`} className="group inline-block">
+                      <h3 className="text-2xl sm:text-4xl lg:text-4xl font-black text-[#08080A] group-hover:text-purple-700 transition-colors tracking-tight mb-2.5 flex flex-wrap items-center gap-3 cursor-pointer">
+                        <span>{activeProject.title}</span>
+                        <span className="text-xs font-mono text-purple-600 font-bold underline opacity-80 group-hover:opacity-100 transition-opacity">
+                          EXPLORE FULL DETAILS ↗
+                        </span>
+                      </h3>
+                    </Link>
+                    <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed max-w-3xl">
                       {activeProject.fullDescription}
-                    </motion.p>
-                  </AnimatePresence>
-                </div>
+                    </p>
+                  </div>
 
-                {/* Dynamic Metrics Grid */}
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key={activeProject.id}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.2 }}
-                    className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-3 z-10"
-                  >
+                  {/* Dynamic Metrics Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-3 z-10">
                     {activeProject.metrics.map((m, idx) => (
                       <div key={idx} className="bg-white border border-slate-200/90 rounded-2xl p-3 flex flex-col justify-center shadow-2xs hover:border-purple-300 transition-colors">
                         <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-0.5">{m.label}</span>
                         <span className="text-lg sm:text-xl font-black text-purple-700 tracking-tight">{m.val}</span>
                       </div>
                     ))}
-                  </motion.div>
-                </AnimatePresence>
+                  </div>
 
-                {/* Key Architectural Innovations Bullet Points */}
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key={activeProject.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                    className="bg-purple-50/70 border border-purple-200/70 rounded-2xl p-4 my-2 z-10"
-                  >
+                  {/* Key Architectural Innovations Bullet Points */}
+                  <div className="bg-purple-50/70 border border-purple-200/70 rounded-2xl p-4 my-2 z-10">
                     <h4 className="text-[10px] font-mono font-bold tracking-widest text-purple-900 uppercase mb-2">
                       KEY ARCHITECTURAL INNOVATIONS
                     </h4>
@@ -135,30 +113,30 @@ export function Projects() {
                         </li>
                       ))}
                     </ul>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Footer Tech Chips & CTA Button */}
-                <div className="pt-4 border-t border-slate-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 z-10">
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeProject.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="text-[10px] font-mono text-slate-800 bg-white border border-slate-200 px-2.5 py-0.5 rounded-md font-medium shadow-2xs">
-                        {tag}
-                      </span>
-                    ))}
                   </div>
 
-                  <Link
-                    href={`/projects/${activeProject.id}`}
-                    className="px-6 py-2.5 bg-[#08080A] hover:bg-purple-700 text-white rounded-full text-xs font-mono font-black tracking-wider transition-colors duration-200 shadow-md flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer group"
-                  >
-                    <span>VIEW FULL CASE STUDY</span>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                      <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </Link>
-                </div>
-              </motion.div>
+                  {/* Footer Tech Chips & CTA Button */}
+                  <div className="pt-4 border-t border-slate-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 z-10">
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeProject.tags.map((tag, tIdx) => (
+                        <span key={tIdx} className="text-[10px] font-mono text-slate-800 bg-white border border-slate-200 px-2.5 py-0.5 rounded-md font-medium shadow-2xs">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      href={`/projects/${activeProject.id}`}
+                      className="px-6 py-2.5 bg-[#08080A] hover:bg-purple-700 text-white rounded-full text-xs font-mono font-black tracking-wider transition-colors duration-200 shadow-md flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer group"
+                    >
+                      <span>VIEW FULL CASE STUDY</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                        <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </Link>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* RIGHT SIDE: STACKED CARDS DECK (SMALL PREVIEW CARDS) */}
@@ -178,10 +156,9 @@ export function Projects() {
                   return (
                     <motion.div 
                       key={project.id}
-                      layoutId={`project-card-surface-${project.id}`}
                       onMouseEnter={() => setHoveredId(i)}
                       onClick={() => setHoveredId(i)}
-                      initial={{ opacity: 0, y: 30 }}
+                      initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       animate={{
@@ -194,13 +171,13 @@ export function Projects() {
                         rotate: 0,
                         scale: 1.03,
                         x: -6,
-                        transition: { type: "spring", stiffness: 350, damping: 22 }
+                        transition: { type: "spring", stiffness: 450, damping: 22 }
                       }}
-                      transition={{ type: "spring", stiffness: 220, damping: 24 }}
+                      transition={{ type: "spring", stiffness: 350, damping: 24 }}
                       style={{
                         zIndex: isActive ? 50 : 30 - i,
                       }}
-                      className={`group relative rounded-2xl transition-colors duration-300 cursor-pointer p-4 sm:p-5 border flex flex-col justify-between ${
+                      className={`group relative rounded-2xl transition-colors duration-200 cursor-pointer p-4 sm:p-5 border flex flex-col justify-between ${
                         i > 0 ? "-mt-10 sm:-mt-12" : ""
                       } ${
                         isActive 

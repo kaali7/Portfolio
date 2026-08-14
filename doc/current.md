@@ -134,10 +134,15 @@
   - **Identified Scroll Imbalance Root Cause**: Discovered mathematical discrepancy where Hero ➔ Projects, Projects ➔ Skills, and Skills ➔ Experience had only `100vh` scroll travel before the next curtain section arrived, while Experience ➔ Contact had a `300vh` scroll travel.
   - **Standardized Balanced Scroll Travel (`180vh`)**: Standardized all section wrappers (`hero-wrapper`, `projects-wrapper`, `skills-wrapper`, `experience-wrapper`) to a uniform `180vh` scroll travel height without complex negative margin offsets.
   - **Fixed Premature Low-Light Dimming**: Changed GSAP ScrollTrigger transition start from `top 30%` down to `top 10%` and increased opacity target from `0.3-0.35` (dark shadow) up to `0.85-0.88` with subtle `0.98` scale contraction. Sections now remain at **100% full brightness and crystal clarity** while being viewed, only applying a subtle depth hint during the final 10% docking moment.
+- [x] Fixed **Project Spotlight Card Default Rendering & Fast Spring Motion** ([components/Projects.tsx](file:///c:/kali/product/portfolio/components/Projects.tsx)):
+  - **Eliminated Duplicate `layoutId` Collision**: Removed conflicting shared `layoutId` tags present on both left spotlight screen and right stacked list cards simultaneously, which previously caused Framer Motion to collapse the left spotlight card into the right list item on first load.
+  - **Guaranteed Default Spotlight Card Display**: Wrapped left spotlight screen in `<AnimatePresence mode="wait">` with `key={activeProject.id}`, ensuring Project #01 (`Financial Forecasting Engine`) is **100% visible by default on initial page load**.
+  - **Sub-180ms Instant Responsive Hover Physics**: Optimized hover transition springs (`stiffness: 450, damping: 22`) for instant, buttery-smooth spotlight updates when hovering over any stacked project item.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
+
 
 
 
