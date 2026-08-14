@@ -141,10 +141,14 @@
 - [x] Redesigned **Futuristic Obsidian Scrollbar System** ([app/globals.css](file:///c:/kali/product/portfolio/app/globals.css)):
   - **Eliminated Default OS Scrollbar**: Removed ugly browser-default gray track and scrollbar arrow buttons across WebKit (`Chrome`, `Edge`, `Safari`, `Brave`) and Firefox.
   - **Dark Black Floating Pill Thumb**: Styled track with obsidian black (`#08080A`), `8px` width, dark black floating pill thumb (`#1C1D24` with `2px solid #08080A` inset border), and sleek charcoal hover accent (`#2D2E3A` / `#3F3F46`).
-- [x] Built **Dedicated `/work` & `/about` Page Routes** ([app/work/page.tsx](file:///c:/kali/product/portfolio/app/work/page.tsx), [app/about/page.tsx](file:///c:/kali/product/portfolio/app/about/page.tsx)):
-  - **Dedicated Work Archive Page (`/work`)**: Built a full-featured projects & systems showcase page featuring interactive category filter pills (`ALL`, `AI / ML`, `GENAI & LLMS`, `AI SYSTEMS`, `AGENTIC AI`, `COMPUTER VISION`, `DATA ENGINEERING`), live search filter, 4-tile metric cards, technology tags (`TechIcon`), key architectural highlights, and case study links.
-  - **Dedicated Editorial About Page (`/about`)**: Created an editorial biography page detailing Ashwini's background, core engineering principles, quick stat cards, 6-card technical competencies bento matrix, career milestones timeline, and clipboard email CTA.
-  - **Relocated Project Detail Pages (`/work/[id]`)**: Moved project detail case study pages from `app/projects/[id]` into `app/work/[id]` ([app/work/[id]/page.tsx](file:///c:/kali/product/portfolio/app/work/%5Bid%5D/page.tsx)), updating back links to `/work` and syncing all case study links in `Projects.tsx`, `Skills.tsx`, and `app/work/page.tsx`.
+- [x] Built **Dedicated High-Contrast 404 Error Page (`/not-found`)** ([app/not-found.tsx](file:///c:/kali/product/portfolio/app/not-found.tsx)):
+  - **Design Read & Vibe Alignment**: Designed an AI research lab error surface with "LOSS FUNCTION UNCONVERGED // OUT OF MANIFOLD BOUNDS" editorial messaging, interactive 3.0σ deviation chip, and glitch text effects.
+  - **Interactive Cursor Spotlight & Spring Physics**: Implemented spring-based mouse radial spotlight tracking (`useMotionValue`, `useSpring`, `useReducedMotion()`) reacting to cursor movement across obsidian glass containers.
+  - **AI Assistant Mascot & Quick Nav CTAs**: Added an animated spinning AI assistant badge with typewriter guidance, solid high-contrast white "Return to Safety" home CTA (`/`), and glass action pills for `/work` and `/about`.
+- [x] Fixed **Project Deck 'More' Button Z-Index & Card Overlap Issue** ([components/Projects.tsx](file:///c:/kali/product/portfolio/components/Projects.tsx)):
+  - **Applied `animate` & `design-taste-frontend` Skills**: Resolved z-index collision where hovering card #04 (`Autonomous Agent Framework`) caused its expanded white background container (`zIndex: 50`) to overlap and obscure the dark "more" button.
+  - **Calibrated Z-Index Layering**: Placed the "more" button at `relative z-50` with hover elevation (`hover:z-60`), keeping the button pristine and fully readable regardless of which project card is active or hovered.
+  - **Refined Card Stack Margins**: Adjusted top negative margins (`-mt-8 sm:-mt-9` for stacked deck cards, `mt-3 sm:mt-4` top gap for the "more" button) to provide clean breathing room between card items without clipping text.
 
 ## What is Pending
 - [ ] Connect remaining secondary footer links.

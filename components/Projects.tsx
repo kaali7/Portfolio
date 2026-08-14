@@ -175,10 +175,10 @@ export function Projects() {
                       }}
                       transition={{ type: "spring", stiffness: 350, damping: 24 }}
                       style={{
-                        zIndex: isActive ? 50 : 30 - i,
+                        zIndex: isActive ? 40 : 30 - i,
                       }}
                       className={`group relative rounded-2xl transition-colors duration-200 cursor-pointer p-4 sm:p-5 border flex flex-col justify-between ${
-                        i > 0 ? "-mt-10 sm:-mt-12" : ""
+                        i > 0 ? "-mt-8 sm:-mt-9" : ""
                       } ${
                         isActive 
                           ? "bg-[#08080A] text-white border-purple-500 shadow-2xl shadow-purple-950/30" 
@@ -247,7 +247,7 @@ export function Projects() {
                 })}
 
                 {/* CARD ITEM 05: 'MORE' STACKED CARD LINKING TO /work */}
-                <Link href="/work" className="block w-full">
+                <Link href="/work" className="block w-full relative z-50 mt-3 sm:mt-4">
                   <motion.div
                     layout
                     initial={{ opacity: 0, y: 30 }}
@@ -260,13 +260,12 @@ export function Projects() {
                     }}
                     whileHover={{
                       rotate: 0,
-                      scale: 1.04,
+                      scale: 1.03,
                       x: -4,
                       transition: { type: "spring", stiffness: 350, damping: 22 }
                     }}
                     transition={{ type: "spring", stiffness: 280, damping: 24 }}
-                    style={{ zIndex: 10 }}
-                    className="-mt-10 sm:-mt-12 group relative rounded-2xl cursor-pointer p-4 sm:p-5 border-2 border-purple-500/80 bg-[#08080A] text-white shadow-2xl shadow-purple-950/30 flex items-center justify-between"
+                    className="group relative rounded-2xl cursor-pointer p-4 sm:p-5 border-2 border-purple-500/80 bg-[#08080A] text-white shadow-xl shadow-purple-950/20 flex items-center justify-between z-50 hover:z-60"
                   >
                     <div className="flex items-center gap-3">
                       <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-ping" />
@@ -277,7 +276,7 @@ export function Projects() {
 
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] font-mono text-slate-300 bg-white/10 px-3 py-1 rounded-full uppercase tracking-wider font-bold">
-                        4 ARCHITECTURES
+                        VIEW ALL WORK
                       </span>
                       <div className="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                         <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
