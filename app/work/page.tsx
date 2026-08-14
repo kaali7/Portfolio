@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
 import { projectsData } from "@/lib/projectsData";
 import { Search, ArrowUpRight, Cpu, Layers, Sparkles, Filter } from "lucide-react";

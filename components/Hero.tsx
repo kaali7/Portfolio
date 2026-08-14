@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import { TransitionLink } from "@/components/TransitionLink";
 
 // Interactive Circular AI Robot Avatar with Mouse-Tracking White Eyes
 function RobotAvatar({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
@@ -412,13 +413,13 @@ export function Hero() {
             className="hidden md:flex items-center gap-8 lg:gap-12 text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest text-white/90"
           >
             {navLinks.map((link) => (
-              <a 
+              <TransitionLink 
                 key={link.label}
                 href={link.href} 
                 className="hover:text-white transition-colors duration-200 py-1"
               >
                 <span>{link.label}</span>
-              </a>
+              </TransitionLink>
             ))}
           </motion.nav>
 
@@ -467,14 +468,14 @@ export function Hero() {
               className="absolute top-full left-4 right-4 bg-[#08080A]/95 backdrop-blur-xl border border-white/15 rounded-2xl px-6 py-6 md:hidden flex flex-col gap-4 shadow-2xl z-50 mt-2"
             >
               {navLinks.map((link) => (
-                <a
+                <TransitionLink
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="font-mono text-base font-black tracking-widest text-white/90 hover:text-purple-400 py-2 transition-colors flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                </a>
+                </TransitionLink>
               ))}
             </motion.div>
           )}

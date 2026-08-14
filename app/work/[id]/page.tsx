@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import { projectsData } from "@/lib/projectsData";

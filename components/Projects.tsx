@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
 import { projectsData } from "@/lib/projectsData";
 

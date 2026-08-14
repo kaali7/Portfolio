@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Building with data, models & intelligence.",
 };
 
+import { TransitionOverlayProvider } from "@/components/TransitionOverlay";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <TransitionOverlayProvider>{children}</TransitionOverlayProvider>
+      </body>
     </html>
   );
 }

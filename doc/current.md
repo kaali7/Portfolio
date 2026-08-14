@@ -7,6 +7,7 @@
 - **Icon System**: Standardized on `simple-icons` for tech logos, `lucide-react` for UI/data controls, and `@tabler/icons-react` for secondary UI icons (`TechIcon.tsx`). Strictly zero raw emojis.
 - **Scroll & Transitions**: GSAP ScrollTrigger curtain transitions with `sticky top-0 min-h-[100dvh]` stacking layers across sections.
 - **Custom Scrollbar**: Dark black floating pill scrollbar system (`app/globals.css`).
+- **Purple Paint-Wipe Page Transitions (`TransitionOverlay.tsx`, `TransitionLink.tsx`)**: Fluid, dual-layer SVG paint wipe page transition across all routes (`Home`, `Work`, `About`, `Work ID`, `404`) with organic wave morphing and center monogram reveal. Fixed SVG path curve coordinates to retract upward (`sweepUpPath` → `solidCoverPath` → `retractUpPath` → `topExitPath`) and wrapped overlay in `<AnimatePresence>` to guarantee complete DOM unmounting when idle.
 
 ### 2. Core Homepage Sections (`app/page.tsx`)
 - **Hero Section (`components/Hero.tsx`)**: Editorial typography (`DATA SCIENTIST × AI`), mouse parallax 3D depth, responsive top navbar with mega-menu dropdowns, and interactive AI Robot Mascot with proximity speech bubble.
