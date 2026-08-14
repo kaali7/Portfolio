@@ -308,9 +308,9 @@ export function Hero() {
   const parallaxCardY = useTransform(smoothY, (y) => (Number(y) - 450) * -0.015);
 
   const navLinks = [
-    { label: "HOME", href: "#" },
-    { label: "WORK", href: "#projects" },
-    { label: "ABOUT", href: "#skills" },
+    { label: "HOME", href: "/" },
+    { label: "WORK", href: "/work" },
+    { label: "ABOUT", href: "/about" },
   ];
 
   return (

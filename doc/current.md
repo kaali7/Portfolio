@@ -141,13 +141,14 @@
 - [x] Redesigned **Futuristic Obsidian Scrollbar System** ([app/globals.css](file:///c:/kali/product/portfolio/app/globals.css)):
   - **Eliminated Default OS Scrollbar**: Removed ugly browser-default gray track and scrollbar arrow buttons across WebKit (`Chrome`, `Edge`, `Safari`, `Brave`) and Firefox.
   - **Dark Black Floating Pill Thumb**: Styled track with obsidian black (`#08080A`), `8px` width, dark black floating pill thumb (`#1C1D24` with `2px solid #08080A` inset border), and sleek charcoal hover accent (`#2D2E3A` / `#3F3F46`).
-- [x] Streamlined **Top Navigation Bar Architecture & Enlarged Typography** ([components/Hero.tsx](file:///c:/kali/product/portfolio/components/Hero.tsx)):
-  - **Streamlined Navigation Items**: Updated top header links strictly to **`HOME`**, **`WORK`**, and **`ABOUT`**, completely removing the dropdown arrow and sub-menu for a clean, minimal design.
-  - **Enlarged Text Typography**: Scaled font sizes up to `text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest` for striking, highly legibile editorial navigation typography.
+- [x] Built **Dedicated `/work` & `/about` Page Routes** ([app/work/page.tsx](file:///c:/kali/product/portfolio/app/work/page.tsx), [app/about/page.tsx](file:///c:/kali/product/portfolio/app/about/page.tsx)):
+  - **Dedicated Work Archive Page (`/work`)**: Built a full-featured projects & systems showcase page featuring interactive category filter pills (`ALL`, `AI / ML`, `GENAI & LLMS`, `AI SYSTEMS`, `AGENTIC AI`, `COMPUTER VISION`, `DATA ENGINEERING`), live search filter, 4-tile metric cards, technology tags (`TechIcon`), key architectural highlights, and case study links.
+  - **Dedicated Editorial About Page (`/about`)**: Created an editorial biography page detailing Ashwini's background, core engineering principles, quick stat cards, 6-card technical competencies bento matrix, career milestones timeline, and clipboard email CTA.
+  - **Navbar & Card Link Connections**: Connected top header `WORK` link (`/work`), `ABOUT` link (`/about`), and the "more 4 ARCHITECTURES" card in [components/Projects.tsx](file:///c:/kali/product/portfolio/components/Projects.tsx) to open `/work` directly.
 
 ## What is Pending
-- [ ] Implement About / Services / Research sections.
-- [ ] Connect navigation links smoothly to their respective sections.
+- [ ] Connect remaining secondary footer links.
+
 
 
 
