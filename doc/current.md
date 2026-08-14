@@ -20,7 +20,7 @@
 - **Work Archive (`app/work/page.tsx`)**: High-contrast white theme page with search filter, category pills (`AI/ML`, `GenAI`, `Agentic AI`, etc.), metric cards, and case study links.
 - **Case Study Details (`app/work/[id]/page.tsx`)**: Detailed project case studies with KPI metrics, problem/impact breakdown, architectural highlights, and code snippets.
 - **About Biography (`app/about/page.tsx`)**: Editorial biography, stat metrics, 6-card technical competencies matrix, and career milestones timeline.
-- **404 Not Found (`app/not-found.tsx`)**: Custom error page ("LOSS FUNCTION UNCONVERGED"), interactive 3.0σ deviation chip, mouse spotlight, and AI assistant reroute CTAs.
+- **404 Not Found (`app/not-found.tsx`, `RobotAvatar.tsx`)**: Custom error page ("LOSS FUNCTION UNCONVERGED"), interactive 3.0σ deviation chip, mouse spotlight, AI assistant reroute CTAs, and interactive AI Robot Avatar mascot with mouse-tracking white eyes, typewriter speech bubble (`404 REROUTE!`), and spring tilt physics.
 
 ---
 

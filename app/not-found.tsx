@@ -16,6 +16,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
+import { RobotAvatar } from "@/components/RobotAvatar";
 
 // Design Read:
 // Reading this as: 404 error page for Ashwini's personal Data Science & AI Engineering portfolio,
@@ -153,31 +154,25 @@ export default function NotFound() {
           The coordinates standard deviation exceeded <code className="font-mono text-purple-300 bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-800/40">3.0σ</code>. The requested route could not be mapped to any known data manifold.
         </motion.p>
 
-        {/* Interactive AI Mascot Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mb-12 p-4 sm:p-5 rounded-2xl border border-white/10 bg-[#0B0C10]/90 backdrop-blur-xl shadow-2xl flex items-center gap-4 max-w-md text-left"
-        >
-          {/* Avatar Icon */}
-          <div className="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center shrink-0 text-purple-300">
-            <Sparkles className="w-6 h-6 animate-spin" style={{ animationDuration: '8s' }} />
-          </div>
-
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-purple-400 tracking-wider">AI ASSISTANT // BOT</span>
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-slate-300 leading-snug">
+        {/* Interactive AI Robot Mascot Character */}
+        <div className="relative mb-10 flex flex-col items-center">
+          <RobotAvatar mouseX={mouseX} mouseY={mouseY} speechText="404 REROUTE!" size="lg" />
+          
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-6 px-5 py-3 rounded-2xl border border-white/15 bg-[#0B0C10]/90 backdrop-blur-xl shadow-2xl flex items-center gap-3 text-left max-w-sm"
+          >
+            <span className="flex h-2 w-2 relative shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <p className="text-xs sm:text-sm text-slate-300 font-medium">
               &quot;Don&apos;t worry! Let&apos;s reroute your trajectory back to safety.&quot;
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* CTA ACTION BUTTONS */}
         <motion.div
