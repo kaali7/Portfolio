@@ -99,7 +99,7 @@ export default function Home() {
 
         {/* Slide 2: Skills Wrapper */}
         <div className="skills-wrapper relative h-[300vh] z-20 -mt-[200vh]">
-          <div className="skills-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
+          <div className="skills-slide sticky top-0 h-[100vh] w-full overflow-hidden bg-[#08080A]">
             <Skills />
           </div>
         </div>
