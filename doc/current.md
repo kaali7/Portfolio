@@ -138,10 +138,14 @@
   - **Eliminated Duplicate `layoutId` Collision**: Removed conflicting shared `layoutId` tags present on both left spotlight screen and right stacked list cards simultaneously, which previously caused Framer Motion to collapse the left spotlight card into the right list item on first load.
   - **Guaranteed Default Spotlight Card Display**: Wrapped left spotlight screen in `<AnimatePresence mode="wait">` with `key={activeProject.id}`, ensuring Project #01 (`Financial Forecasting Engine`) is **100% visible by default on initial page load**.
   - **Sub-180ms Instant Responsive Hover Physics**: Optimized hover transition springs (`stiffness: 450, damping: 22`) for instant, buttery-smooth spotlight updates when hovering over any stacked project item.
+- [x] Redesigned **Futuristic Obsidian Scrollbar System** ([app/globals.css](file:///c:/kali/product/portfolio/app/globals.css)):
+  - **Eliminated Default OS Scrollbar**: Removed ugly browser-default gray track and scrollbar arrow buttons across WebKit (`Chrome`, `Edge`, `Safari`, `Brave`) and Firefox.
+  - **Dark Glass Floating Pill Thumb**: Styled track with obsidian black (`#08080A`), `8px` width, floating pill thumb (`border: 2px solid #08080A`), translucent neutral fill (`rgba(255,255,255,0.2)`), and glowing purple accent (`#A855F7`) on hover/active.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
+
 
 
 
