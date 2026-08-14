@@ -1,267 +1,660 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import {
+  Mail,
+  Check,
+  Copy,
+  MapPin,
+  Clock,
+  Share2,
+  ArrowUp,
+  Sparkles
+} from "lucide-react";
+import { TechIcon } from "./TechIcon";
+
+// Interactive Circular AI Robot Avatar with Mouse-Tracking White Eyes & Live Typing Speech Balloon
+function ContactRobotAvatar({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const pupilX = useMotionValue(0);
+  const pupilY = useMotionValue(0);
+  
+  const smoothPupilX = useSpring(pupilX, { stiffness: 140, damping: 20, mass: 0.6 });
+  const smoothPupilY = useSpring(pupilY, { stiffness: 140, damping: 20, mass: 0.6 });
+  
+  const headRotate = useTransform(smoothPupilX, [-8, 8], [-4, 4]);
+
+  const [isBlinking, setIsBlinking] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [isNear, setIsNear] = useState(false);
+
+  const [typedText, setTypedText] = useState("");
+  const [isTalking, setIsTalking] = useState(false);
+  
+  const fullText = "HEI! Let's build Autonomous AI Agents & RAG Systems together!";
+
+  // Live Typing Animation Effect
+  useEffect(() => {
+    let current = "";
+    let i = 0;
+    let timeoutId: NodeJS.Timeout;
+    
+    setIsTalking(true);
+    setTypedText("");
+
+    const typeNextChar = () => {
+      if (i < fullText.length) {
+        current += fullText[i];
+        setTypedText(current);
+        i++;
+        timeoutId = setTimeout(typeNextChar, 35);
+      } else {
+        setIsTalking(false);
+        // Pause 5s on complete text, then loop
+        timeoutId = setTimeout(() => {
+          current = "";
+          i = 0;
+          setTypedText("");
+          setIsTalking(true);
+          typeNextChar();
+        }, 5000);
+      }
+    };
+
+    timeoutId = setTimeout(typeNextChar, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+        if (Math.random() < 0.3) {
+          setTimeout(() => {
+            setIsBlinking(true);
+            setTimeout(() => setIsBlinking(false), 130);
+          }, 110);
+        }
+      }, 130);
+    }, Math.random() * 3000 + 3200);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const updateEyePosition = () => {
+      if (!containerRef.current) return;
+      const mX = mouseX.get();
+      const mY = mouseY.get();
+      if (mX === -1000 || mY === -1000) {
+        setIsNear(false);
+        pupilX.set(0);
+        pupilY.set(0);
+        return;
+      }
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const robotCenterX = rect.left + rect.width / 2;
+      const robotCenterY = rect.top + rect.height / 2;
+
+      const dx = mX - robotCenterX;
+      const dy = mY - robotCenterY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 340) {
+        setIsNear(true);
+      } else {
+        setIsNear(false);
+      }
+
+      const maxOffset = 7.5;
+
+      if (dist > 0) {
+        const moveX = (dx / dist) * Math.min(dist * 0.07, maxOffset);
+        const moveY = (dy / dist) * Math.min(dist * 0.07, maxOffset);
+        pupilX.set(moveX);
+        pupilY.set(moveY);
+      }
+    };
+
+    const unsubX = mouseX.on("change", updateEyePosition);
+    const unsubY = mouseY.on("change", updateEyePosition);
+
+    return () => {
+      unsubX();
+      unsubY();
+    };
+  }, [mouseX, mouseY, pupilX, pupilY]);
+
+  const isActive = showTooltip || isNear;
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      className="relative z-30 group cursor-pointer flex flex-col items-center w-full max-w-md sm:max-w-lg mt-24 sm:mt-28"
+    >
+      {/* Speech Balloon Card - Anchored Above Robot (Expands Upwards, Keeping Robot 100% Fixed Below) */}
+      <div className="absolute bottom-full mb-4 z-50 w-full text-left pointer-events-auto">
+        <div className="bg-[#060608] border-2 border-purple-500/40 p-4.5 sm:p-5 lg:p-6 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] relative flex items-center justify-center min-h-[76px] sm:min-h-[88px]">
+          <p className="text-sm sm:text-base lg:text-lg text-slate-100 font-sans font-bold leading-relaxed text-center tracking-wide">
+            {typedText}
+            <span className="inline-block w-2 h-4 sm:h-5 ml-1 bg-purple-400 animate-pulse align-middle" />
+          </p>
+
+          {/* Speech Balloon Tail */}
+          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[12px] border-t-[#060608]" />
+        </div>
+      </div>
+
+      {/* Fixed Position Circular AI Robot Avatar (Anchored at Bottom) */}
+      <motion.div 
+        style={{ rotate: headRotate }}
+        className="w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full bg-white text-[#08080A] shadow-[0_20px_55px_rgba(0,0,0,0.5)] border-4 border-slate-200 flex items-center justify-center p-4 sm:p-5 relative transition-all duration-300 group-hover:border-purple-400 group-hover:shadow-[0_25px_70px_rgba(168,85,247,0.4)]"
+      >
+        <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
+          <line x1="50" y1="18" x2="50" y2="8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+          <circle cx="50" cy="7" r="4" className="fill-white stroke-2 stroke-slate-900 animate-pulse" />
+
+          <rect x="14" y="42" width="8" height="16" rx="4" fill="currentColor" />
+          <rect x="78" y="42" width="8" height="16" rx="4" fill="currentColor" />
+
+          <rect x="20" y="20" width="60" height="58" rx="28" fill="currentColor" />
+          <rect x="27" y="32" width="46" height="34" rx="17" className="fill-slate-950" />
+
+          <motion.g
+            style={{
+              x: smoothPupilX,
+              y: smoothPupilY,
+              scaleY: isBlinking ? 0.08 : 1,
+              transformOrigin: "50% 46px"
+            }}
+          >
+            <ellipse cx="40" cy="46" rx="5.5" ry="8.5" className="fill-white" />
+            <circle cx="38.5" cy="43.5" r="1.8" className="fill-slate-900" />
+
+            <ellipse cx="60" cy="46" rx="5.5" ry="8.5" className="fill-white" />
+            <circle cx="58.5" cy="43.5" r="1.8" className="fill-slate-900" />
+          </motion.g>
+
+          <motion.path 
+            d={isTalking || isActive ? "M 43 56 Q 50 67 57 56" : "M 43 59 Q 50 63 57 59"} 
+            stroke="#ffffff" 
+            strokeWidth="2.8" 
+            strokeLinecap="round" 
+            fill={isTalking || isActive ? "#ffffff" : "none"}
+            animate={isTalking ? { scaleY: [1, 1.4, 0.75, 1.3, 1] } : { scaleY: 1 }}
+            transition={{
+              duration: 0.3,
+              repeat: isTalking ? Infinity : 0,
+              ease: "easeInOut"
+            }}
+          />
+        </svg>
+      </motion.div>
+    </div>
+  );
+}
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    scope: "Autonomous Agent System",
-    message: ""
-  });
-
   const [copied, setCopied] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
+  // Mouse position values for robot eye tracking
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
+
+  const handleSectionMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  };
+
+  const handleSectionMouseLeave = () => {
+    mouseX.set(-1000);
+    mouseY.set(-1000);
+  };
+
+  // 1-Click Email Copy Handler
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("ashwini@ai-architect.io");
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 4000);
-    }, 1200);
+  // Interactive Neural Data Particle Canvas Stream
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    const numNodes = Math.min(Math.floor((width * height) / 18000), 40);
+    const nodes: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      pulse: number;
+      label?: string;
+    }> = [];
+
+    const labels = ["\u03B8", "\u03C3", "f(x)", "W", "b", "Loss", "RAG", "v\u2081", "\u2207"];
+
+    for (let i = 0; i < numNodes; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        radius: Math.random() * 1.8 + 1.2,
+        pulse: Math.random() * Math.PI * 2,
+        label: i % 4 === 0 ? labels[i % labels.length] : undefined
+      });
+    }
+
+    let localMouseX = -1000;
+    let localMouseY = -1000;
+
+    const handleCanvasMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      localMouseX = e.clientX - rect.left;
+      localMouseY = e.clientY - rect.top;
+    };
+
+    const handleCanvasMouseLeave = () => {
+      localMouseX = -1000;
+      localMouseY = -1000;
+    };
+
+    canvas.addEventListener("mousemove", handleCanvasMouseMove);
+    canvas.addEventListener("mouseleave", handleCanvasMouseLeave);
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < nodes.length; i++) {
+        const nodeA = nodes[i];
+        nodeA.x += nodeA.vx;
+        nodeA.y += nodeA.vy;
+
+        if (nodeA.x < 0 || nodeA.x > width) nodeA.vx *= -1;
+        if (nodeA.y < 0 || nodeA.y > height) nodeA.vy *= -1;
+
+        nodeA.pulse += 0.02;
+
+        for (let j = i + 1; j < nodes.length; j++) {
+          const nodeB = nodes[j];
+          const dx = nodeB.x - nodeA.x;
+          const dy = nodeB.y - nodeA.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            const alpha = (1 - dist / 110) * 0.22;
+            ctx.beginPath();
+            ctx.moveTo(nodeA.x, nodeA.y);
+            ctx.lineTo(nodeB.x, nodeB.y);
+            ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+
+        const mdx = localMouseX - nodeA.x;
+        const mdy = localMouseY - nodeA.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < 140) {
+          const malpha = (1 - mdist / 140) * 0.45;
+          ctx.beginPath();
+          ctx.moveTo(nodeA.x, nodeA.y);
+          ctx.lineTo(localMouseX, localMouseY);
+          ctx.strokeStyle = `rgba(192, 132, 252, ${malpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        const currentRadius = nodeA.radius + Math.sin(nodeA.pulse) * 0.4;
+        ctx.beginPath();
+        ctx.arc(nodeA.x, nodeA.y, currentRadius, 0, Math.PI * 2);
+        ctx.fillStyle = mdist < 140 ? "#c084fc" : "rgba(168, 85, 247, 0.65)";
+        ctx.fill();
+
+        if (nodeA.label) {
+          ctx.font = "10px monospace";
+          ctx.fillStyle = "rgba(226, 232, 240, 0.4)";
+          ctx.fillText(nodeA.label, nodeA.x + 6, nodeA.y - 4);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (canvas) {
+        canvas.removeEventListener("mousemove", handleCanvasMouseMove);
+        canvas.removeEventListener("mouseleave", handleCanvasMouseLeave);
+      }
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [shouldReduceMotion]);
+
+  // Mouse spotlight tracking for interactive cards
+  const [spotlightPos, setSpotlightPos] = useState<Record<string, { x: number; y: number; opacity: number }>>({});
+
+  const handleCardMouseMove = (cardId: string, e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setSpotlightPos((prev) => ({
+      ...prev,
+      [cardId]: {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        opacity: 1
+      }
+    }));
   };
+
+  const handleCardMouseLeave = (cardId: string) => {
+    setSpotlightPos((prev) => ({
+      ...prev,
+      [cardId]: { ...prev[cardId], opacity: 0 }
+    }));
+  };
+
+  // Social media platform cards data (Borderless enlarged brand icons with hover rotation physics)
+  const SOCIAL_PLATFORMS = [
+    {
+      name: "GitHub",
+      handle: "@ashwini-prajapati",
+      url: "https://github.com",
+      color: "from-purple-500/15 to-purple-900/10",
+      borderColor: "group-hover/tile:border-purple-400/60",
+      iconColor: "text-purple-300",
+      rotateAngle: -4,
+      svg: (
+        <svg viewBox="0 0 24 24" className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 fill-current text-purple-300">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+        </svg>
+      )
+    },
+    {
+      name: "LinkedIn",
+      handle: "Ashwini Prajapati",
+      url: "https://linkedin.com",
+      color: "from-blue-500/15 to-indigo-900/10",
+      borderColor: "group-hover/tile:border-blue-400/60",
+      iconColor: "text-blue-400",
+      rotateAngle: 4,
+      svg: (
+        <svg viewBox="0 0 24 24" className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 fill-current text-blue-400">
+          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.74a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2z" />
+        </svg>
+      )
+    },
+    {
+      name: "Twitter / X",
+      handle: "@ashwini_ai",
+      url: "https://twitter.com",
+      color: "from-cyan-500/15 to-slate-900/10",
+      borderColor: "group-hover/tile:border-cyan-400/60",
+      iconColor: "text-cyan-300",
+      rotateAngle: -5,
+      svg: (
+        <svg viewBox="0 0 24 24" className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 fill-current text-cyan-300">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      )
+    }
+  ];
 
   return (
     <section 
+      ref={sectionRef}
       id="contact" 
-      className="w-full min-h-[100dvh] bg-[#08080A] text-white flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 rounded-t-[3rem] md:rounded-t-[4.5rem] lg:rounded-t-[5rem] shadow-[0_-35px_90px_rgba(0,0,0,0.7)] border-t-2 border-purple-500/50 relative z-30"
+      onMouseMove={handleSectionMouseMove}
+      onMouseLeave={handleSectionMouseLeave}
+      className="w-full h-auto lg:h-[100vh] min-h-[100dvh] lg:min-h-0 bg-[#060608] text-white flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-24 pb-6 sm:pb-8 lg:pb-6 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-30px_90px_rgba(0,0,0,0.85)] border-t border-purple-500/30 relative z-30 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto w-full relative">
+      {/* Background Neural Particle Canvas */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute inset-0 w-full h-full pointer-events-auto opacity-60 z-0"
+      />
+
+      {/* Top Ambient Glow Gradient */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-purple-600/15 via-indigo-600/5 to-transparent blur-3xl pointer-events-none z-0" />
+
+      <div className="max-w-7xl mx-auto w-full relative z-10 flex-1 flex flex-col justify-between">
         
         {/* Section Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10 sm:mb-14 pb-5 border-b border-white/10"
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+          className="mt-2 sm:mt-4 lg:mt-6 mb-6 sm:mb-8 lg:mb-10 pb-3 border-b border-white/10 flex items-center justify-between"
         >
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">
-            Let's Build Something <span className="font-black italic text-purple-400">Extraordinary</span>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
+            Initiate <span className="font-black italic bg-gradient-to-r from-purple-400 via-indigo-300 to-white bg-clip-text text-transparent">Data & AI</span> Collaboration
           </h2>
         </motion.div>
 
-
-        {/* Contact Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* 2-Column Bento Wireframe Layout - Full Vertical Page Expansion */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch flex-1 my-2 sm:my-4">
           
-          {/* Left Column: Direct Contact Info & Availability Card (Col 1-5) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            
-            {/* Status Card */}
-            <div className="bg-[#13131A] border border-white/10 rounded-3xl p-6 sm:p-7 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl pointer-events-none" />
+          {/* LEFT COLUMN: Robot Mascot Character Card (Col 1-4) - Super-Enlarged Mascot */}
+          <div className="lg:col-span-4 flex flex-col h-full">
+            <motion.div 
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -3, scale: 1.01 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 450, damping: 25 }}
+              onMouseMove={(e) => handleCardMouseMove("robot-card", e)}
+              onMouseLeave={() => handleCardMouseLeave("robot-card")}
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-3xl p-6 sm:p-8 lg:p-10 relative overflow-hidden h-full flex flex-col justify-between items-center text-center group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)]"
+            >
+              {/* Mouse Spotlight Beam */}
+              {spotlightPos["robot-card"] && (
+                <div 
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                  style={{
+                    opacity: spotlightPos["robot-card"].opacity,
+                    background: `radial-gradient(400px circle at ${spotlightPos["robot-card"].x}px ${spotlightPos["robot-card"].y}px, rgba(168,85,247,0.18), transparent 80%)`
+                  }}
+                />
+              )}
 
-              <div className="flex items-center gap-2.5 mb-4">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                <span className="text-xs font-mono font-bold text-emerald-400 tracking-wider uppercase">
-                  CURRENTLY AVAILABLE FOR PROJECTS
-                </span>
+              {/* Super-Enlarged Robot Mascot Character - Fixed at Bottom */}
+              {/* Talking AI Robot Mascot Character with Live Speech Balloon */}
+              <div className="mt-auto mb-2 relative z-10 flex flex-col items-center w-full pt-28 sm:pt-36 pb-2">
+                <ContactRobotAvatar mouseX={mouseX} mouseY={mouseY} />
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                Have an AI project in mind?
+            </motion.div>
+          </div>
+
+          {/* RIGHT COLUMN: Stacked Email to Contact (Top) & Social Media (Bottom) */}
+          <div className="lg:col-span-8 flex flex-col justify-between gap-5 lg:gap-6 h-full">
+            
+            {/* RIGHT TOP CARD: Email To Contact */}
+            <motion.div 
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -3, scale: 1.01 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 450, damping: 25 }}
+              onMouseMove={(e) => handleCardMouseMove("email-card", e)}
+              onMouseLeave={() => handleCardMouseLeave("email-card")}
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-3xl p-7 sm:p-8 lg:p-9 relative overflow-hidden group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)] flex-1 flex flex-col justify-between"
+            >
+              {/* Mouse Spotlight Beam */}
+              {spotlightPos["email-card"] && (
+                <div 
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                  style={{
+                    opacity: spotlightPos["email-card"].opacity,
+                    background: `radial-gradient(450px circle at ${spotlightPos["email-card"].x}px ${spotlightPos["email-card"].y}px, rgba(168,85,247,0.18), transparent 80%)`
+                  }}
+                />
+              )}
+
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight relative z-10 group-hover:text-purple-200 transition-colors">
+                Contact
               </h3>
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
-                Whether you need a custom LLM system, edge vision pipeline, or autonomous agent architecture—let's discuss your roadmap.
-              </p>
 
-              {/* 1-Click Email Copy Pill */}
-              <div className="bg-[#08080A] border border-white/15 rounded-2xl p-3 flex items-center justify-between gap-2">
-                <span className="text-xs font-mono text-slate-300 truncate pl-2">
-                  ashwini@ai-architect.io
-                </span>
+              {/* 1-Click Email Copy Component */}
+              <div className="bg-[#060608] border border-white/15 group-hover:border-purple-500/40 rounded-2xl p-4.5 sm:p-6 flex items-center justify-between gap-4 relative z-10 transition-colors my-auto shadow-inner">
+                <div className="flex items-center gap-3.5 pl-1 truncate">
+                  <Mail className="w-7 h-7 text-purple-400 flex-shrink-0" />
+                  <span className="text-lg sm:text-xl lg:text-2xl font-mono text-slate-100 font-bold truncate select-all">
+                    ashwini@ai-architect.io
+                  </span>
+                </div>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.08, rotate: -4, y: -2 }}
+                  whileTap={{ scale: 0.95, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 450, damping: 17 }}
                   onClick={handleCopyEmail}
-                  className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-mono font-bold transition-all duration-200 shadow-md flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                  className="group/copybtn px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-sm sm:text-base font-mono font-bold transition-colors duration-150 shadow-md flex items-center gap-2 flex-shrink-0 cursor-pointer"
                 >
                   {copied ? (
                     <>
                       <span>COPIED!</span>
-                      <span>✓</span>
+                      <Check className="w-5 h-5 text-emerald-300 group-hover/copybtn:rotate-12 transition-transform duration-200" />
                     </>
                   ) : (
                     <>
-                      <span>COPY EMAIL</span>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                      </svg>
+                      <span>COPY MAIL</span>
+                      <Copy className="w-5 h-5 group-hover/copybtn:rotate-12 transition-transform duration-200" />
                     </>
                   )}
-                </button>
-              </div>
-            </div>
-
-            {/* Social Links & Location Bar */}
-            <div className="bg-[#13131A] border border-white/10 rounded-3xl p-6 flex flex-col gap-4">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-white/10">
-                <span>LOCATION</span>
-                <span className="text-white font-bold">San Francisco, CA</span>
+                </motion.button>
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-white/10">
-                <span>TIMEZONE</span>
-                <span className="text-white font-bold">PST (UTC -8)</span>
-              </div>
-
-              <div>
-                <span className="text-[10px] font-mono font-bold text-slate-500 tracking-widest uppercase block mb-3">
-                  CONNECT ON PLATFORMS
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { name: "GitHub", url: "https://github.com" },
-                    { name: "LinkedIn", url: "https://linkedin.com" },
-                    { name: "Twitter / X", url: "https://twitter.com" },
-                    { name: "Google Scholar", url: "https://scholar.google.com" }
-                  ].map((s) => (
-                    <a
-                      key={s.name}
-                      href={s.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-3.5 py-1.5 bg-[#08080A] hover:bg-purple-600/30 text-slate-300 hover:text-white border border-white/10 hover:border-purple-500/40 rounded-xl text-xs font-mono font-semibold transition-all"
-                    >
-                      {s.name} ↗
-                    </a>
-                  ))}
+              {/* Telemetry Row */}
+              <div className="flex items-center justify-start text-xs sm:text-sm font-mono text-slate-400 relative z-10 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-6">
+                  <span className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-purple-400" /> San Francisco, CA
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-purple-400" /> PST (UTC-8)
+                  </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+            {/* RIGHT BOTTOM CONTAINER: Social Media For Contact (Borderless Enlarged Icons & Hover Rotation) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -3, scale: 1.005 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 450, damping: 25 }}
+              onMouseMove={(e) => handleCardMouseMove("social-container", e)}
+              onMouseLeave={() => handleCardMouseLeave("social-container")}
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-3xl p-7 sm:p-8 lg:p-9 relative overflow-hidden group transition-colors duration-200 shadow-xl flex-1 flex flex-col justify-center"
+            >
+              {/* Mouse Spotlight Beam */}
+              {spotlightPos["social-container"] && (
+                <div 
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                  style={{
+                    opacity: spotlightPos["social-container"].opacity,
+                    background: `radial-gradient(450px circle at ${spotlightPos["social-container"].x}px ${spotlightPos["social-container"].y}px, rgba(168,85,247,0.15), transparent 80%)`
+                  }}
+                />
+              )}
 
-          {/* Right Column: Interactive Contact Form (Col 6-12) */}
-          <div className="lg:col-span-7">
-            <div className="bg-[#13131A] border border-white/10 rounded-3xl p-6 sm:p-8 relative">
-              
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-6 flex items-center justify-between">
-                <span>Send a Direct Message</span>
-                <span className="text-xs font-mono text-purple-400 font-normal">SECURE ENCRYPTION</span>
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight relative z-10 group-hover:text-purple-200 transition-colors">
+                Social Media
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Name Input */}
-                  <div>
-                    <label className="block text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                      Your Name
-                    </label>
-                    <input 
-                      type="text"
-                      required
-                      placeholder="Jane Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-[#08080A] border border-white/15 focus:border-purple-500 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  {/* Email Input */}
-                  <div>
-                    <label className="block text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                      Email Address
-                    </label>
-                    <input 
-                      type="email"
-                      required
-                      placeholder="jane@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#08080A] border border-white/15 focus:border-purple-500 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Scope Selection */}
-                <div>
-                  <label className="block text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Project Scope / Area
-                  </label>
-                  <select
-                    value={formData.scope}
-                    onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
-                    className="w-full bg-[#08080A] border border-white/15 focus:border-purple-500 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:outline-none transition-colors cursor-pointer"
+              {/* 3 Social Media Bento Cards Grid (Borderless Icons with Hover Angle Rotation) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-6 relative z-10 my-auto">
+                {SOCIAL_PLATFORMS.map((platform) => (
+                  <motion.a
+                    key={platform.name}
+                    href={platform.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.08, y: -4, rotate: platform.rotateAngle }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 16 }}
+                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-3xl p-6 sm:p-7 flex flex-col items-center justify-center text-center gap-4 group/tile transition-all duration-200 shadow-lg cursor-pointer relative overflow-hidden min-h-[160px] sm:min-h-[185px]`}
                   >
-                    <option value="Autonomous Agent System">Autonomous Agent System Design</option>
-                    <option value="LLM Fine-Tuning & RAG">LLM Fine-Tuning & Production RAG</option>
-                    <option value="Edge Computer Vision">Real-Time Edge Computer Vision Pipeline</option>
-                    <option value="Technical Advisory">AI Architecture Advisory & Consulting</option>
-                  </select>
-                </div>
+                    {/* Borderless Enlarged Icon Container with Hover Rotation Physics */}
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-115 group-hover/tile:rotate-12">
+                      {platform.svg}
+                    </div>
 
-                {/* Message Input */}
-                <div>
-                  <label className="block text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Project Details
-                  </label>
-                  <textarea 
-                    rows={4}
-                    required
-                    placeholder="Tell me about your goals, technical constraints, timeline, and scope..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#08080A] border border-white/15 focus:border-purple-500 rounded-xl p-4 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none transition-colors resize-none"
-                  />
-                </div>
+                    {/* Centered Text Labels */}
+                    <div className="w-full">
+                      <h4 className="text-base sm:text-lg lg:text-xl font-black text-white group-hover/tile:text-purple-200 transition-colors mb-0.5">
+                        {platform.name}
+                      </h4>
+                      <p className="text-xs sm:text-sm font-mono text-slate-300 font-medium truncate">
+                        {platform.handle}
+                      </p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white rounded-xl text-xs sm:text-sm font-mono font-black tracking-wider transition-all duration-200 shadow-lg shadow-purple-900/30 flex items-center justify-center gap-2 cursor-pointer mt-2"
-                >
-                  {isSubmitting ? (
-                    <span>DISPATCHING MESSAGE...</span>
-                  ) : submitted ? (
-                    <span>MESSAGE TRANSMITTED SUCCESSFULLY! ✓</span>
-                  ) : (
-                    <>
-                      <span>TRANSMIT MESSAGE</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <line x1="22" y1="2" x2="11" y2="13"/>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                      </svg>
-                    </>
-                  )}
-                </button>
-
-              </form>
-
-            </div>
           </div>
 
         </div>
 
       </div>
 
-      {/* Footer Branding Bar */}
-      <div className="max-w-7xl mx-auto w-full pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+      {/* Section Bottom Footer */}
+      <div className="max-w-7xl mx-auto w-full pt-5 mt-8 sm:pt-6 sm:mt-10 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm font-mono text-slate-400 relative z-10">
         <div className="flex items-center gap-3">
-          <span className="font-signature text-2xl text-white font-normal">Ashwini</span>
-          <span>© {new Date().getFullYear()} — Built for High Performance</span>
+          <span className="font-signature text-2xl sm:text-3xl text-white font-normal drop-shadow-md">Ashwini</span>
+          <span className="text-slate-400">© {new Date().getFullYear()} — Engineered for Data & Neural Systems</span>
         </div>
 
-        <a 
+        {/* Circular Purple Back to Top Action Button Overlapping White Line */}
+        <motion.a 
           href="#top"
-          className="hover:text-white transition-colors flex items-center gap-1.5"
+          whileHover={{ scale: 1.15, y: -4 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-500 hover:from-purple-500 hover:to-indigo-400 text-white flex flex-col items-center justify-center shadow-[0_15px_45px_rgba(168,85,247,0.65)] border-2 border-purple-300/50 relative -mt-10 sm:-mt-14 z-20 group cursor-pointer"
         >
-          <span>BACK TO TOP</span>
-          <span>↑</span>
-        </a>
+          {/* Animated Purple Pulse Ring */}
+          <span className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping pointer-events-none" />
+          
+          <ArrowUp className="w-7 h-7 sm:w-9 sm:h-9 text-white group-hover:-translate-y-1 transition-transform duration-200 ease-out" />
+          <span className="text-[10px] sm:text-xs font-mono font-black tracking-widest text-purple-100 uppercase -mt-0.5">TOP</span>
+        </motion.a>
       </div>
     </section>
   );

@@ -114,15 +114,24 @@
   - **3D Mouse Parallax & Dynamic Radial Spotlight Beams**: Implemented spring-based 3D card tilt (`rotateX`, `rotateY`) reacting to cursor coordinates alongside a dynamic radial glass spotlight beam (`radial-gradient`) following mouse movements inside each card.
   - **Architectural HUD Modal Inspector**: Clicking any domain card opens a high-tech obsidian inspection modal with full technical descriptions, animated proficiency progress bars (0-100%), canonical code architecture snippets, and project case study links.
   - **Applied `animate` & `design-taste-frontend` Skills**: Hardware-accelerated animations (`opacity`, `transform`, `rotate`, `scale`) with snappy spring physics and reduced motion gating (`useReducedMotion()`).
-
 - [x] Redesigned **Clean Wall-Hanging Experience Deck & Fast Spring Motion** (`components/Experience.tsx`):
   - **Eliminated Visible Scrollbars**: Added cross-browser `.no-scrollbar` rules (`::-webkit-scrollbar { display: none }`, `scrollbar-width: none`, `-ms-overflow-style: none`) to [globals.css](file:///c:/kali/product/portfolio/app/globals.css) and added `no-scrollbar` to `experience-slide` in [app/page.tsx](file:///c:/kali/product/portfolio/app/page.tsx) and [Experience.tsx](file:///c:/kali/product/portfolio/components/Experience.tsx).
   - **Fixed Text Overlap & High-Contrast Legibility**: Separated timeline text labels (`CHAPTER 01`, `EdgeVision`, `CHAPTER 02`, `Autonomous AI Labs`) into a dedicated top info row with zero text overlap.
   - **Fast Sub-160ms Scale & Rotation Motion**: Accelerated hover/selection spring parameters (`stiffness: 550, damping: 25, mass: 0.15`) for snappy card expansion.
+- [x] Redesigned **Data Science & AI Contact Section** (`components/Contact.tsx`):
+  - **Copy Button Hover Angle Rotation Physics**: Added snappy hover angle rotation (`whileHover={{ scale: 1.08, rotate: -4, y: -2 }}`) with icon tilt (`group-hover/copybtn:rotate-12`) to the `COPY MAIL` action button.
+  - **Matching `Social Media` Card Header**: Added **`Social Media`** title to the bottom-right card, perfectly matching the top card's **`Contact`** title in size and font (`text-3xl sm:text-4xl lg:text-5xl font-black text-white`).
+  - **Renamed & Enlarged Heading**: Changed card title from `Email To Contact` to **`Contact`** and scaled typography up to `text-3xl sm:text-4xl lg:text-5xl font-black`.
+  - **Enlarged Email Address Typography**: Scaled email address text up to `text-lg sm:text-xl lg:text-2xl font-mono font-bold` (`ashwini@ai-architect.io`) with `28px` `Mail` icon and `px-6 py-3` copy button.
+  - **Enlarged Social Media Icons & Hover Angle Rotation**: Scaled brand SVG icons (**GitHub**, **LinkedIn**, **Twitter / X**) up to `80px` (`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20`), enlarged text labels (`text-base sm:text-lg lg:text-xl font-black`), and added playful hover angle rotation physics (`whileHover={{ scale: 1.08, rotate: -5..5 }}`).
+  - **Generous Top Section Padding Above Heading**: Significantly increased top section padding (`pt-16 sm:pt-20 lg:pt-24`) and top heading margin (`mt-2 sm:mt-4 lg:mt-6`), creating a luxurious, spacious top gap above `Initiate Data & AI Collaboration` per user screenshot.
+  - **Full-Page Vertical Expansion**: Expanded 2-column bento grid vertically (`flex-1 my-2 sm:my-4 items-stretch`) to fill 100% of the contact section viewport page height without empty gaps.
+  - **Robot Anchored at Bottom of Left Card**: Moved the AI Robot mascot down to sit solidly anchored at the bottom of the Left Card container (`mt-auto mb-2 pt-28 sm:pt-36`), leaving space for the speech balloon to float directly above it.
+  - **Fixed Bottom Robot Position (Upward Balloon Growth)**: Anchored speech balloon using `absolute bottom-full mb-4` directly above the robot avatar head. As typing animation populates text line-by-line, the speech balloon expands **UPWARDS**, while the Robot mascot avatar stays **100% fixed at the bottom** without any downward movement or layout shift.
+  - **White-Line Overlapping Back To Top Button**: Positioned the purple circular action button directly overlapping the horizontal footer line (`-mt-10 sm:-mt-14 z-20`) exactly per user diagram. Scaled diameter up to `96px` (`w-20 h-20 sm:w-24 sm:h-24`), `ArrowUp` icon to `36px` (`w-7 h-7 sm:w-9 sm:h-9`), and amplified glowing pulse shadow (`shadow-[0_15px_45px_rgba(168,85,247,0.65)]`).
+  - **Single Screen Desktop Fit (`100vh`)**: Fits 100% on a single screen with interactive mathematical canvas stream ($\theta, \sigma, f(x), W$) and mouse cursor radial spotlight tracking.
 
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
-- [ ] Audit performance and accessibility across mobile and desktop breakpoints.
-
 
