@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Zap, MapPin, CheckCircle2 } from "lucide-react";
+import { TechIcon } from "@/components/TechIcon";
 
 export function Experience() {
   const [activeExp, setActiveExp] = useState<number>(0);
@@ -20,7 +22,7 @@ export function Experience() {
         "Optimized vLLM and TensorRT-LLM inference servers to serve Llama-3-70B with sub-35ms token time-to-first-token (TTFT)",
         "Engineered hybrid sparse-dense vector retrieval clusters across 50M+ documents using Qdrant and cross-encoder re-ranking"
       ],
-      tags: ["AutoGen", "LangGraph", "vLLM", "PyTorch", "Qdrant", "FastAPI", "Docker"]
+      tags: ["AutoGen", "LangGraph", "PyTorch", "Qdrant", "FastAPI", "Docker"]
     },
     {
       role: "Senior Computer Vision Engineer",
@@ -35,7 +37,7 @@ export function Experience() {
         "Integrated multi-camera ByteTrack object tracking across non-overlapping field-of-views with 91.4% mAP accuracy",
         "Reduced vision model latency from 45ms to 11.2ms via INT8 post-training quantization and custom TensorRT plugins"
       ],
-      tags: ["YOLOv8", "TensorRT", "OpenCV", "ByteTrack", "C++", "CUDA", "NVIDIA Jetson"]
+      tags: ["TensorRT", "OpenCV", "Python", "Docker"]
     }
   ];
 
@@ -101,15 +103,17 @@ export function Experience() {
 
                   {/* Impact Metric Badge */}
                   <div className="flex items-center justify-between mt-2 pt-2 border-t border-current/10">
-                    <span className={`text-[11px] font-mono font-semibold ${
+                    <span className={`text-[11px] font-mono font-semibold flex items-center gap-1 ${
                       isSelected ? "text-slate-300" : "text-slate-500"
                     }`}>
-                      {exp.location}
+                      <MapPin className="w-3 h-3 text-purple-500" />
+                      <span>{exp.location}</span>
                     </span>
-                    <span className={`text-[11px] font-mono font-bold ${
+                    <span className={`text-[11px] font-mono font-bold flex items-center gap-1 ${
                       isSelected ? "text-purple-400" : "text-purple-700"
                     }`}>
-                      ⚡ {exp.impact}
+                      <Zap className="w-3 h-3 text-purple-500" />
+                      <span>{exp.impact}</span>
                     </span>
                   </div>
                 </motion.div>
@@ -143,8 +147,9 @@ export function Experience() {
                 <h3 className="text-2xl sm:text-3xl font-black text-[#08080A] tracking-tight mt-3 mb-1">
                   {experiences[activeExp].role}
                 </h3>
-                <p className="text-xs font-mono text-slate-500 font-semibold">
-                  📍 {experiences[activeExp].location}
+                <p className="text-xs font-mono text-slate-500 font-semibold flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-purple-600" />
+                  <span>{experiences[activeExp].location}</span>
                 </p>
               </div>
 
@@ -161,8 +166,8 @@ export function Experience() {
                 <ul className="space-y-2.5">
                   {experiences[activeExp].achievements.map((item, aIdx) => (
                     <li key={aIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 font-medium">
-                      <span className="w-5 h-5 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
-                        ✓
+                      <span className="w-5 h-5 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />
                       </span>
                       <span>{item}</span>
                     </li>
@@ -176,15 +181,17 @@ export function Experience() {
                   {experiences[activeExp].tags.map((tag, tIdx) => (
                     <span 
                       key={tIdx}
-                      className="text-[10px] sm:text-[11px] font-mono bg-white text-slate-800 border border-slate-200 px-2.5 py-0.5 rounded-md font-medium shadow-2xs"
+                      className="text-[10px] sm:text-[11px] font-mono bg-white text-slate-800 border border-slate-200 px-2.5 py-0.5 rounded-md font-medium shadow-2xs flex items-center gap-1.5"
                     >
-                      {tag}
+                      <TechIcon name={tag} className="w-3 h-3" />
+                      <span>{tag}</span>
                     </span>
                   ))}
                 </div>
 
-                <span className="text-xs font-mono font-black text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">
-                  ⚡ {experiences[activeExp].impact}
+                <span className="text-xs font-mono font-black text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full flex items-center gap-1">
+                  <Zap className="w-3.5 h-3.5 text-purple-600" />
+                  <span>{experiences[activeExp].impact}</span>
                 </span>
               </div>
 

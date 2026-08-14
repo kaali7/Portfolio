@@ -24,3 +24,10 @@
 - **Touch & Pointer Adaptations:** Interactive elements (buttons, nav menus, dropdowns, cards, cursor triggers) must function seamlessly on both touch interfaces and mouse pointer devices.
 - **Responsiveness Verification:** Whenever building or modifying UI components, verify layout scalability, spacing, and typography legibility across mobile and desktop breakpoints before finalizing.
 
+## 4. Icon Usage Guidelines
+- **Simple Icons (`simple-icons`)**: Used EXCLUSIVELY for real technology, brand, and framework logos (Python, Pandas, NumPy, PyTorch, TensorFlow, React, FastAPI, PostgreSQL, MongoDB, Git, Docker, GitHub, Hugging Face, etc.).
+- **Lucide React (`lucide-react`)**: Used for UI interface controls & conceptual/data-science icons (Database, BarChart, LineChart, Brain, Network, Search, Code, Server, Workflow, Chart, Analytics, etc.).
+- **Tabler Icons (`@tabler/icons-react`)**: Used as a secondary conceptual/technical UI icon set when needed.
+- **Emoji & Unknown Icon Ban**: Emojis (e.g., 📊, 🤖, ⚡, 📚, 👁️, 🌐, 💻) and raw/unknown SVG icons are strictly banned across all components. Always use the proper icon library component.
+
+

@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
@@ -19,105 +20,60 @@ export default function Home() {
     if (!containerRef.current) return;
     
     const ctx = gsap.context(() => {
-      // 1. Hero -> Projects Curtain Scroll & Snapping
-      const heroTl = gsap.timeline({
+      // 1. Hero -> Projects Smooth Curtain Transition
+      gsap.to(".hero-slide", {
         scrollTrigger: {
-          trigger: ".hero-section",
-          start: "top top",
-          endTrigger: ".projects-section",
+          trigger: ".projects-wrapper",
+          start: "top 20%",
           end: "top top",
-          pin: true,
-          pinSpacing: false,
-          scrub: 0.5,
-          snap: {
-            snapTo: (progress) => (progress > 0.02 ? 1 : 0),
-            duration: { min: 0.3, max: 0.6 },
-            delay: 0,
-            ease: "power2.out",
-          },
+          scrub: true,
         },
-      });
-
-      heroTl.to(".hero-section", {
-        opacity: 0.15,
-        scale: 0.94,
-        ease: "none",
-      });
-
-      // 2. Projects -> Skills Curtain Scroll & Snapping
-      const projectsTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".projects-section",
-          start: "top top",
-          endTrigger: ".skills-section",
-          end: "top top",
-          pin: true,
-          pinSpacing: false,
-          scrub: 0.5,
-          snap: {
-            snapTo: (progress) => (progress > 0.02 ? 1 : 0),
-            duration: { min: 0.3, max: 0.6 },
-            delay: 0,
-            ease: "power2.out",
-          },
-        },
-      });
-
-      projectsTl.to(".projects-section", {
-        opacity: 0.92,
-        scale: 0.97,
-        ease: "none",
-      });
-
-      // 3. Skills -> Experience Curtain Scroll & Snapping
-      const skillsTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".skills-section",
-          start: "top top",
-          endTrigger: ".experience-section",
-          end: "top top",
-          pin: true,
-          pinSpacing: false,
-          scrub: 0.5,
-          snap: {
-            snapTo: (progress) => (progress > 0.02 ? 1 : 0),
-            duration: { min: 0.3, max: 0.6 },
-            delay: 0,
-            ease: "power2.out",
-          },
-        },
-      });
-
-      skillsTl.to(".skills-section", {
-        opacity: 0.2,
+        opacity: 0.3,
         scale: 0.96,
         ease: "none",
       });
 
-      // 4. Experience -> Contact Curtain Scroll & Snapping
-      const experienceTl = gsap.timeline({
+      // 2. Projects -> Skills Smooth Curtain Transition
+      gsap.to(".projects-slide", {
         scrollTrigger: {
-          trigger: ".experience-section",
-          start: "top top",
-          endTrigger: ".contact-section",
+          trigger: ".skills-wrapper",
+          start: "top 20%",
           end: "top top",
-          pin: true,
-          pinSpacing: false,
-          scrub: 0.5,
-          snap: {
-            snapTo: (progress) => (progress > 0.02 ? 1 : 0),
-            duration: { min: 0.3, max: 0.6 },
-            delay: 0,
-            ease: "power2.out",
-          },
+          scrub: true,
         },
-      });
-
-      experienceTl.to(".experience-section", {
-        opacity: 0.92,
+        opacity: 0.35,
         scale: 0.97,
         ease: "none",
       });
+
+      // 3. Skills -> Experience Smooth Curtain Transition
+      gsap.to(".skills-slide", {
+        scrollTrigger: {
+          trigger: ".experience-wrapper",
+          start: "top 20%",
+          end: "top top",
+          scrub: true,
+        },
+        opacity: 0.3,
+        scale: 0.96,
+        ease: "none",
+      });
+
+      // 4. Experience -> Contact Smooth Curtain Transition
+      gsap.to(".experience-slide", {
+        scrollTrigger: {
+          trigger: ".contact-wrapper",
+          start: "top 20%",
+          end: "top top",
+          scrub: true,
+        },
+        opacity: 0.4,
+        scale: 0.97,
+        ease: "none",
+      });
+
+      // Refresh ScrollTrigger calculations after mount
+      ScrollTrigger.refresh();
 
     }, containerRef);
 
@@ -125,28 +81,49 @@ export default function Home() {
   }, []);
 
   return (
-    <main ref={containerRef} className="relative bg-[#08080A] min-h-screen overflow-x-hidden">
-      <div className="hero-section min-h-[100dvh]">
-        <Hero />
-      </div>
-      
-      <div className="projects-section relative z-10 bg-[#08080A]">
-        <Projects />
-      </div>
+    <SmoothScroll>
+      <main ref={containerRef} className="relative bg-[#08080A] min-h-screen">
+        {/* Slide 0: Hero Wrapper (300vh total scroll travel) */}
+        <div className="hero-wrapper relative h-[300vh] z-0">
+          <div className="hero-slide sticky top-0 h-[100vh] w-full overflow-hidden">
+            <Hero />
+          </div>
+        </div>
+        
+        {/* Slide 1: Projects Wrapper */}
+        <div className="projects-wrapper relative h-[300vh] z-10 -mt-[200vh]">
+          <div className="projects-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
+            <Projects />
+          </div>
+        </div>
 
-      <div className="skills-section relative z-20 bg-white">
-        <Skills />
-      </div>
+        {/* Slide 2: Skills Wrapper */}
+        <div className="skills-wrapper relative h-[300vh] z-20 -mt-[200vh]">
+          <div className="skills-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
+            <Skills />
+          </div>
+        </div>
 
-      <div className="experience-section relative z-30 bg-[#08080A]">
-        <Experience />
-      </div>
+        {/* Slide 3: Experience Wrapper */}
+        <div className="experience-wrapper relative h-[300vh] z-30 -mt-[200vh]">
+          <div className="experience-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
+            <Experience />
+          </div>
+        </div>
 
-      <div className="contact-section relative z-40 bg-white">
-        <Contact />
-      </div>
-    </main>
+        {/* Slide 4: Contact Wrapper */}
+        <div className="contact-wrapper relative z-40 bg-[#08080A] min-h-[100vh]">
+          <div className="contact-slide relative w-full">
+            <Contact />
+          </div>
+        </div>
+
+      </main>
+    </SmoothScroll>
   );
 }
+
+
+
 
 

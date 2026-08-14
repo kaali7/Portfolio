@@ -84,9 +84,29 @@
 
 
 
+- [x] Integrated **Lenis Smooth Inertia Momentum Scroll & Non-Glitchy Curtain Parallax** (`components/SmoothScroll.tsx`, `app/page.tsx`, `app/globals.css`):
+  - **Eliminated Scroll Hijacking & Jitter Glitches**: Removed aggressive ScrollTrigger `pin` & `snapTo` lock-ups that caused scroll stopping, jumping, and jitter.
+  - **Lenis Smooth Scroll Provider**: Created a client-side Lenis wrapper synchronized with GSAP ScrollTrigger ticker for buttery 60fps momentum scroll across touch, trackpad, and mouse wheel devices.
+  - **Sticky Stacked Curtain Architecture**: Configured `sticky top-0 min-h-[100dvh]` and layered z-index hierarchy (`z-0` through `z-40`) across Hero, Projects, Skills, Experience, and Contact sections, enabling each rounded section card to cleanly slide and dock over the preceding section as a smooth curtain overlay.
+- [x] Standardized **Icon System & Emoji Elimination** (`doc/rule.md`, `components/TechIcon.tsx`, `components/Skills.tsx`, `components/Experience.tsx`):
+  - **Installed Icon Packages**: Installed `simple-icons`, `lucide-react`, and `@tabler/icons-react`.
+  - **Updated Project Rules**: Added Section 4 (Icon Usage Guidelines) to [rule.md](file:///c:/kali/product/portfolio/doc/rule.md) enforcing strict usage boundaries for technology logos (`simple-icons`), UI controls (`lucide-react`), and technical icons (`@tabler/icons-react`).
+  - **Eliminated Emojis & Unknown Icons**: Replaced all raw emojis (`📊`, `🤖`, `⚡`, `📚`, `👁️`, `📍`, `✓`) across `Skills.tsx` and `Experience.tsx` with clean Lucide React components (`BarChart2`, `Brain`, `Network`, `Cpu`, `Sparkles`, `Database`, `ScanEye`, `Code2`, `Zap`, `MapPin`, `CheckCircle2`).
+  - **Created `TechIcon` Helper**: Built a dedicated [TechIcon.tsx](file:///c:/kali/product/portfolio/components/TechIcon.tsx) component powered by `simple-icons` to render SVG logos for Python, Pandas, PyTorch, TensorFlow, React, FastAPI, PostgreSQL, Docker, Git, and Qdrant.
+- [x] Redesigned **Organic Technical Ecosystem Graph** (`components/Skills.tsx`):
+  - **Organic Non-Grid Positioning & Size Hierarchy**: Replaced rigid grids with asymmetric floating domain nodes (`DATA SCIENCE` large, `AI ENGINEERING` large, `MACHINE LEARNING` medium-large, `GENERATIVE AI` medium, `DEEP LEARNING` medium, `RAG` medium, `FULL-STACK AI` medium, `COMPUTER VISION` small-medium) naturally filling the section space.
+  - **Spatial Breathing Hover Physics**: Hovering any skill node smoothly expands it (`scale: 1.45x`), shrinks surrounding nodes (`scale: 0.75–0.85x`), and reveals staggered technology chips (`TechIcon` integration) + secondary project case study links (`USED IN → ...`).
+  - **2D Mouse Parallax Depth**: Added subtle mouse-driven 2D spatial parallax tracking using Framer Motion springs (`useSpring`, `useMotionValue`) with zero 3D rotation or excessive glow.
+  - **Mobile Responsive Fallback**: Built a controlled vertical collapsible card stack for mobile viewports (`<md`) preventing overlap and preserving readability.
+  - **Preserved Circle Shape on Hover**: Updated hovered expanded nodes to remain 100% circular (`rounded-full w-80 h-80 lg:w-[410px] lg:h-[410px]`) with purple glass glow, keeping the entire ecosystem map composed of organic circles.
+  - **Fixed Edge Clipping & Border Insets**: Adjusted domain coordinates (`pos`) with safe 14-16% edge offsets and increased section bottom padding (`pb-28 sm:pb-36 lg:pb-40`) + container height (`min-h-[800px] lg:min-h-[880px] xl:min-h-[920px]`), ensuring expanded circles near the edges (`COMPUTER VISION`, `RAG`, `FULL-STACK AI`) never clip or extend past section borders.
+  - **Tightly Clustered Nodes & Breathing Physics**: Replaced widely separated positions with a cohesive, tight organic node cluster around the section core without overlapping in default state. Hovering any node expands it to `1.45x` scale while non-hovered nodes automatically contract to `0.68x` scale with `0.3` opacity, eliminating overlap while creating high focal emphasis.
+  - **Refactored Motion (Zero DOM Swapping or Jitter)**: Unified collapsed and expanded states into a single persistent circular node per domain (`rounded-full`). On hover, the node smoothly scales up (`1.35x` spring physics) and reveals technology chips (`TechIcon`) + project links via `AnimatePresence`, eliminating layout reflows, text pops, and DOM unmounting flicker.
+  - **Fixed Unhover Node Reset**: Attached direct `onMouseLeave={() => setHoveredId(null)}` event handlers onto individual `<motion.div>` domain nodes. Moving the mouse cursor off any circle now immediately resets `hoveredId` and smoothly shrinks the node back to its original default size (`scale: 1.0`).
+  - **Asymmetric Size Distribution & Framed Border Box**: Updated circle node sizes (`DATA SCIENCE`, `AI ENGINEERING`, `GENERATIVE AI` Extra Large; `MACHINE LEARNING`, `DEEP LEARNING` Medium-Large; `FULL-STACK AI`, `RAG`, `COMPUTER VISION` Small) and placed them inside a sleek, dark glass framed border container (`rounded-[2.5rem] border border-white/20 bg-[#060608]/90`) matching the reference design. Tightened top border padding for a compact, editorial fit.
+
 ## What is Pending
 - [ ] Implement About / Services / Research sections.
 - [ ] Connect navigation links smoothly to their respective sections.
-- [ ] Add the Contact section.
-- [ ] Audit performance and accessibility.
+- [ ] Audit performance and accessibility across mobile and desktop breakpoints.
 
