@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { 
   Zap, 
-  MapPin, 
   CheckCircle2, 
-  Clock,
-  ExternalLink
+  Clock
 } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
 import { experienceData } from "@/lib/experienceDetailData";
@@ -19,7 +17,7 @@ export function Experience() {
   // Map the strict TS data to the UI structure required by the component
   const experiences = experienceData.map((exp, idx) => {
     return {
-      id: idx,
+      id: exp.id || idx,
       role: exp.role,
       company: exp.company,
       companyUrl: exp.links.company,
@@ -173,11 +171,11 @@ export function Experience() {
 
                   {/* Top Role Header */}
                   <div className="relative z-10">
+                    {/* Header Row: Company Badge on Left, Focus Badge Moved to Top Right */}
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-2">
                         {exp.logo && (
                            <div className={`w-8 h-8 rounded-full overflow-hidden border-2 ${isSelected ? 'border-purple-500' : 'border-slate-300'}`}>
-                             {/* Only use next/image if you want it optimized, else regular img is fine. For now using standard img tag because next/image requires width/height. */}
                              <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover bg-white" />
                            </div>
                         )}
@@ -194,37 +192,21 @@ export function Experience() {
                         )}
                       </div>
 
-                      <a
-                        href={exp.companyUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={`text-[11px] font-mono font-bold flex items-center gap-1 hover:underline ${
-                          isSelected ? "text-purple-300" : "text-purple-700"
-                        }`}
-                      >
-                        <span className="hidden sm:inline">Visit Site</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      {/* Focus Badge Moved to Top Right (Replacing Visit Site) */}
+                      <div className={`text-[10px] font-mono font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs ${
+                        isSelected ? "bg-purple-600 text-white" : "bg-purple-100 text-purple-700 border border-purple-200"
+                      }`}>
+                        <Zap className="w-3 h-3" />
+                        <span>{exp.primaryImpact}</span>
+                      </div>
                     </div>
 
                     {/* Role Title */}
-                    <h3 className={`text-xl sm:text-2xl font-black tracking-tight mb-1.5 transition-colors ${
+                    <h3 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 transition-colors ${
                       isSelected ? "text-white" : "text-[#08080A] group-hover:text-purple-700"
                     }`}>
                       {exp.role}
                     </h3>
-
-                    {/* Location & Type */}
-                    <div className={`flex items-center gap-2 text-xs font-mono font-semibold mb-3 ${
-                      isSelected ? "text-slate-400" : "text-slate-500"
-                    }`}>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-purple-500" />
-                        <span>{exp.location}</span>
-                      </span>
-                      <span>•</span>
-                      <span>{exp.type}</span>
-                    </div>
 
                     {/* Summary */}
                     <p className={`text-xs sm:text-sm leading-relaxed mb-4 ${
@@ -297,8 +279,8 @@ export function Experience() {
                     </div>
                   </div>
 
-                  {/* Tech Chips Footer */}
-                  <div className="relative z-10 pt-3 border-t border-current/10 flex items-center justify-between flex-wrap gap-2 mt-2">
+                  {/* Tech Chips & "More Detail" Action Button Footer */}
+                  <div className="relative z-10 pt-3.5 border-t border-current/10 flex items-center justify-between flex-wrap gap-3 mt-2">
                     <div className="flex flex-wrap gap-1.5">
                       {exp.tags.map((tag, tIdx) => (
                         <span 
@@ -315,12 +297,20 @@ export function Experience() {
                       ))}
                     </div>
 
-                    <div className={`text-[10px] font-mono font-bold px-3 py-1 rounded-full flex items-center gap-1 ${
-                      isSelected ? "bg-purple-600 text-white" : "bg-purple-100 text-purple-700 border border-purple-200"
-                    }`}>
-                      <Zap className="w-3 h-3" />
-                      <span>{exp.primaryImpact}</span>
-                    </div>
+                    {/* New "More Detail" CTA Button */}
+                    <Link
+                      href="/about"
+                      className={`text-[11px] font-mono font-bold px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
+                        isSelected 
+                          ? "bg-purple-600 hover:bg-purple-500 text-white" 
+                          : "bg-[#08080A] hover:bg-purple-700 text-white"
+                      }`}
+                    >
+                      <span>MORE DETAIL</span>
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                        <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </Link>
                   </div>
 
                 </motion.div>
