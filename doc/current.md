@@ -27,8 +27,8 @@
 ### 4. Interactive Radial Skill Matrix (`components/Skills.tsx`)
 - **Radial Constellation Layout**: Rebuilt traditional grid into an interactive radial skill constellation with 8 domain nodes surrounding a fixed central inspection panel matching user reference sketches.
 - **Dynamic Center Panel**: Features real-time state inspection on hover/tap displaying core technology badges with icons, concise descriptions, and linked case study projects in a compact panel. Opens default domain (`DATA SCIENCE`) immediately on initial render with balanced left-shifted alignment.
-- **SVG Orbit Connectors**: Rendered a mathematically smooth $C^1$ continuous quadratic SVG spline connecting the peripheral nodes sequentially, eliminating sharp angles. Styled as a single glowing purple neon wire to match the site's cyberpunk aesthetic.
-- **Z-Index & Opacity Fix**: Replaced the whole-card opacity dimming effect with a CSS `filter: brightness()` animation and enforced solid backgrounds on inactive cards. This prevents the glowing SVG wire from shining through and overlapping the text of un-hovered cards.
+- **SVG Orbit Connectors**: Dynamically measures real card & panel DOM coordinates (`getBoundingClientRect()` + `ResizeObserver`) to generate a Catmull-Rom smooth bezier orbital path and hub spoke lines that land with pixel perfection across all screen resolutions.
+- **Z-Index & Stacking Layering**: Set SVG thread layer to `z-0` and domain cards to `z-10`+ (`z-40` on active/hover), ensuring domain cards render cleanly in front of all threads/wires. Increased non-selected card brightness (`brightness(0.82)`) and scale (`0.98`) for clear legibility and crisp visual presence across all 8 nodes.
 - **Responsive Adaptations**: Designed desktop radial constellation and mobile/tablet node selector grid guaranteeing zero horizontal overflow across viewports.
 
 ---

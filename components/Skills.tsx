@@ -48,12 +48,39 @@ interface SkillDomain {
 
 const EASE_OUT_EXPRESSIVE = [0.23, 1, 0.32, 1];
 
+// Clockwise order of domain IDs around the constellation ring
+const RING_ORDER = ["ml", "dl", "ai_eng", "gen_ai", "rag", "cv", "fullstack", "ds"];
+
+// Catmull-Rom spline → cubic bezier, returns a closed SVG path
+function smoothClosedPath(pts: { x: number; y: number }[]): string {
+  if (pts.length < 2) return "";
+  const n = pts.length;
+  let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n];
+    const p1 = pts[i];
+    const p2 = pts[(i + 1) % n];
+    const p3 = pts[(i + 2) % n];
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+    d += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+  }
+  return d + " Z";
+}
+
 export function Skills() {
   const [activeDomainId, setActiveDomainId] = useState<string>("ds");
   const containerRef = useRef<HTMLDivElement>(null);
   const centerPanelRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const shouldReduceMotion = useReducedMotion();
+
+  // Measured pixel positions of each node + center panel for accurate SVG drawing
+  const [nodePoints, setNodePoints] = useState<{ [id: string]: { x: number; y: number } }>({});
+  const [centerPt, setCenterPt] = useState<{ x: number; y: number } | null>(null);
+  const [svgDims, setSvgDims] = useState({ w: 1, h: 1 });
 
   // 8 Core Skill Domains with organic positions around the center panel (balanced layout shifted left)
   const domains: SkillDomain[] = [
@@ -245,6 +272,41 @@ export function Skills() {
 
   const activeDomain = domains.find((d) => d.id === activeDomainId) || domains[0];
 
+  // Measure actual DOM positions so SVG lines are pixel-perfect
+  useEffect(() => {
+    function measure() {
+      const container = containerRef.current;
+      if (!container) return;
+      const cr = container.getBoundingClientRect();
+      setSvgDims({ w: cr.width, h: cr.height });
+
+      if (centerPanelRef.current) {
+        const r = centerPanelRef.current.getBoundingClientRect();
+        setCenterPt({
+          x: r.left - cr.left + r.width / 2,
+          y: r.top - cr.top + r.height / 2,
+        });
+      }
+
+      const pts: { [id: string]: { x: number; y: number } } = {};
+      for (const [id, el] of Object.entries(nodeRefs.current)) {
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        pts[id] = {
+          x: r.left - cr.left + r.width / 2,
+          y: r.top - cr.top + r.height / 2,
+        };
+      }
+      setNodePoints(pts);
+    }
+
+    // Small delay so layout settles after first paint
+    const t = setTimeout(measure, 120);
+    const obs = new ResizeObserver(measure);
+    if (containerRef.current) obs.observe(containerRef.current);
+    return () => { clearTimeout(t); obs.disconnect(); };
+  }, []);
+
   return (
     <section
       id="skills"
@@ -296,31 +358,109 @@ export function Skills() {
           {/* Subtle Grid Canvas Background Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e0f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e0f_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
-          {/* SVG Constellation Path Lines Layer */}
-          <svg 
-            className="absolute inset-0 w-full h-full pointer-events-none z-0"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            {/* Glowing Purple Orbital Wire */}
-            <motion.path
-              d="M 35 13.5 Q 52 11, 68 14.5 Q 84 18, 86 36 Q 88 54, 85 67 Q 82 80, 66 82 Q 50 84, 34 82 Q 18 80, 16 66 Q 14 52, 16 34 Q 18 16, 35 13.5 Z"
-              fill="none"
-              stroke="#c084fc"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeDasharray="20 40"
-              vectorEffect="non-scaling-stroke"
-              className="drop-shadow-[0_0_12px_rgba(192,132,252,0.8)]"
-              animate={{ strokeDashoffset: [0, -120] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-          </svg>
+          {/* SVG Constellation — positions measured from real DOM, pixel-perfect */}
+          {svgDims.w > 1 && centerPt && Object.keys(nodePoints).length >= 8 && (() => {
+            const ringPts = RING_ORDER.map(id => nodePoints[id]).filter(Boolean);
+            const ringPath = smoothClosedPath(ringPts);
+            const domainIds = ["ds", "ml", "dl", "ai_eng", "gen_ai", "rag", "cv", "fullstack"];
+            return (
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none z-0"
+                viewBox={`0 0 ${svgDims.w.toFixed(0)} ${svgDims.h.toFixed(0)}`}
+              >
+                <defs>
+                  <filter id="glow-ring" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <filter id="glow-spoke" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="2" result="blur" />
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                </defs>
+
+                {/* Outer Orbital Ring — Catmull-Rom through measured card centers */}
+                <motion.path
+                  d={ringPath}
+                  fill="none"
+                  stroke="#c084fc"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  filter="url(#glow-ring)"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.65, 0.35, 0.65, 0.35] }}
+                  transition={{
+                    pathLength: { duration: 2.5, ease: [0.23, 1, 0.32, 1] },
+                    opacity: { duration: 6, repeat: Infinity, ease: "easeInOut", times: [0, 0.25, 0.5, 0.75, 1] }
+                  }}
+                />
+
+                {/* Spoke lines — measured card center → measured center panel center */}
+                {domainIds.map((id, i) => {
+                  const pt = nodePoints[id];
+                  if (!pt) return null;
+                  return (
+                    <motion.line
+                      key={id}
+                      x1={pt.x} y1={pt.y}
+                      x2={centerPt.x} y2={centerPt.y}
+                      stroke="#a855f7"
+                      strokeWidth="0.8"
+                      strokeLinecap="round"
+                      filter="url(#glow-spoke)"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.3 }}
+                      transition={{
+                        pathLength: { duration: 1.4, ease: [0.23, 1, 0.32, 1], delay: 0.9 + i * 0.09 },
+                        opacity: { duration: 0.3, delay: 0.9 + i * 0.09 }
+                      }}
+                    />
+                  );
+                })}
+
+                {/* Node junction dots — exactly at each card's center */}
+                {domainIds.map((id, i) => {
+                  const pt = nodePoints[id];
+                  if (!pt) return null;
+                  return (
+                    <motion.circle
+                      key={id}
+                      cx={pt.x} cy={pt.y} r={4}
+                      fill="#c084fc"
+                      filter="url(#glow-ring)"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0, 1, 0.5, 1, 0.5] }}
+                      transition={{
+                        duration: 5, repeat: Infinity, ease: "easeInOut",
+                        delay: 1.5 + i * 0.09,
+                        times: [0, 0.1, 0.5, 0.75, 1]
+                      }}
+                    />
+                  );
+                })}
+
+                {/* Center hub pulse dot */}
+                <motion.circle
+                  cx={centerPt.x} cy={centerPt.y} r={5}
+                  fill="#c084fc"
+                  filter="url(#glow-ring)"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 1, 0.5, 1, 0.5] }}
+                  transition={{
+                    duration: 4, repeat: Infinity, ease: "easeInOut",
+                    delay: 2.3,
+                    times: [0, 0.15, 0.5, 0.75, 1]
+                  }}
+                />
+              </svg>
+            );
+          })()}
+
 
           {/* CENTER DETAIL PANEL (Desktop - Perfectly Centered in Shifter Constellation) */}
           <div
             ref={centerPanelRef}
-            className="absolute left-[44%] top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[440px] bg-[#0B0C10]/95 border border-purple-500/40 rounded-3xl p-6 shadow-[0_0_50px_rgba(168,85,247,0.2)] backdrop-blur-xl flex flex-col gap-4 overflow-hidden"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[440px] bg-[#0B0C10]/95 border border-purple-500/40 rounded-3xl p-6 shadow-[0_0_50px_rgba(168,85,247,0.2)] backdrop-blur-xl flex flex-col gap-4 overflow-hidden"
           >
             {/* Neon Bar Top Highlight */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400" />
@@ -404,13 +544,13 @@ export function Skills() {
 
             if (isAnyHovered) {
               if (isHovered) {
-                targetScale = 1.18;
+                targetScale = 1.15;
                 targetFilter = "brightness(1)";
                 targetZIndex = 40;
               } else {
-                targetScale = 0.92;
-                targetFilter = "brightness(0.4)";
-                targetZIndex = 5;
+                targetScale = 0.98;
+                targetFilter = "brightness(0.82)";
+                targetZIndex = 10;
               }
             }
 
