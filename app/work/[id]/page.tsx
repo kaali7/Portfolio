@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { projectsDetailData } from "@/lib/projectsDetailData";
 import { ArrowLeft, Check, Sparkles, Terminal, Code2, ExternalLink, Github } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { Contact } from "@/components/Contact";
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   // Find project by numeric ID or string slug
@@ -28,8 +29,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
   if (projectMetrics.length === 0) projectMetrics.push({ label: "Status", val: project.status || "Live" });
 
   return (
-    <main className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white pb-20 relative overflow-x-hidden">
-      {/* Shared Unified Navigation Bar */}
+    <main className="w-full min-h-screen bg-[#060608] text-[#08080A] selection:bg-purple-600 selection:text-white relative overflow-x-hidden">
+      <div className="bg-white w-full pb-8">
+        {/* Shared Unified Navigation Bar */}
       <Navbar variant="light" currentRoute="work" />
       
       {/* Top Breadcrumb Header Bar */}
@@ -280,7 +282,10 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
           </Link>
         )}
       </footer>
+      </div>
 
+      {/* Interactive Contact Section Footer */}
+      <Contact />
     </main>
   );
 }

@@ -18,6 +18,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { Contact } from "@/components/Contact";
 
 export default function ExperienceDetailPage({ params }: { params: { id: string } }) {
   // Find experience item by string ID or numeric index
@@ -56,8 +57,9 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
   };
 
   return (
-    <main className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white pb-24 relative overflow-x-hidden">
-      {/* Shared Unified Navigation Bar */}
+    <main className="w-full min-h-screen bg-[#060608] text-[#08080A] selection:bg-purple-600 selection:text-white relative overflow-x-hidden">
+      <div className="bg-white w-full pb-8">
+        {/* Shared Unified Navigation Bar */}
       <Navbar variant="light" currentRoute="about" />
       
       {/* Top Breadcrumb Header Bar */}
@@ -352,6 +354,10 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
 
         </div>
       </section>
+      </div>
+
+      {/* Interactive Contact Section Footer */}
+      <Contact />
     </main>
   );
 }

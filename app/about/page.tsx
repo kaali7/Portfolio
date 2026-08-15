@@ -148,9 +148,10 @@ export default function AboutPage() {
   return (
     <main 
       onMouseMove={handleMouseMove}
-      className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white relative overflow-x-hidden"
+      className="w-full min-h-screen bg-[#060608] text-[#08080A] selection:bg-purple-600 selection:text-white relative overflow-x-hidden"
     >
-      {/* Shared Unified Navigation Bar */}
+      <div className="bg-white w-full pb-8">
+        {/* Shared Unified Navigation Bar */}
       <Navbar variant="light" currentRoute="about" />
 
       {/* Editorial Hero Section */}
@@ -404,6 +405,7 @@ export default function AboutPage() {
           </div>
         </motion.div>
       </section>
+      </div>
 
       {/* Interactive Contact Component Footer */}
       <Contact />
