@@ -118,11 +118,11 @@ export const experienceData: Experience[] = [
     visual: {
       companyLogo: "/experience/aasha_logo.jpg",
       images: [],
-      certificate: ""
+      certificate: "/experience/aasha_certificated.jpeg"
     },
     links: {
       company: "https://aashainfinite.org/",
-      proof: "",
+      proof: "/experience/aasha_certificated.jpeg",
       relatedProjects: []
     }
   },
@@ -183,12 +183,12 @@ export const experienceData: Experience[] = [
     visual: {
       companyLogo: "/experience/garunacdx_logo.jpg",
       images: [],
-      certificate: ""
+      certificate: "/experience/garunacdx_cerificated.jpeg"
     },
     links: {
       company: "https://www.garunacdx.com/",
-      proof: "",
-      relatedProjects: []
+      proof: "/experience/garunacdx_cerificated.jpeg",
+      relatedProjects: ["ai-powered-hr-dashboard"]
     }
   }
 ];

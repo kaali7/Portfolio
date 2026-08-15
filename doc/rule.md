@@ -30,4 +30,5 @@
 - **Tabler Icons (`@tabler/icons-react`)**: Used as a secondary conceptual/technical UI icon set when needed.
 - **Emoji & Unknown Icon Ban**: Emojis (e.g., 📊, 🤖, ⚡, 📚, 👁️, 🌐, 💻) and raw/unknown SVG icons are strictly banned across all components. Always use the proper icon library component.
 
-
+## 5. Dataset Integrity
+- **Do Not Modify Datasets**: The data within `lib/experienceDetailData.ts` and `lib/projectsDetailData.ts` is considered the source of truth and must NOT be changed, modified, or altered by AI agents.
