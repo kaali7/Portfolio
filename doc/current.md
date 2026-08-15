@@ -24,7 +24,15 @@
 - **Case Study Details (`app/work/[id]/page.tsx`)**: Detailed project case studies with KPI metrics, problem/impact breakdown, architectural highlights, code snippets, and live GitHub / web links.
 - **404 Not Found (`app/not-found.tsx`, `RobotAvatar.tsx`)**: Custom error page ("LOSS FUNCTION UNCONVERGED"), interactive 3.0σ deviation chip, mouse spotlight, AI assistant reroute CTAs, and interactive AI Robot Avatar mascot with mouse-tracking white eyes, typewriter speech bubble (`404 REROUTE!`), and spring tilt physics.
 
+### 4. Interactive Radial Skill Matrix (`components/Skills.tsx`)
+- **Radial Constellation Layout**: Rebuilt traditional grid into an interactive radial skill constellation with 8 domain nodes surrounding a fixed central inspection panel matching user reference sketches.
+- **Dynamic Center Panel**: Features real-time state inspection on hover/tap displaying core technology badges with icons, concise descriptions, and linked case study projects in a compact panel. Opens default domain (`DATA SCIENCE`) immediately on initial render with balanced left-shifted alignment.
+- **SVG Orbit Connectors**: Rendered a mathematically smooth $C^1$ continuous quadratic SVG spline connecting the peripheral nodes sequentially, eliminating sharp angles. Styled as a single glowing purple neon wire to match the site's cyberpunk aesthetic.
+- **Z-Index & Opacity Fix**: Replaced the whole-card opacity dimming effect with a CSS `filter: brightness()` animation and enforced solid backgrounds on inactive cards. This prevents the glowing SVG wire from shining through and overlapping the text of un-hovered cards.
+- **Responsive Adaptations**: Designed desktop radial constellation and mobile/tablet node selector grid guaranteeing zero horizontal overflow across viewports.
+
 ---
 
 ## ⏳ Pending Tasks
 - [ ] Connect remaining secondary footer links.
+
