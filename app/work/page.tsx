@@ -201,20 +201,39 @@ export default function WorkPage() {
                     } border hover:border-purple-500 hover:bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 group relative text-[#08080A]`}
                   >
                     <div>
-                      {/* Top Header info */}
-                      <div className="flex items-center justify-between pb-4 border-b border-slate-200/80 mb-6">
-                        <div className="flex flex-wrap items-center gap-2.5">
+                      {/* Top Header info & Micro-Telemetry Badges */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200/80 mb-6">
+                        <div className="flex flex-wrap items-center gap-2">
                           <span className="text-xs font-mono font-bold text-white bg-[#08080A] px-3.5 py-1 rounded-full uppercase shadow-xs">
                             {project.category}
                           </span>
-                          <span className="text-xs font-mono font-bold px-3 py-1 rounded-full text-purple-700 bg-purple-100 border border-purple-300">
-                            {project.engineering?.performance?.[0]?.split(" ")[0] || "Optimized"}
-                          </span>
+                          {project.subcategory && (
+                            <span className="text-xs font-mono font-bold px-3 py-1 rounded-full text-purple-700 bg-purple-100 border border-purple-300">
+                              {project.subcategory}
+                            </span>
+                          )}
+                          {project.type && (
+                            <span className="text-xs font-mono font-medium px-2.5 py-1 rounded-full text-slate-600 bg-slate-100 border border-slate-200/90 hidden sm:inline-block">
+                              {project.type}
+                            </span>
+                          )}
+                          {project.status && (
+                            <span className={`text-[11px] font-mono font-bold px-2.5 py-1 rounded-full inline-flex items-center gap-1.5 ${
+                              project.status === "completed" 
+                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200" 
+                                : "bg-amber-50 text-amber-700 border border-amber-200"
+                            }`}>
+                              <span className={`w-1.5 h-1.5 rounded-full ${project.status === "completed" ? "bg-emerald-500 animate-pulse" : "bg-amber-500 animate-ping"}`} />
+                              <span className="uppercase">{project.status}</span>
+                            </span>
+                          )}
                         </div>
 
-                        <span className="text-xs font-mono font-bold text-slate-400">
-                          SYSTEM // {project.number || `0${idx + 1}`}
-                        </span>
+                        {project.year && (
+                          <span className="text-xs font-mono font-bold text-slate-400">
+                            {project.year}
+                          </span>
+                        )}
                       </div>
 
                       {/* Content Grid layout for Featured vs Normal */}
@@ -229,18 +248,46 @@ export default function WorkPage() {
                               {project.card?.shortDescription}
                             </p>
 
-                            {/* System Overview Section from Data */}
-                            {project.overview?.solution && (
-                              <div className="bg-purple-50/60 border border-purple-200/80 rounded-2xl p-4 my-3 shadow-2xs">
-                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-900 block mb-1">
-                                  SYSTEM OVERVIEW
-                                </span>
-                                <p className="text-xs text-slate-700 leading-relaxed font-normal">
-                                  {project.overview.solution}
-                                </p>
+                            {/* Full System Overview Section (Problem, Motivation, Solution, Outcome) */}
+                            {project.overview && (
+                              <div className="bg-purple-50/60 border border-purple-200/80 rounded-2xl p-4 my-3 space-y-2.5 shadow-2xs">
+                                <div className="flex items-center justify-between border-b border-purple-200/60 pb-1.5">
+                                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-900 flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-purple-600" />
+                                    SYSTEM OVERVIEW & ARCHITECTURE
+                                  </span>
+                                </div>
+
+                                {project.overview.problem && (
+                                  <div className="text-xs text-slate-700 leading-relaxed">
+                                    <span className="text-[9px] font-mono font-bold text-rose-700 uppercase bg-rose-100 border border-rose-200 px-1.5 py-0.5 rounded mr-2 inline-block">
+                                      CHALLENGE
+                                    </span>
+                                    <span>{project.overview.problem}</span>
+                                  </div>
+                                )}
+
+                                {project.overview.motivation && (
+                                  <div className="text-xs text-slate-700 leading-relaxed">
+                                    <span className="text-[9px] font-mono font-bold text-amber-700 uppercase bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded mr-2 inline-block">
+                                      MOTIVATION
+                                    </span>
+                                    <span>{project.overview.motivation}</span>
+                                  </div>
+                                )}
+
+                                {project.overview.solution && (
+                                  <div className="text-xs text-slate-800 leading-relaxed font-medium pt-0.5">
+                                    <span className="text-[9px] font-mono font-bold text-purple-800 uppercase bg-purple-200/80 border border-purple-300 px-1.5 py-0.5 rounded mr-2 inline-block">
+                                      SOLUTION
+                                    </span>
+                                    <span>{project.overview.solution}</span>
+                                  </div>
+                                )}
+
                                 {project.overview.outcome && (
-                                  <div className="mt-2.5 pt-2 border-t border-purple-200/60 flex items-start gap-2 text-xs text-purple-950 font-medium">
-                                    <span className="text-[9px] font-mono font-bold text-purple-700 uppercase bg-purple-200/80 px-1.5 py-0.5 rounded flex-shrink-0">
+                                  <div className="pt-2 border-t border-purple-200/60 flex items-start gap-2 text-xs text-slate-900 font-medium">
+                                    <span className="text-[9px] font-mono font-bold text-emerald-800 uppercase bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded flex-shrink-0">
                                       OUTCOME
                                     </span>
                                     <span className="line-clamp-2">{project.overview.outcome}</span>
@@ -330,15 +377,51 @@ export default function WorkPage() {
                             </div>
                           )}
 
-                          {/* System Overview Section from Data (Moved Below Image) */}
-                          {project.overview?.solution && (
-                            <div className="bg-purple-50/60 border border-purple-200/80 rounded-2xl p-3.5 my-1 shadow-2xs">
-                              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-900 block mb-1">
-                                SYSTEM OVERVIEW
-                              </span>
-                              <p className="text-xs text-slate-700 leading-relaxed font-normal">
-                                {project.overview.solution}
-                              </p>
+                          {/* Full System Overview Section (Moved Below Image) */}
+                          {project.overview && (
+                            <div className="bg-purple-50/60 border border-purple-200/80 rounded-2xl p-4 my-1 space-y-2 shadow-2xs">
+                              <div className="flex items-center justify-between border-b border-purple-200/60 pb-1">
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-900 flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-purple-600" />
+                                  SYSTEM OVERVIEW
+                                </span>
+                              </div>
+
+                              {project.overview.problem && (
+                                <div className="text-xs text-slate-700 leading-relaxed">
+                                  <span className="text-[9px] font-mono font-bold text-rose-700 uppercase bg-rose-100 border border-rose-200 px-1.5 py-0.5 rounded mr-2 inline-block">
+                                    CHALLENGE
+                                  </span>
+                                  <span>{project.overview.problem}</span>
+                                </div>
+                              )}
+
+                              {project.overview.motivation && (
+                                <div className="text-xs text-slate-700 leading-relaxed">
+                                  <span className="text-[9px] font-mono font-bold text-amber-700 uppercase bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded mr-2 inline-block">
+                                    MOTIVATION
+                                  </span>
+                                  <span>{project.overview.motivation}</span>
+                                </div>
+                              )}
+
+                              {project.overview.solution && (
+                                <div className="text-xs text-slate-800 leading-relaxed font-medium pt-0.5">
+                                  <span className="text-[9px] font-mono font-bold text-purple-800 uppercase bg-purple-200/80 border border-purple-300 px-1.5 py-0.5 rounded mr-2 inline-block">
+                                    SOLUTION
+                                  </span>
+                                  <span>{project.overview.solution}</span>
+                                </div>
+                              )}
+
+                              {project.overview.outcome && (
+                                <div className="pt-2 border-t border-purple-200/60 flex items-start gap-2 text-xs text-slate-900 font-medium">
+                                  <span className="text-[9px] font-mono font-bold text-emerald-800 uppercase bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded flex-shrink-0">
+                                    OUTCOME
+                                  </span>
+                                  <span className="line-clamp-2">{project.overview.outcome}</span>
+                                </div>
+                              )}
                             </div>
                           )}
 

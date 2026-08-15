@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { TransitionLink as Link } from "./TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 interface NavbarProps {
   variant?: "dark" | "light";
@@ -82,13 +82,16 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className={`px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-mono font-black tracking-wider rounded-full transition-all duration-300 shadow-md hidden sm:block ${
+            className={`relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-mono font-black tracking-wider rounded-full transition-all duration-300 hidden sm:inline-flex items-center gap-2 group/btn ${
               isDark
-                ? "text-[#08080A] bg-white hover:bg-slate-100 shadow-[0_8px_25px_rgba(255,255,255,0.25)]"
-                : "text-white bg-[#08080A] hover:bg-purple-600 shadow-md"
+                ? "text-[#08080A] bg-white border border-white/40 hover:bg-purple-600 hover:text-white hover:border-purple-400 hover:shadow-[0_0_30px_rgba(168,85,247,0.65)] hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+                : "text-white bg-[#08080A] hover:bg-purple-600 hover:shadow-[0_8px_25px_rgba(147,51,234,0.4)] hover:scale-105 active:scale-95 shadow-md"
             }`}
           >
-            GET IN TOUCH
+            {/* Shimmer Effect overlay */}
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 pointer-events-none" />
+            <span>GET IN TOUCH</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-300" />
           </Link>
 
           {/* Mobile Hamburger Button */}
@@ -143,13 +146,14 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
             <Link
               href="/#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className={`mt-2 text-center py-3 rounded-full text-xs font-mono font-black tracking-wider transition-colors ${
+              className={`mt-2 text-center py-3 rounded-full text-xs font-mono font-black tracking-wider transition-all duration-300 flex items-center justify-center gap-2 group/mbtn ${
                 isDark
-                  ? "bg-white text-[#08080A]"
-                  : "bg-[#08080A] text-white"
+                  ? "bg-white text-[#08080A] hover:bg-purple-600 hover:text-white"
+                  : "bg-[#08080A] text-white hover:bg-purple-600"
               }`}
             >
-              GET IN TOUCH
+              <span>GET IN TOUCH</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover/mbtn:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
         )}

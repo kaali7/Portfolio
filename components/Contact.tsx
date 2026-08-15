@@ -365,6 +365,18 @@ export function Contact() {
 
   // Mouse spotlight tracking for interactive cards
   const [spotlightPos, setSpotlightPos] = useState<Record<string, { x: number; y: number; opacity: number }>>({});
+  const [isLaunchingTop, setIsLaunchingTop] = useState(false);
+
+  const handleScrollTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsLaunchingTop(true);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setTimeout(() => {
+      setIsLaunchingTop(false);
+    }, 700);
+  };
 
   const handleCardMouseMove = (cardId: string, e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -644,16 +656,24 @@ export function Contact() {
         {/* Circular Purple Back to Top Action Button Overlapping White Line */}
         <motion.a 
           href="#top"
+          onClick={handleScrollTop}
           whileHover={{ scale: 1.15, y: -4 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-500 hover:from-purple-500 hover:to-indigo-400 text-white flex flex-col items-center justify-center shadow-[0_15px_45px_rgba(168,85,247,0.65)] border-2 border-purple-300/50 relative -mt-10 sm:-mt-14 z-20 group cursor-pointer"
+          whileTap={{ scale: 0.95 }}
+          animate={isLaunchingTop ? { y: [-4, -30, 0], scale: [1, 1.25, 1] } : {}}
+          transition={{ type: "spring", stiffness: 400, damping: 18 }}
+          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-500 hover:from-purple-500 hover:to-indigo-400 text-white flex flex-col items-center justify-center shadow-[0_15px_45px_rgba(168,85,247,0.65)] border-2 border-purple-300/50 relative -mt-10 sm:-mt-14 z-20 group cursor-pointer overflow-hidden"
         >
           {/* Animated Purple Pulse Ring */}
           <span className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping pointer-events-none" />
           
-          <ArrowUp className="w-7 h-7 sm:w-9 sm:h-9 text-white group-hover:-translate-y-1 transition-transform duration-200 ease-out" />
-          <span className="text-[10px] sm:text-xs font-mono font-black tracking-widest text-purple-100 uppercase -mt-0.5">TOP</span>
+          <motion.div
+            animate={isLaunchingTop ? { y: [-2, -50, 50, 0], opacity: [1, 0, 0, 1] } : {}}
+            transition={{ duration: 0.65, ease: "easeInOut" }}
+            className="flex flex-col items-center justify-center"
+          >
+            <ArrowUp className="w-7 h-7 sm:w-9 sm:h-9 text-white group-hover:-translate-y-1 transition-transform duration-200 ease-out" />
+            <span className="text-[10px] sm:text-xs font-mono font-black tracking-widest text-purple-100 uppercase -mt-0.5">TOP</span>
+          </motion.div>
         </motion.a>
       </div>
     </section>

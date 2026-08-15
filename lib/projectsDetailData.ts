@@ -385,7 +385,7 @@ export const projectsDetailData: ProjectDetail[] = [
         "category": "Full-Stack AI",
         "subcategory": "HR Analytics",
         "type": "Web Application",
-        "status": "in-progress",
+        "status": "completed",
         "year": 2026,
         "featured": false,
         "card": {
