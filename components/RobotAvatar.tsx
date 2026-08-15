@@ -8,7 +8,7 @@ interface RobotAvatarProps {
   mouseY: any;
   speechText?: string;
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 }
 
 export function RobotAvatar({
@@ -133,6 +133,7 @@ export function RobotAvatar({
     sm: "w-16 h-16 sm:w-20 sm:h-20",
     md: "w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28",
     lg: "w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32",
+    xl: "w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44",
   };
 
   return (

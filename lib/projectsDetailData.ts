@@ -111,8 +111,8 @@ export const projectsDetailData: ProjectDetail[] = [
             "video": ""
         },
         "overview": {
-            "problem": "",
-            "motivation": "",
+            "problem": "Existing mock interview tools fail to contextualize technical interviews around candidate resumes and specific Job Descriptions (JDs), leaving job seekers unprepared for targeted question types.",
+            "motivation": "To bridge the gap between static resume qualifications and real-world dynamic interview loops by engineering a hyper-personalized, web-augmented technical interviewer.",
             "solution": "A multi-stage AI system powered by a 4-stage model architecture (JD research, resume-to-JD cross-matching, live streaming voice-to-voice interaction loop, and post-session multimodal evaluation) orchestrated via a unified workflow.",
             "outcome": "Completed MVP Phase with covered and operational 4-stage pipeline, featuring continuous PCM recording, millisecond-precision timing telemetry, dynamic whisper vocabulary injection, and sub-250ms TTFA neural speech output."
         },
@@ -262,10 +262,10 @@ export const projectsDetailData: ProjectDetail[] = [
             "video": ""
         },
         "overview": {
-            "problem": "",
-            "motivation": "",
+            "problem": "Existing resume builders lack effective AI-driven customization to generate resumes targeted specifically to a job description. Most current solutions fail to seamlessly transform raw personal details, experience, and project histories into tailored, ATS-optimized documents—and those that do often charge high subscription fees.",
+            "motivation": "Create an accessible, open-source platform that eliminates expensive paywalls and fully automates job-specific resume customization through a multi-stage LLM pipeline, enabling users to effortlessly generate high-quality LaTeX and ATS-friendly PDFs.",
             "solution": "A full-stack application connecting a React SPA to an asynchronous FastAPI backend that executes a multi-stage LLM pipeline (web research, structured JSON content generation, LaTeX source generation, and PDF compilation) with built-in 4-layer evaluation analytics and golden dataset inspection.",
-            "outcome": ""
+            "outcome": "Delivered an enterprise-grade resume generation and evaluation system featuring automated fallback API key rotation, side-by-side split-pane editing with real-time PDF previews, and quantitative metric scoring based on keyword density, formatting, and Google's X-Y-Z resume writing framework."
         },
         "features": [
             "Multi-stage LLM generation pipeline for ATS-optimized resumes",
@@ -411,8 +411,8 @@ export const projectsDetailData: ProjectDetail[] = [
             "video": "/projects/video/ai-powered-hr-dashboard.mp4"
         },
         "overview": {
-            "problem": "",
-            "motivation": "",
+            "problem": "Traditional HR data analysis and dashboard creation require tedious, manual steps such as cleaning raw data, processing metrics, and manually building charts, making it slow and inefficient to extract actionable insights.",
+            "motivation": "Streamline executive decision-making by eliminating manual data preparation workflows and enabling instant dataset-to-intelligence conversion simply by uploading a CSV file.",
             "solution": "An AI-powered dashboard application that processes raw CSV dataset uploads using Gemini AI to automatically generate custom interactive layouts, technical charts, data insights, and statistical workforce telemetry.",
             "outcome": "Achieved 91% completion status (43/47 issues resolved) with precomputed aggregations reducing complex chart loading times down to ~150ms."
         },
@@ -534,10 +534,10 @@ export const projectsDetailData: ProjectDetail[] = [
             "video": ""
         },
         "overview": {
-            "problem": "",
-            "motivation": "",
+            "problem": "Traditional stock tracking interfaces can be fragmented, complex, or lack immediate, plain-language insights into market trends and technical indicators.",
+            "motivation": "To gain hands-on experience integrating generative AI APIs (such as Gemini) into full-stack web applications by building a unified dashboard that combines real-time financial data with an interactive conversational assistant.",
             "solution": "An AI-powered stock analytics dashboard featuring real-time data lookups, technical charts with financial indicator overlays, persistence watchlists, light/dark theme toggles, and an integrated AI chat system powered by Groq AI for advanced financial analysis.",
-            "outcome": ""
+            "outcome": "A functional, responsive single-page stock dashboard that seamlessly combines financial metric visualizers with an inline AI assistant to explain technical indicators and stock health on demand."
         },
         "features": [
             "Stock Search - Search for any stock symbol with real-time data",

@@ -5,6 +5,7 @@ import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
 import { projectsDetailData } from "@/lib/projectsDetailData";
 import { Code2, Layers } from "lucide-react";
+import { TechIcon } from "@/components/TechIcon";
 
 export function Projects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
@@ -198,26 +199,12 @@ export function Projects() {
                     
                     {/* Top 4 Tech Chips + "+X More" Badge */}
                     <div className="flex flex-wrap items-center gap-2">
-                      {displayTags.map((tag, tIdx) => {
-                        const slug = getTechIconSlug(tag);
-                        return (
-                          <span key={tIdx} className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-200 bg-white/10 border border-white/15 px-3 py-1 rounded-lg font-medium shadow-xs hover:border-purple-400/50 transition-colors">
-                            {slug ? (
-                              <img 
-                                src={`https://cdn.simpleicons.org/${slug}/ffffff`} 
-                                alt={tag} 
-                                className="w-3.5 h-3.5 object-contain" 
-                                onError={(e) => {
-                                  (e.target as HTMLElement).style.display = 'none';
-                                }}
-                              />
-                            ) : (
-                              <Code2 className="w-3.5 h-3.5 text-purple-400" />
-                            )}
-                            <span>{tag}</span>
-                          </span>
-                        );
-                      })}
+                      {displayTags.map((tag, tIdx) => (
+                        <span key={tIdx} className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-200 bg-white/10 border border-white/15 px-3 py-1 rounded-lg font-medium shadow-xs hover:border-purple-400/50 transition-colors">
+                          <TechIcon name={tag} className="w-3.5 h-3.5 flex-shrink-0 text-purple-300 opacity-90" />
+                          <span>{tag}</span>
+                        </span>
+                      ))}
 
                       {/* "+X More" Badge */}
                       {remainingCount > 0 && (
@@ -328,12 +315,13 @@ export function Projects() {
                       <div className={`pt-2.5 border-t flex items-center justify-between mt-2.5 ${
                         isActive ? "border-white/15" : "border-slate-100"
                       }`}>
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap items-center gap-1.5">
                           {(project.card?.tags || []).slice(0, 3).map((tag, tIdx) => (
-                            <span key={tIdx} className={`text-[9px] font-mono px-2 py-0.5 rounded-md ${
-                              isActive ? "bg-[#18181B] text-slate-200 border border-white/10" : "bg-slate-50 text-slate-600 border border-slate-200/80"
+                            <span key={tIdx} className={`inline-flex items-center gap-1.5 text-[9px] font-mono px-2 py-0.5 rounded-md ${
+                              isActive ? "bg-[#18181B] text-slate-200 border border-white/10" : "bg-slate-100 text-slate-700 border border-slate-200/80"
                             }`}>
-                              {tag}
+                              <TechIcon name={tag} className="w-3 h-3 flex-shrink-0 opacity-80" />
+                              <span>{tag}</span>
                             </span>
                           ))}
                         </div>
