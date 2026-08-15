@@ -192,7 +192,7 @@ export function Experience() {
                         )}
                       </div>
 
-                      {/* Focus Badge Moved to Top Right (Replacing Visit Site) */}
+                      {/* Focus Badge Moved to Top Right */}
                       <div className={`text-[10px] font-mono font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs ${
                         isSelected ? "bg-purple-600 text-white" : "bg-purple-100 text-purple-700 border border-purple-200"
                       }`}>
@@ -297,9 +297,9 @@ export function Experience() {
                       ))}
                     </div>
 
-                    {/* New "More Detail" CTA Button */}
+                    {/* New "More Detail" CTA Button Linked directly to /experience/[id] */}
                     <Link
-                      href="/about"
+                      href={`/experience/${exp.id}`}
                       className={`text-[11px] font-mono font-bold px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
                         isSelected 
                           ? "bg-purple-600 hover:bg-purple-500 text-white" 
