@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
-import { projectsData } from "@/lib/projectsData";
+import { projectsDetailData } from "@/lib/projectsDetailData";
 import { Search, ArrowUpRight, Sparkles } from "lucide-react";
 import { Contact } from "@/components/Contact";
 import { Navbar } from "@/components/Navbar";
@@ -21,15 +21,16 @@ export default function WorkPage() {
     "FINANCIAL ANALYTICS",
   ];
 
-  const filteredProjects = projectsData.filter((project) => {
+  const filteredProjects = projectsDetailData.filter((project) => {
     const matchesCategory =
       selectedCategory === "ALL" ||
       project.category.toUpperCase() === selectedCategory ||
       (project.subcategory && project.subcategory.toUpperCase() === selectedCategory);
     const matchesSearch =
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.tags.some((tag) =>
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (project.card?.shortDescription || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (project.card?.tags || []).some((tag) =>
         tag.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
@@ -166,6 +167,12 @@ export default function WorkPage() {
             >
               {filteredProjects.map((project, idx) => {
                 const isFeatured = idx % 3 === 0;
+                const projectImage = project.visual?.heroImage || project.visual?.thumbnail;
+                const projectMetrics = (project.engineering?.performance || []).slice(0, 4).map((p: string, i: number) => {
+                  const labels = ["Latency", "Speed", "Scale", "Accuracy"];
+                  return { label: labels[i % labels.length], val: p.split(" ")[0] || "High" };
+                });
+                if (projectMetrics.length === 0) projectMetrics.push({ label: "Status", val: project.status || "Live" });
 
                 return (
                   <motion.div
@@ -179,14 +186,14 @@ export default function WorkPage() {
                     className={`${
                       isFeatured ? "lg:col-span-12 bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-50 border-purple-200/90" : "lg:col-span-6 bg-slate-50/90 border-slate-200/90"
                     } border hover:border-purple-500 hover:bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 group relative overflow-hidden ${
-                      project.image ? "text-white" : "text-[#08080A]"
+                      projectImage ? "text-white" : "text-[#08080A]"
                     }`}
                   >
                     {/* Background Image (If available) */}
-                    {project.image && (
+                    {projectImage && (
                       <div className="absolute inset-0 z-0 pointer-events-none">
                         <img 
-                          src={project.image} 
+                          src={projectImage} 
                           alt={project.title} 
                           className="w-full h-full object-cover opacity-90"
                         />
@@ -196,41 +203,41 @@ export default function WorkPage() {
 
                     <div className="relative z-10">
                       {/* Top Header info */}
-                      <div className={`flex items-center justify-between pb-4 border-b mb-6 ${project.image ? "border-white/20" : "border-slate-200/80"}`}>
+                      <div className={`flex items-center justify-between pb-4 border-b mb-6 ${projectImage ? "border-white/20" : "border-slate-200/80"}`}>
                         <div className="flex flex-wrap items-center gap-2.5">
                           <span className="text-xs font-mono font-bold text-white bg-[#08080A] px-3.5 py-1 rounded-full uppercase shadow-xs">
                             {project.category}
                           </span>
-                          <span className={`text-xs font-mono font-bold px-3 py-1 rounded-full ${project.image ? "text-purple-300 bg-purple-900/50 border border-purple-500/50" : "text-purple-700 bg-purple-100 border border-purple-300"}`}>
-                            {project.previewMetric}
+                          <span className={`text-xs font-mono font-bold px-3 py-1 rounded-full ${projectImage ? "text-purple-300 bg-purple-900/50 border border-purple-500/50" : "text-purple-700 bg-purple-100 border border-purple-300"}`}>
+                            {project.engineering?.performance?.[0]?.split(" ")[0] || "Optimized"}
                           </span>
                         </div>
 
-                        <span className={`text-xs font-mono font-bold ${project.image ? "text-slate-300" : "text-slate-400"}`}>
-                          SYSTEM // 0{project.id}
+                        <span className={`text-xs font-mono font-bold ${projectImage ? "text-slate-300" : "text-slate-400"}`}>
+                          SYSTEM // {project.number || `0${idx + 1}`}
                         </span>
                       </div>
 
                       {/* Content Grid layout */}
                       <div className={isFeatured ? "grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" : "block"}>
                         <div className={isFeatured ? "lg:col-span-7" : "w-full"}>
-                          <h2 className={`text-2xl sm:text-4xl font-black transition-colors tracking-tight mb-3 ${project.image ? "text-white group-hover:text-purple-300" : "text-[#08080A] group-hover:text-purple-600"}`}>
+                          <h2 className={`text-2xl sm:text-4xl font-black transition-colors tracking-tight mb-3 ${projectImage ? "text-white group-hover:text-purple-300" : "text-[#08080A] group-hover:text-purple-600"}`}>
                             {project.title}
                           </h2>
-                          <p className={`text-xs sm:text-sm font-normal leading-relaxed mb-6 ${project.image ? "text-slate-300" : "text-slate-600"}`}>
-                            {project.fullDescription}
+                          <p className={`text-xs sm:text-sm font-normal leading-relaxed mb-6 ${projectImage ? "text-slate-300" : "text-slate-600"}`}>
+                            {project.overview?.problem || project.card?.shortDescription}
                           </p>
 
                           {/* Key Highlights Bullet list */}
-                          <div className={`${project.image ? "bg-black/40 border-white/20" : "bg-white/80 border-purple-200/70"} border rounded-2xl p-4 my-4 shadow-2xs backdrop-blur-md`}>
-                            <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-2 ${project.image ? "text-purple-300" : "text-purple-900"}`}>
+                          <div className={`${projectImage ? "bg-black/40 border-white/20" : "bg-white/80 border-purple-200/70"} border rounded-2xl p-4 my-4 shadow-2xs backdrop-blur-md`}>
+                            <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-2 ${projectImage ? "text-purple-300" : "text-purple-900"}`}>
                               KEY ARCHITECTURAL HIGHLIGHTS
                             </span>
                             <ul className="space-y-1.5">
-                              {project.highlights.slice(0, 3).map((h, hIdx) => (
-                                <li key={hIdx} className={`text-xs flex items-start gap-2 leading-tight ${project.image ? "text-slate-200" : "text-slate-800"}`}>
-                                  <span className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${project.image ? "bg-purple-400" : "bg-purple-600"}`} />
-                                  <span>{h}</span>
+                              {(project.features || []).slice(0, 3).map((h, hIdx) => (
+                                <li key={hIdx} className={`text-xs flex items-start gap-2 leading-tight ${projectImage ? "text-slate-200" : "text-slate-800"}`}>
+                                  <span className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${projectImage ? "bg-purple-400" : "bg-purple-600"}`} />
+                                  <span className="line-clamp-2">{h}</span>
                                 </li>
                               ))}
                             </ul>
@@ -239,14 +246,14 @@ export default function WorkPage() {
 
                         {/* Metrics Grid */}
                         <div className={isFeatured ? "lg:col-span-5" : "w-full"}>
-                          <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-2 ${project.image ? "text-slate-300" : "text-slate-500"}`}>
+                          <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-2 ${projectImage ? "text-slate-300" : "text-slate-500"}`}>
                             PERFORMANCE TELEMETRY
                           </span>
                           <div className="grid grid-cols-2 gap-3 mb-6">
-                            {project.metrics.map((m, mIdx) => (
-                              <div key={mIdx} className={`${project.image ? "bg-black/40 border-white/20 group-hover:border-purple-400 text-white" : "bg-white border-slate-200/90 group-hover:border-purple-200"} border rounded-2xl p-3.5 shadow-2xs transition-colors backdrop-blur-md`}>
-                                <span className={`text-[9px] font-mono uppercase block mb-1 ${project.image ? "text-slate-300" : "text-slate-500"}`}>{m.label}</span>
-                                <span className={`text-base sm:text-lg font-mono font-black ${project.image ? "text-purple-300" : "text-purple-700"}`}>{m.val}</span>
+                            {projectMetrics.map((m, mIdx) => (
+                              <div key={mIdx} className={`${projectImage ? "bg-black/40 border-white/20 group-hover:border-purple-400 text-white" : "bg-white border-slate-200/90 group-hover:border-purple-200"} border rounded-2xl p-3.5 shadow-2xs transition-colors backdrop-blur-md`}>
+                                <span className={`text-[9px] font-mono uppercase block mb-1 ${projectImage ? "text-slate-300" : "text-slate-500"}`}>{m.label}</span>
+                                <span className={`text-base sm:text-lg font-mono font-black ${projectImage ? "text-purple-300" : "text-purple-700"}`}>{m.val}</span>
                               </div>
                             ))}
                           </div>
@@ -257,7 +264,7 @@ export default function WorkPage() {
                     {/* Footer Tech Stack Chips & Link */}
                     <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-6">
                       <div className="flex flex-wrap gap-1.5">
-                        {project.tags.map((tag, tIdx) => (
+                        {(project.card?.tags || []).slice(0, 4).map((tag, tIdx) => (
                           <span key={tIdx} className="text-[10px] font-mono text-slate-800 bg-white border border-slate-200 px-3 py-1 rounded-lg font-medium shadow-2xs">
                             {tag}
                           </span>

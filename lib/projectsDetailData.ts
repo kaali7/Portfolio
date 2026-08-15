@@ -1,79 +1,79 @@
 export interface ProjectCard {
-  shortDescription: string;
-  tags: string[];
+    shortDescription: string;
+    tags: string[];
 }
 
 export interface ProjectVisual {
-  thumbnail: string;
-  heroImage: string;
-  gallery: string[];
-  video: string;
+    thumbnail: string;
+    heroImage: string;
+    gallery: string[];
+    video: string;
 }
 
 export interface ProjectOverview {
-  problem: string;
-  motivation: string;
-  solution: string;
-  outcome: string;
+    problem: string;
+    motivation: string;
+    solution: string;
+    outcome: string;
 }
 
 export interface ProjectTechnical {
-  techStack: string[];
-  concepts: string[];
-  models: string[];
-  datasets: string[];
-  apis: string[];
-  infrastructure: string[];
+    techStack: string[];
+    concepts: string[];
+    models: string[];
+    datasets: string[];
+    apis: string[];
+    infrastructure: string[];
 }
 
 export interface ProjectArchitecture {
-  type: string;
-  diagram: string;
-  workflow: string[];
+    type: string;
+    diagram: string;
+    workflow: string[];
 }
 
 export interface ProjectResearch {
-  researchQuestion: string;
-  methodology: string;
-  experiments: string[];
-  findings: string[];
-  references: string[];
+    researchQuestion: string;
+    methodology: string;
+    experiments: string[];
+    findings: string[];
+    references: string[];
 }
 
 export interface ProjectEngineering {
-  challenges: string[];
-  solutions: string[];
-  performance: string[];
-  scalability: string[];
+    challenges: string[];
+    solutions: string[];
+    performance: string[];
+    scalability: string[];
 }
 
 export interface ProjectLinks {
-  github: string;
-  live: string;
-  demo: string;
-  paper: string;
+    github: string;
+    live: string;
+    demo: string;
+    paper: string;
 }
 
 export interface ProjectDetail {
-  id: string;
-  number: string;
-  title: string;
-  category: string;
-  subcategory: string;
-  type: string;
-  status: string;
-  year: number;
-  featured: boolean;
-  card: ProjectCard;
-  visual: ProjectVisual;
-  overview: ProjectOverview;
-  features: string[];
-  technical: ProjectTechnical;
-  architecture: ProjectArchitecture;
-  research: ProjectResearch;
-  engineering: ProjectEngineering;
-  learnings: string[];
-  links: ProjectLinks;
+    id: string;
+    number: string;
+    title: string;
+    category: string;
+    subcategory: string;
+    type: string;
+    status: string;
+    year: number;
+    featured: boolean;
+    card: ProjectCard;
+    visual: ProjectVisual;
+    overview: ProjectOverview;
+    features: string[];
+    technical: ProjectTechnical;
+    architecture: ProjectArchitecture;
+    research: ProjectResearch;
+    engineering: ProjectEngineering;
+    learnings: string[];
+    links: ProjectLinks;
 }
 
 export const projectsDetailData: ProjectDetail[] = [
@@ -92,20 +92,22 @@ export const projectsDetailData: ProjectDetail[] = [
             "tags": [
                 "Python",
                 "FastAPI",
-                "Next.js",
-                "React",
                 "Ollama",
-                "Google Gemini API",
-                "Faster-Whisper",
-                "Kokoro TTS",
                 "Silero VAD",
+                "Faster-Whisper",
+                "Google Gemini API",
+                "React with vite",
+                "Kokoro TTS",
                 "SQLite"
             ]
         },
         "visual": {
-            "thumbnail": "",
-            "heroImage": "",
-            "gallery": [],
+            "thumbnail": "/projects/img/netran-ai_1.png",
+            "heroImage": "/projects/img/netran-ai_2.jpeg",
+            "gallery": [
+                "/projects/img/netran-ai_1.png",
+                "/projects/img/netran-ai_2.jpeg"
+            ],
             "video": ""
         },
         "overview": {
@@ -251,9 +253,12 @@ export const projectsDetailData: ProjectDetail[] = [
             ]
         },
         "visual": {
-            "thumbnail": "",
-            "heroImage": "",
-            "gallery": [],
+            "thumbnail": "/projects/img/resumebuilder1.png",
+            "heroImage": "/projects/img/resumebuilder2.png",
+            "gallery": [
+                "/projects/img/resumebuilder1.png",
+                "/projects/img/resumebuilder2.png"
+            ],
             "video": ""
         },
         "overview": {
@@ -397,10 +402,13 @@ export const projectsDetailData: ProjectDetail[] = [
             ]
         },
         "visual": {
-            "thumbnail": "",
-            "heroImage": "",
-            "gallery": [],
-            "video": ""
+            "thumbnail": "/projects/img/ai-powered-hr-dashboard1.png",
+            "heroImage": "/projects/img/ai-powered-hr-dashboard2.png",
+            "gallery": [
+                "/projects/img/ai-powered-hr-dashboard1.png",
+                "/projects/img/ai-powered-hr-dashboard2.png"
+            ],
+            "video": "/projects/video/ai-powered-hr-dashboard.mp4"
         },
         "overview": {
             "problem": "",
@@ -518,9 +526,11 @@ export const projectsDetailData: ProjectDetail[] = [
             ]
         },
         "visual": {
-            "thumbnail": "",
-            "heroImage": "",
-            "gallery": [],
+            "thumbnail": "/projects/img/stockmind-ai.png",
+            "heroImage": "/projects/img/stockmind-ai.png",
+            "gallery": [
+                "/projects/img/stockmind-ai.png"
+            ],
             "video": ""
         },
         "overview": {

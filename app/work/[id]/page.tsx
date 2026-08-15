@@ -3,23 +3,29 @@
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
-import { projectsData } from "@/lib/projectsData";
+import { projectsDetailData } from "@/lib/projectsDetailData";
 import { ArrowLeft, Check, Sparkles, Terminal, Code2, ExternalLink, Github } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   // Find project by numeric ID or string slug
-  const projectIndex = projectsData.findIndex(
-    (p) => p.id.toString() === params.id || p.slug === params.id
+  const projectIndex = projectsDetailData.findIndex(
+    (p) => p.id === params.id
   );
 
   if (projectIndex === -1) {
     notFound();
   }
 
-  const project = projectsData[projectIndex];
-  const prevProject = projectsData[projectIndex === 0 ? projectsData.length - 1 : projectIndex - 1];
-  const nextProject = projectsData[projectIndex === projectsData.length - 1 ? 0 : projectIndex + 1];
+  const project = projectsDetailData[projectIndex];
+  const prevProject = projectsDetailData[projectIndex === 0 ? projectsDetailData.length - 1 : projectIndex - 1];
+  const nextProject = projectsDetailData[projectIndex === projectsDetailData.length - 1 ? 0 : projectIndex + 1];
+
+  const projectMetrics = (project.engineering?.performance || []).slice(0, 4).map((p: string, i: number) => {
+    const labels = ["Latency", "Speed", "Scale", "Accuracy"];
+    return { label: labels[i % labels.length], val: p.split(" ")[0] || "High" };
+  });
+  if (projectMetrics.length === 0) projectMetrics.push({ label: "Status", val: project.status || "Live" });
 
   return (
     <main className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white pb-20 relative overflow-x-hidden">
@@ -39,7 +45,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3.5 py-1 rounded-full uppercase">
-              CASE STUDY // 0{project.id}
+              CASE STUDY // {project.number || `0${projectIndex + 1}`}
             </span>
           </div>
         </div>
@@ -59,7 +65,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
               </span>
             )}
             <span className="text-xs font-mono text-purple-700 bg-purple-100 border border-purple-300 px-3 py-1 rounded-full font-bold">
-              {project.previewMetric}
+              {project.engineering?.performance?.[0]?.split(" ")[0] || "Optimized"}
             </span>
           </div>
 
@@ -73,14 +79,14 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
           </motion.h1>
 
           <p className="text-base sm:text-xl text-slate-600 font-normal leading-relaxed mb-8">
-            {project.fullDescription}
+            {project.overview?.problem || project.card?.shortDescription}
           </p>
 
           {/* External Action Links (GitHub / Live Demo) */}
           <div className="flex flex-wrap items-center gap-4 mb-8">
-            {project.githubLink && (
+            {project.links?.github && (
               <a
-                href={project.githubLink}
+                href={project.links.github}
                 target="_blank"
                 rel="noreferrer"
                 className="px-6 py-3 bg-[#08080A] hover:bg-purple-600 text-white rounded-full text-xs font-mono font-black tracking-wider transition-all shadow-md flex items-center gap-2"
@@ -89,9 +95,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 <span>VIEW REPOSITORY</span>
               </a>
             )}
-            {project.liveLink && (
+            {project.links?.live && (
               <a
-                href={project.liveLink}
+                href={project.links.live}
                 target="_blank"
                 rel="noreferrer"
                 className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-xs font-mono font-black tracking-wider transition-all shadow-md flex items-center gap-2"
@@ -102,19 +108,18 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             )}
           </div>
 
-          {/* Quick Meta Info Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 bg-slate-50 border border-slate-200/90 rounded-2xl font-mono text-xs shadow-xs">
             <div>
-              <span className="text-slate-500 block uppercase mb-1 text-[10px]">MY ROLE</span>
-              <span className="text-[#08080A] font-bold">{project.role}</span>
+              <span className="text-slate-500 block uppercase mb-1 text-[10px]">CATEGORY</span>
+              <span className="text-[#08080A] font-bold">{project.category}</span>
             </div>
             <div>
-              <span className="text-slate-500 block uppercase mb-1 text-[10px]">TIMELINE</span>
-              <span className="text-[#08080A] font-bold">{project.timeline}</span>
+              <span className="text-slate-500 block uppercase mb-1 text-[10px]">YEAR</span>
+              <span className="text-[#08080A] font-bold">{project.year}</span>
             </div>
             <div>
               <span className="text-slate-500 block uppercase mb-1 text-[10px]">PRIMARY IMPACT</span>
-              <span className="text-purple-700 font-bold">{project.previewMetric}</span>
+              <span className="text-purple-700 font-bold">{project.engineering?.performance?.[0]?.split(" ")[0] || "Optimized"}</span>
             </div>
             <div>
               <span className="text-slate-500 block uppercase mb-1 text-[10px]">STATUS</span>
@@ -132,7 +137,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {project.metrics.map((m, idx) => (
+          {projectMetrics.map((m, idx) => (
             <motion.div 
               key={idx}
               initial={{ opacity: 0, y: 15 }}
@@ -160,7 +165,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 <span>CHALLENGE & PROBLEM STATEMENT</span>
               </h3>
               <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
-                {project.problemStatement}
+                {project.overview?.problem || "System definition pending."}
               </p>
             </div>
 
@@ -170,7 +175,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 <span>MEASURABLE SOLUTION IMPACT</span>
               </h3>
               <p className="text-slate-800 text-sm sm:text-base leading-relaxed font-normal">
-                {project.solutionImpact}
+                {project.overview?.outcome || "Impact evaluation pending."}
               </p>
             </div>
 
@@ -180,7 +185,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 <span>ARCHITECTURE & PIPELINE OVERVIEW</span>
               </h3>
               <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
-                {project.architectureOverview}
+                {project.overview?.solution || "Architecture diagram pending."}
               </p>
             </div>
 
@@ -196,7 +201,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 </h3>
 
                 <ul className="space-y-3">
-                  {project.highlights.map((point, idx) => (
+                  {(project.features || []).map((point, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-800 font-normal leading-relaxed">
                       <span className="w-5 h-5 rounded-full bg-purple-100 text-purple-700 border border-purple-300 flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-mono font-bold">
                         ✓
@@ -213,7 +218,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                   TECHNOLOGY & FRAMEWORKS USED
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.tags.map((t) => (
+                  {(project.card?.tags || []).map((t) => (
                     <span key={t} className="text-xs font-mono text-slate-800 bg-white border border-slate-200 px-3 py-1 rounded-md font-medium shadow-2xs">
                       {t}
                     </span>
@@ -239,8 +244,8 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             <span className="text-xs font-mono text-slate-400">MODULE CODE SNIPPET</span>
           </div>
 
-          <pre className="bg-black/50 border border-white/10 rounded-2xl p-5 overflow-x-auto text-xs sm:text-sm font-mono text-purple-200 leading-relaxed no-scrollbar">
-            <code>{project.codeSnippet}</code>
+          <pre className="bg-black/50 border border-white/10 rounded-2xl p-5 overflow-x-auto text-xs sm:text-sm font-mono text-purple-200 leading-relaxed no-scrollbar whitespace-pre-wrap">
+            <code>{project.architecture?.diagram || JSON.stringify(project.technical, null, 2)}</code>
           </pre>
         </div>
       </section>
@@ -249,7 +254,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       <footer className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-12 mt-12 border-t border-slate-200/80 flex items-center justify-between">
         {prevProject ? (
           <Link 
-            href={`/work/${prevProject.slug || prevProject.id}`}
+            href={`/work/${prevProject.id}`}
             className="group flex flex-col items-start cursor-pointer"
           >
             <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-purple-600 transition-colors">
@@ -263,7 +268,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
         {nextProject && (
           <Link 
-            href={`/work/${nextProject.slug || nextProject.id}`}
+            href={`/work/${nextProject.id}`}
             className="group flex flex-col items-end text-right cursor-pointer"
           >
             <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-purple-600 transition-colors">
