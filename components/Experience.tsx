@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { 
@@ -13,6 +13,57 @@ import { experienceData } from "@/lib/experienceDetailData";
 
 export function Experience() {
   const [activeExp, setActiveExp] = useState<number>(0);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [wirePoints, setWirePoints] = useState<{ x1: number; y1: number; x2: number; y2: number; w: number; h: number } | null>(null);
+
+  // Measure exact DOM anchor positions at the top corners of Card 0 and Card 1 for the connecting wire
+  useEffect(() => {
+    function updateWire() {
+      if (!gridRef.current) return;
+      const gr = gridRef.current.getBoundingClientRect();
+      const el0 = cardRefs.current[0];
+      const el1 = cardRefs.current[1];
+      if (!el0 || !el1) return;
+
+      const r0 = el0.getBoundingClientRect();
+      const r1 = el1.getBoundingClientRect();
+
+      // Card 0 connection point (deeper inside top right of Card 0)
+      const x1 = r0.right - gr.left - 42;
+      const y1 = r0.top - gr.top + 28;
+
+      // Card 1 connection point (deeper inside top left of Card 1)
+      const x2 = r1.left - gr.left + 42;
+      const y2 = r1.top - gr.top + 28;
+
+      setWirePoints({
+        x1, y1, x2, y2,
+        w: gr.width,
+        h: gr.height
+      });
+    }
+
+    // Trigger multiple measurements during Framer Motion spring transition (0 to 300ms)
+    updateWire();
+    const t1 = setTimeout(updateWire, 50);
+    const t2 = setTimeout(updateWire, 150);
+    const t3 = setTimeout(updateWire, 250);
+    const t4 = setTimeout(updateWire, 350);
+
+    const obs = new ResizeObserver(updateWire);
+    if (gridRef.current) obs.observe(gridRef.current);
+    window.addEventListener("resize", updateWire);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+      obs.disconnect();
+      window.removeEventListener("resize", updateWire);
+    };
+  }, [activeExp]);
 
   // Map the strict TS data to the UI structure required by the component
   const experiences = experienceData.map((exp, idx) => {
@@ -137,8 +188,107 @@ export function Experience() {
 
         </div>
 
-        {/* 2-COLUMN ROTATED WALL CARDS GRID */}
-        <div className="relative pt-4">
+        {/* 2-COLUMN ROTATED WALL CARDS GRID WITH CONNECTING WIRE THREAD */}
+        <div className="relative pt-4" ref={gridRef}>
+          {/* Dynamic SVG Connecting Thread Wire between Experience Cards */}
+          {wirePoints && wirePoints.w > 0 && (
+            <svg
+              className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-50 overflow-visible"
+              viewBox={`0 0 ${wirePoints.w} ${wirePoints.h}`}
+            >
+              <defs>
+                <filter id="exp-wire-glow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="1.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <linearGradient id="exp-wire-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#a855f7" />
+                  <stop offset="50%" stopColor="#c084fc" />
+                  <stop offset="100%" stopColor="#d946ef" />
+                </linearGradient>
+              </defs>
+
+              {/* Gentle subtle arching Bezier path connecting Card 0 to Card 1 */}
+              {(() => {
+                const { x1, y1, x2, y2 } = wirePoints;
+                const dx = Math.abs(x2 - x1);
+                // Smooth gentle bridge arc proportional to extended wire length
+                const arch = Math.min(52, Math.max(28, dx * 0.18));
+                const cp1x = x1 + dx * 0.28;
+                const cp1y = Math.min(y1, y2) - arch;
+                const cp2x = x2 - dx * 0.28;
+                const cp2y = Math.min(y1, y2) - arch;
+                const pathD = `M ${x1} ${y1} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${x2} ${y2}`;
+
+                return (
+                  <>
+                    {/* Background Glow Stroke */}
+                    <motion.path
+                      d={pathD}
+                      fill="none"
+                      stroke="url(#exp-wire-gradient)"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      filter="url(#exp-wire-glow)"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1, 
+                        opacity: [0, 0.75, 0.45, 0.75]
+                      }}
+                      transition={{
+                        pathLength: { duration: 1.6, ease: [0.23, 1, 0.32, 1] },
+                        opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                    />
+
+                    {/* Crisp Core Inner Line */}
+                    <motion.path
+                      d={pathD}
+                      fill="none"
+                      stroke="#c084fc"
+                      strokeWidth="0.8"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.85 }}
+                      transition={{
+                        pathLength: { duration: 1.6, ease: [0.23, 1, 0.32, 1] }
+                      }}
+                    />
+
+                    {/* Start Connection Node Dot (Card 0) */}
+                    <motion.circle
+                      cx={x1}
+                      cy={y1}
+                      r={2.8}
+                      fill="#a855f7"
+                      filter="url(#exp-wire-glow)"
+                      initial={{ opacity: 0 }}
+                      animate={{ scale: [0.9, 1.2, 0.9], opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    <circle cx={x1} cy={y1} r={1.2} fill="#ffffff" />
+
+                    {/* End Connection Node Dot (Card 1) */}
+                    <motion.circle
+                      cx={x2}
+                      cy={y2}
+                      r={2.8}
+                      fill="#d946ef"
+                      filter="url(#exp-wire-glow)"
+                      initial={{ opacity: 0 }}
+                      animate={{ scale: [0.9, 1.2, 0.9], opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                    />
+                    <circle cx={x2} cy={y2} r={1.2} fill="#ffffff" />
+                  </>
+                );
+              })()}
+            </svg>
+          )}
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
             {experiences.map((exp, idx) => {
               const isSelected = activeExp === idx;
@@ -147,6 +297,7 @@ export function Experience() {
               return (
                 <motion.div
                   key={idx}
+                  ref={(el) => { cardRefs.current[idx] = el; }}
                   onMouseEnter={() => setActiveExp(idx)}
                   onClick={() => setActiveExp(idx)}
                   initial={{ rotate: defaultRotate }}

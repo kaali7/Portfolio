@@ -12,6 +12,7 @@
 - **Work Experience Deck (`components/Experience.tsx`, `app/about/page.tsx`)**:
   - **GarunaCDX** (GenAI Developer · Mar 2026 — Present): Enterprise RAG, GenAI engineering, and scalable full-stack applications.
   - **AASHA Infinite Foundation** (Data Analyst · Dec 2025 — Feb 2026): Data extraction, performance dashboards, ETL cleaning, and operational telemetry.
+  - **Connecting Thread Wire**: Sleek, subtle SVG wire trace with dynamic DOM measurement (`getBoundingClientRect()` + `ResizeObserver`), smooth 28-52px bridge curve, 1.8px neon gradient stroke, crisp 0.8px core line, and refined 2.8px pulsing junction node pins extending 42px inside Card 0 and Card 1.
 - **Production Projects Catalog (`lib/projectsData.ts`, `components/Projects.tsx`, `app/work/page.tsx`, `app/work/[id]/page.tsx`)**:
   - **Netran AI**: Autonomous, web-augmented, multimodal AI technical interviewer system (FastAPI, Next.js, Ollama, Gemini API, Silero VAD v3, Faster-Whisper, Kokoro TTS, SpeechBrain ECAPA).
   - **ResumeBuilder**: Multi-stage LLM resume generation & compilation pipeline (React 19, FastAPI, LaTeX, SQLite, Gemini, Groq, Tavily, 4-level evaluation analytics).
@@ -19,14 +20,14 @@
   - **StockMind AI**: Real-time AI financial analytics dashboard (React, TypeScript, Zustand, Recharts, Groq AI, Finnhub API).
 
 ### 3. Dedicated Page Routes
-- **Redesigned Work Archive (`app/work/page.tsx`)**: Real category filters (`AI ENGINEERING`, `FULL-STACK AI`, `VOICE AI`, `HR ANALYTICS`, `FINANCIAL ANALYTICS`), asymmetrical bento grid layout with Framer Motion staggered reveals, and integrated interactive `<Contact />` footer section.
+- **Redesigned Work Archive (`app/work/page.tsx`)**: Real category filters (`AI ENGINEERING`, `FULL-STACK AI`, `VOICE AI`, `HR ANALYTICS`, `FINANCIAL ANALYTICS`), asymmetrical bento grid layout with Framer Motion staggered reveals, integrated interactive `<Contact />` footer section, interactive `<RobotAvatar />` hero mascot with mouse tracking, removed redundant purple top badge, and overhauled project cards with dedicated preview viewports to guarantee 100% text readability.
 - **Redesigned About Biography (`app/about/page.tsx`)**: Real biography, GarunaCDX & AASHA Infinite experience milestones, 4-card technical competencies matrix, and integrated interactive `<Contact />` footer section.
 - **Case Study Details (`app/work/[id]/page.tsx`)**: Detailed project case studies with KPI metrics, problem/impact breakdown, architectural highlights, code snippets, and live GitHub / web links.
 - **404 Not Found (`app/not-found.tsx`, `RobotAvatar.tsx`)**: Custom error page ("LOSS FUNCTION UNCONVERGED"), interactive 3.0σ deviation chip, mouse spotlight, AI assistant reroute CTAs, and interactive AI Robot Avatar mascot with mouse-tracking white eyes, typewriter speech bubble (`404 REROUTE!`), and spring tilt physics.
 
 ### 4. Interactive Radial Skill Matrix (`components/Skills.tsx`)
 - **Radial Constellation Layout**: Rebuilt traditional grid into an interactive radial skill constellation with 8 domain nodes surrounding a fixed central inspection panel matching user reference sketches.
-- **Dynamic Center Panel**: Features real-time state inspection on hover/tap displaying core technology badges with icons, concise descriptions, and linked case study projects in a compact panel. Opens default domain (`DATA SCIENCE`) immediately on initial render with balanced left-shifted alignment.
+- **Dynamic Center Panel (Cyberpunk HUD)**: Features real-time state inspection on hover/tap. Designed with a deep glassmorphism HUD aesthetic (inner glows, corner brackets, ambient grid overlays, mono typography). Includes Framer Motion staggered entrance animations (`staggerChildren: 0.05`) for smooth orchestration of headers, tech badges, and linked case studies. Opens default domain (`DATA SCIENCE`) immediately on initial render.
 - **SVG Orbit Connectors**: Dynamically measures real card & panel DOM coordinates (`getBoundingClientRect()` + `ResizeObserver`) to generate a Catmull-Rom smooth bezier orbital path and hub spoke lines that land with pixel perfection across all screen resolutions.
 - **Z-Index & Stacking Layering**: Set SVG thread layer to `z-0` and domain cards to `z-10`+ (`z-40` on active/hover), ensuring domain cards render cleanly in front of all threads/wires. Increased non-selected card brightness (`brightness(0.82)`) and scale (`0.98`) for clear legibility and crisp visual presence across all 8 nodes.
 - **Responsive Adaptations**: Designed desktop radial constellation and mobile/tablet node selector grid guaranteeing zero horizontal overflow across viewports.

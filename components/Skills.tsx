@@ -457,77 +457,132 @@ export function Skills() {
           })()}
 
 
-          {/* CENTER DETAIL PANEL (Desktop - Perfectly Centered in Shifter Constellation) */}
+          {/* CENTER DETAIL PANEL (Cyberpunk HUD style) */}
           <div
             ref={centerPanelRef}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[440px] bg-[#0B0C10]/95 border border-purple-500/40 rounded-3xl p-6 shadow-[0_0_50px_rgba(168,85,247,0.2)] backdrop-blur-xl flex flex-col gap-4 overflow-hidden"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[460px] bg-[#050608]/95 border border-purple-500/30 ring-1 ring-white/5 rounded-2xl p-7 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3),inset_0_0_30px_rgba(168,85,247,0.05)] backdrop-blur-2xl flex flex-col gap-5 overflow-hidden"
           >
-            {/* Neon Bar Top Highlight */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400" />
+            {/* Ambient HUD grid overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#a855f710_1px,transparent_1px),linear-gradient(to_bottom,#a855f710_1px,transparent_1px)] bg-[size:1rem_1rem] opacity-20 pointer-events-none mix-blend-screen" />
+
+            {/* Corner Bracket Accents (HUD aesthetic) */}
+            <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-purple-500/50 rounded-tl-sm pointer-events-none" />
+            <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-purple-500/50 rounded-tr-sm pointer-events-none" />
+            <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-purple-500/50 rounded-bl-sm pointer-events-none" />
+            <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-purple-500/50 rounded-br-sm pointer-events-none" />
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeDomain.id}
-                initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -12, scale: 0.98 }}
-                transition={{ duration: 0.25, ease: EASE_OUT_EXPRESSIVE }}
-                className="space-y-4"
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.96 },
+                  visible: { 
+                    opacity: 1, 
+                    scale: 1,
+                    transition: { 
+                      duration: 0.3, 
+                      ease: EASE_OUT_EXPRESSIVE,
+                      staggerChildren: 0.05,
+                      delayChildren: 0.05
+                    }
+                  },
+                  exit: { 
+                    opacity: 0, 
+                    scale: 0.98,
+                    transition: { duration: 0.2, ease: "easeOut" }
+                  }
+                }}
+                className="space-y-5 relative z-10"
               >
                 {/* Domain Header */}
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-purple-500/20 border border-purple-400/40 text-purple-300">
+                <motion.div 
+                  variants={{
+                    hidden: { opacity: 0, x: -10 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                    exit: { opacity: 0, transition: { duration: 0.1 } }
+                  }}
+                  className="flex items-center gap-4"
+                >
+                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-400/30 text-purple-300 shadow-[inset_0_0_15px_rgba(168,85,247,0.2)]">
                     {activeDomain.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white tracking-tight">
+                    <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-purple-400/80 uppercase block mb-0.5">
+                      // SYSTEM.DOMAIN
+                    </span>
+                    <h3 className="text-xl font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 tracking-tight">
                       {activeDomain.title}
                     </h3>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Full Description */}
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <motion.p 
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                    exit: { opacity: 0, transition: { duration: 0.1 } }
+                  }}
+                  className="text-[13px] text-slate-300 font-light leading-relaxed"
+                >
                   {activeDomain.fullDesc}
-                </p>
+                </motion.p>
 
                 {/* Core Technologies Badges */}
-                <div>
-                  <span className="text-[9px] font-mono font-bold text-purple-400 uppercase tracking-widest block mb-2">
-                    CORE TECHNOLOGIES
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                    exit: { opacity: 0, transition: { duration: 0.1 } }
+                  }}
+                >
+                  <span className="flex items-center gap-2 text-[10px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+                    CORE.STACK
                   </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {activeDomain.technologies.map((tech) => (
                       <div
                         key={tech.name}
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/40 text-xs font-mono text-slate-200 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] text-xs font-mono text-slate-200 transition-all duration-300"
                       >
-                        <TechIcon name={tech.name} className="w-3.5 h-3.5" />
+                        <TechIcon name={tech.name} className="w-3.5 h-3.5 opacity-80" />
                         <span>{tech.name}</span>
                       </div>
                     ))}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Related Projects */}
                 {activeDomain.projects.length > 0 && (
-                  <div className="pt-3 border-t border-white/10 flex items-center justify-between flex-wrap gap-1.5">
-                    <span className="text-[9px] font-mono font-bold text-purple-400 uppercase">
-                      PRODUCTION PROVEN:
+                  <motion.div 
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                      exit: { opacity: 0, transition: { duration: 0.1 } }
+                    }}
+                    className="pt-4 border-t border-purple-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  >
+                    <span className="text-[10px] font-mono font-bold text-purple-400/70 uppercase flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      DEPLOYMENTS
                     </span>
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-2">
                       {activeDomain.projects.map((proj) => (
                         <Link
                           key={proj.id}
                           href={`/work/${proj.id}`}
-                          className="inline-flex items-center gap-1 text-[10px] font-mono text-white bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/40 px-2.5 py-1 rounded-md transition-all"
+                          className="group inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-purple-200 bg-purple-900/30 hover:bg-purple-600/50 border border-purple-500/30 hover:border-purple-400/80 hover:text-white px-3 py-1.5 rounded transition-all duration-300"
                         >
                           <span>{proj.name}</span>
-                          <ArrowUpRight className="w-3 h-3 text-purple-300" />
+                          <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                         </Link>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </motion.div>
             </AnimatePresence>
