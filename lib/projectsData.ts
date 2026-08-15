@@ -18,6 +18,7 @@ export interface ProjectItem {
   codeSnippet: string;
   githubLink?: string;
   liveLink?: string;
+  image?: string;
 }
 
 export const projectsData: ProjectItem[] = [
@@ -75,7 +76,8 @@ class NetranVoiceEngine:
         is_candidate = self.spk_verifier.verify_batch(pcm_bytes, candidate_emb)
         if is_candidate:
             segments, _ = self.stt.transcribe(pcm_bytes, beam_size=5)
-            return "".join([s.text for s in segments])`
+            return "".join([s.text for s in segments])`,
+    image: "/projects/netran-ai.jpg"
   },
   {
     id: 2,
@@ -122,7 +124,8 @@ async def generate_resume_stage1(payload: ResumePayload):
         return await gemini_provider.generate_content(payload)
     except QuotaExceededError:
         # Fallback to Groq provider chain
-        return await groq_provider.generate_content(payload)`
+        return await groq_provider.generate_content(payload)`,
+    image: "/projects/resumebuilder.jpg"
   },
   {
     id: 3,
@@ -170,7 +173,8 @@ export async function generateDashboardWorkspace(fileBuffer: Buffer) {
   } catch (quotaError) {
     return ruleBasedEngine.generateFallbackWorkspace(profile);
   }
-}`
+}`,
+    image: "/projects/ai-powered-hr-dashboard.jpg"
   },
   {
     id: 4,
@@ -219,6 +223,7 @@ export function calculateRSI(prices: number[], period = 14): number[] {
   const avgGain = gains / period, avgLoss = losses / period;
   const rs = avgGain / (avgLoss || 1);
   return [100 - (100 / (1 + rs))];
-}`
+}`,
+    image: "/projects/stockmind-ai.jpg"
   }
 ];

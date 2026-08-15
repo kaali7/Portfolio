@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Award, Terminal, Code2, Cpu } from "lucide-react";
 import { Contact } from "@/components/Contact";
 import { Navbar } from "@/components/Navbar";
+import { experienceData } from "@/lib/experienceDetailData";
 
 export default function AboutPage() {
   const domainSkills = [
@@ -34,20 +35,13 @@ export default function AboutPage() {
     }
   ];
 
-  const careerMilestones = [
-    {
-      year: "MAR 2026 — PRESENT",
-      role: "GenAI Developer",
-      company: "GarunaCDX",
-      summary: "Architecting next-generation digital and AI-powered solutions, developing scalable applications across domains using Generative AI, Retrieval-Augmented Generation (RAG), and modern full-stack development."
-    },
-    {
-      year: "DEC 2025 — FEB 2026",
-      role: "Data Analyst",
-      company: "AASHA Infinite Foundation",
-      summary: "Transformed raw data into actionable insights across social impact programs. Built interactive dashboards, conducted dataset ETL cleaning, and optimized operational resource allocation."
-    }
-  ];
+  const careerMilestones = experienceData.map(exp => ({
+    year: exp.duration.display.split(" · ")[0] || exp.duration.display,
+    role: exp.role,
+    company: exp.company,
+    summary: exp.overview.shortDescription,
+    certificate: exp.visual.certificate
+  }));
 
   return (
     <main className="w-full min-h-screen bg-white text-[#08080A] selection:bg-purple-600 selection:text-white relative overflow-x-hidden">
@@ -248,11 +242,22 @@ export default function AboutPage() {
                 className="flex flex-col md:flex-row gap-4 md:gap-10 pb-8 border-b border-slate-200/80 last:border-0 last:pb-0"
               >
                 <div className="md:w-60 flex-shrink-0">
-                  <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3.5 py-1 rounded-full inline-block mb-3">
+                  <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3.5 py-1 rounded-full inline-block mb-3 uppercase">
                     {item.year}
                   </span>
                   <h4 className="text-lg font-bold text-[#08080A]">{item.role}</h4>
-                  <span className="text-xs font-mono text-slate-500 block mt-0.5">{item.company}</span>
+                  <span className="text-xs font-mono text-slate-500 block mt-0.5 mb-3">{item.company}</span>
+                  {item.certificate && (
+                    <a 
+                      href={item.certificate} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-white bg-[#08080A] hover:bg-purple-600 px-3 py-1.5 rounded-full transition-colors cursor-pointer"
+                    >
+                      <Award className="w-3 h-3" />
+                      VIEW CREDENTIAL
+                    </a>
+                  )}
                 </div>
                 <div className="flex-1">
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-3xl font-normal">

@@ -2,116 +2,47 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { 
   Zap, 
   MapPin, 
   CheckCircle2, 
   Clock,
-  Calendar,
   ExternalLink
 } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
-
-interface Achievement {
-  title: string;
-  detail: string;
-  metric: string;
-}
-
-interface ExperienceItem {
-  id: number;
-  role: string;
-  company: string;
-  companyUrl: string;
-  logo: string;
-  period: string;
-  location: string;
-  type: string;
-  status: "CURRENT" | "PAST";
-  primaryImpact: string;
-  summary: string;
-  achievements: Achievement[];
-  tags: string[];
-  highlights: { label: string; val: string }[];
-}
+import { experienceData } from "@/lib/experienceDetailData";
 
 export function Experience() {
   const [activeExp, setActiveExp] = useState<number>(0);
 
-  const experiences: ExperienceItem[] = [
-    {
-      id: 0,
-      role: "GenAI Developer",
-      company: "GarunaCDX",
-      companyUrl: "https://www.garunacdx.com/",
-      logo: "/logo/garunacdx_logo.jpg",
-      period: "Mar 2026 — Present",
-      location: "Panvel, Navi Mumbai · Remote",
-      type: "FULL-TIME",
-      status: "CURRENT",
-      primaryImpact: "Scalable GenAI & RAG",
-      summary: "Architecting next-generation digital and AI-powered solutions, developing scalable applications across domains using Generative AI, Retrieval-Augmented Generation (RAG), and modern full-stack development.",
-      achievements: [
-        {
-          title: "Enterprise RAG & GenAI Pipelines",
-          detail: "Building next-generation digital and AI-powered solutions leveraging Retrieval-Augmented Generation (RAG) and Generative AI models.",
-          metric: "GenAI & RAG"
-        },
-        {
-          title: "Scalable Multi-Domain Applications",
-          detail: "Developing scalable production applications across enterprise domains using Artificial Intelligence and modern full-stack development.",
-          metric: "Full-Stack AI"
-        },
-        {
-          title: "Rapid Prototyping & Leadership",
-          detail: "Collaborating on architectural designs, real-world problem solving, rapid prototyping, and continuous AI solution deployment.",
-          metric: "Team Leadership"
-        }
-      ],
-      tags: ["Generative AI", "RAG", "Python", "FastAPI", "React", "Docker"],
+  // Map the strict TS data to the UI structure required by the component
+  const experiences = experienceData.map((exp, idx) => {
+    return {
+      id: idx,
+      role: exp.role,
+      company: exp.company,
+      companyUrl: exp.links.company,
+      logo: exp.visual.companyLogo,
+      period: exp.duration.display.split(" · ")[0] || exp.duration.display,
+      location: exp.location.split(" · ")[0] + " · " + (exp.location.split(" · ")[1] || "Remote"),
+      type: exp.type.toUpperCase(),
+      status: exp.duration.end.toLowerCase() === "present" ? "CURRENT" as const : "PAST" as const,
+      primaryImpact: exp.focus.length >= 2 ? `${exp.focus[0]} & ${exp.focus[1]}` : exp.focus[0] || "Impact",
+      summary: exp.overview.shortDescription,
+      achievements: exp.overview.responsibilities.slice(0, 3).map((r, i) => ({
+        title: exp.work.contributions[i] || "Core Responsibility",
+        detail: r,
+        metric: exp.technical.skills[i] || "Skill"
+      })),
+      tags: exp.technical.technologies.slice(0, 6),
       highlights: [
-        { label: "CORE FOCUS", val: "GenAI & RAG" },
-        { label: "STATUS", val: "Mar 2026 — Present" },
-        { label: "LOCATION", val: "Remote (Panvel)" }
+        { label: "CORE FOCUS", val: exp.focus[0] || "Development" },
+        { label: "STATUS", val: exp.duration.display.split(" · ")[0] },
+        { label: "LOCATION", val: exp.location.split(" · ")[1] || "Remote" }
       ]
-    },
-    {
-      id: 1,
-      role: "Data Analyst",
-      company: "AASHA Infinite Foundation",
-      companyUrl: "https://aashainfinite.org/",
-      logo: "/logo/aasha_logo.jpg",
-      period: "Dec 2025 — Feb 2026",
-      location: "Bengaluru, Karnataka · Remote",
-      type: "FULL-TIME",
-      status: "PAST",
-      primaryImpact: "Data-Driven Telemetry",
-      summary: "Transformed raw data into actionable insights to support data-driven decision-making across social impact programs. Built performance dashboards, conducted ETL dataset cleaning, and optimized operational efficiency.",
-      achievements: [
-        {
-          title: "Data Analytics & Insights Extraction",
-          detail: "Collected, cleaned, and analyzed structured and unstructured datasets to identify trends and operational resource allocation patterns.",
-          metric: "Data Analytics"
-        },
-        {
-          title: "Dashboard Development & Tracking",
-          detail: "Built interactive dashboards and data visualizations tracking social impact program performance and community outreach metrics.",
-          metric: "Dashboards"
-        },
-        {
-          title: "Operational Impact & Telemetry",
-          detail: "Collaborated with team members to translate data insights into real-world operational efficiency improvements and social impact.",
-          metric: "Impact Telemetry"
-        }
-      ],
-      tags: ["Data Analysis", "Dashboard Development", "Data Visualization", "Google Sheets", "SQL"],
-      highlights: [
-        { label: "DATASETS", val: "Structured/Unstructured" },
-        { label: "DURATION", val: "Dec 2025 — Feb 2026" },
-        { label: "LOCATION", val: "Remote (Bengaluru)" }
-      ]
-    }
-  ];
+    };
+  });
 
   return (
     <section 
@@ -142,67 +73,49 @@ export function Experience() {
           {/* Dedicated Text & Node Info Row */}
           <div className="relative z-10 flex items-center justify-between gap-4 mb-3">
             
-            {/* Timeline Node 01: GarunaCDX (Mar 2026 — Present) */}
-            <motion.button 
-              onClick={() => setActiveExp(0)}
-              onMouseEnter={() => setActiveExp(0)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              className={`flex items-center gap-3 text-left cursor-pointer transition-all duration-150 ${
-                activeExp === 0 ? "opacity-100" : "opacity-75 hover:opacity-100"
-              }`}
-            >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-150 shadow-md ${
-                activeExp === 0
-                  ? "bg-purple-600 border-white ring-4 ring-emerald-400/60 shadow-[0_0_20px_rgba(52,211,153,0.8)]"
-                  : "bg-slate-800 border-slate-600 group-hover:border-purple-400"
-              }`}>
-                <div className={`w-2.5 h-2.5 rounded-full ${activeExp === 0 ? "bg-emerald-400 animate-ping" : "bg-slate-400"}`} />
-              </div>
-              <div>
-                <div className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
-                  activeExp === 0 ? "text-emerald-400" : "text-slate-400"
-                }`}>
-                  MAR 2026 — PRESENT // GENAI DEVELOPER
+            {experiences.map((exp, idx) => (
+              <motion.button
+                key={exp.id}
+                onClick={() => setActiveExp(idx)}
+                onMouseEnter={() => setActiveExp(idx)}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+                className={`flex items-center gap-3 cursor-pointer transition-all duration-150 ${idx === 1 ? 'text-right' : 'text-left'} ${
+                  activeExp === idx ? "opacity-100" : "opacity-75 hover:opacity-100"
+                }`}
+              >
+                {idx === 0 && (
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-150 shadow-md ${
+                    activeExp === idx
+                      ? "bg-purple-600 border-white ring-4 ring-emerald-400/60 shadow-[0_0_20px_rgba(52,211,153,0.8)]"
+                      : "bg-slate-800 border-slate-600 group-hover:border-purple-400"
+                  }`}>
+                    <div className={`w-2.5 h-2.5 rounded-full ${activeExp === idx ? "bg-emerald-400 animate-ping" : "bg-slate-400"}`} />
+                  </div>
+                )}
+                <div>
+                  <div className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
+                    activeExp === idx ? (idx === 0 ? "text-emerald-400" : "text-purple-300") : "text-slate-400"
+                  }`}>
+                    {exp.period} // {exp.role}
+                  </div>
+                  <div className={`text-sm sm:text-base font-black tracking-tight ${
+                    activeExp === idx ? "text-white text-shadow-sm" : "text-slate-300 group-hover:text-purple-200"
+                  }`}>
+                    {exp.company}
+                  </div>
                 </div>
-                <div className={`text-sm sm:text-base font-black tracking-tight ${
-                  activeExp === 0 ? "text-white text-shadow-sm" : "text-slate-300 group-hover:text-purple-200"
-                }`}>
-                  GarunaCDX
-                </div>
-              </div>
-            </motion.button>
-
-            {/* Timeline Node 02: AASHA Infinite Foundation (Dec 2025 — Feb 2026) */}
-            <motion.button 
-              onClick={() => setActiveExp(1)}
-              onMouseEnter={() => setActiveExp(1)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              className={`flex items-center gap-3 text-right cursor-pointer transition-all duration-150 ${
-                activeExp === 1 ? "opacity-100" : "opacity-75 hover:opacity-100"
-              }`}
-            >
-              <div>
-                <div className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
-                  activeExp === 1 ? "text-purple-300" : "text-slate-400"
-                }`}>
-                  DEC 2025 — FEB 2026 // DATA ANALYST
-                </div>
-                <div className={`text-sm sm:text-base font-black tracking-tight ${
-                  activeExp === 1 ? "text-white text-shadow-sm" : "text-slate-300 group-hover:text-purple-200"
-                }`}>
-                  AASHA Infinite Foundation
-                </div>
-              </div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-150 shadow-md ${
-                activeExp === 1
-                  ? "bg-purple-600 border-white ring-4 ring-purple-500/60 shadow-[0_0_20px_rgba(168,85,247,0.8)]"
-                  : "bg-slate-800 border-slate-600 group-hover:border-purple-400"
-              }`}>
-                <div className={`w-2.5 h-2.5 rounded-full ${activeExp === 1 ? "bg-white" : "bg-slate-400"}`} />
-              </div>
-            </motion.button>
+                {idx === 1 && (
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-150 shadow-md ${
+                    activeExp === idx
+                      ? "bg-purple-600 border-white ring-4 ring-purple-500/60 shadow-[0_0_20px_rgba(168,85,247,0.8)]"
+                      : "bg-slate-800 border-slate-600 group-hover:border-purple-400"
+                  }`}>
+                    <div className={`w-2.5 h-2.5 rounded-full ${activeExp === idx ? "bg-white" : "bg-slate-400"}`} />
+                  </div>
+                )}
+              </motion.button>
+            ))}
 
           </div>
 
@@ -262,6 +175,12 @@ export function Experience() {
                   <div className="relative z-10">
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-2">
+                        {exp.logo && (
+                           <div className={`w-8 h-8 rounded-full overflow-hidden border-2 ${isSelected ? 'border-purple-500' : 'border-slate-300'}`}>
+                             {/* Only use next/image if you want it optimized, else regular img is fine. For now using standard img tag because next/image requires width/height. */}
+                             <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover bg-white" />
+                           </div>
+                        )}
                         <span className={`text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
                           isSelected ? "bg-purple-600 text-white shadow-md" : "bg-[#08080A] text-white"
                         }`}>
@@ -283,7 +202,7 @@ export function Experience() {
                           isSelected ? "text-purple-300" : "text-purple-700"
                         }`}
                       >
-                        <span>{exp.company}</span>
+                        <span className="hidden sm:inline">Visit Site</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>

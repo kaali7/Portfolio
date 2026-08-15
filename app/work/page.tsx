@@ -178,21 +178,35 @@ export default function WorkPage() {
                     whileHover={{ y: -4 }}
                     className={`${
                       isFeatured ? "lg:col-span-12 bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-50 border-purple-200/90" : "lg:col-span-6 bg-slate-50/90 border-slate-200/90"
-                    } border hover:border-purple-500 hover:bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 group`}
+                    } border hover:border-purple-500 hover:bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 group relative overflow-hidden ${
+                      project.image ? "text-white" : "text-[#08080A]"
+                    }`}
                   >
-                    <div>
+                    {/* Background Image (If available) */}
+                    {project.image && (
+                      <div className="absolute inset-0 z-0 pointer-events-none">
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover opacity-90"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30" />
+                      </div>
+                    )}
+
+                    <div className="relative z-10">
                       {/* Top Header info */}
-                      <div className="flex items-center justify-between pb-4 border-b border-slate-200/80 mb-6">
+                      <div className={`flex items-center justify-between pb-4 border-b mb-6 ${project.image ? "border-white/20" : "border-slate-200/80"}`}>
                         <div className="flex flex-wrap items-center gap-2.5">
                           <span className="text-xs font-mono font-bold text-white bg-[#08080A] px-3.5 py-1 rounded-full uppercase shadow-xs">
                             {project.category}
                           </span>
-                          <span className="text-xs font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-3 py-1 rounded-full">
+                          <span className={`text-xs font-mono font-bold px-3 py-1 rounded-full ${project.image ? "text-purple-300 bg-purple-900/50 border border-purple-500/50" : "text-purple-700 bg-purple-100 border border-purple-300"}`}>
                             {project.previewMetric}
                           </span>
                         </div>
 
-                        <span className="text-xs font-mono text-slate-400 font-bold">
+                        <span className={`text-xs font-mono font-bold ${project.image ? "text-slate-300" : "text-slate-400"}`}>
                           SYSTEM // 0{project.id}
                         </span>
                       </div>
@@ -200,22 +214,22 @@ export default function WorkPage() {
                       {/* Content Grid layout */}
                       <div className={isFeatured ? "grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" : "block"}>
                         <div className={isFeatured ? "lg:col-span-7" : "w-full"}>
-                          <h2 className="text-2xl sm:text-4xl font-black text-[#08080A] group-hover:text-purple-600 transition-colors tracking-tight mb-3">
+                          <h2 className={`text-2xl sm:text-4xl font-black transition-colors tracking-tight mb-3 ${project.image ? "text-white group-hover:text-purple-300" : "text-[#08080A] group-hover:text-purple-600"}`}>
                             {project.title}
                           </h2>
-                          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-6">
+                          <p className={`text-xs sm:text-sm font-normal leading-relaxed mb-6 ${project.image ? "text-slate-300" : "text-slate-600"}`}>
                             {project.fullDescription}
                           </p>
 
                           {/* Key Highlights Bullet list */}
-                          <div className="bg-white/80 border border-purple-200/70 rounded-2xl p-4 my-4 shadow-2xs">
-                            <span className="text-[10px] font-mono font-bold text-purple-900 uppercase tracking-wider block mb-2">
+                          <div className={`${project.image ? "bg-black/40 border-white/20" : "bg-white/80 border-purple-200/70"} border rounded-2xl p-4 my-4 shadow-2xs backdrop-blur-md`}>
+                            <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-2 ${project.image ? "text-purple-300" : "text-purple-900"}`}>
                               KEY ARCHITECTURAL HIGHLIGHTS
                             </span>
                             <ul className="space-y-1.5">
                               {project.highlights.slice(0, 3).map((h, hIdx) => (
-                                <li key={hIdx} className="text-xs text-slate-800 flex items-start gap-2 leading-tight">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-purple-600 mt-1 flex-shrink-0" />
+                                <li key={hIdx} className={`text-xs flex items-start gap-2 leading-tight ${project.image ? "text-slate-200" : "text-slate-800"}`}>
+                                  <span className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${project.image ? "bg-purple-400" : "bg-purple-600"}`} />
                                   <span>{h}</span>
                                 </li>
                               ))}
@@ -225,14 +239,14 @@ export default function WorkPage() {
 
                         {/* Metrics Grid */}
                         <div className={isFeatured ? "lg:col-span-5" : "w-full"}>
-                          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                          <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-2 ${project.image ? "text-slate-300" : "text-slate-500"}`}>
                             PERFORMANCE TELEMETRY
                           </span>
                           <div className="grid grid-cols-2 gap-3 mb-6">
                             {project.metrics.map((m, mIdx) => (
-                              <div key={mIdx} className="bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs group-hover:border-purple-200 transition-colors">
-                                <span className="text-[9px] font-mono text-slate-500 uppercase block mb-1">{m.label}</span>
-                                <span className="text-base sm:text-lg font-mono font-black text-purple-700">{m.val}</span>
+                              <div key={mIdx} className={`${project.image ? "bg-black/40 border-white/20 group-hover:border-purple-400 text-white" : "bg-white border-slate-200/90 group-hover:border-purple-200"} border rounded-2xl p-3.5 shadow-2xs transition-colors backdrop-blur-md`}>
+                                <span className={`text-[9px] font-mono uppercase block mb-1 ${project.image ? "text-slate-300" : "text-slate-500"}`}>{m.label}</span>
+                                <span className={`text-base sm:text-lg font-mono font-black ${project.image ? "text-purple-300" : "text-purple-700"}`}>{m.val}</span>
                               </div>
                             ))}
                           </div>

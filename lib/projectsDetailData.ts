@@ -1,4 +1,82 @@
-[
+export interface ProjectCard {
+  shortDescription: string;
+  tags: string[];
+}
+
+export interface ProjectVisual {
+  thumbnail: string;
+  heroImage: string;
+  gallery: string[];
+  video: string;
+}
+
+export interface ProjectOverview {
+  problem: string;
+  motivation: string;
+  solution: string;
+  outcome: string;
+}
+
+export interface ProjectTechnical {
+  techStack: string[];
+  concepts: string[];
+  models: string[];
+  datasets: string[];
+  apis: string[];
+  infrastructure: string[];
+}
+
+export interface ProjectArchitecture {
+  type: string;
+  diagram: string;
+  workflow: string[];
+}
+
+export interface ProjectResearch {
+  researchQuestion: string;
+  methodology: string;
+  experiments: string[];
+  findings: string[];
+  references: string[];
+}
+
+export interface ProjectEngineering {
+  challenges: string[];
+  solutions: string[];
+  performance: string[];
+  scalability: string[];
+}
+
+export interface ProjectLinks {
+  github: string;
+  live: string;
+  demo: string;
+  paper: string;
+}
+
+export interface ProjectDetail {
+  id: string;
+  number: string;
+  title: string;
+  category: string;
+  subcategory: string;
+  type: string;
+  status: string;
+  year: number;
+  featured: boolean;
+  card: ProjectCard;
+  visual: ProjectVisual;
+  overview: ProjectOverview;
+  features: string[];
+  technical: ProjectTechnical;
+  architecture: ProjectArchitecture;
+  research: ProjectResearch;
+  engineering: ProjectEngineering;
+  learnings: string[];
+  links: ProjectLinks;
+}
+
+export const projectsDetailData: ProjectDetail[] = [
     {
         "id": "netran-ai",
         "number": "",
@@ -510,4 +588,4 @@
             "paper": ""
         }
     }
-]
+];

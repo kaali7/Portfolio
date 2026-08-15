@@ -54,10 +54,26 @@ export function Projects() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.98, y: -8 }}
                   transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full h-full bg-slate-50/95 text-[#08080A] border-2 border-purple-500/80 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(147,51,234,0.14)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[540px]"
+                  className={`w-full h-full text-[#08080A] border-2 border-purple-500/80 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(147,51,234,0.14)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[540px] ${
+                    activeProject.image ? "text-white" : "bg-slate-50/95"
+                  }`}
                 >
+                  {/* Background Image (If available) */}
+                  {activeProject.image && (
+                    <div className="absolute inset-0 z-0">
+                      <img 
+                        src={activeProject.image} 
+                        alt={activeProject.title} 
+                        className="w-full h-full object-cover opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
+                    </div>
+                  )}
+
                   {/* Subtle Background Radial Accent */}
-                  <div className="absolute -top-16 -right-16 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+                  {!activeProject.image && (
+                    <div className="absolute -top-16 -right-16 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none z-0" />
+                  )}
 
                   {/* Top Control Bar */}
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-200/90 z-10">
