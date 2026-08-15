@@ -77,7 +77,7 @@ export function Projects() {
 
                   {/* Main Title & Detailed Description */}
                   <div className="my-4 z-10">
-                    <Link href={`/projects/${activeProject.id}`} className="group inline-block">
+                    <Link href={`/work/${activeProject.slug || activeProject.id}`} className="group inline-block">
                       <h3 className="text-2xl sm:text-4xl lg:text-4xl font-black text-[#08080A] group-hover:text-purple-700 transition-colors tracking-tight mb-2.5 flex flex-wrap items-center gap-3 cursor-pointer">
                         <span>{activeProject.title}</span>
                         <span className="text-xs font-mono text-purple-600 font-bold underline opacity-80 group-hover:opacity-100 transition-opacity">
@@ -126,7 +126,7 @@ export function Projects() {
                     </div>
 
                     <Link
-                      href={`/work/${activeProject.id}`}
+                      href={`/work/${activeProject.slug || activeProject.id}`}
                       className="px-6 py-2.5 bg-[#08080A] hover:bg-purple-700 text-white rounded-full text-xs font-mono font-black tracking-wider transition-colors duration-200 shadow-md flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer group"
                     >
                       <span>VIEW FULL CASE STUDY</span>

@@ -6,10 +6,9 @@ import {
   Zap, 
   MapPin, 
   CheckCircle2, 
-  Sparkles, 
-  Calendar,
   Clock,
-  ArrowRight
+  Calendar,
+  ExternalLink
 } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
 
@@ -23,6 +22,8 @@ interface ExperienceItem {
   id: number;
   role: string;
   company: string;
+  companyUrl: string;
+  logo: string;
   period: string;
   location: string;
   type: string;
@@ -35,75 +36,79 @@ interface ExperienceItem {
 }
 
 export function Experience() {
-  const [activeExp, setActiveExp] = useState<number>(1);
+  const [activeExp, setActiveExp] = useState<number>(0);
 
   const experiences: ExperienceItem[] = [
     {
       id: 0,
-      role: "Senior Computer Vision Engineer",
-      company: "EdgeVision Technologies",
-      period: "2022 — 2024",
-      location: "Austin, TX",
+      role: "GenAI Developer",
+      company: "GarunaCDX",
+      companyUrl: "https://www.garunacdx.com/",
+      logo: "/logo/garunacdx_logo.jpg",
+      period: "Mar 2026 — Present",
+      location: "Panvel, Navi Mumbai · Remote",
       type: "FULL-TIME",
-      status: "PAST",
-      primaryImpact: "120+ FPS Processing",
-      summary: "Led Edge AI computer vision division developing real-time industrial safety violation and spatial tracking systems across edge GPU clusters.",
+      status: "CURRENT",
+      primaryImpact: "Scalable GenAI & RAG",
+      summary: "Architecting next-generation digital and AI-powered solutions, developing scalable applications across domains using Generative AI, Retrieval-Augmented Generation (RAG), and modern full-stack development.",
       achievements: [
         {
-          title: "Edge Model Deployment (Jetson & T4)",
-          detail: "Deployed TensorRT accelerated YOLOv8 models onto NVIDIA Jetson Orin & T4 edge GPUs, processing 16+ 4K camera streams in real-time.",
-          metric: "16x 4K @ 120 FPS"
+          title: "Enterprise RAG & GenAI Pipelines",
+          detail: "Building next-generation digital and AI-powered solutions leveraging Retrieval-Augmented Generation (RAG) and Generative AI models.",
+          metric: "GenAI & RAG"
         },
         {
-          title: "Multi-Camera Spatial Tracking",
-          detail: "Integrated multi-camera ByteTrack object tracking across non-overlapping field-of-views with 91.4% mAP tracking accuracy.",
-          metric: "91.4% mAP Accuracy"
+          title: "Scalable Multi-Domain Applications",
+          detail: "Developing scalable production applications across enterprise domains using Artificial Intelligence and modern full-stack development.",
+          metric: "Full-Stack AI"
         },
         {
-          title: "INT8 Model Quantization Pipeline",
-          detail: "Reduced vision model latency from 45ms to 11.2ms via INT8 post-training quantization and custom TensorRT C++ plugins.",
-          metric: "4x Speed Optimization"
+          title: "Rapid Prototyping & Leadership",
+          detail: "Collaborating on architectural designs, real-world problem solving, rapid prototyping, and continuous AI solution deployment.",
+          metric: "Team Leadership"
         }
       ],
-      tags: ["TensorRT", "OpenCV", "Python", "Docker"],
+      tags: ["Generative AI", "RAG", "Python", "FastAPI", "React", "Docker"],
       highlights: [
-        { label: "CAMERA STREAMS", val: "16x 4K" },
-        { label: "FRAME RATE", val: "120+ FPS" },
-        { label: "LATENCY", val: "11.2ms" }
+        { label: "CORE FOCUS", val: "GenAI & RAG" },
+        { label: "STATUS", val: "Mar 2026 — Present" },
+        { label: "LOCATION", val: "Remote (Panvel)" }
       ]
     },
     {
       id: 1,
-      role: "Lead AI & Autonomous Systems Architect",
-      company: "Autonomous AI Labs",
-      period: "2024 — PRESENT",
-      location: "San Francisco, CA (Remote)",
+      role: "Data Analyst",
+      company: "AASHA Infinite Foundation",
+      companyUrl: "https://aashainfinite.org/",
+      logo: "/logo/aasha_logo.jpg",
+      period: "Dec 2025 — Feb 2026",
+      location: "Bengaluru, Karnataka · Remote",
       type: "FULL-TIME",
-      status: "CURRENT",
-      primaryImpact: "4.2x Throughput Boost",
-      summary: "Architecting enterprise multi-agent orchestration engines, self-correcting reasoning loops, and production-scale RAG clusters serving high-concurrency workloads.",
+      status: "PAST",
+      primaryImpact: "Data-Driven Telemetry",
+      summary: "Transformed raw data into actionable insights to support data-driven decision-making across social impact programs. Built performance dashboards, conducted ETL dataset cleaning, and optimized operational efficiency.",
       achievements: [
         {
-          title: "Multi-Agent Orchestration Engine",
-          detail: "Pioneered self-reflecting execution loops with LangGraph and AutoGen, reducing human-in-the-loop intervention by 68% across automated workflows.",
-          metric: "68% Less Human Loop"
+          title: "Data Analytics & Insights Extraction",
+          detail: "Collected, cleaned, and analyzed structured and unstructured datasets to identify trends and operational resource allocation patterns.",
+          metric: "Data Analytics"
         },
         {
-          title: "Sub-35ms LLM Inference Acceleration",
-          detail: "Optimized vLLM and TensorRT-LLM cluster servers serving Llama-3-70B models with sub-35ms time-to-first-token (TTFT) under high concurrency.",
-          metric: "< 35ms TTFT Latency"
+          title: "Dashboard Development & Tracking",
+          detail: "Built interactive dashboards and data visualizations tracking social impact program performance and community outreach metrics.",
+          metric: "Dashboards"
         },
         {
-          title: "Hybrid Vector Search & Re-ranking",
-          detail: "Engineered hybrid sparse-dense vector retrieval clusters across 50M+ unstructured document embeddings using Qdrant & cross-encoders.",
-          metric: "50M+ Vectors Indexed"
+          title: "Operational Impact & Telemetry",
+          detail: "Collaborated with team members to translate data insights into real-world operational efficiency improvements and social impact.",
+          metric: "Impact Telemetry"
         }
       ],
-      tags: ["AutoGen", "LangGraph", "PyTorch", "Qdrant", "FastAPI", "Docker"],
+      tags: ["Data Analysis", "Dashboard Development", "Data Visualization", "Google Sheets", "SQL"],
       highlights: [
-        { label: "HUMAN LOOP", val: "68%" },
-        { label: "TTFT LATENCY", val: "<35ms" },
-        { label: "INDEX CAPACITY", val: "50M+" }
+        { label: "DATASETS", val: "Structured/Unstructured" },
+        { label: "DURATION", val: "Dec 2025 — Feb 2026" },
+        { label: "LOCATION", val: "Remote (Bengaluru)" }
       ]
     }
   ];
@@ -126,7 +131,7 @@ export function Experience() {
 
           <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-500 font-bold bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full">
             <Clock className="w-3.5 h-3.5 text-purple-600" />
-            <span>2022 — PRESENT</span>
+            <span>DEC 2025 — PRESENT</span>
           </div>
         </div>
 
@@ -134,14 +139,14 @@ export function Experience() {
         <div className="mb-10 bg-slate-900 text-white rounded-3xl p-5 sm:p-6 border-2 border-purple-500/40 shadow-xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Dedicated Text & Node Info Row (ABOVE the track line to prevent text overlap) */}
+          {/* Dedicated Text & Node Info Row */}
           <div className="relative z-10 flex items-center justify-between gap-4 mb-3">
             
-            {/* Timeline Node 01: EdgeVision (2022 — 2024 - LEFT SIDE) */}
+            {/* Timeline Node 01: GarunaCDX (Mar 2026 — Present) */}
             <motion.button 
               onClick={() => setActiveExp(0)}
               onMouseEnter={() => setActiveExp(0)}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               className={`flex items-center gap-3 text-left cursor-pointer transition-all duration-150 ${
                 activeExp === 0 ? "opacity-100" : "opacity-75 hover:opacity-100"
@@ -149,30 +154,30 @@ export function Experience() {
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-150 shadow-md ${
                 activeExp === 0
-                  ? "bg-purple-600 border-white ring-4 ring-purple-500/60 shadow-[0_0_20px_rgba(168,85,247,0.8)]"
+                  ? "bg-purple-600 border-white ring-4 ring-emerald-400/60 shadow-[0_0_20px_rgba(52,211,153,0.8)]"
                   : "bg-slate-800 border-slate-600 group-hover:border-purple-400"
               }`}>
-                <div className={`w-2.5 h-2.5 rounded-full ${activeExp === 0 ? "bg-white" : "bg-slate-400"}`} />
+                <div className={`w-2.5 h-2.5 rounded-full ${activeExp === 0 ? "bg-emerald-400 animate-ping" : "bg-slate-400"}`} />
               </div>
               <div>
                 <div className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
-                  activeExp === 0 ? "text-purple-300" : "text-slate-400"
+                  activeExp === 0 ? "text-emerald-400" : "text-slate-400"
                 }`}>
-                  CHAPTER 01 // 2022 — 2024
+                  MAR 2026 — PRESENT // GENAI DEVELOPER
                 </div>
                 <div className={`text-sm sm:text-base font-black tracking-tight ${
                   activeExp === 0 ? "text-white text-shadow-sm" : "text-slate-300 group-hover:text-purple-200"
                 }`}>
-                  EdgeVision Technologies
+                  GarunaCDX
                 </div>
               </div>
             </motion.button>
 
-            {/* Timeline Node 02: Autonomous AI Labs (2024 — PRESENT - RIGHT SIDE) */}
+            {/* Timeline Node 02: AASHA Infinite Foundation (Dec 2025 — Feb 2026) */}
             <motion.button 
               onClick={() => setActiveExp(1)}
               onMouseEnter={() => setActiveExp(1)}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               className={`flex items-center gap-3 text-right cursor-pointer transition-all duration-150 ${
                 activeExp === 1 ? "opacity-100" : "opacity-75 hover:opacity-100"
@@ -180,28 +185,28 @@ export function Experience() {
             >
               <div>
                 <div className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
-                  activeExp === 1 ? "text-emerald-400" : "text-slate-400"
+                  activeExp === 1 ? "text-purple-300" : "text-slate-400"
                 }`}>
-                  CHAPTER 02 // 2024 — PRESENT
+                  DEC 2025 — FEB 2026 // DATA ANALYST
                 </div>
                 <div className={`text-sm sm:text-base font-black tracking-tight ${
                   activeExp === 1 ? "text-white text-shadow-sm" : "text-slate-300 group-hover:text-purple-200"
                 }`}>
-                  Autonomous AI Labs
+                  AASHA Infinite Foundation
                 </div>
               </div>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-150 shadow-md ${
                 activeExp === 1
-                  ? "bg-purple-600 border-white ring-4 ring-emerald-400/60 shadow-[0_0_20px_rgba(52,211,153,0.8)]"
+                  ? "bg-purple-600 border-white ring-4 ring-purple-500/60 shadow-[0_0_20px_rgba(168,85,247,0.8)]"
                   : "bg-slate-800 border-slate-600 group-hover:border-purple-400"
               }`}>
-                <div className={`w-2.5 h-2.5 rounded-full ${activeExp === 1 ? "bg-emerald-400 animate-ping" : "bg-slate-400"}`} />
+                <div className={`w-2.5 h-2.5 rounded-full ${activeExp === 1 ? "bg-white" : "bg-slate-400"}`} />
               </div>
             </motion.button>
 
           </div>
 
-          {/* Interactive Progress Track Line (BELOW the text in its own row) */}
+          {/* Interactive Progress Track Line */}
           <div 
             className="relative h-2.5 bg-slate-800 rounded-full cursor-pointer overflow-hidden mt-1"
             onClick={(e) => {
@@ -211,7 +216,7 @@ export function Experience() {
             }}
           >
             <motion.div 
-              className="h-full bg-gradient-to-r from-purple-500 via-purple-400 to-emerald-400 shadow-[0_0_15px_rgba(168,85,247,0.8)]"
+              className="h-full bg-gradient-to-r from-emerald-400 via-purple-400 to-purple-600 shadow-[0_0_15px_rgba(168,85,247,0.8)]"
               animate={{
                 width: activeExp === 0 ? "50%" : "100%"
               }}
@@ -221,67 +226,12 @@ export function Experience() {
 
         </div>
 
-        {/* 2-COLUMN ROTATED WALL CARDS GRID WITH ORGANIC HANGING WIRE */}
+        {/* 2-COLUMN ROTATED WALL CARDS GRID */}
         <div className="relative pt-4">
-
-          {/* SMOOTH ORGANIC HANGING WIRE ARC CONNECTING CARD 01 TO CARD 02 */}
-          <div className="hidden lg:block absolute left-0 right-0 top-[-20px] h-28 pointer-events-none z-30">
-            <svg viewBox="0 0 1000 120" className="w-full h-full overflow-visible" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="hangingWireGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#a855f7" stopOpacity="0.95" />
-                  <stop offset="50%" stopColor="#c084fc" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#34d399" stopOpacity="0.95" />
-                </linearGradient>
-                <filter id="wireGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-              </defs>
-
-              {/* Shadow Line Underneath Wire */}
-              <path
-                d="M 360 45 C 440 -15, 560 -15, 640 45"
-                fill="none"
-                stroke="#a855f725"
-                strokeWidth="5"
-                strokeLinecap="round"
-              />
-
-              {/* Main Smooth Hanging Wire Arc Line */}
-              <motion.path
-                d="M 360 45 C 440 -15, 560 -15, 640 45"
-                fill="none"
-                stroke="url(#hangingWireGrad)"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeDasharray="8 4"
-                filter="url(#wireGlow)"
-                initial={{ pathLength: 0.1 }}
-                animate={{ pathLength: [0.1, 1, 0.1] }}
-                transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity }}
-              />
-
-              {/* Anchor Node Orb 1 (Card 01 Top-Right Anchor) */}
-              <circle cx="360" cy="45" r="5.5" fill="#a855f7" className="animate-pulse" />
-              <circle cx="360" cy="45" r="2.5" fill="#ffffff" />
-              <circle cx="360" cy="45" r="8" fill="none" stroke="#a855f7" strokeWidth="1.5" opacity="0.6" />
-
-              {/* Center Wire Badge Node */}
-              <circle cx="500" cy="8" r="4" fill="#c084fc" />
-              <circle cx="500" cy="8" r="2" fill="#ffffff" />
-
-              {/* Anchor Node Orb 2 (Card 02 Top-Left Anchor) */}
-              <circle cx="640" cy="45" r="5.5" fill="#34d399" className="animate-pulse" />
-              <circle cx="640" cy="45" r="2.5" fill="#ffffff" />
-              <circle cx="640" cy="45" r="8" fill="none" stroke="#34d399" strokeWidth="1.5" opacity="0.6" />
-            </svg>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
             {experiences.map((exp, idx) => {
               const isSelected = activeExp === idx;
-              const defaultRotate = idx === 0 ? -2.2 : 2.2;
+              const defaultRotate = idx === 0 ? -2 : 2;
 
               return (
                 <motion.div
@@ -291,23 +241,18 @@ export function Experience() {
                   initial={{ rotate: defaultRotate }}
                   animate={{ 
                     rotate: isSelected ? 0 : defaultRotate,
-                    scale: isSelected ? 1.03 : 0.98,
-                    y: isSelected ? -8 : 0,
+                    scale: isSelected ? 1.02 : 0.98,
+                    y: isSelected ? -6 : 0,
                     zIndex: isSelected ? 30 : 10
                   }}
-                  whileHover={{ rotate: 0, scale: 1.03, y: -8 }}
+                  whileHover={{ rotate: 0, scale: 1.02, y: -6 }}
                   transition={{ type: "spring", stiffness: 550, damping: 25, mass: 0.15 }}
-                  className={`group relative rounded-3xl p-5 sm:p-6 cursor-pointer border-2 transition-all duration-150 flex flex-col justify-between overflow-hidden ${
+                  className={`group relative rounded-3xl p-5 sm:p-7 cursor-pointer border-2 transition-all duration-150 flex flex-col justify-between overflow-hidden ${
                     isSelected
                       ? "bg-slate-900 text-white border-purple-500 shadow-[0_30px_70px_rgba(147,51,234,0.25)] ring-4 ring-purple-500/30"
                       : "bg-slate-50 text-[#08080A] border-slate-200/90 hover:border-purple-300 hover:bg-white shadow-md opacity-90 hover:opacity-100"
                   }`}
                 >
-                  {/* Anchor Pin Indicator on Card Header */}
-                  <div className={`absolute top-3 ${idx === 0 ? "right-4" : "left-4"} w-3.5 h-3.5 rounded-full border-2 border-purple-400 bg-purple-600/80 shadow-md flex items-center justify-center pointer-events-none hidden lg:flex`}>
-                    <div className="w-1 h-1 rounded-full bg-white" />
-                  </div>
-
                   {/* Accent Mesh Glow */}
                   <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none transition-opacity duration-150 ${
                     isSelected ? "bg-purple-600/20 opacity-100" : "bg-purple-300/10 opacity-0 group-hover:opacity-100"
@@ -320,21 +265,27 @@ export function Experience() {
                         <span className={`text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
                           isSelected ? "bg-purple-600 text-white shadow-md" : "bg-[#08080A] text-white"
                         }`}>
-                          CHAPTER 0{idx + 1} // {exp.company}
+                          {exp.company}
                         </span>
                         {exp.status === "CURRENT" && (
                           <span className="text-[9px] font-mono font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                            LIVE
+                            PRESENT
                           </span>
                         )}
                       </div>
-                      <span className={`text-[11px] font-mono font-bold flex items-center gap-1 ${
-                        isSelected ? "text-purple-300" : "text-slate-500"
-                      }`}>
-                        <Calendar className="w-3.5 h-3.5 text-purple-500" />
-                        <span>{exp.period}</span>
-                      </span>
+
+                      <a
+                        href={exp.companyUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`text-[11px] font-mono font-bold flex items-center gap-1 hover:underline ${
+                          isSelected ? "text-purple-300" : "text-purple-700"
+                        }`}
+                      >
+                        <span>{exp.company}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
                     </div>
 
                     {/* Role Title */}
@@ -363,7 +314,7 @@ export function Experience() {
                       {exp.summary}
                     </p>
 
-                    {/* Metrics Grid */}
+                    {/* Highlights Grid */}
                     <div className="grid grid-cols-3 gap-2.5 mb-4">
                       {exp.highlights.map((h, hIdx) => (
                         <div 
@@ -386,12 +337,12 @@ export function Experience() {
                       ))}
                     </div>
 
-                    {/* System Architecture Deliverable Cards with Descriptions */}
+                    {/* System Deliverables */}
                     <div className="space-y-2 mb-4">
                       <div className={`text-[10px] font-mono font-bold tracking-widest uppercase mb-1 ${
                         isSelected ? "text-purple-300" : "text-purple-900"
                       }`}>
-                        SYSTEM ARCHITECTURE & DELIVERABLES
+                        DELIVERABLES & RESPONSIBILITIES
                       </div>
                       {exp.achievements.map((item, aIdx) => (
                         <div
@@ -463,8 +414,3 @@ export function Experience() {
     </section>
   );
 }
-
-
-
-
-

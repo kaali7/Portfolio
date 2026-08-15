@@ -14,18 +14,18 @@ export default function WorkPage() {
 
   const categories = [
     "ALL",
-    "AI / ML",
-    "GENAI & LLMS",
-    "AI SYSTEMS",
-    "AGENTIC AI",
-    "COMPUTER VISION",
-    "DATA ENGINEERING",
+    "AI ENGINEERING",
+    "FULL-STACK AI",
+    "VOICE AI",
+    "HR ANALYTICS",
+    "FINANCIAL ANALYTICS",
   ];
 
   const filteredProjects = projectsData.filter((project) => {
     const matchesCategory =
       selectedCategory === "ALL" ||
-      project.category.toUpperCase() === selectedCategory;
+      project.category.toUpperCase() === selectedCategory ||
+      (project.subcategory && project.subcategory.toUpperCase() === selectedCategory);
     const matchesSearch =
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||

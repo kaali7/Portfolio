@@ -9,61 +9,43 @@ import { Navbar } from "@/components/Navbar";
 export default function AboutPage() {
   const domainSkills = [
     {
-      title: "Data Science & Temporal Analytics",
-      badge: "CORE DOMAIN",
-      description: "Exploratory data analysis, statistical modeling, high-frequency temporal forecasting, dynamic volatility surfaces, and multi-channel time-series pipelines.",
-      tools: ["Python", "Pandas", "NumPy", "PyTorch", "Scikit-Learn", "Ray Train", "SQL"]
+      title: "Generative AI & LLM Systems",
+      badge: "CORE FOCUS",
+      description: "Enterprise RAG architectures, multi-vector hybrid retrieval, STT/TTS voice engines, prompt optimization, and zero-hallucination guardrails.",
+      tools: ["Generative AI", "RAG", "LangChain", "FastAPI", "Python", "Google Gemini API", "Ollama"]
     },
     {
-      title: "Generative AI & LLM Systems",
-      badge: "PRODUCTION READY",
-      description: "Enterprise RAG architectures, multi-vector hybrid retrieval (BM25 + Dense), hallucination guardrails, fine-tuning, and prompt optimization.",
-      tools: ["LangChain", "LlamaIndex", "OpenAI", "Qdrant", "Pinecone", "Cohere", "Hugging Face"]
+      title: "Data Analytics & Telemetry",
+      badge: "ANALYTICS",
+      description: "Data extraction, ETL cleaning, performance dashboards, trend identification, statistical telemetry, and data-driven social impact modeling.",
+      tools: ["Data Analysis", "Dashboards", "Data Visualization", "Google Sheets", "SQL", "Pandas"]
     },
     {
       title: "Autonomous Agent Architectures",
       badge: "AGENTIC AI",
-      description: "Multi-agent graph state machines, ReAct reasoning loops, isolated Docker execution sandboxes, and autonomous tool invocation consensus.",
-      tools: ["LangGraph", "AutoGen", "FastAPI", "Docker", "PostgreSQL", "Python"]
+      description: "Multimodal AI technical interviewers, real-time voice streaming loops, state machine reasoning graphs, and automated tool invocation.",
+      tools: ["FastAPI", "Next.js", "Silero VAD", "Faster-Whisper", "Kokoro TTS", "SQLite"]
     },
     {
-      title: "Edge Computer Vision & Robotics",
-      badge: "REAL-TIME",
-      description: "TensorRT INT8 quantized YOLOv8 object detection, multi-camera ByteTrack spatial tracking, and sub-15ms industrial edge video processing.",
-      tools: ["YOLOv8", "OpenCV", "TensorRT", "DeepStream", "NVIDIA Jetson", "C++"]
-    },
-    {
-      title: "Graph Neural Networks & Engineering",
-      badge: "DISTRIBUTED",
-      description: "Heterogeneous graph Convolutional Networks (GCN) mapping 25M+ nodes and 180M+ dynamic relations for deep link prediction and fraud discovery.",
-      tools: ["Neo4j", "PyTorch Geometric", "Apache Spark", "Kafka", "Three.js", "Python"]
-    },
-    {
-      title: "Production MLOps & Deployment",
-      badge: "INFRASTRUCTURE",
-      description: "Distributed multi-GPU training clusters, Triton Inference Server bindings, bi-directional WebSockets streaming, and Dockerized microservices.",
-      tools: ["Docker", "Kubernetes", "Triton", "FastAPI", "Ray", "Git", "GitHub Actions"]
+      title: "Full-Stack AI Engineering",
+      badge: "FULL-STACK",
+      description: "Integrating modern React / Next.js frontends with async Python FastAPI backends, dual LaTeX PDF rendering pipelines, and Supabase auth.",
+      tools: ["Next.js", "React", "TypeScript", "FastAPI", "Tailwind CSS", "Supabase", "Docker"]
     }
   ];
 
   const careerMilestones = [
     {
-      year: "2024 — PRESENT",
-      role: "Lead AI Architect",
-      company: "Autonomous AI Labs",
-      summary: "Architecting multi-agent reasoning graphs (LangGraph/AutoGen) and enterprise RAG systems serving sub-35ms vector queries across 5M+ technical documents."
+      year: "MAR 2026 — PRESENT",
+      role: "GenAI Developer",
+      company: "GarunaCDX",
+      summary: "Architecting next-generation digital and AI-powered solutions, developing scalable applications across domains using Generative AI, Retrieval-Augmented Generation (RAG), and modern full-stack development."
     },
     {
-      year: "2022 — 2024",
-      role: "Senior Computer Vision Engineer",
-      company: "EdgeVision Technologies",
-      summary: "Built 120+ FPS TensorRT accelerated vision pipelines across NVIDIA Jetson Orin clusters processing 16+ simultaneous 4K industrial camera streams."
-    },
-    {
-      year: "2020 — 2022",
-      role: "Data Scientist & ML Researcher",
-      company: "Neural Capital Research",
-      summary: "Engineered deep temporal attention networks and automated risk backtesting algorithms processing high-frequency time-series datasets."
+      year: "DEC 2025 — FEB 2026",
+      role: "Data Analyst",
+      company: "AASHA Infinite Foundation",
+      summary: "Transformed raw data into actionable insights across social impact programs. Built interactive dashboards, conducted dataset ETL cleaning, and optimized operational resource allocation."
     }
   ];
 
@@ -88,34 +70,34 @@ export default function AboutPage() {
               className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase bg-purple-50 border border-purple-200 px-4 py-1.5 rounded-full inline-flex items-center gap-2 mb-6"
             >
               <Sparkles className="w-3.5 h-3.5 text-purple-600 animate-pulse" />
-              <span>BIOGRAPHY // SENIOR DATA SCIENTIST & AI ARCHITECT</span>
+              <span>BIOGRAPHY // GENAI DEVELOPER & DATA ANALYST</span>
             </motion.span>
 
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-[#08080A] leading-[1.08]">
-              Architecting <span className="font-light italic text-purple-600">Autonomous AI</span> & Scalable Neural Systems
+              Architecting <span className="font-light italic text-purple-600">Generative AI</span> & Data Intelligence
             </h1>
 
             <p className="text-slate-600 text-base sm:text-lg mt-6 leading-relaxed max-w-3xl font-normal">
-              I specialize in bridging the gap between mathematical machine learning research and high-performance production engineering. Over 5+ years, I have architected high-frequency time-series forecasters, real-time edge computer vision engines, and enterprise multi-agent RAG platforms.
+              I specialize in building production-ready Generative AI systems, RAG architectures, multi-agent voice interviewers, and data analytics dashboards. My work bridges mathematical data analysis with high-impact full-stack AI engineering.
             </p>
 
             {/* Quick Metrics Badges */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-200/80">
               <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-purple-300 transition-colors">
-                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">EXPERIENCE</span>
-                <span className="text-2xl sm:text-3xl font-black text-[#08080A] font-mono">5+ Years</span>
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">PROD PROJECTS</span>
+                <span className="text-2xl sm:text-3xl font-black text-[#08080A] font-mono">4 Systems</span>
               </div>
               <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-purple-300 transition-colors">
-                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">MODELS DEPLOYED</span>
-                <span className="text-2xl sm:text-3xl font-black text-purple-600 font-mono">12+ Systems</span>
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">MAIN FOCUS</span>
+                <span className="text-2xl sm:text-3xl font-black text-purple-600 font-mono">GenAI / RAG</span>
               </div>
               <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-purple-300 transition-colors">
-                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">UPTIME RECORD</span>
-                <span className="text-2xl sm:text-3xl font-black text-[#08080A] font-mono">99.9%</span>
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">CURRENT ROLE</span>
+                <span className="text-2xl sm:text-3xl font-black text-[#08080A] font-mono">GarunaCDX</span>
               </div>
               <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:border-purple-300 transition-colors">
-                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">DAILY FEEDS</span>
-                <span className="text-2xl sm:text-3xl font-black text-purple-600 font-mono">10M+ Events</span>
+                <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">VOICE LATENCY</span>
+                <span className="text-2xl sm:text-3xl font-black text-purple-600 font-mono">&lt;250ms</span>
               </div>
             </div>
           </motion.div>
@@ -134,21 +116,21 @@ export default function AboutPage() {
             </span>
 
             <blockquote className="text-sm sm:text-base text-slate-200 font-serif italic leading-relaxed mb-8">
-              &quot;AI models are only as valuable as their reliability in production. Rigorous mathematical foundations, low latency, and zero-hallucination guardrails define successful AI deployment.&quot;
+              &quot;AI applications must solve real-world problems. Clean data pipelines, low-latency streaming loops, and robust RAG architectures turn raw AI models into production tools.&quot;
             </blockquote>
 
             <div className="pt-6 border-t border-white/10 flex flex-col gap-3.5">
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                <span className="text-xs font-mono text-slate-300">Production-Grade Rigor</span>
+                <span className="text-xs font-mono text-slate-300">Generative AI & RAG Solutions</span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                <span className="text-xs font-mono text-slate-300">Deterministic Tool Consensus</span>
+                <span className="text-xs font-mono text-slate-300">Data Analytics & Telemetry</span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                <span className="text-xs font-mono text-slate-300">Sub-100ms Inference Latency</span>
+                <span className="text-xs font-mono text-slate-300">Sub-250ms Voice AI Interaction</span>
               </div>
             </div>
           </motion.div>
@@ -173,7 +155,7 @@ export default function AboutPage() {
             </h2>
           </div>
           <p className="text-slate-600 text-xs sm:text-sm max-w-md leading-relaxed font-normal">
-            Domain expertise spans the entire machine learning lifecycle—from exploratory statistical modeling to high-concurrency edge deployments.
+            Domain expertise spans Generative AI, RAG architectures, full-stack AI development, and data analytics dashboards.
           </p>
         </motion.div>
 
@@ -251,7 +233,7 @@ export default function AboutPage() {
               href="/work"
               className="text-xs font-mono font-bold text-purple-600 hover:text-[#08080A] underline"
             >
-              EXPLORE ALL PRODUCTION ARCHITECTURES →
+              EXPLORE ALL PRODUCTION PROJECTS →
             </Link>
           </div>
 
