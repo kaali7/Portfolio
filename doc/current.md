@@ -5,6 +5,7 @@
 ### 1. Foundation & System Architecture
 - **Framework & Config**: Next.js (App Router), TypeScript, Tailwind CSS, and Lenis smooth inertia scroll (`SmoothScroll.tsx`).
 - **Icon System**: Standardized on `simple-icons` for tech logos, `lucide-react` for UI/data controls, and `@tabler/icons-react` for secondary UI icons (`TechIcon.tsx`). Strictly zero raw emojis.
+- **Unified Navigation System (`Navbar.tsx`)**: Created reusable `<Navbar />` component supporting light and dark variants (`variant="dark"` / `variant="light"`). Standardized container dimensions (`max-w-[1440px] px-4 sm:px-6 lg:px-12 py-5 sm:py-6`), font sizes (`text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest`), signature logo scaling, CTA buttons, and mobile dropdown menus across `Home`, `Work`, and `About` routes.
 - **Scroll & Transitions**: GSAP ScrollTrigger curtain transitions with `sticky top-0 min-h-[100dvh]` stacking layers across sections.
 - **Custom Scrollbar**: Dark black floating pill scrollbar system (`app/globals.css`).
 - **Purple Paint-Wipe Page Transitions (`TransitionOverlay.tsx`, `TransitionLink.tsx`)**: Accelerated sub-600ms dual-layer SVG paint wipe page transition across all routes (`Home`, `Work`, `About`, `Work ID`, `404`) with instant route prefetching on hover (`router.prefetch`), reduced animation timing (280ms cover, 50ms hold, 300ms uncover), and `<AnimatePresence>` DOM unmounting.
@@ -17,9 +18,9 @@
 - **Contact Section (`components/Contact.tsx`)**: Interactive mathematical canvas stream, email copy button with rotation physics, fixed robot avatar, and overlapping back-to-top CTA.
 
 ### 3. Dedicated Page Routes
-- **Work Archive (`app/work/page.tsx`)**: High-contrast white theme page with search filter, category pills (`AI/ML`, `GenAI`, `Agentic AI`, etc.), metric cards, and case study links.
+- **Redesigned Work Archive (`app/work/page.tsx`)**: Unified `<Navbar />` header, animated category filter pills, search input, asymmetrical bento grid layout (`12-col` spotlight cards paired with `6-col` detailed cards) with Framer Motion staggered reveals (`whileInView`), and integrated interactive `<Contact />` footer section.
+- **Redesigned About Biography (`app/about/page.tsx`)**: Unified `<Navbar />` header, editorial biography, stat metrics, asymmetrical 6-card bento matrix with dynamic column spans, staggered career milestones timeline, and integrated interactive `<Contact />` footer section.
 - **Case Study Details (`app/work/[id]/page.tsx`)**: Detailed project case studies with KPI metrics, problem/impact breakdown, architectural highlights, and code snippets.
-- **About Biography (`app/about/page.tsx`)**: Editorial biography, stat metrics, 6-card technical competencies matrix, and career milestones timeline.
 - **404 Not Found (`app/not-found.tsx`, `RobotAvatar.tsx`)**: Custom error page ("LOSS FUNCTION UNCONVERGED"), interactive 3.0σ deviation chip, mouse spotlight, AI assistant reroute CTAs, and interactive AI Robot Avatar mascot with mouse-tracking white eyes, typewriter speech bubble (`404 REROUTE!`), and spring tilt physics.
 
 ---

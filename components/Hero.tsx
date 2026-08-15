@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useRe
 import Image from "next/image";
 import { TransitionLink } from "@/components/TransitionLink";
 import { RobotAvatar } from "@/components/RobotAvatar";
+import { Navbar } from "@/components/Navbar";
 
 export function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -181,95 +182,8 @@ export function Hero() {
         />
       </div>
 
-      {/* Clean Transparent Top Navigation Bar (No Border, Transparent Background) */}
-      <header className="relative z-40 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-12 py-6 flex justify-between items-center bg-transparent">
-        <div className="w-full bg-transparent border-0 border-transparent flex justify-between items-center shadow-none">
-          {/* Brand Logo Signature */}
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex items-center"
-          >
-            <span className="font-signature text-3xl sm:text-4xl text-white font-normal tracking-wide drop-shadow-md">Ashwini</span>
-          </motion.div>
-
-          {/* Desktop Nav Links */}
-          <motion.nav 
-            initial={{ opacity: 0, y: -10 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-            className="hidden md:flex items-center gap-8 lg:gap-12 text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest text-white/90"
-          >
-            {navLinks.map((link) => (
-              <TransitionLink 
-                key={link.label}
-                href={link.href} 
-                className="hover:text-white transition-colors duration-200 py-1"
-              >
-                <span>{link.label}</span>
-              </TransitionLink>
-            ))}
-          </motion.nav>
-
-          {/* Upgraded Right CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <motion.div 
-              initial={{ opacity: 0, y: -10 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
-            >
-              <motion.a 
-                href="#contact" 
-                whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(255, 255, 255, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
-                className="px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-mono font-black tracking-wider text-[#08080A] bg-white hover:bg-slate-100 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(255,255,255,0.25)] flex items-center justify-center block"
-              >
-                <span>GET IN TOUCH</span>
-              </motion.a>
-            </motion.div>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-white/80 hover:text-white focus:outline-none"
-              aria-label="Toggle navigation menu"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Dropdown Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="absolute top-full left-4 right-4 bg-[#08080A]/95 backdrop-blur-xl border border-white/15 rounded-2xl px-6 py-6 md:hidden flex flex-col gap-4 shadow-2xl z-50 mt-2"
-            >
-              {navLinks.map((link) => (
-                <TransitionLink
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="font-mono text-base font-black tracking-widest text-white/90 hover:text-purple-400 py-2 transition-colors flex items-center justify-between"
-                >
-                  <span>{link.label}</span>
-                </TransitionLink>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+      {/* Clean Transparent Top Navigation Bar */}
+      <Navbar variant="dark" currentRoute="home" />
 
       {/* Interactive Circular AI Robot Avatar (Mouse-Tracking Eyes) */}
       <div 
