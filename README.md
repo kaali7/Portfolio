@@ -2,6 +2,8 @@
 
 > **Engineered for Scalable GenAI, Multimodal Voice Pipelines, Enterprise RAG & Data Analytics**
 
+🌐 **Live Web Application**: [https://portfolio-gules-seven-73.vercel.app/](https://portfolio-gules-seven-73.vercel.app/)
+
 Welcome to the production portfolio of **Ashwini Prajapati**. This web application showcases real production systems, deep technical case studies, verified career dossiers, and an interactive Cyberpunk telemetry suite.
 
 ---
@@ -118,6 +120,7 @@ portfolio/
 
 ## 🌐 Connect & Socials
 
+- **Live Web App**: [https://portfolio-gules-seven-73.vercel.app/](https://portfolio-gules-seven-73.vercel.app/)
 - **GitHub**: [@ashwini-prajapati](https://github.com/ashwini-prajapati)
 - **LinkedIn**: [Ashwini Prajapati](https://linkedin.com/in/ashwini-prajapati)
 - **Hugging Face**: [@ashwini-prajapati](https://huggingface.co/ashwini-prajapati)
