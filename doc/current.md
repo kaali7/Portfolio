@@ -1,42 +1,63 @@
-# Current Status & Progress Log
+# Current Status & Progress Summary
 
-## ✅ Completed Milestones
-
-### 1. Foundation & System Architecture
-- **Framework & Config**: Next.js (App Router), TypeScript, Tailwind CSS, and Lenis smooth inertia scroll (`SmoothScroll.tsx`).
-- **Icon System**: Standardized on `simple-icons` for tech logos, `lucide-react` for UI/data controls, and `@tabler/icons-react` for secondary UI icons (`TechIcon.tsx`). Strictly zero raw emojis.
-- **Global Navigation Bar (`components/Navbar.tsx`)**: Responsive header with white/dark variants, route detection indicators, custom typography logo, mobile navigation overlay, and interactive `GET IN TOUCH` button upgraded with glowing color-swap animation (`hover:bg-purple-600 hover:text-white hover:border-purple-400 hover:shadow-[0_0_30px_rgba(168,85,247,0.65)]`), spring scale physics (`hover:scale-105 active:scale-95`), sliding arrow translation (`group-hover/btn:translate-x-1`), and reflective inner shimmer effect.
-- **Real Data Integration**: Replaced all dummy data across the entire platform with verified experience records (`experience_detail.json`) and real production projects (`project_detail.json`).
-
-### 2. Verified Real Work Experience & Projects
-- **Work Experience Deck (`components/Experience.tsx`, `app/about/page.tsx`)**:
-  - **GarunaCDX** (GenAI Developer · Mar 2026 — Present): Enterprise RAG, GenAI engineering, and scalable full-stack applications.
-  - **AASHA Infinite Foundation** (Data Analyst · Dec 2025 — Feb 2026): Data extraction, performance dashboards, ETL cleaning, and operational telemetry.
-  - **Connecting Thread Wire**: Sleek, subtle SVG wire trace with dynamic DOM measurement (`getBoundingClientRect()` + `ResizeObserver`), smooth 28-52px bridge curve, 1.8px neon gradient stroke, crisp 0.8px core line, and refined 2.8px pulsing junction node pins extending 42px inside Card 0 and Card 1.
-- **Production Projects Catalog (`lib/projectsData.ts`, `components/Projects.tsx`, `app/work/page.tsx`, `app/work/[id]/page.tsx`)**:
-  - Integrated `<TechIcon />` components into technology badges across both the main spotlight card and stacked preview cards deck in `components/Projects.tsx`.
-  - **Netran AI**: Autonomous, web-augmented, multimodal AI technical interviewer system (FastAPI, Next.js, Ollama, Gemini API, Silero VAD v3, Faster-Whisper, Kokoro TTS, SpeechBrain ECAPA).
-  - **ResumeBuilder**: Multi-stage LLM resume generation & compilation pipeline (React 19, FastAPI, LaTeX, SQLite, Gemini, Groq, Tavily, 4-level evaluation analytics).
-  - **Auto Dash: AI-Powered HR Dashboard**: High-fidelity HR analytics dashboard (Next.js 16, Supabase RLS, Gemini 2.0 Flash, Recharts, Framer Motion, ~150ms precomputed aggregations).
-  - **StockMind AI**: Real-time AI financial analytics dashboard (React, TypeScript, Zustand, Recharts, Groq AI, Finnhub API).
-
-### 3. Dedicated Page Routes
-- **Redesigned Work Archive (`app/work/page.tsx`)**: Real category filters (`AI ENGINEERING`, `FULL-STACK AI`, `VOICE AI`, `HR ANALYTICS`, `FINANCIAL ANALYTICS`), asymmetrical bento grid layout with Framer Motion staggered reveals, integrated interactive `<Contact />` footer section, prominent interactive `<RobotAvatar size="xl" />` hero mascot with mouse eye-tracking, integrated full `SYSTEM OVERVIEW` section displaying all 4 overview fields (`CHALLENGE`, `MOTIVATION`, `SOLUTION`, `OUTCOME`) from `projectsDetailData.ts`, added micro-telemetry metadata badges (`subcategory`, `type`, `status`, `year`), removed `SYSTEM // number` text, and displayed all technology stack tags with `<TechIcon />` components.
-- **Redesigned About Biography (`app/about/page.tsx`)**: Real biography, GarunaCDX & AASHA Infinite experience milestones, 4-card technical competencies matrix enhanced with hover angle physics (`rotate: -1.8°/1.8°`), `<TechIcon />` technology tag pairings, interactive `RELATED PROD PROJECTS` links (`Netran AI`, `ResumeBuilder`, `Auto Dash`, `StockMind AI`), integrated interactive `<RobotAvatar size="xl" />` hero mascot with mouse eye-tracking above the Engineering Philosophy card, interactive `<CredentialPreviewButton />` with spring-physics hover popover scaled to `w-80 sm:w-96 md:w-[420px]` and `h-52 sm:h-64` image container with `object-contain` for 100% full certificate document legibility without cropping, aligned `VIEW CREDENTIAL` and `MORE DETAILS` buttons with uniform fixed widths (`w-40 sm:w-44 justify-center`), removed `CURRENT ROLE` & `VOICE LATENCY` cards (retaining `PROD PROJECTS` & `MAIN FOCUS`), added `MORE DETAILS` experience detail route button (`/experience/[id]`), repositioned action buttons to far right column, removed redundant biography pill badge & technical matrix header text, and integrated interactive `<Contact />` footer section.
-- **White Gap & Layout Seamlessness**: Eliminated white unwanted padding/gaps (`pb-24`) above and below `<Contact />` across `app/experience/[id]`, `app/work/[id]`, `app/about`, and `app/work` routes by setting dark main wrapper background (`bg-[#060608]`) and wrapping upper light content in a zero-bottom-padding container (`bg-white w-full pb-8`).
-- **Case Study Details (`app/work/[id]/page.tsx`)**: Completely redesigned technical case study route achieving 100% data field coverage from `lib/projectsDetailData.ts`. Renders AI Models & speech engines (`technical.models`), APIs & services (`technical.apis`), Datasets (`technical.datasets`), Infrastructure (`technical.infrastructure`), Architecture concepts (`technical.concepts`), and full Tech Stack with standardized `<TechIcon name={tech} />` vector components. Replaced raw JSON code dumps in the `TECHNICAL BLUEPRINT` block with high-contrast, structured ASCII System Architecture Schematics (`getArchitectureBlueprint`). Features step-by-step architectural pipeline workflow cards (`architecture.workflow`), 4-quadrant system overview bento grid (`overview.problem`, `motivation`, `solution`, `outcome`), engineering challenges & deployed solutions (`engineering.challenges`, `solutions`), scalability benchmarks (`engineering.scalability`), research & R&D insights (`research`), engineering learnings (`learnings`), visual media showcase lightbox (`visual.heroImage`, `visual.gallery`), paper & demo CTAs (`links.paper`, `links.demo`), interactive AI Robot Avatar mascot (`<RobotAvatar size="xl" />`) with mouse eye-tracking in the Hero section grid, Framer Motion staggered entrance reveals (`staggerChildren: 0.08`), previous/next case study navigation switcher, and integrated interactive `<Contact />` footer section with zero white gaps.
-- **Experience Details (`app/experience/[id]/page.tsx`)**: Completely redesigned experience dossier route featuring 100% data coverage from `lib/experienceDetailData.ts` (`exp.focus` domain pills, `exp.technical.skills` competencies matrix, `exp.overview.responsibilities` with milestone badges, `exp.work.projects`, `exp.work.impact`, `exp.overview.achievements`, `exp.technical.concepts`). Integrated interactive `<RobotAvatar size="xl" />` mascot with mouse eye-tracking, spring tilt physics, and role-based typewriter speech bubble (`DATA ANALYST!`, `GENAI DEVELOPER!`) in the right column of the Hero section. Upgraded `<TechIcon />` component (`components/TechIcon.tsx`) with custom icon mappings for conceptual AI & skills tags, rendering specific vector icons alongside every technology tag and skill chip. Added interactive backdrop-blur Certificate Lightbox Modal, cross-linked production project case studies (`exp.links.relatedProjects` -> `/work/[id]`), Framer Motion staggered entrance animations (`staggerChildren: 0.08`), previous/next career role switcher, and integrated interactive `<Contact />` footer section with zero white gaps.
-- **404 Not Found (`app/not-found.tsx`, `RobotAvatar.tsx`)**: Custom error page ("LOSS FUNCTION UNCONVERGED"), interactive 3.0σ deviation chip, mouse spotlight, AI assistant reroute CTAs, and interactive AI Robot Avatar mascot with mouse-tracking white eyes, typewriter speech bubble (`404 REROUTE!`), and spring tilt physics.
-
-### 4. Interactive Radial Skill Matrix (`components/Skills.tsx`)
-- **Interactive Contact Footer (`components/Contact.tsx`)**: Full-height neural particle canvas with live mouse gravity physics, interactive 1-click email copy, spotlight cards, expanded 5-card social media bento grid (GitHub, LinkedIn, Hugging Face, Kaggle, Twitter/X), redesigned glassmorphic sub-footer navigation pill bar featuring vector icons for `HOME`, `ABOUT`, `WORK` (with `SKILLS` removed), and circular purple `TOP` rocket action button.
-- **Dynamic Center Panel (Cyberpunk HUD)**: Features real-time state inspection on hover/tap. Designed with a deep glassmorphism HUD aesthetic (inner glows, corner brackets, ambient grid overlays, mono typography). Includes Framer Motion staggered entrance animations (`staggerChildren: 0.05`) for smooth orchestration of headers, tech badges, and linked case studies. Opens default domain (`DATA SCIENCE`) immediately on initial render.
-- **SVG Orbit Connectors**: Dynamically measures real card & panel DOM coordinates (`getBoundingClientRect()` + `ResizeObserver`) to generate a Catmull-Rom smooth bezier orbital path and hub spoke lines that land with pixel perfection across all screen resolutions.
-- **Z-Index & Stacking Layering**: Set SVG thread layer to `z-0` and domain cards to `z-10`+ (`z-40` on active/hover), ensuring domain cards render cleanly in front of all threads/wires. Increased non-selected card brightness (`brightness(0.82)`) and scale (`0.98`) for clear legibility and crisp visual presence across all 8 nodes.
-- **Responsive Adaptations**: Designed desktop radial constellation and mobile/tablet node selector grid guaranteeing zero horizontal overflow across viewports.
+## 📂 Core Datasets & State (Read-Only Source of Truth)
+- `lib/experienceDetailData.ts`: 100% dataset for experience dossiers (GarunaCDX, AASHA Infinite Foundation).
+- `lib/projectsDetailData.ts`: 100% dataset for production case studies (Netran AI, ResumeBuilder, Auto Dash, StockMind AI).
+- `lib/projectsData.ts`: Portfolio spotlight catalog records.
 
 ---
 
-## ⏳ Pending Tasks
-- [x] Connect remaining secondary footer links & social platforms (GitHub, LinkedIn, Hugging Face, Kaggle, Twitter/X, and quick navigation bar).
+## 📄 Key Pages & Routes
 
+### 1. Main Landing Page (`app/page.tsx`)
+- **Navigation & Hero**: `<Navbar variant="dark" />`, hero section with interactive `<RobotAvatar />` mascot.
+- **Experience Timeline (`components/Experience.tsx`)**: Career history with dynamic SVG connecting thread wires.
+- **Projects Catalog (`components/Projects.tsx`)**: Asymmetrical bento grid with `<TechIcon />` technology badges.
+- **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG connectors and Cyberpunk HUD panel.
+- **Contact Footer (`components/Contact.tsx`)**: Full-height neural particle canvas, 1-click email copy, 5-card social bento grid, glassmorphic sub-footer nav bar, and rocket back-to-top launch button.
+
+### 2. About Biography (`app/about/page.tsx`)
+- **Hero & Mascot**: Interactive `<RobotAvatar size="xl" />` mascot with mouse eye-tracking.
+- **Milestones & Competencies**: GarunaCDX & AASHA Infinite milestones, 4-card technical matrix (`rotate: -1.8°/1.8°`), `<TechIcon />` pairings.
+- **Credentials**: `<CredentialPreviewButton />` modal with popover certificate preview (`object-contain`).
+- **Footer**: Integrated `<Contact />` with zero white gap layout.
+
+### 3. Work Archive Catalog (`app/work/page.tsx`)
+- **Filters**: Category filters (`AI ENGINEERING`, `FULL-STACK AI`, `VOICE AI`, `HR ANALYTICS`, `FINANCIAL ANALYTICS`).
+- **Bento Grid**: Asymmetrical grid with `<TechIcon />` badges, telemetry metadata, and full 4-quadrant `SYSTEM OVERVIEW`.
+- **Mascot & Footer**: Interactive `<RobotAvatar size="xl" />` mascot and `<Contact />` footer.
+
+### 4. Case Study Details (`app/work/[id]/page.tsx`)
+- **100% Data Coverage**: AI Models, APIs, Datasets, Infrastructure, Concepts, and Tech Stack rendered with `<TechIcon />`.
+- **Architecture Schematics**: Custom ASCII system architecture schematics (`getArchitectureBlueprint`) replacing raw JSON dumps.
+- **Bento Grid**: 4-quadrant System Overview, sequential pipeline workflow cards (`architecture.workflow`), engineering hurdles/solutions (`engineering`), scalability benchmarks, and research insights.
+- **Mascot & Gallery**: `<RobotAvatar size="xl" />` hero mascot and visual media lightbox modal.
+
+### 5. Experience Details (`app/experience/[id]/page.tsx`)
+- **100% Data Coverage**: Focus domain pills, competency matrix, responsibilities, project impact, and achievements.
+- **Mascot & Lightbox**: `<RobotAvatar size="xl" />` mascot with role speech bubble, backdrop-blur Certificate Lightbox Modal, and project cross-links.
+
+### 6. Custom 404 Error Page (`app/not-found.tsx`)
+- Interactive 3.0σ deviation chip, mouse spotlight, AI reroute CTAs, and `<RobotAvatar size="xl" />` mascot (`404 REROUTE!`).
+
+---
+
+## 🧩 Shared Core Components
+
+### `components/Contact.tsx`
+- Neural particle gravity canvas, 1-click email copy, 5-card social bento grid (GitHub, LinkedIn, Hugging Face, Kaggle, Twitter/X), glassmorphic sub-footer nav bar (`HOME` • `ABOUT` • `WORK`), and rocket back-to-top launch physics.
+
+### `components/TechIcon.tsx`
+- Standardized brand logos via `simple-icons` and UI/conceptual tags via `lucide-react`. Strictly zero raw emojis.
+
+### `components/RobotAvatar.tsx`
+- Interactive AI Robot Avatar mascot with mouse pupil tracking, typewriter speech bubble, and spring physics.
+
+### `components/Navbar.tsx`
+- Light/Dark variant header, route detection, and glowing `GET IN TOUCH` button.
+
+---
+
+## 🚀 System Status & Build
+- **Build Status**: 100% clean production build (`npm run build` static generation 6/6).
+- **Git Branch**: `main` (all features committed).
