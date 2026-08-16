@@ -10,9 +10,14 @@ import {
   Clock,
   Share2,
   ArrowUp,
-  Sparkles
+  Sparkles,
+  Home,
+  User,
+  Briefcase
 } from "lucide-react";
 import { TechIcon } from "./TechIcon";
+import { TransitionLink } from "./TransitionLink";
+import { siHuggingface, siKaggle } from "simple-icons";
 
 // Interactive Circular AI Robot Avatar with Mouse-Tracking White Eyes & Live Typing Speech Balloon
 function ContactRobotAvatar({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
@@ -402,13 +407,13 @@ export function Contact() {
     {
       name: "GitHub",
       handle: "@ashwini-prajapati",
-      url: "https://github.com",
+      url: "https://github.com/ashwini-prajapati",
       color: "from-purple-500/15 to-purple-900/10",
       borderColor: "group-hover/tile:border-purple-400/60",
       iconColor: "text-purple-300",
       rotateAngle: -4,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 fill-current text-purple-300">
+        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-purple-300">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
         </svg>
       )
@@ -416,27 +421,55 @@ export function Contact() {
     {
       name: "LinkedIn",
       handle: "Ashwini Prajapati",
-      url: "https://linkedin.com",
+      url: "https://linkedin.com/in/ashwini-prajapati",
       color: "from-blue-500/15 to-indigo-900/10",
       borderColor: "group-hover/tile:border-blue-400/60",
       iconColor: "text-blue-400",
       rotateAngle: 4,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 fill-current text-blue-400">
+        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-blue-400">
           <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.74a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2z" />
+        </svg>
+      )
+    },
+    {
+      name: "Hugging Face",
+      handle: "@ashwini-prajapati",
+      url: "https://huggingface.co/ashwini-prajapati",
+      color: "from-amber-500/15 to-amber-900/10",
+      borderColor: "group-hover/tile:border-amber-400/60",
+      iconColor: "text-amber-300",
+      rotateAngle: -3,
+      svg: (
+        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-amber-300">
+          <path d={siHuggingface.path} />
+        </svg>
+      )
+    },
+    {
+      name: "Kaggle",
+      handle: "@ashwiniprajapati",
+      url: "https://kaggle.com/ashwiniprajapati",
+      color: "from-cyan-500/15 to-blue-900/10",
+      borderColor: "group-hover/tile:border-cyan-400/60",
+      iconColor: "text-cyan-300",
+      rotateAngle: 3,
+      svg: (
+        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-cyan-300">
+          <path d={siKaggle.path} />
         </svg>
       )
     },
     {
       name: "Twitter / X",
       handle: "@ashwini_ai",
-      url: "https://twitter.com",
-      color: "from-cyan-500/15 to-slate-900/10",
-      borderColor: "group-hover/tile:border-cyan-400/60",
-      iconColor: "text-cyan-300",
+      url: "https://twitter.com/ashwini_ai",
+      color: "from-slate-500/15 to-slate-900/10",
+      borderColor: "group-hover/tile:border-slate-400/60",
+      iconColor: "text-slate-300",
       rotateAngle: -5,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 fill-current text-cyan-300">
+        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-slate-300">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
         </svg>
       )
@@ -608,30 +641,30 @@ export function Contact() {
                 Social Media
               </h3>
 
-              {/* 3 Social Media Bento Cards Grid (Borderless Icons with Hover Angle Rotation) */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-6 relative z-10 my-auto">
+              {/* 5 Social Media Bento Cards Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 relative z-10 my-auto">
                 {SOCIAL_PLATFORMS.map((platform) => (
                   <motion.a
                     key={platform.name}
                     href={platform.url}
                     target="_blank"
                     rel="noreferrer"
-                    whileHover={{ scale: 1.08, y: -4, rotate: platform.rotateAngle }}
+                    whileHover={{ scale: 1.06, y: -4, rotate: platform.rotateAngle }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 16 }}
-                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-3xl p-6 sm:p-7 flex flex-col items-center justify-center text-center gap-4 group/tile transition-all duration-200 shadow-lg cursor-pointer relative overflow-hidden min-h-[160px] sm:min-h-[185px]`}
+                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center gap-3 group/tile transition-all duration-200 shadow-lg cursor-pointer relative overflow-hidden min-h-[140px] sm:min-h-[160px]`}
                   >
-                    {/* Borderless Enlarged Icon Container with Hover Rotation Physics */}
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-115 group-hover/tile:rotate-12">
+                    {/* Borderless Icon Container with Hover Rotation Physics */}
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-115 group-hover/tile:rotate-12">
                       {platform.svg}
                     </div>
 
                     {/* Centered Text Labels */}
                     <div className="w-full">
-                      <h4 className="text-base sm:text-lg lg:text-xl font-black text-white group-hover/tile:text-purple-200 transition-colors mb-0.5">
+                      <h4 className="text-xs sm:text-sm lg:text-base font-black text-white group-hover/tile:text-purple-200 transition-colors mb-0.5">
                         {platform.name}
                       </h4>
-                      <p className="text-xs sm:text-sm font-mono text-slate-300 font-medium truncate">
+                      <p className="text-[11px] font-mono text-slate-300 font-medium truncate">
                         {platform.handle}
                       </p>
                     </div>
@@ -647,13 +680,42 @@ export function Contact() {
       </div>
 
       {/* Section Bottom Footer */}
-      <div className="max-w-7xl mx-auto w-full pt-5 mt-8 sm:pt-6 sm:mt-10 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm font-mono text-slate-400 relative z-10">
-        <div className="flex items-center gap-3">
+      <div className="max-w-7xl mx-auto w-full pt-6 mt-8 sm:mt-10 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 text-xs sm:text-sm font-mono text-slate-400 relative z-10">
+        <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
           <span className="font-signature text-2xl sm:text-3xl text-white font-normal drop-shadow-md">Ashwini</span>
           <span className="text-slate-400">© {new Date().getFullYear()} — Engineered for Data & Neural Systems</span>
         </div>
 
-        {/* Circular Purple Back to Top Action Button Overlapping White Line */}
+        {/* Sleek Sub-Footer Quick Navigation Bar */}
+        <nav aria-label="Footer Quick Navigation" className="bg-[#0c0d14]/90 border border-white/15 backdrop-blur-md px-2.5 sm:px-3.5 py-1.5 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex items-center gap-1 sm:gap-1.5 relative z-10">
+          <TransitionLink 
+            href="/#hero" 
+            className="group px-3 sm:px-4 py-1.5 rounded-full text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5"
+          >
+            <Home className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
+            <span>HOME</span>
+          </TransitionLink>
+
+          <span className="w-1 h-1 rounded-full bg-white/20" />
+
+          <TransitionLink 
+            href="/about" 
+            className="group px-3 sm:px-4 py-1.5 rounded-full text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5"
+          >
+            <User className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
+            <span>ABOUT</span>
+          </TransitionLink>
+
+          <span className="w-1 h-1 rounded-full bg-white/20" />
+
+          <TransitionLink 
+            href="/work" 
+            className="group px-3 sm:px-4 py-1.5 rounded-full text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5"
+          >
+            <Briefcase className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
+            <span>WORK</span>
+          </TransitionLink>
+        </nav>
         <motion.a 
           href="#top"
           onClick={handleScrollTop}

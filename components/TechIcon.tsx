@@ -25,6 +25,8 @@ import {
   siSupabase,
   siLatex,
   siFramer,
+  siGoogledocs,
+  siGooglesheets,
   type SimpleIcon
 } from "simple-icons";
 import { 
@@ -38,7 +40,15 @@ import {
   Layers,
   Sparkles,
   Zap,
-  Globe
+  Globe,
+  Users,
+  LayoutDashboard,
+  LineChart,
+  TrendingUp,
+  Workflow,
+  Network,
+  FileText,
+  Table
 } from "lucide-react";
 
 interface TechIconProps {
@@ -82,10 +92,27 @@ const iconMap: Record<string, SimpleIcon> = {
   "Supabase": siSupabase,
   "LaTeX": siLatex,
   "Framer Motion": siFramer,
+  "Google Docs": siGoogledocs,
+  "Google Sheets": siGooglesheets,
 };
 
-// Lucide icon mapping for conceptual, voice AI, analytics, or niche tech tags
+// Lucide icon mapping for conceptual tags, AI models, and skills
 const lucideIconMap: Record<string, React.ElementType> = {
+  "Artificial Intelligence": Brain,
+  "AI": Brain,
+  "Generative AI": Sparkles,
+  "GenAI": Sparkles,
+  "Retrieval-Augmented Generation (RAG)": Network,
+  "RAG": Network,
+  "Team Leadership": Users,
+  "full-stack development": Workflow,
+  "Full-Stack Development": Workflow,
+  "Full Stack": Workflow,
+  "Data Analysis": BarChart2,
+  "Dashboard Development": LayoutDashboard,
+  "Data Visualization": LineChart,
+  "Data Analytics": TrendingUp,
+  "AI Engineering": Cpu,
   "Silero VAD": Mic,
   "Faster-Whisper": Mic,
   "Kokoro TTS": Mic,
@@ -99,8 +126,50 @@ const lucideIconMap: Record<string, React.ElementType> = {
 };
 
 export function TechIcon({ name, className = "w-4 h-4", color, size = 16 }: TechIconProps) {
-  // Check Simple Icons map
-  const iconData = iconMap[name];
+  // 1. Direct match in Simple Icons
+  let iconData = iconMap[name];
+  
+  // 2. Direct match in Lucide Icon Map
+  let LucideIcon = lucideIconMap[name];
+
+  // 3. Fallback matching if direct match fails
+  if (!iconData && !LucideIcon) {
+    const lower = name.toLowerCase();
+
+    // Check normalized simple icons
+    for (const [key, icon] of Object.entries(iconMap)) {
+      if (key.toLowerCase() === lower) {
+        iconData = icon;
+        break;
+      }
+    }
+
+    // Check normalized lucide icons or key inclusion
+    if (!iconData) {
+      for (const [key, Icon] of Object.entries(lucideIconMap)) {
+        if (key.toLowerCase() === lower || lower.includes(key.toLowerCase()) || key.toLowerCase().includes(lower)) {
+          LucideIcon = Icon;
+          break;
+        }
+      }
+    }
+
+    // Keyword heuristics fallback
+    if (!iconData && !LucideIcon) {
+      if (lower.includes("generative ai") || lower.includes("genai")) LucideIcon = Sparkles;
+      else if (lower.includes("artificial intelligence") || lower.includes("ai")) LucideIcon = Brain;
+      else if (lower.includes("rag") || lower.includes("retrieval")) LucideIcon = Network;
+      else if (lower.includes("leadership") || lower.includes("team")) LucideIcon = Users;
+      else if (lower.includes("full-stack") || lower.includes("fullstack")) LucideIcon = Workflow;
+      else if (lower.includes("dashboard")) LucideIcon = LayoutDashboard;
+      else if (lower.includes("visualization")) LucideIcon = LineChart;
+      else if (lower.includes("analysis") || lower.includes("analytics")) LucideIcon = BarChart2;
+      else if (lower.includes("voice") || lower.includes("speech") || lower.includes("audio") || lower.includes("tts") || lower.includes("vad")) LucideIcon = Mic;
+      else if (lower.includes("doc")) LucideIcon = FileText;
+      else if (lower.includes("sheet")) LucideIcon = Table;
+    }
+  }
+
   if (iconData) {
     return (
       <svg
@@ -117,8 +186,6 @@ export function TechIcon({ name, className = "w-4 h-4", color, size = 16 }: Tech
     );
   }
 
-  // Check Lucide conceptual map
-  const LucideIcon = lucideIconMap[name] || Code2;
-  return <LucideIcon className={className} style={{ width: size, height: size }} />;
+  const FinalIcon = LucideIcon || Code2;
+  return <FinalIcon className={className} style={{ width: size, height: size }} />;
 }
-
