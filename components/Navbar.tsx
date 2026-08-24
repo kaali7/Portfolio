@@ -27,12 +27,12 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
         ? "bg-transparent"
         : "bg-white/85 backdrop-blur-xl border-b border-slate-200/80"
     }`}>
-      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-12 py-5 sm:py-6 flex justify-between items-center">
+      <div className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-3 sm:py-3.5 flex justify-between items-center">
         
         {/* Brand Logo Signature */}
         <Link
           href="/"
-          className={`font-signature text-3xl sm:text-4xl transition-colors ${
+          className={`font-signature text-2xl sm:text-3xl transition-colors ${
             isDark
               ? "text-white font-normal drop-shadow-md hover:text-purple-300"
               : "text-[#08080A] font-normal hover:text-purple-600"
@@ -42,7 +42,7 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation Bar Links */}
-        <nav className="hidden md:flex items-center gap-8 lg:gap-12 text-sm sm:text-base lg:text-lg xl:text-xl font-mono font-black tracking-widest">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs sm:text-sm font-mono font-bold tracking-wider">
           {navLinks.map((link) => {
             const isActive = currentRoute === link.key;
 
@@ -82,16 +82,16 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className={`relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-mono font-black tracking-wider rounded-full transition-all duration-300 hidden sm:inline-flex items-center gap-2 group/btn ${
+            className={`relative overflow-hidden px-4 sm:px-5 py-2 text-xs font-mono font-bold tracking-wider rounded-full transition-all duration-300 hidden sm:inline-flex items-center gap-1.5 group/btn ${
               isDark
-                ? "text-[#08080A] bg-white border border-white/40 hover:bg-purple-600 hover:text-white hover:border-purple-400 hover:shadow-[0_0_30px_rgba(168,85,247,0.65)] hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
-                : "text-white bg-[#08080A] hover:bg-purple-600 hover:shadow-[0_8px_25px_rgba(147,51,234,0.4)] hover:scale-105 active:scale-95 shadow-md"
+                ? "text-[#08080A] bg-white border border-white/40 hover:bg-purple-600 hover:text-white hover:border-purple-400 hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] hover:scale-105 active:scale-95 shadow-sm"
+                : "text-white bg-[#08080A] hover:bg-purple-600 hover:shadow-[0_6px_20px_rgba(147,51,234,0.35)] hover:scale-105 active:scale-95 shadow-sm"
             }`}
           >
             {/* Shimmer Effect overlay */}
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 pointer-events-none" />
             <span>GET IN TOUCH</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-300" />
+            <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform duration-300" />
           </Link>
 
           {/* Mobile Hamburger Button */}

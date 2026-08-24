@@ -91,7 +91,7 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
       
       {/* Top Breadcrumb Header Bar */}
       <div className="bg-slate-50/90 border-b border-slate-200/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-3.5 flex items-center justify-between">
+        <div className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-3.5 flex items-center justify-between">
           <Link 
             href="/about" 
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-slate-700 hover:text-purple-600 px-4 py-2 rounded-full bg-white hover:bg-slate-100 border border-slate-200/90 transition-all cursor-pointer shadow-2xs group"
@@ -109,7 +109,7 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
       </div>
 
       {/* Main Hero Header */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-10 sm:pt-14 pb-10 relative z-10">
+      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-10 sm:pt-14 pb-10 relative z-10">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -223,7 +223,7 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
       </section>
 
       {/* Main Content Grid (12 Columns) */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           
           {/* Left Column: Responsibilities, Projects, Impact, Linked Work (8 cols) */}
@@ -536,7 +536,7 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
       </section>
 
       {/* Footer Navigation Switcher Between Experience Roles */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-12 border-t border-slate-200/90 mt-12">
+      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-12 border-t border-slate-200/90 mt-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           
           <Link

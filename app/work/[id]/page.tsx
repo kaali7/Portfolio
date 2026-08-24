@@ -201,7 +201,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         
         {/* Top Breadcrumb Header Bar */}
         <div className="bg-slate-50/90 border-b border-slate-200/80 backdrop-blur-sm sticky top-0 z-30">
-          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-3.5 flex items-center justify-between">
+          <div className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-3.5 flex items-center justify-between">
             <Link 
               href="/work" 
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-slate-700 hover:text-purple-600 px-4 py-2 rounded-full bg-white hover:bg-slate-100 border border-slate-200/90 transition-all cursor-pointer shadow-2xs group"
@@ -219,7 +219,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </div>
 
         {/* Main Hero Header */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-10 sm:pt-14 pb-10 relative z-10">
+        <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-10 sm:pt-14 pb-10 relative z-10">
           <motion.div 
             variants={containerVariants}
             initial="hidden"
@@ -350,7 +350,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
         {/* Performance KPI Benchmarks Cards Grid */}
         {performanceMetrics.length > 0 && (
-          <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-6">
+          <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-6">
             <h3 className="text-xs font-mono font-bold tracking-widest text-slate-500 uppercase mb-4 flex items-center gap-2">
               <Zap className="w-4 h-4 text-purple-600" />
               <span>PERFORMANCE & BENCHMARK METRICS</span>
@@ -378,7 +378,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
         {/* Visual Showcase / Hero Media Gallery Banner (if visual images exist) */}
         {(project.visual?.heroImage || (project.visual?.gallery && project.visual.gallery.length > 0)) && (
-          <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+          <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-8">
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl text-white overflow-hidden">
               <h3 className="text-xs font-mono font-bold tracking-widest text-purple-400 uppercase mb-4 flex items-center gap-2">
                 <Maximize2 className="w-4 h-4 text-purple-400" />
@@ -419,7 +419,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         )}
 
         {/* 4-Quadrant System Overview Bento Grid */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+        <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-8">
           <h2 className="text-base sm:text-lg font-mono font-bold tracking-wider text-purple-950 uppercase mb-6 flex items-center gap-2.5">
             <Compass className="w-5 h-5 text-purple-600" />
             <span>SYSTEM OVERVIEW & CORE ARCHITECTURE</span>
@@ -496,7 +496,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
         {/* Step-by-Step Architectural Pipeline Workflow */}
         {project.architecture?.workflow && project.architecture.workflow.length > 0 && (
-          <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+          <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-8">
             <div className="bg-[#08080A] text-white border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
               <h2 className="text-base sm:text-lg font-mono font-bold tracking-wider text-purple-300 uppercase mb-6 flex items-center gap-2.5">
                 <Workflow className="w-5 h-5 text-purple-400" />
@@ -525,7 +525,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         )}
 
         {/* Main 12-Column Content Grid: Engineering Hurdles & Models/Tech Matrix */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+        <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             
             {/* Left Column: Engineering Hurdles, Solutions & Features (8 cols) */}
@@ -798,7 +798,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </section>
 
         {/* Code Blueprint & Technical Diagram */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+        <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-8">
           <div className="bg-[#08080A] text-white border border-purple-500/40 rounded-3xl p-6 sm:p-8 overflow-hidden shadow-2xl">
             
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
@@ -816,7 +816,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </section>
 
         {/* Bottom Case Study Switcher Navigation */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-12 border-t border-slate-200/90 mt-12">
+        <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-12 border-t border-slate-200/90 mt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             
             {prevProject && (

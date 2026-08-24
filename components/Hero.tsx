@@ -165,11 +165,11 @@ export function Hero() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <motion.div 
           animate={{ 
-            opacity: [0.25, 0.42, 0.25], 
-            scale: [0.94, 1.08, 0.94] 
+            opacity: [0.22, 0.38, 0.22], 
+            scale: [0.94, 1.06, 0.94] 
           }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[750px] lg:h-[750px] bg-purple-600/30 rounded-full blur-[120px] sm:blur-[160px]"
+          className="w-[260px] h-[260px] sm:w-[380px] sm:h-[380px] lg:w-[540px] lg:h-[540px] bg-purple-600/30 rounded-full blur-[100px] sm:blur-[140px]"
         />
       </div>
 
@@ -179,7 +179,7 @@ export function Hero() {
       {/* Interactive Circular AI Robot Avatar (Mouse-Tracking Eyes) */}
       <div 
         data-interactive-zone="true"
-        className="absolute top-[20%] sm:top-[22%] lg:top-[24%] right-[5%] sm:right-[8%] lg:right-[12%] z-30 pointer-events-auto"
+        className="absolute top-[16%] sm:top-[18%] lg:top-[20%] right-[4%] sm:right-[6%] lg:right-[8%] z-30 pointer-events-auto"
       >
         <RobotAvatar mouseX={mouseX} mouseY={mouseY} />
       </div>
@@ -190,7 +190,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="relative w-[320px] h-[440px] sm:w-[480px] sm:h-[620px] md:w-[600px] md:h-[760px] lg:w-[780px] lg:h-[960px] xl:w-[880px] xl:h-[1050px] flex-shrink-0 -mb-1 sm:-mb-3"
+          className="relative w-[280px] h-[380px] sm:w-[380px] sm:h-[490px] md:w-[460px] md:h-[580px] lg:w-[540px] lg:h-[680px] xl:w-[620px] xl:h-[760px] flex-shrink-0 -mb-1 sm:-mb-2"
         >
           <Image
             src="/me.png"
@@ -200,20 +200,20 @@ export function Hero() {
             priority
           />
           {/* Bottom Gradient Fade Mask */}
-          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-44 bg-gradient-to-t from-[#08080A] via-[#08080A]/85 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-t from-[#08080A] via-[#08080A]/85 to-transparent pointer-events-none" />
         </motion.div>
       </div>
 
-      {/* Futuristic AI Glass HUD Card (Positioned in Upper-Left Chalkboard Space per Screenshot Green Box) */}
+      {/* Futuristic AI Glass HUD Card (Positioned in Upper-Left Chalkboard Space) */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.03, y: -3 }}
         transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-[18%] sm:top-[20%] lg:top-[22%] left-[4%] sm:left-[6%] lg:left-[8%] z-30 w-[300px] sm:w-[340px] lg:w-[370px] pointer-events-auto group hidden sm:block"
+        className="absolute top-[16%] sm:top-[18%] lg:top-[20%] left-[3%] sm:left-[5%] lg:left-[6%] z-30 w-[270px] sm:w-[300px] lg:w-[330px] pointer-events-auto group hidden sm:block"
       >
         {/* Futuristic Glass Container */}
-        <div className="relative w-full bg-[#0B0C10]/85 backdrop-blur-2xl p-5 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-left overflow-hidden transition-all duration-300 group-hover:border-white/25 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
+        <div className="relative w-full bg-[#0B0C10]/85 backdrop-blur-2xl p-4 sm:p-5 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-left overflow-hidden transition-all duration-300 group-hover:border-white/25 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
           
           {/* Top Border Neon Beam Accent */}
           <div className="absolute -top-[1px] inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-purple-400/80 to-transparent transition-all duration-500" />
@@ -222,14 +222,14 @@ export function Hero() {
           <span className="absolute top-2.5 right-3 text-[10px] font-mono text-white/30 tracking-widest select-none">HUD // 01</span>
           
           {/* Header Badge */}
-          <div className="flex items-center mb-2.5">
-            <span className="text-xs font-mono font-bold text-purple-300 tracking-widest uppercase">
+          <div className="flex items-center mb-2">
+            <span className="text-[11px] font-mono font-bold text-purple-300 tracking-widest uppercase">
               AI & DATA SCIENCE
             </span>
           </div>
 
           {/* Description Text */}
-          <p className="text-xs sm:text-sm font-normal text-slate-200 leading-relaxed mb-3">
+          <p className="text-xs font-normal text-slate-200 leading-relaxed mb-3">
             Engineering intelligent algorithms, deep learning pipelines, and generative AI systems to extract value from complex data.
           </p>
 
@@ -238,7 +238,7 @@ export function Hero() {
             {["Deep Learning", "GenAI & LLMs", "Data Pipelines"].map((chip) => (
               <span 
                 key={chip}
-                className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-[10px] font-mono text-slate-300 tracking-wider transition-colors"
+                className="px-2 py-0.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-[10px] font-mono text-slate-300 tracking-wider transition-colors"
               >
                 {chip}
               </span>
@@ -249,7 +249,7 @@ export function Hero() {
       </motion.div>
 
       {/* Main Hero Body Container */}
-      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
+      <div className="relative z-20 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
 
         {/* LEFT HUD CONTENT: Name Heading (Bottom Left) */}
         <motion.div 
@@ -257,13 +257,13 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 flex flex-col items-start text-left w-full lg:w-auto mb-4 sm:mb-8 lg:mb-12 lg:self-end -ml-2 sm:-ml-4 lg:-ml-6 pointer-events-auto cursor-default"
+          className="relative z-30 flex flex-col items-start text-left w-full lg:w-auto mb-3 sm:mb-6 lg:mb-8 lg:self-end -ml-1 sm:-ml-3 lg:-ml-4 pointer-events-auto cursor-default"
         >
-          <h2 className="flex flex-col items-start font-black text-white tracking-tighter uppercase leading-[0.84] drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)] select-none">
-            <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-slate-300/90 mb-1">
+          <h2 className="flex flex-col items-start font-black text-white tracking-tighter uppercase leading-[0.86] drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)] select-none">
+            <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-widest text-slate-300/90 mb-1">
               I AM
             </span>
-            <span className="text-6xl sm:text-8xl md:text-[11vw] lg:text-[13vw] xl:text-[14.5rem] font-black bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
+            <span className="text-5xl sm:text-7xl md:text-8xl lg:text-[7.5vw] xl:text-[8.5rem] font-black bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
               {name}
             </span>
           </h2>

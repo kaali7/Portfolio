@@ -89,8 +89,8 @@ export function Skills() {
       num: "01",
       title: "DATA SCIENCE",
       category: "ai_ml",
-      defaultRotation: -4,
-      desktopPos: { top: "10%", left: "9%" },
+      defaultRotation: -3,
+      desktopPos: { top: "16%", left: "16%" },
       icon: <BarChart2 className="w-4 h-4 text-purple-400" />,
       shortDesc: "Exploratory analysis, statistical modeling, & high-throughput data processing pipelines.",
       fullDesc: "Specialized in extraction of actionable intelligence from complex structured/unstructured datasets using advanced statistical modeling, feature engineering, and high-performance tabular computation.",
@@ -113,8 +113,8 @@ export function Skills() {
       num: "02",
       title: "MACHINE LEARNING",
       category: "ai_ml",
-      defaultRotation: 3,
-      desktopPos: { top: "5%", left: "43%" },
+      defaultRotation: 2,
+      desktopPos: { top: "10%", left: "50%" },
       icon: <Brain className="w-4 h-4 text-purple-400" />,
       shortDesc: "Supervised, unsupervised, & predictive models built for performance and scale.",
       fullDesc: "End-to-end predictive modeling workflows including hyperparameter tuning, ensemble methods, gradient boosting, and custom metric optimization for real-time production inference.",
@@ -137,7 +137,7 @@ export function Skills() {
       title: "DEEP LEARNING",
       category: "ai_ml",
       defaultRotation: -2,
-      desktopPos: { top: "12%", left: "75%" },
+      desktopPos: { top: "16%", left: "84%" },
       icon: <Network className="w-4 h-4 text-purple-400" />,
       shortDesc: "Convolutional neural networks, Transformers, & GPU-accelerated neural optimization.",
       fullDesc: "Building custom PyTorch neural architectures for vision, sequence modeling, and audio. Trained on distributed multi-GPU clusters with mixed precision.",
@@ -159,8 +159,8 @@ export function Skills() {
       num: "04",
       title: "AI ENGINEERING",
       category: "ai_ml",
-      defaultRotation: 4,
-      desktopPos: { top: "48%", left: "79%" },
+      defaultRotation: 3,
+      desktopPos: { top: "50%", left: "88%" },
       icon: <Cpu className="w-4 h-4 text-purple-400" />,
       shortDesc: "Production ML pipelines, high-concurrency APIs, containerization, & autonomous agents.",
       fullDesc: "Productionizing ML models with Dockerized microservices, high-throughput FastAPI endpoints, vector index clustering, and fault-tolerant agent execution loops.",
@@ -183,8 +183,8 @@ export function Skills() {
       num: "05",
       title: "GENERATIVE AI",
       category: "genai_rag",
-      defaultRotation: -3,
-      desktopPos: { top: "74%", left: "73%" },
+      defaultRotation: -2,
+      desktopPos: { top: "84%", left: "84%" },
       icon: <Sparkles className="w-4 h-4 text-purple-400" />,
       shortDesc: "LLM fine-tuning, prompt guardrails, multi-modal agents, & autonomous function calling.",
       fullDesc: "Harnessing state-of-the-art LLMs (Llama 3, Claude 3.5, GPT-4o), fine-tuning domain adapters (LoRA/QLoRA), and engineering multi-agent function calling workflows.",
@@ -206,8 +206,8 @@ export function Skills() {
       num: "06",
       title: "RAG ARCHITECTURES",
       category: "genai_rag",
-      defaultRotation: 5,
-      desktopPos: { top: "78%", left: "41%" },
+      defaultRotation: 4,
+      desktopPos: { top: "90%", left: "50%" },
       icon: <Database className="w-4 h-4 text-purple-400" />,
       shortDesc: "Dense vector retrieval, hybrid BM25 indexing, reranking, & context grounding.",
       fullDesc: "Designing robust Retrieval-Augmented Generation architectures with Qdrant vector databases, semantic chunking, cross-encoder reranking, and zero-hallucination guardrails.",
@@ -228,8 +228,8 @@ export function Skills() {
       num: "07",
       title: "COMPUTER VISION",
       category: "genai_rag",
-      defaultRotation: -4,
-      desktopPos: { top: "74%", left: "9%" },
+      defaultRotation: -3,
+      desktopPos: { top: "84%", left: "16%" },
       icon: <ScanEye className="w-4 h-4 text-purple-400" />,
       shortDesc: "Real-time edge pose tracking, object detection, & low-latency inferencing pipelines.",
       fullDesc: "Implementing real-time frame processing, MediaPipe pose tracking, YOLO object detection, and video stream inferencing pipelines with OpenCV.",
@@ -250,7 +250,7 @@ export function Skills() {
       title: "FULL-STACK AI",
       category: "fullstack",
       defaultRotation: 2,
-      desktopPos: { top: "46%", left: "5%" },
+      desktopPos: { top: "50%", left: "12%" },
       icon: <Code2 className="w-4 h-4 text-purple-400" />,
       shortDesc: "Reactive Web UIs, async backend microservices, & AI cloud infrastructure integrations.",
       fullDesc: "Building full-stack AI web products with Next.js 15, TypeScript, Tailwind CSS, FastAPI backends, and PostgreSQL vector database infrastructure.",
@@ -311,7 +311,7 @@ export function Skills() {
     <section
       id="skills"
       onMouseLeave={() => setActiveDomainId("ds")}
-      className="w-full bg-[#08080A] text-white flex flex-col justify-start px-4 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-12 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
+      className="w-full bg-[#08080A] text-white flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 pb-8 sm:pb-10 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
     >
       {/* Background Ambient Radial Lighting */}
       <motion.div
@@ -327,20 +327,20 @@ export function Skills() {
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-950/30 via-transparent to-transparent pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      <div className="w-full mx-auto relative z-10">
         {/* Section Headline Header */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.3, ease: EASE_OUT_EXPRESSIVE }}
-          className="mt-2 sm:mt-4 mb-6 sm:mb-8 pb-3 border-b border-white/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2"
+          className="mt-1 sm:mt-2 mb-4 sm:mb-6 pb-2.5 border-b border-white/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2"
         >
           <div>
-            <span className="text-[10px] font-mono font-bold tracking-widest text-purple-400 uppercase block mb-1">
+            <span className="text-[9px] font-mono font-bold tracking-widest text-purple-400 uppercase block mb-0.5">
               // KNOWLEDGE CONSTELLATION
             </span>
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
               INTERACTIVE <span className="font-black italic text-purple-400">SKILL MATRIX</span>
             </h2>
           </div>
@@ -353,7 +353,7 @@ export function Skills() {
         {/* DESKTOP RADIAL CONSTELLATION VIEW (Hidden on Mobile/Tablet < lg) */}
         <div
           ref={containerRef}
-          className="hidden lg:block relative w-full h-[740px] my-4 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
+          className="hidden lg:block relative w-full h-[580px] my-2 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
         >
           {/* Subtle Grid Canvas Background Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e0f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e0f_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
@@ -425,7 +425,7 @@ export function Skills() {
                   return (
                     <motion.circle
                       key={id}
-                      cx={pt.x} cy={pt.y} r={4}
+                      cx={pt.x} cy={pt.y} r={3.5}
                       fill="#c084fc"
                       filter="url(#glow-ring)"
                       initial={{ opacity: 0 }}
@@ -441,7 +441,7 @@ export function Skills() {
 
                 {/* Center hub pulse dot */}
                 <motion.circle
-                  cx={centerPt.x} cy={centerPt.y} r={5}
+                  cx={centerPt.x} cy={centerPt.y} r={4.5}
                   fill="#c084fc"
                   filter="url(#glow-ring)"
                   initial={{ opacity: 0 }}
@@ -460,16 +460,16 @@ export function Skills() {
           {/* CENTER DETAIL PANEL (Cyberpunk HUD style) */}
           <div
             ref={centerPanelRef}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[460px] bg-[#050608]/95 border border-purple-500/30 ring-1 ring-white/5 rounded-2xl p-7 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3),inset_0_0_30px_rgba(168,85,247,0.05)] backdrop-blur-2xl flex flex-col gap-5 overflow-hidden"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[410px] bg-[#050608]/95 border border-purple-500/30 ring-1 ring-white/5 rounded-2xl p-5 sm:p-6 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3),inset_0_0_30px_rgba(168,85,247,0.05)] backdrop-blur-2xl flex flex-col gap-4 overflow-hidden"
           >
             {/* Ambient HUD grid overlay */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#a855f710_1px,transparent_1px),linear-gradient(to_bottom,#a855f710_1px,transparent_1px)] bg-[size:1rem_1rem] opacity-20 pointer-events-none mix-blend-screen" />
 
             {/* Corner Bracket Accents (HUD aesthetic) */}
-            <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-purple-500/50 rounded-tl-sm pointer-events-none" />
-            <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-purple-500/50 rounded-tr-sm pointer-events-none" />
-            <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-purple-500/50 rounded-bl-sm pointer-events-none" />
-            <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-purple-500/50 rounded-br-sm pointer-events-none" />
+            <div className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t border-l border-purple-500/50 rounded-tl-sm pointer-events-none" />
+            <div className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t border-r border-purple-500/50 rounded-tr-sm pointer-events-none" />
+            <div className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b border-l border-purple-500/50 rounded-bl-sm pointer-events-none" />
+            <div className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b border-r border-purple-500/50 rounded-br-sm pointer-events-none" />
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -495,7 +495,7 @@ export function Skills() {
                     transition: { duration: 0.2, ease: "easeOut" }
                   }
                 }}
-                className="space-y-5 relative z-10"
+                className="space-y-4 relative z-10"
               >
                 {/* Domain Header */}
                 <motion.div 
@@ -504,16 +504,16 @@ export function Skills() {
                     visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
                     exit: { opacity: 0, transition: { duration: 0.1 } }
                   }}
-                  className="flex items-center gap-4"
+                  className="flex items-center gap-3.5"
                 >
-                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-400/30 text-purple-300 shadow-[inset_0_0_15px_rgba(168,85,247,0.2)]">
+                  <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-400/30 text-purple-300 shadow-[inset_0_0_15px_rgba(168,85,247,0.2)]">
                     {activeDomain.icon}
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-purple-400/80 uppercase block mb-0.5">
+                    <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-purple-400/80 uppercase block mb-0.5">
                       // SYSTEM.DOMAIN
                     </span>
-                    <h3 className="text-xl font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 tracking-tight">
+                    <h3 className="text-lg font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 tracking-tight">
                       {activeDomain.title}
                     </h3>
                   </div>
@@ -526,7 +526,7 @@ export function Skills() {
                     visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
                     exit: { opacity: 0, transition: { duration: 0.1 } }
                   }}
-                  className="text-[13px] text-slate-300 font-light leading-relaxed"
+                  className="text-xs text-slate-300 font-light leading-relaxed line-clamp-3"
                 >
                   {activeDomain.fullDesc}
                 </motion.p>
@@ -539,17 +539,17 @@ export function Skills() {
                     exit: { opacity: 0, transition: { duration: 0.1 } }
                   }}
                 >
-                  <span className="flex items-center gap-2 text-[10px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-3">
+                  <span className="flex items-center gap-1.5 text-[9px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
                     CORE.STACK
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {activeDomain.technologies.map((tech) => (
                       <div
                         key={tech.name}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] text-xs font-mono text-slate-200 transition-all duration-300"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] text-[11px] font-mono text-slate-200 transition-all duration-300"
                       >
-                        <TechIcon name={tech.name} className="w-3.5 h-3.5 opacity-80" />
+                        <TechIcon name={tech.name} className="w-3 h-3 opacity-80" />
                         <span>{tech.name}</span>
                       </div>
                     ))}
@@ -564,21 +564,21 @@ export function Skills() {
                       visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
                       exit: { opacity: 0, transition: { duration: 0.1 } }
                     }}
-                    className="pt-4 border-t border-purple-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                    className="pt-3 border-t border-purple-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
                   >
-                    <span className="text-[10px] font-mono font-bold text-purple-400/70 uppercase flex items-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-mono font-bold text-purple-400/70 uppercase flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3" />
                       DEPLOYMENTS
                     </span>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {activeDomain.projects.map((proj) => (
                         <Link
                           key={proj.id}
                           href={`/work/${proj.id}`}
-                          className="group inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-purple-200 bg-purple-900/30 hover:bg-purple-600/50 border border-purple-500/30 hover:border-purple-400/80 hover:text-white px-3 py-1.5 rounded transition-all duration-300"
+                          className="group inline-flex items-center gap-1 text-[9.5px] font-mono font-bold text-purple-200 bg-purple-900/30 hover:bg-purple-600/50 border border-purple-500/30 hover:border-purple-400/80 hover:text-white px-2.5 py-1 rounded transition-all duration-300"
                         >
                           <span>{proj.name}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                          <ArrowUpRight className="w-3 h-3 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                         </Link>
                       ))}
                     </div>
@@ -599,7 +599,7 @@ export function Skills() {
 
             if (isAnyHovered) {
               if (isHovered) {
-                targetScale = 1.15;
+                targetScale = 1.12;
                 targetFilter = "brightness(1)";
                 targetZIndex = 40;
               } else {
@@ -630,26 +630,26 @@ export function Skills() {
                   top: domain.desktopPos.top,
                   left: domain.desktopPos.left
                 }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 w-48 sm:w-52 p-3.5 rounded-2xl bg-[#0B0C10] border cursor-pointer transition-colors duration-200 origin-center ${
+                className={`absolute -translate-x-1/2 -translate-y-1/2 w-40 sm:w-44 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#0B0C10] border cursor-pointer transition-colors duration-200 origin-center ${
                   isHovered
                     ? "border-purple-500 shadow-[0_10px_35px_rgba(168,85,247,0.4)] ring-1 ring-purple-400/50"
                     : "border-white/15 hover:border-purple-500/50 shadow-lg"
                 }`}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[9px] font-mono font-bold text-purple-400 tracking-widest uppercase">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[8.5px] font-mono font-bold text-purple-400 tracking-widest uppercase">
                     {domain.num} // DOMAIN
                   </span>
-                  <div className="p-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  <div className="p-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400">
                     {domain.icon}
                   </div>
                 </div>
 
-                <h4 className="text-xs font-bold text-white tracking-tight leading-snug mb-1">
+                <h4 className="text-[11px] sm:text-xs font-bold text-white tracking-tight leading-snug mb-0.5">
                   {domain.title}
                 </h4>
 
-                <div className="inline-flex items-center gap-1 text-[9px] font-mono text-slate-400">
+                <div className="inline-flex items-center gap-1 text-[8.5px] font-mono text-slate-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping" />
                   <span>{domain.technologies.length} CORE TECHS</span>
                 </div>

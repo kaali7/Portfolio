@@ -10,26 +10,22 @@
 ## 📄 Key Pages & Routes
 
 ### 1. Main Landing Page (`app/page.tsx`)
-- **Navigation & Hero**: `<Navbar variant="dark" />`, hero section with interactive `<RobotAvatar />` mascot and clean Gaussian-blurred radial spotlight circle effect that smoothly reveals the background roadmap diagram.
-- **Experience Timeline (`components/Experience.tsx`)**: Career history with dynamic SVG connecting thread wires.
-- **Projects Catalog (`components/Projects.tsx`)**: Asymmetrical bento grid with `<TechIcon />` technology badges.
-- **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG connectors and Cyberpunk HUD panel.
-- **Contact Footer (`components/Contact.tsx`)**: Full-height neural particle canvas, 1-click email copy, 5-card social bento grid, glassmorphic sub-footer nav bar, and rocket back-to-top launch button.
+- **Navigation & Hero**: `<Navbar variant="dark" />` with streamlined height (`py-3 sm:py-3.5`), calibrated typography, hero section with interactive `<RobotAvatar />` mascot, Gaussian-blurred radial spotlight circle, and balanced proportional sizing (portrait, typography, HUD card) calibrated for standard 100% zoom.
+- **Experience Timeline (`components/Experience.tsx`)**: Career history with dynamic SVG connecting thread wires, compact timeline track, and proportional career dossier cards calibrated for 100% zoom.
+- **Projects Catalog (`components/Projects.tsx`)**: Asymmetrical bento grid with `<TechIcon />` technology badges, scaled-down blueprint media window, and compact stacked preview deck calibrated for 100% zoom.
+- **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG connectors, compact 580px constellation viewport, and refined Cyberpunk HUD panel calibrated for 100% zoom.
+- **Contact Footer (`components/Contact.tsx`)**: Full-height neural particle canvas, 1-click email copy, 5-card social bento grid, glassmorphic sub-footer nav bar, and rocket back-to-top launch button, with compact vertical layout calibrated for 100% zoom viewports.
 
 ### 2. About Biography (`app/about/page.tsx`)
-- **Hero & Mascot**: Interactive `<RobotAvatar size="xl" />` mascot with mouse eye-tracking.
-- **Milestones & Competencies**: GarunaCDX & AASHA Infinite milestones, 4-card technical matrix (`rotate: -1.8°/1.8°`), `<TechIcon />` pairings.
+- **Hero & Mascot**: Scaled-down hero typography, metrics chips, interactive `<RobotAvatar size="lg" />` mascot, and compact Engineering Philosophy card calibrated for 100% zoom.
+- **Milestones & Competencies**: GarunaCDX & AASHA Infinite milestones, 4-card technical matrix (`rotate: -1.5°/1.5°`), `<TechIcon />` pairings.
 - **Credentials**: `<CredentialPreviewButton />` modal with popover certificate preview (`object-contain`).
 - **Footer**: Integrated `<Contact />` with zero white gap layout.
 
-### 3. Work Archive Catalog (`app/work/page.tsx`)
-- **Filters**: Category filters (`AI ENGINEERING`, `FULL-STACK AI`, `VOICE AI`, `HR ANALYTICS`, `FINANCIAL ANALYTICS`).
-- **Bento Grid**: Asymmetrical grid with `<TechIcon />` badges, telemetry metadata, and full 4-quadrant `SYSTEM OVERVIEW`.
-- **Mascot & Footer**: Interactive `<RobotAvatar size="xl" />` mascot and `<Contact />` footer.
-
-### 4. Case Study Details (`app/work/[id]/page.tsx`)
-- **100% Data Coverage**: AI Models, APIs, Datasets, Infrastructure, Concepts, and Tech Stack rendered with `<TechIcon />`.
-- **Architecture Schematics**: Custom ASCII system architecture schematics (`getArchitectureBlueprint`) replacing raw JSON dumps.
+### 3. Work Directory & Case Studies (`app/work/page.tsx`, `app/work/[id]/page.tsx`)
+- **Filter Bar**: Dynamic category pills & interactive search filtering by architectural keywords.
+- **Asymmetrical Grid**: Scaled-down hero typography, blueprint media viewers, compact system overview challenge/solution boxes, and formatted telemetry metrics calibrated for 100% zoom.
+- **Dynamic Case Study Template (`app/work/[id]/page.tsx`)**: Deep architecture diagrams, metrics badges, dataset inspection, and GitHub/Demo live links.t`) replacing raw JSON dumps.
 - **Bento Grid**: 4-quadrant System Overview, sequential pipeline workflow cards (`architecture.workflow`), engineering hurdles/solutions (`engineering`), scalability benchmarks, and research insights.
 - **Mascot & Gallery**: `<RobotAvatar size="xl" />` hero mascot and visual media lightbox modal.
 
@@ -60,5 +56,6 @@
 
 ## 🚀 System Status & Documentation
 - **Build Status**: 100% clean production build (`npm run build` static generation 6/6).
+- **Layout & Scaling**: Expanded from fixed `max-w-7xl` / `max-w-[1440px]` containers to fluid responsive view with generous, balanced side margins/gutters (`px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36`) across all landing sections and detail pages.
 - **Documentation**: Created production `README.md` with features, technology matrix, architecture breakdown, and local setup guide.
 - **Git Branch**: `main`.
