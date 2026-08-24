@@ -72,31 +72,20 @@ export function Hero() {
     if (moveTimerRef.current) clearTimeout(moveTimerRef.current);
   };
 
-  // Dynamic sharp radial gradient mask string for 100% crystal clear, sharp text reveal
+  // Dynamic smooth radial blur mask for clean circular spotlight effect
   const maskStyle = useTransform(
     [smoothX, smoothY, smoothOpacity, smoothScale],
     ([x, y, op, scale]) => {
-      const radius = 100 * Number(scale);
-      return `radial-gradient(circle ${radius}px at ${x}px ${y}px, rgba(0,0,0,${op}) 0%, rgba(0,0,0,${op}) 98.5%, rgba(0,0,0,0) 100%)`;
+      const radius = 180 * Number(scale);
+      return `radial-gradient(circle ${radius}px at ${x}px ${y}px, rgba(0,0,0,${op}) 0%, rgba(0,0,0,${Number(op) * 0.92}) 30%, rgba(0,0,0,${Number(op) * 0.6}) 55%, rgba(0,0,0,${Number(op) * 0.25}) 78%, rgba(0,0,0,0) 100%)`;
     }
   );
 
   const lensTransform = useTransform(
     [smoothX, smoothY, smoothScale],
-    ([x, y, scale]) => `translate3d(${Number(x) - 100}px, ${Number(y) - 100}px, 0) scale(${Number(scale)})`
+    ([x, y, scale]) => `translate3d(${Number(x) - 180}px, ${Number(y) - 180}px, 0) scale(${Number(scale)})`
   );
-  // Mouse 3D Parallax Motion Transforms
-  const parallaxPortraitX = useTransform(smoothX, (x) => (Number(x) - 720) * 0.018);
-  const parallaxPortraitY = useTransform(smoothY, (y) => (Number(y) - 450) * 0.015);
-  
-  const parallaxTextX = useTransform(smoothX, (x) => (Number(x) - 720) * 0.028);
-  const parallaxTextY = useTransform(smoothY, (y) => (Number(y) - 450) * 0.02);
-
-  const parallaxNameX = useTransform(smoothX, (x) => (Number(x) - 720) * 0.022);
-  const parallaxNameY = useTransform(smoothY, (y) => (Number(y) - 450) * 0.018);
-
-  const parallaxCardX = useTransform(smoothX, (x) => (Number(x) - 720) * -0.02);
-  const parallaxCardY = useTransform(smoothY, (y) => (Number(y) - 450) * -0.015);
+  // Parallax motion removed per user request
 
   const navLinks = [
     { label: "HOME", href: "/" },
@@ -126,7 +115,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#08080A]/70 to-[#08080A]" />
       </div>
 
-      {/* 2. Interactive Spotlight Lens Layer (Crystal Clear Bright Text Reveal) */}
+      {/* 2. Interactive Spotlight Layer (Soft Radial Blur Circle Reveal) */}
       <motion.div
         className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden md:block"
         style={{
@@ -138,17 +127,19 @@ export function Hero() {
           src="/bg.png"
           alt="Data Science Roadmap Revealed"
           fill
-          className="object-cover opacity-100 filter brightness-220 contrast-200 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+          className="object-cover opacity-100 filter brightness-220 contrast-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.85)]"
           priority
         />
       </motion.div>
 
-      {/* 3. Subtle Glass Blur Optical Lens Container */}
+      {/* 3. Soft Ambient Radial Blur Glow Circle */}
       <motion.div
-        className="absolute top-0 left-0 w-[200px] h-[200px] rounded-full border-0 border-transparent bg-transparent backdrop-blur-[1px] pointer-events-none z-0 hidden md:block"
+        className="absolute top-0 left-0 w-[360px] h-[360px] rounded-full pointer-events-none z-0 hidden md:block"
         style={{
           transform: lensTransform,
           opacity: smoothOpacity,
+          background: "radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(168, 85, 247, 0.04) 45%, transparent 70%)",
+          filter: "blur(18px)",
         }}
       />
 
@@ -193,13 +184,9 @@ export function Hero() {
         <RobotAvatar mouseX={mouseX} mouseY={mouseY} />
       </div>
 
-      {/* CENTER PORTRAIT CUTOUT IMAGE (3D Mouse Parallax Layer z-10) */}
+      {/* CENTER PORTRAIT CUTOUT IMAGE (Layer z-10) */}
       <div className="absolute bottom-0 inset-x-0 flex justify-center pointer-events-none z-10">
         <motion.div 
-          style={{
-            x: parallaxPortraitX,
-            y: parallaxPortraitY
-          }}
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
@@ -219,10 +206,6 @@ export function Hero() {
 
       {/* Futuristic AI Glass HUD Card (Positioned in Upper-Left Chalkboard Space per Screenshot Green Box) */}
       <motion.div 
-        style={{
-          x: parallaxCardX,
-          y: parallaxCardY
-        }}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.03, y: -3 }}
@@ -270,10 +253,6 @@ export function Hero() {
 
         {/* LEFT HUD CONTENT: Name Heading (Bottom Left) */}
         <motion.div 
-          style={{
-            x: parallaxNameX,
-            y: parallaxNameY
-          }}
           initial={{ opacity: 0, x: -35 }}
           animate={{ opacity: 1, x: 0 }}
           whileHover={{ scale: 1.02 }}

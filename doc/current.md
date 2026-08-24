@@ -10,7 +10,7 @@
 ## 📄 Key Pages & Routes
 
 ### 1. Main Landing Page (`app/page.tsx`)
-- **Navigation & Hero**: `<Navbar variant="dark" />`, hero section with interactive `<RobotAvatar />` mascot.
+- **Navigation & Hero**: `<Navbar variant="dark" />`, hero section with interactive `<RobotAvatar />` mascot and clean Gaussian-blurred radial spotlight circle effect that smoothly reveals the background roadmap diagram.
 - **Experience Timeline (`components/Experience.tsx`)**: Career history with dynamic SVG connecting thread wires.
 - **Projects Catalog (`components/Projects.tsx`)**: Asymmetrical bento grid with `<TechIcon />` technology badges.
 - **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG connectors and Cyberpunk HUD panel.
