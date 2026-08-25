@@ -6,6 +6,7 @@ import Image from "next/image";
 import { TransitionLink } from "@/components/TransitionLink";
 import { RobotAvatar } from "@/components/RobotAvatar";
 import { Navbar } from "@/components/Navbar";
+import { HeroHudCard } from "@/components/HeroHudCard";
 
 export function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -204,49 +205,29 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Futuristic AI Glass HUD Card (Positioned in Upper-Left Chalkboard Space) */}
+      {/* Optical Magnifying Lens Portrait Overlay (Magnified zoom & clarity under spotlight circle) */}
       <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.03, y: -3 }}
-        transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-[16%] sm:top-[18%] lg:top-[20%] left-[3%] sm:left-[5%] lg:left-[6%] z-30 w-[270px] sm:w-[300px] lg:w-[330px] pointer-events-auto group hidden sm:block"
+        className="absolute bottom-0 inset-x-0 flex justify-center pointer-events-none z-12 hidden md:flex"
+        style={{
+          WebkitMaskImage: maskStyle,
+          maskImage: maskStyle,
+        }}
       >
-        {/* Futuristic Glass Container */}
-        <div className="relative w-full bg-[#0B0C10]/85 backdrop-blur-2xl p-4 sm:p-5 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-left overflow-hidden transition-all duration-300 group-hover:border-white/25 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
-          
-          {/* Top Border Neon Beam Accent */}
-          <div className="absolute -top-[1px] inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-purple-400/80 to-transparent transition-all duration-500" />
-          
-          {/* HUD Bracket Accents */}
-          <span className="absolute top-2.5 right-3 text-[10px] font-mono text-white/30 tracking-widest select-none">HUD // 01</span>
-          
-          {/* Header Badge */}
-          <div className="flex items-center mb-2">
-            <span className="text-[11px] font-mono font-bold text-purple-300 tracking-widest uppercase">
-              AI & DATA SCIENCE
-            </span>
-          </div>
-
-          {/* Description Text */}
-          <p className="text-xs font-normal text-slate-200 leading-relaxed mb-3">
-            Engineering intelligent algorithms, deep learning pipelines, and generative AI systems to extract value from complex data.
-          </p>
-
-          {/* Tech Stack Chips Bar */}
-          <div className="flex flex-wrap gap-1.5 pt-2.5 border-t border-white/10">
-            {["Deep Learning", "GenAI & LLMs", "Data Pipelines"].map((chip) => (
-              <span 
-                key={chip}
-                className="px-2 py-0.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-[10px] font-mono text-slate-300 tracking-wider transition-colors"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
-
+        <div className="relative w-[280px] h-[380px] sm:w-[380px] sm:h-[490px] md:w-[460px] md:h-[580px] lg:w-[540px] lg:h-[680px] xl:w-[620px] xl:h-[760px] flex-shrink-0 -mb-1 sm:-mb-2 scale-[1.05] origin-center">
+          <Image
+            src="/me.png"
+            alt="Ashwini Portrait Magnified"
+            fill
+            className="object-cover object-top filter brightness-125 contrast-120 saturate-110 drop-shadow-[0_0_30px_rgba(168,85,247,0.5)]"
+            priority
+          />
+          {/* Bottom Gradient Fade Mask */}
+          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-t from-[#08080A] via-[#08080A]/85 to-transparent pointer-events-none" />
         </div>
       </motion.div>
+
+      {/* Futuristic AI Glass HUD Card (Interactive 3D Animated Telemetry Node) */}
+      <HeroHudCard />
 
       {/* Main Hero Body Container */}
       <div className="relative z-20 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
@@ -270,6 +251,28 @@ export function Hero() {
         </motion.div>
 
       </div>
+
+      {/* Optical Lens Text Reveal Layer (Magnified & Chromatic Holographic Glow inside Spotlight Circle) */}
+      <motion.div
+        className="absolute inset-0 z-35 pointer-events-none hidden md:block"
+        style={{
+          WebkitMaskImage: maskStyle,
+          maskImage: maskStyle,
+        }}
+      >
+        <div className="relative z-35 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] h-full">
+          <div className="relative flex flex-col items-start text-left w-full lg:w-auto mb-3 sm:mb-6 lg:mb-8 lg:self-end -ml-1 sm:-ml-3 lg:-ml-4 scale-[1.04] origin-bottom-left">
+            <h2 className="flex flex-col items-start font-black tracking-tighter uppercase leading-[0.86] select-none drop-shadow-[0_0_35px_rgba(192,132,252,0.9)]">
+              <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-widest text-purple-300 mb-1">
+                I AM
+              </span>
+              <span className="text-5xl sm:text-7xl md:text-8xl lg:text-[7.5vw] xl:text-[8.5rem] font-black bg-gradient-to-r from-purple-200 via-white to-pink-300 bg-clip-text text-transparent filter drop-shadow-[0_0_40px_rgba(168,85,247,1)]">
+                {name}
+              </span>
+            </h2>
+          </div>
+        </div>
+      </motion.div>
 
     </section>
   );

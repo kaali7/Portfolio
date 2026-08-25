@@ -11,7 +11,7 @@
 
 ### 1. Main Landing Page (`app/page.tsx`)
 - **Smooth Curtains & Color Integrity**: Full-bleed 100% viewport curtain transitions without scale shrinking (eliminated `scale: 0.98` edge bleed), synchronized Lenis smooth scroll ticker with GSAP ScrollTrigger, and perfectly aligned section slide container backgrounds (`bg-white` for Projects & Experience, `bg-[#08080A]` for Hero, Skills & Contact).
-- **Navigation & Hero**: `<Navbar variant="dark" />` with streamlined height (`py-3 sm:py-3.5`), calibrated typography, hero section with interactive `<RobotAvatar />` mascot, Gaussian-blurred radial spotlight circle, and balanced proportional sizing (portrait, typography, HUD card) calibrated for standard 100% zoom.
+- **Navigation & Hero**: `<Navbar variant="dark" />` with spacious height (`py-4 sm:py-5 lg:py-6`), enlarged typography, interactive cursor light spotlight effect, hero section with interactive `<RobotAvatar />` mascot, borderless Gaussian-blurred radial spotlight optical lens (with soft dark blurred vignette fadeout, real-time magnification & clarity boost over portrait `/me.png`, and chromatic holographic glow & zoom over hero text `I AM ASHWINI`), and interactive 3D animated `<HeroHudCard />` calibrated for standard 100% zoom.
 - **Experience Timeline (`components/Experience.tsx`)**: Career history with dynamic SVG connecting thread wires, compact timeline track, and proportional career dossier cards with full-height white background (`min-h-full min-h-screen`, `pb-12 sm:pb-16`) eliminating bottom black gaps.
 - **Projects Catalog (`components/Projects.tsx`)**: Asymmetrical bento grid with `<TechIcon />` technology badges, scaled-down blueprint media window, and sticky spotlight deck that persists the last hovered/tapped project without resetting to default on mouseleave.
 - **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG orbital ring, direct card-edge wire and pulse dot attachments, safe octagonal orbit radii within the 640px container, and a fixed-dimension Cyberpunk HUD detail card (`320px × 270px`) with compact typography and full untruncated description text.
@@ -51,7 +51,7 @@
 - Interactive AI Robot Avatar mascot with mouse pupil tracking, typewriter speech bubble, and spring physics.
 
 ### `components/Navbar.tsx`
-- Light/Dark variant header, route detection, and glowing `GET IN TOUCH` button.
+- Spacious layout (`py-4 sm:py-5 lg:py-6`), enlarged brand signature (`text-3xl sm:text-4xl`), enlarged nav typography (`text-sm sm:text-base md:text-lg font-mono font-bold tracking-widest`), clean purple active/hover text coloring without bubble backgrounds or underlines, 100% transparent borderless header (`border-transparent`), and interactive cursor light spotlight effect (`useSpring`).
 
 ---
 
