@@ -8,10 +8,10 @@ import { Code2, Layers } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
 
 export function Projects() {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [activeIdx, setActiveIdx] = useState<number>(0);
 
   const projects = projectsDetailData.slice(0, 4);
-  const activeIndex = hoveredId ?? 0; // Default to first project (index 0) when unhovered
+  const activeIndex = activeIdx;
   const activeProject = projects[activeIndex];
 
   // Derive visual and metrics
@@ -74,7 +74,7 @@ export function Projects() {
   return (
     <section 
       id="projects" 
-      className="w-full bg-white text-[#08080A] flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-14 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_60px_rgba(0,0,0,0.18)] border-t border-slate-200/80 relative z-20 overflow-hidden"
+      className="w-full min-h-full min-h-screen bg-white text-[#08080A] flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-14 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_60px_rgba(0,0,0,0.18)] border-t border-slate-200/80 relative z-20 overflow-hidden"
     >
       <div className="w-full mx-auto relative">
         
@@ -98,10 +98,7 @@ export function Projects() {
         </motion.div>
 
         {/* Dynamic Interactive Projects Container */}
-        <div 
-          onMouseLeave={() => setHoveredId(null)}
-          className="w-full relative"
-        >
+        <div className="w-full relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 w-full items-start">
             
             {/* LEFT SIDE: MAIN SPOTLIGHT SCREEN */}
@@ -245,8 +242,8 @@ export function Projects() {
                   return (
                     <motion.div 
                       key={project.id}
-                      onMouseEnter={() => setHoveredId(i)}
-                      onClick={() => setHoveredId(i)}
+                      onMouseEnter={() => setActiveIdx(i)}
+                      onClick={() => setActiveIdx(i)}
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}

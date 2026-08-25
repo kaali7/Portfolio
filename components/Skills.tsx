@@ -328,7 +328,7 @@ export function Skills() {
     <section
       id="skills"
       onMouseLeave={() => setActiveDomainId("ds")}
-      className="w-full bg-[#08080A] text-white flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 pb-8 sm:pb-10 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
+      className="w-full min-h-full min-h-screen bg-[#08080A] text-white flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 pb-8 sm:pb-10 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
     >
       {/* Background Ambient Radial Lighting */}
       <motion.div

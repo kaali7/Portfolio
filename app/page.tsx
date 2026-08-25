@@ -29,7 +29,6 @@ export default function Home() {
           scrub: true,
         },
         opacity: 0.85,
-        scale: 0.98,
         ease: "none",
       });
 
@@ -42,7 +41,6 @@ export default function Home() {
           scrub: true,
         },
         opacity: 0.88,
-        scale: 0.98,
         ease: "none",
       });
 
@@ -55,7 +53,6 @@ export default function Home() {
           scrub: true,
         },
         opacity: 0.85,
-        scale: 0.98,
         ease: "none",
       });
 
@@ -68,7 +65,6 @@ export default function Home() {
           scrub: true,
         },
         opacity: 0.88,
-        scale: 0.98,
         ease: "none",
       });
 
@@ -92,7 +88,7 @@ export default function Home() {
         
         {/* Slide 1: Projects Wrapper (180vh total scroll travel) */}
         <div className="projects-wrapper relative h-[180vh] z-10">
-          <div className="projects-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
+          <div className="projects-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-white no-scrollbar">
             <Projects />
           </div>
         </div>
@@ -106,7 +102,7 @@ export default function Home() {
 
         {/* Slide 3: Experience Wrapper (180vh total scroll travel) */}
         <div className="experience-wrapper relative h-[180vh] z-30">
-          <div className="experience-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-[#08080A] no-scrollbar">
+          <div className="experience-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-white no-scrollbar">
             <Experience />
           </div>
         </div>

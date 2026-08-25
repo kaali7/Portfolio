@@ -142,25 +142,25 @@ function ContactRobotAvatar({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
       ref={containerRef}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
-      className="relative z-30 group cursor-pointer flex flex-col items-center w-full max-w-md sm:max-w-lg mt-24 sm:mt-28"
+      className="relative z-30 group cursor-pointer flex flex-col items-center justify-center w-full max-w-sm sm:max-w-md lg:max-w-lg my-auto gap-4 sm:gap-5"
     >
-      {/* Speech Balloon Card - Anchored Above Robot (Expands Upwards, Keeping Robot 100% Fixed Below) */}
-      <div className="absolute bottom-full mb-4 z-50 w-full text-left pointer-events-auto">
-        <div className="bg-[#060608] border-2 border-purple-500/40 p-4.5 sm:p-5 lg:p-6 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] relative flex items-center justify-center min-h-[76px] sm:min-h-[88px]">
+      {/* Speech Balloon Card - Naturally positioned above Robot */}
+      <div className="relative z-50 w-full text-left pointer-events-auto">
+        <div className="bg-[#060608] border-2 border-purple-500/40 p-4 sm:p-5 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative flex items-center justify-center min-h-[72px] sm:min-h-[84px]">
           <p className="text-sm sm:text-base lg:text-lg text-slate-100 font-sans font-bold leading-relaxed text-center tracking-wide">
             {typedText}
             <span className="inline-block w-2 h-4 sm:h-5 ml-1 bg-purple-400 animate-pulse align-middle" />
           </p>
 
           {/* Speech Balloon Tail */}
-          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[12px] border-t-[#060608]" />
+          <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[11px] border-t-[#060608]" />
         </div>
       </div>
 
-      {/* Fixed Position Circular AI Robot Avatar (Anchored at Bottom) */}
+      {/* Enlarged Circular AI Robot Avatar */}
       <motion.div 
         style={{ rotate: headRotate }}
-        className="w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full bg-white text-[#08080A] shadow-[0_20px_55px_rgba(0,0,0,0.5)] border-4 border-slate-200 flex items-center justify-center p-4 sm:p-5 relative transition-all duration-300 group-hover:border-purple-400 group-hover:shadow-[0_25px_70px_rgba(168,85,247,0.4)]"
+        className="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full bg-white text-[#08080A] shadow-[0_20px_60px_rgba(0,0,0,0.6)] border-4 sm:border-[5px] border-slate-200 flex items-center justify-center p-3.5 sm:p-4.5 relative transition-all duration-300 group-hover:border-purple-400 group-hover:shadow-[0_25px_80px_rgba(168,85,247,0.5)]"
       >
         <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
           <line x1="50" y1="18" x2="50" y2="8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
@@ -521,7 +521,7 @@ export function Contact() {
               transition={{ type: "spring", stiffness: 450, damping: 25 }}
               onMouseMove={(e) => handleCardMouseMove("robot-card", e)}
               onMouseLeave={() => handleCardMouseLeave("robot-card")}
-              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 relative overflow-hidden h-full flex flex-col justify-end items-center text-center group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)]"
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 relative overflow-hidden h-full flex flex-col justify-center items-center text-center group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)]"
             >
               {/* Mouse Spotlight Beam */}
               {spotlightPos["robot-card"] && (
@@ -534,8 +534,8 @@ export function Contact() {
                 />
               )}
 
-              {/* Talking AI Robot Mascot Character with Live Speech Balloon */}
-              <div className="mt-auto mb-1 relative z-10 flex flex-col items-center w-full pt-10 sm:pt-14 pb-1">
+              {/* Talking AI Robot Mascot Character with Live Speech Balloon Centered */}
+              <div className="my-auto relative z-10 flex flex-col items-center justify-center w-full">
                 <ContactRobotAvatar mouseX={mouseX} mouseY={mouseY} />
               </div>
 
@@ -571,11 +571,11 @@ export function Contact() {
                 Contact
               </h3>
 
-              {/* 1-Click Email Copy Component */}
-              <div className="bg-[#060608] border border-white/15 group-hover:border-purple-500/40 rounded-xl p-3 sm:p-4 flex items-center justify-between gap-3 relative z-10 transition-colors my-auto shadow-inner">
-                <div className="flex items-center gap-2.5 pl-1 truncate">
-                  <Mail className="w-5 h-5 text-purple-400 flex-shrink-0" />
-                  <span className="text-sm sm:text-base lg:text-lg font-mono text-slate-100 font-bold truncate select-all">
+              {/* 1-Click Email Copy Component (Larger typography & icon) */}
+              <div className="bg-[#060608] border border-white/15 group-hover:border-purple-500/40 rounded-xl p-3.5 sm:p-4.5 lg:p-5 flex items-center justify-between gap-3 relative z-10 transition-colors my-auto shadow-inner">
+                <div className="flex items-center gap-3 pl-1 truncate">
+                  <Mail className="w-6 h-6 sm:w-7 sm:h-7 text-purple-400 flex-shrink-0" />
+                  <span className="text-base sm:text-xl lg:text-2xl font-mono text-slate-100 font-bold truncate select-all tracking-tight">
                     ashwini@ai-architect.io
                   </span>
                 </div>
@@ -585,30 +585,30 @@ export function Contact() {
                   whileTap={{ scale: 0.95, rotate: 0 }}
                   transition={{ type: "spring", stiffness: 450, damping: 17 }}
                   onClick={handleCopyEmail}
-                  className="group/copybtn px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-mono font-bold transition-colors duration-150 shadow-md flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                  className="group/copybtn px-4.5 py-2.5 sm:px-5 sm:py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs sm:text-sm font-mono font-bold transition-colors duration-150 shadow-md flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
                 >
                   {copied ? (
                     <>
                       <span>COPIED!</span>
-                      <Check className="w-4 h-4 text-emerald-300 group-hover/copybtn:rotate-12 transition-transform duration-200" />
+                      <Check className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-emerald-300 group-hover/copybtn:rotate-12 transition-transform duration-200" />
                     </>
                   ) : (
                     <>
                       <span>COPY MAIL</span>
-                      <Copy className="w-4 h-4 group-hover/copybtn:rotate-12 transition-transform duration-200" />
+                      <Copy className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover/copybtn:rotate-12 transition-transform duration-200" />
                     </>
                   )}
                 </motion.button>
               </div>
 
               {/* Telemetry Row */}
-              <div className="flex items-center justify-start text-[11px] font-mono text-slate-400 relative z-10 pt-2.5 border-t border-white/10">
+              <div className="flex items-center justify-start text-[11px] sm:text-xs font-mono text-slate-400 relative z-10 pt-2.5 border-t border-white/10">
                 <div className="flex items-center gap-5">
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-purple-400" /> San Francisco, CA
+                    <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" /> San Francisco, CA
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-purple-400" /> PST (UTC-8)
+                    <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" /> PST (UTC-8)
                   </span>
                 </div>
               </div>
@@ -640,8 +640,8 @@ export function Contact() {
                 Social Media
               </h3>
 
-              {/* 5 Social Media Bento Cards Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 relative z-10 my-auto">
+              {/* 5 Social Media Bento Cards Grid (Enlarged Height, Icons, and Typography) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5 relative z-10 my-auto">
                 {SOCIAL_PLATFORMS.map((platform) => (
                   <motion.a
                     key={platform.name}
@@ -651,19 +651,19 @@ export function Contact() {
                     whileHover={{ scale: 1.05, y: -3, rotate: platform.rotateAngle }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 16 }}
-                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-xl p-2.5 sm:p-3.5 flex flex-col items-center justify-center text-center gap-2 group/tile transition-all duration-200 shadow-md cursor-pointer relative overflow-hidden min-h-[100px] sm:min-h-[115px]`}
+                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-xl p-3 sm:p-4 lg:p-4.5 flex flex-col items-center justify-center text-center gap-3 group/tile transition-all duration-200 shadow-md cursor-pointer relative overflow-hidden min-h-[125px] sm:min-h-[140px] lg:min-h-[150px]`}
                   >
                     {/* Borderless Icon Container */}
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-110 group-hover/tile:rotate-12">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-110 group-hover/tile:rotate-12">
                       {platform.svg}
                     </div>
 
                     {/* Centered Text Labels */}
                     <div className="w-full">
-                      <h4 className="text-[11px] sm:text-xs font-black text-white group-hover/tile:text-purple-200 transition-colors mb-0.5">
+                      <h4 className="text-xs sm:text-sm font-black text-white group-hover/tile:text-purple-200 transition-colors mb-0.5">
                         {platform.name}
                       </h4>
-                      <p className="text-[9.5px] font-mono text-slate-300 font-medium truncate">
+                      <p className="text-[10px] sm:text-[11px] font-mono text-slate-300 font-medium truncate">
                         {platform.handle}
                       </p>
                     </div>
