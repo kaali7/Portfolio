@@ -155,7 +155,7 @@ export default function AboutPage() {
       <Navbar variant="light" currentRoute="about" />
 
       {/* Editorial Hero Section */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-12 pb-10 sm:pb-12 relative z-10">
+      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-12 pb-10 sm:pb-12 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, y: 28 }}

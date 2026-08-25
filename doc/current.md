@@ -24,8 +24,9 @@
 - **Footer**: Integrated `<Contact />` with zero white gap layout.
 
 ### 3. Work Directory & Case Studies (`app/work/page.tsx`, `app/work/[id]/page.tsx`)
+- **Hero Header**: Balanced 2-line hero title typography (`text-2xl sm:text-3xl md:text-4xl lg:text-[40px]`) paired with robot mascot & live telemetry metrics HUD box.
 - **Filter Bar**: Dynamic category pills & interactive search filtering by architectural keywords.
-- **Asymmetrical Grid**: Scaled-down hero typography, blueprint media viewers, compact system overview challenge/solution boxes, and formatted telemetry metrics calibrated for 100% zoom.
+- **Asymmetrical Grid**: Streamlined card design with category/status badges, concise descriptions, blueprint media viewers, technology badges, stacked vertical action buttons (`VIEW CASE STUDY ↗` on top, `GITHUB` below) for standard 6-column cards, and horizontal side-by-side buttons for the featured 12-column flagship **Netran AI** card (which also includes the rich **System Overview & Architecture** box).
 - **Dynamic Case Study Template (`app/work/[id]/page.tsx`)**: Deep architecture diagrams, metrics badges, dataset inspection, and GitHub/Demo live links.
 - **Bento Grid**: 4-quadrant System Overview, sequential pipeline workflow cards (`architecture.workflow`), engineering hurdles/solutions (`engineering`), scalability benchmarks, and research insights.
 - **Mascot & Gallery**: `<RobotAvatar size="xl" />` hero mascot and visual media lightbox modal.
@@ -48,10 +49,10 @@
 - Standardized brand logos via `simple-icons` and UI/conceptual tags via `lucide-react`. Strictly zero raw emojis.
 
 ### `components/RobotAvatar.tsx`
-- Interactive AI Robot Avatar mascot with mouse pupil tracking, typewriter speech bubble, and spring physics.
+- Interactive AI Robot Avatar mascot with mouse pupil tracking, typewriter speech bubble, spring physics, and elevated z-index (`z-[60]` / `z-[70]` tooltip) ensuring speech bubbles overlap smoothly on top of navbars without clipping.
 
 ### `components/Navbar.tsx`
-- Spacious layout (`py-4 sm:py-5 lg:py-6`), enlarged brand signature (`text-3xl sm:text-4xl`), enlarged nav typography (`text-sm sm:text-base md:text-lg font-mono font-bold tracking-widest`), clean purple active/hover text coloring without bubble backgrounds or underlines, 100% transparent borderless header (`border-transparent`), and interactive cursor light spotlight effect (`useSpring`).
+- Spacious layout (`py-4 sm:py-5 lg:py-6`), enlarged brand signature (`text-3xl sm:text-4xl`), enlarged nav typography (`text-sm sm:text-base md:text-lg font-mono font-bold tracking-widest`), clean purple active/hover text coloring without bubble backgrounds or underlines, 100% transparent borderless header (`border-transparent`), sticky `z-40` navigation bar, and interactive cursor light spotlight effect (`useSpring`).
 
 ---
 

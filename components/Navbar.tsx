@@ -68,7 +68,7 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`sticky top-0 z-50 transition-colors duration-200 overflow-hidden border-b border-transparent ${
+      className={`sticky top-0 z-40 transition-colors duration-200 overflow-hidden border-b border-transparent ${
         isDark
           ? "bg-transparent backdrop-blur-md"
           : "bg-white/90 backdrop-blur-xl"

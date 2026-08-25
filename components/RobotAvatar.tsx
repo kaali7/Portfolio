@@ -153,7 +153,7 @@ export function RobotAvatar({
         scale: { type: "spring", stiffness: 220, damping: 18 },
         y: { duration: isActive ? 2.2 : 4.5, repeat: Infinity, ease: "easeInOut" },
       }}
-      className={`relative z-30 group cursor-pointer ${className}`}
+      className={`relative z-[60] group cursor-pointer ${className}`}
     >
       {/* Speech Bubble Tooltip */}
       <AnimatePresence>
@@ -163,7 +163,7 @@ export function RobotAvatar({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.85 }}
             transition={{ type: "spring", stiffness: 240, damping: 18, mass: 0.7 }}
-            className="absolute -top-14 left-1/2 -translate-x-1/2 z-50 pointer-events-none whitespace-nowrap"
+            className="absolute -top-14 left-1/2 -translate-x-1/2 z-[70] pointer-events-none whitespace-nowrap"
           >
             <div className="relative bg-[#222226] border border-white/20 px-4 py-2 rounded-2xl shadow-[0_14px_40px_rgba(0,0,0,0.9)] flex items-center justify-center min-w-[90px]">
               <span className="font-sans font-black text-white tracking-wider text-sm sm:text-base uppercase drop-shadow-md">

@@ -57,18 +57,18 @@ export default function WorkPage() {
       <Navbar variant="light" currentRoute="work" />
 
       {/* Hero Header Section */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-12 pb-6 sm:pb-8 relative z-10">
+      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-12 pb-6 sm:pb-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-6 sm:pb-8 border-b border-slate-200/90 gap-6"
         >
-          <div className="max-w-xl">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#08080A] leading-[1.05]">
-              Engineered <span className="font-light italic text-purple-600">Models</span> & Autonomous Systems
+          <div className="max-w-2xl">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black tracking-tight text-[#08080A] leading-[1.15]">
+              Engineered <span className="font-light italic text-purple-600">Models</span> <br className="hidden sm:inline" />& Autonomous Systems
             </h1>
-            <p className="text-slate-600 text-xs sm:text-sm mt-3 max-w-xl leading-relaxed font-normal">
+            <p className="text-slate-600 text-xs sm:text-sm mt-2.5 max-w-xl leading-relaxed font-normal">
               An architectural index of real-time multi-agent reasoning graphs, high-frequency temporal predictors, vector RAG intelligence networks, and INT8 edge vision engines.
             </p>
           </div>
@@ -180,13 +180,8 @@ export default function WorkPage() {
               {filteredProjects.map((project, idx) => {
                 const isFeatured = idx % 3 === 0;
                 const projectImage = project.visual?.heroImage || project.visual?.thumbnail;
-                const projectMetrics = (project.engineering?.performance || []).slice(0, 4).map((p: string, i: number) => {
-                  const labels = ["Latency", "Speed", "Scale", "Accuracy"];
-                  // Extract clean display value (up to 18 chars)
-                  const cleanVal = p.length > 20 ? p.slice(0, 18) + '...' : p;
-                  return { label: labels[i % labels.length], val: cleanVal };
-                });
-                if (projectMetrics.length === 0) projectMetrics.push({ label: "Status", val: project.status || "Live" });
+                const githubMatch = project.links?.github?.match(/\]\((https?:\/\/[^\)]+)\)/);
+                const cleanGithubUrl = githubMatch ? githubMatch[1] : (project.links?.github?.startsWith("http") ? project.links.github : null);
 
                 return (
                   <motion.div
@@ -244,16 +239,16 @@ export default function WorkPage() {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-center mb-4">
                           {/* Left Column: Details */}
                           <div className="lg:col-span-7">
-                            <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#08080A] group-hover:text-purple-600 transition-colors tracking-tight mb-1.5">
+                            <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#08080A] group-hover:text-purple-600 transition-colors tracking-tight mb-2">
                               {project.title}
                             </h2>
-                            <p className="text-xs leading-relaxed mb-3 text-slate-600">
+                            <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
                               {project.card?.shortDescription}
                             </p>
 
-                            {/* System Overview Section */}
-                            {project.overview && (
-                              <div className="bg-purple-50/60 border border-purple-200/80 rounded-xl p-3 my-2 space-y-1.5 shadow-2xs">
+                            {/* System Overview Section - Exclusively for Netran AI Flagship Project */}
+                            {project.id === "netran-ai" && project.overview && (
+                              <div className="bg-purple-50/60 border border-purple-200/80 rounded-xl p-3 my-2.5 space-y-1.5 shadow-2xs">
                                 <div className="flex items-center justify-between border-b border-purple-200/60 pb-1">
                                   <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-purple-900 flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-purple-600" />
@@ -289,30 +284,15 @@ export default function WorkPage() {
                                 )}
 
                                 {project.overview.outcome && (
-                                  <div className="pt-1.5 border-t border-purple-200/60 flex items-start gap-1.5 text-[11px] text-slate-900 font-medium">
+                                  <div className="pt-1.5 border-t border-purple-200/60 flex items-start gap-1.5 text-[11px] text-slate-900 font-medium leading-relaxed">
                                     <span className="text-[8.5px] font-mono font-bold text-emerald-800 uppercase bg-emerald-100 border border-emerald-300 px-1 py-0.5 rounded flex-shrink-0">
                                       OUTCOME
                                     </span>
-                                    <span className="line-clamp-2">{project.overview.outcome}</span>
+                                    <span>{project.overview.outcome}</span>
                                   </div>
                                 )}
                               </div>
                             )}
-
-                            {/* Metrics Grid */}
-                            <div className="mt-3">
-                              <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
-                                PERFORMANCE TELEMETRY
-                              </span>
-                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                {projectMetrics.map((m, mIdx) => (
-                                  <div key={mIdx} className="bg-white border border-slate-200/90 group-hover:border-purple-200 rounded-xl p-2 shadow-2xs transition-colors">
-                                    <span className="text-[8.5px] font-mono uppercase text-slate-500 block mb-0.5">{m.label}</span>
-                                    <span className="text-xs font-mono font-black text-purple-700 truncate block">{m.val}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
                           </div>
 
                           {/* Right Column: Media Preview Container */}
@@ -352,7 +332,7 @@ export default function WorkPage() {
                             <h2 className="text-lg sm:text-xl font-black text-[#08080A] group-hover:text-purple-600 transition-colors tracking-tight mb-1">
                               {project.title}
                             </h2>
-                            <p className="text-xs leading-relaxed text-slate-600 line-clamp-2">
+                            <p className="text-xs leading-relaxed text-slate-600 line-clamp-3">
                               {project.card?.shortDescription}
                             </p>
                           </div>
@@ -370,83 +350,20 @@ export default function WorkPage() {
                                   BLUEPRINT PREVIEW
                                 </span>
                               </div>
-                              <div className="p-1.5 flex items-center justify-center bg-[#0c0c11] max-h-40 overflow-hidden">
+                              <div className="p-1.5 flex items-center justify-center bg-[#0c0c11] max-h-52 overflow-hidden">
                                 <img
                                   src={projectImage}
                                   alt={project.title}
-                                  className="w-full h-full max-h-36 object-contain rounded-md transition-transform duration-500 group-hover:scale-[1.02]"
+                                  className="w-full h-full max-h-48 object-contain rounded-md transition-transform duration-500 group-hover:scale-[1.02]"
                                 />
                               </div>
                             </div>
                           )}
-
-                          {/* System Overview Section */}
-                          {project.overview && (
-                            <div className="bg-purple-50/60 border border-purple-200/80 rounded-xl p-2.5 my-0.5 space-y-1.5 shadow-2xs">
-                              <div className="flex items-center justify-between border-b border-purple-200/60 pb-1">
-                                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-purple-900 flex items-center gap-1">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-purple-600" />
-                                  SYSTEM OVERVIEW
-                                </span>
-                              </div>
-
-                              {project.overview.problem && (
-                                <div className="text-[10.5px] text-slate-700 leading-relaxed">
-                                  <span className="text-[8px] font-mono font-bold text-rose-700 uppercase bg-rose-100 border border-rose-200 px-1 py-0.5 rounded mr-1.5 inline-block">
-                                    CHALLENGE
-                                  </span>
-                                  <span>{project.overview.problem}</span>
-                                </div>
-                              )}
-
-                              {project.overview.motivation && (
-                                <div className="text-[10.5px] text-slate-700 leading-relaxed">
-                                  <span className="text-[8px] font-mono font-bold text-amber-700 uppercase bg-amber-100 border border-amber-200 px-1 py-0.5 rounded mr-1.5 inline-block">
-                                    MOTIVATION
-                                  </span>
-                                  <span>{project.overview.motivation}</span>
-                                </div>
-                              )}
-
-                              {project.overview.solution && (
-                                <div className="text-[10.5px] text-slate-800 leading-relaxed font-medium pt-0.5">
-                                  <span className="text-[8px] font-mono font-bold text-purple-800 uppercase bg-purple-200/80 border border-purple-300 px-1 py-0.5 rounded mr-1.5 inline-block">
-                                    SOLUTION
-                                  </span>
-                                  <span>{project.overview.solution}</span>
-                                </div>
-                              )}
-
-                              {project.overview.outcome && (
-                                <div className="pt-1 border-t border-purple-200/60 flex items-start gap-1.5 text-[10.5px] text-slate-900 font-medium">
-                                  <span className="text-[8px] font-mono font-bold text-emerald-800 uppercase bg-emerald-100 border border-emerald-300 px-1 py-0.5 rounded flex-shrink-0">
-                                    OUTCOME
-                                  </span>
-                                  <span className="line-clamp-2">{project.overview.outcome}</span>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Performance Telemetry */}
-                          <div>
-                            <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-500 block mb-1">
-                              PERFORMANCE TELEMETRY
-                            </span>
-                            <div className="grid grid-cols-2 gap-2">
-                              {projectMetrics.slice(0, 2).map((m, mIdx) => (
-                                <div key={mIdx} className="bg-white border border-slate-200/90 group-hover:border-purple-200 rounded-xl p-2 shadow-2xs">
-                                  <span className="text-[8.5px] font-mono uppercase text-slate-500 block mb-0.5">{m.label}</span>
-                                  <span className="text-xs font-mono font-black text-purple-700 truncate block">{m.val}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
                         </div>
                       )}
                     </div>
 
-                    {/* Footer Tech Stack Chips & Case Study Link */}
+                    {/* Footer Tech Stack Chips & Action Links */}
                     <div className="pt-3.5 border-t border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mt-1">
                       <div className="flex flex-wrap gap-1 max-w-full">
                         {(project.card?.tags || []).map((tag, tIdx) => (
@@ -460,13 +377,55 @@ export default function WorkPage() {
                         ))}
                       </div>
 
-                      <Link
-                        href={`/work/${project.id}`}
-                        className="px-4 py-2 bg-[#08080A] text-white hover:bg-purple-600 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 flex items-center gap-1.5 flex-shrink-0 shadow-sm group/btn"
-                      >
-                        <span>VIEW CASE STUDY</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                      </Link>
+                      {isFeatured ? (
+                        /* Horizontal action button layout for Featured / Netran AI card */
+                        <div className="flex items-center gap-2 flex-shrink-0 self-end sm:self-auto">
+                          {cleanGithubUrl && (
+                            <a
+                              href={cleanGithubUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3.5 py-2 bg-white hover:bg-[#08080A] text-slate-700 hover:text-white border border-slate-200/90 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 flex items-center gap-1.5 shadow-2xs group/gh cursor-pointer"
+                              title={`View ${project.title} on GitHub`}
+                            >
+                              <TechIcon name="GitHub" color="currentColor" className="w-3.5 h-3.5 flex-shrink-0 transition-transform group-hover/gh:scale-110" />
+                              <span>GITHUB</span>
+                            </a>
+                          )}
+
+                          <Link
+                            href={`/work/${project.id}`}
+                            className="px-4 py-2 bg-[#08080A] text-white hover:bg-purple-600 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 flex items-center gap-1.5 shadow-sm group/btn"
+                          >
+                            <span>VIEW CASE STUDY</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                          </Link>
+                        </div>
+                      ) : (
+                        /* Stacked vertical action button layout for standard cards */
+                        <div className="flex flex-col items-stretch sm:items-center gap-1.5 flex-shrink-0 self-end sm:self-auto min-w-[145px]">
+                          <Link
+                            href={`/work/${project.id}`}
+                            className="w-full px-4 py-2 bg-[#08080A] text-white hover:bg-purple-600 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm group/btn text-center"
+                          >
+                            <span>VIEW CASE STUDY</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                          </Link>
+
+                          {cleanGithubUrl && (
+                            <a
+                              href={cleanGithubUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="w-full px-3.5 py-1.5 bg-white hover:bg-[#08080A] text-slate-700 hover:text-white border border-slate-200/90 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs group/gh cursor-pointer text-center"
+                              title={`View ${project.title} on GitHub`}
+                            >
+                              <TechIcon name="GitHub" color="currentColor" className="w-3.5 h-3.5 flex-shrink-0 transition-transform group-hover/gh:scale-110" />
+                              <span>GITHUB</span>
+                            </a>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 );
