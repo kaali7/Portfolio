@@ -27,7 +27,7 @@ function CredentialPreviewButton({ certificate, role, company }: { certificate: 
 
   return (
     <div 
-      className="relative inline-block"
+      className="relative flex-1 sm:flex-initial inline-block"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -35,7 +35,7 @@ function CredentialPreviewButton({ certificate, role, company }: { certificate: 
         href={certificate} 
         target="_blank" 
         rel="noreferrer"
-        className="w-40 sm:w-44 inline-flex items-center justify-center gap-1.5 text-[10px] font-mono font-bold text-white bg-[#08080A] hover:bg-purple-600 px-4 py-2 rounded-full transition-colors cursor-pointer shadow-xs whitespace-nowrap"
+        className="w-full sm:w-40 inline-flex items-center justify-center gap-1.5 text-[9.5px] sm:text-[10px] font-mono font-bold text-white bg-[#08080A] hover:bg-purple-600 px-3 sm:px-4 py-2 rounded-full transition-colors cursor-pointer shadow-xs whitespace-nowrap text-center"
       >
         <Award className="w-3.5 h-3.5 text-purple-300" />
         <span>VIEW CREDENTIAL</span>
@@ -364,25 +364,30 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
                 whileHover={{ x: 3, scale: 1.006 }}
-                className="bg-white/80 hover:bg-white border border-slate-200/90 hover:border-purple-300 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 group/item flex flex-col md:flex-row gap-4 md:gap-8 items-start justify-between"
+                className="bg-white/80 hover:bg-white border border-slate-200/90 hover:border-purple-300 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 group/item flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-8 items-start justify-between"
               >
-                <div className="md:w-48 flex-shrink-0">
-                  <span className="text-[10px] font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-2.5 py-0.5 rounded-full inline-block mb-2 uppercase shadow-2xs">
-                    {item.year}
-                  </span>
-                  <h4 className="text-base sm:text-lg font-bold text-[#08080A] group-hover/item:text-purple-600 transition-colors">
-                    {item.role}
-                  </h4>
+                {/* Left Side: Role + Year Pill on same line on Mobile */}
+                <div className="w-full md:w-48 lg:w-56 flex-shrink-0">
+                  <div className="flex items-center justify-between gap-2 w-full">
+                    <h4 className="text-base sm:text-lg font-bold text-[#08080A] group-hover/item:text-purple-600 transition-colors">
+                      {item.role}
+                    </h4>
+                    <span className="text-[9.5px] sm:text-[10px] font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-2.5 py-0.5 rounded-full uppercase shadow-2xs whitespace-nowrap flex-shrink-0">
+                      {item.year}
+                    </span>
+                  </div>
                   <span className="text-[11px] font-mono text-slate-500 block mt-0.5">{item.company}</span>
                 </div>
 
-                <div className="flex-1">
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal group-hover/item:text-slate-800 transition-colors">
+                {/* Center: Summary */}
+                <div className="flex-1 w-full">
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal group-hover/item:text-slate-800 transition-colors my-1 sm:my-0">
                     {item.summary}
                   </p>
                 </div>
 
-                <div className="flex-shrink-0 self-start md:self-center flex flex-col gap-2 items-end">
+                {/* Right Side: Horizontal Action Buttons on Mobile */}
+                <div className="flex-shrink-0 w-full md:w-auto flex flex-row md:flex-col items-center md:items-end gap-2 justify-start md:justify-end pt-1 sm:pt-0">
                   {item.certificate && (
                     <CredentialPreviewButton 
                       certificate={item.certificate} 
@@ -393,7 +398,7 @@ export default function AboutPage() {
                   {item.id && (
                     <Link
                       href={`/experience/${item.id}`}
-                      className="w-36 sm:w-40 inline-flex items-center justify-center gap-1 text-[9.5px] font-mono font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 hover:border-purple-300 px-3 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs whitespace-nowrap group/det"
+                      className="flex-1 sm:flex-initial sm:w-36 inline-flex items-center justify-center gap-1 text-[9.5px] sm:text-[10px] font-mono font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 hover:border-purple-300 px-3 sm:px-4 py-2 rounded-full transition-all cursor-pointer shadow-2xs whitespace-nowrap group/det text-center"
                     >
                       <span>MORE DETAILS</span>
                       <ArrowRight className="w-3 h-3 text-purple-500 group-hover/det:translate-x-0.5 transition-transform" />

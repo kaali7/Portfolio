@@ -68,7 +68,7 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`sticky top-0 z-40 transition-colors duration-200 overflow-visible md:overflow-hidden border-b border-transparent ${
+      className={`sticky top-0 ${mobileMenuOpen ? "z-[999]" : "z-40"} transition-colors duration-200 overflow-visible border-b border-transparent ${
         isDark
           ? "bg-transparent backdrop-blur-md"
           : "bg-white/90 backdrop-blur-xl"
@@ -157,8 +157,8 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`md:hidden relative w-10 h-10 rounded-xl flex flex-col items-center justify-center gap-1.5 focus:outline-none transition-all duration-300 overflow-hidden cursor-pointer group shadow-lg ${
               isDark 
-                ? "bg-[#0B0C10]/90 border border-purple-500/30 hover:border-purple-400/70 text-white shadow-[0_4px_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]" 
-                : "bg-white/90 border border-purple-300 text-slate-900 shadow-md hover:border-purple-500"
+                ? "bg-[#0B0C10]/95 border border-purple-500/30 hover:border-purple-400/70 text-white shadow-[0_4px_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]" 
+                : "bg-white border border-slate-300/90 text-slate-900 shadow-md hover:border-purple-500 hover:shadow-[0_0_15px_rgba(147,51,234,0.25)]"
             }`}
             aria-label="Toggle navigation menu"
           >
@@ -169,38 +169,64 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
             <motion.span
               animate={mobileMenuOpen ? { rotate: 45, y: 8, width: 20 } : { rotate: 0, y: 0, width: 20 }}
               transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-              className="h-[2px] rounded-full bg-gradient-to-r from-purple-400 via-white to-purple-300 origin-center"
+              className={`h-[2px] rounded-full origin-center ${
+                isDark 
+                  ? "bg-gradient-to-r from-purple-400 via-white to-purple-300" 
+                  : "bg-gradient-to-r from-purple-600 via-slate-900 to-purple-800"
+              }`}
             />
 
             {/* Line 2 (Middle with Asymmetrical Tech Stagger) */}
             <motion.span
               animate={mobileMenuOpen ? { opacity: 0, x: -12, scale: 0 } : { opacity: 1, x: 0, scale: 1, width: 14 }}
               transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-              className="h-[2px] rounded-full bg-purple-400 self-end mr-2.5 origin-center shadow-[0_0_8px_rgba(168,85,247,0.8)]"
+              className={`h-[2px] rounded-full self-end mr-2.5 origin-center ${
+                isDark 
+                  ? "bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]" 
+                  : "bg-purple-600 shadow-[0_0_8px_rgba(147,51,234,0.5)]"
+              }`}
             />
 
             {/* Line 3 (Bottom) */}
             <motion.span
               animate={mobileMenuOpen ? { rotate: -45, y: -8, width: 20 } : { rotate: 0, y: 0, width: 20 }}
               transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-              className="h-[2px] rounded-full bg-gradient-to-r from-white via-purple-300 to-purple-400 origin-center"
+              className={`h-[2px] rounded-full origin-center ${
+                isDark 
+                  ? "bg-gradient-to-r from-white via-purple-300 to-purple-400" 
+                  : "bg-gradient-to-r from-slate-900 via-purple-800 to-purple-600"
+              }`}
             />
           </motion.button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Dimmed Backdrop Layer for Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className={`absolute top-full left-4 right-4 rounded-2xl px-6 py-6 md:hidden flex flex-col gap-4 shadow-2xl z-50 mt-2 border ${
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs z-[990] md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Dropdown Menu (100% Opaque, z-[999]) */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className={`absolute top-full left-4 right-4 rounded-2xl px-5 py-5 md:hidden flex flex-col gap-3.5 z-[999] mt-2 border ${
               isDark
-                ? "bg-[#08080A]/95 backdrop-blur-xl border-white/15 text-white"
-                : "bg-white/95 backdrop-blur-xl border-slate-200 text-[#08080A]"
+                ? "bg-[#08080A] border-white/20 text-white shadow-[0_25px_80px_rgba(0,0,0,0.95)]"
+                : "bg-white border-slate-200 text-[#08080A] shadow-[0_25px_70px_rgba(0,0,0,0.25)]"
             }`}
           >
             {navLinks.map((link) => {
@@ -210,17 +236,18 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`font-mono text-lg font-black tracking-widest py-2 transition-colors flex items-center justify-between ${
+                  className={`font-mono text-base font-bold tracking-widest py-2 px-3 rounded-xl transition-all flex items-center justify-between ${
                     isActive
                       ? isDark
-                        ? "text-purple-400"
-                        : "text-purple-600"
+                        ? "text-purple-400 bg-purple-500/10"
+                        : "text-purple-600 bg-purple-50"
                       : isDark
-                      ? "text-white/90 hover:text-purple-400"
-                      : "text-slate-700 hover:text-purple-600"
+                      ? "text-white/90 hover:text-purple-400 hover:bg-white/5"
+                      : "text-slate-700 hover:text-purple-600 hover:bg-slate-100"
                   }`}
                 >
                   <span>{link.label}</span>
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />}
                 </Link>
               );
             })}
@@ -228,9 +255,9 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
             <Link
               href="/#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className={`mt-2 text-center py-3.5 rounded-full text-xs font-mono font-black tracking-wider transition-all duration-300 flex items-center justify-center gap-2 group/mbtn ${
+              className={`mt-1 text-center py-3 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-md group/mbtn ${
                 isDark
-                  ? "bg-white text-[#08080A] hover:bg-purple-600 hover:text-white"
+                  ? "bg-purple-600 text-white hover:bg-purple-500"
                   : "bg-[#08080A] text-white hover:bg-purple-600"
               }`}
             >
