@@ -9,6 +9,7 @@ interface RobotAvatarProps {
   speechText?: string;
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
+  bubblePosition?: "top" | "bottom" | "right" | "left";
 }
 
 export function RobotAvatar({
@@ -17,6 +18,7 @@ export function RobotAvatar({
   speechText = "HELLO!",
   className = "",
   size = "md",
+  bubblePosition = "top",
 }: RobotAvatarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -159,11 +161,29 @@ export function RobotAvatar({
       <AnimatePresence>
         {isActive && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.85 }}
+            initial={{ 
+              opacity: 0, 
+              y: bubblePosition === "top" ? 10 : bubblePosition === "bottom" ? -10 : 0,
+              x: bubblePosition === "right" ? -10 : bubblePosition === "left" ? 10 : 0,
+              scale: 0.8 
+            }}
+            animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+            exit={{ 
+              opacity: 0, 
+              y: bubblePosition === "top" ? 6 : bubblePosition === "bottom" ? -6 : 0,
+              x: bubblePosition === "right" ? -6 : bubblePosition === "left" ? 6 : 0,
+              scale: 0.85 
+            }}
             transition={{ type: "spring", stiffness: 240, damping: 18, mass: 0.7 }}
-            className="absolute -top-14 left-1/2 -translate-x-1/2 z-[70] pointer-events-none whitespace-nowrap"
+            className={`absolute z-[80] pointer-events-none whitespace-nowrap ${
+              bubblePosition === "bottom"
+                ? "-bottom-14 left-1/2 -translate-x-1/2"
+                : bubblePosition === "right"
+                ? "top-1/2 -translate-y-1/2 left-full ml-3"
+                : bubblePosition === "left"
+                ? "top-1/2 -translate-y-1/2 right-full mr-3"
+                : "-top-14 left-1/2 -translate-x-1/2"
+            }`}
           >
             <div className="relative bg-[#222226] border border-white/20 px-4 py-2 rounded-2xl shadow-[0_14px_40px_rgba(0,0,0,0.9)] flex items-center justify-center min-w-[90px]">
               <span className="font-sans font-black text-white tracking-wider text-sm sm:text-base uppercase drop-shadow-md">
@@ -173,7 +193,18 @@ export function RobotAvatar({
                 )}
               </span>
               {/* Speech Bubble Pointer Tail */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-[#222226]" />
+              {bubblePosition === "top" && (
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-[#222226]" />
+              )}
+              {bubblePosition === "bottom" && (
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-b-[9px] border-b-[#222226]" />
+              )}
+              {bubblePosition === "right" && (
+                <div className="absolute top-1/2 -translate-y-1/2 -left-2 w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-r-[9px] border-r-[#222226]" />
+              )}
+              {bubblePosition === "left" && (
+                <div className="absolute top-1/2 -translate-y-1/2 -right-2 w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-l-[9px] border-l-[#222226]" />
+              )}
             </div>
           </motion.div>
         )}
