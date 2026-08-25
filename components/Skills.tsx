@@ -82,7 +82,8 @@ export function Skills() {
   const [centerPt, setCenterPt] = useState<{ x: number; y: number } | null>(null);
   const [svgDims, setSvgDims] = useState({ w: 1, h: 1 });
 
-  // 8 Core Skill Domains with organic positions around the center panel (balanced layout shifted left)
+  // 8 Core Skill Domains — evenly spread around the container center (50%, 50%)
+  // Positions use -translate-x-1/2 -translate-y-1/2 so these coords are the card center
   const domains: SkillDomain[] = [
     {
       id: "ds",
@@ -90,7 +91,7 @@ export function Skills() {
       title: "DATA SCIENCE",
       category: "ai_ml",
       defaultRotation: -3,
-      desktopPos: { top: "16%", left: "16%" },
+      desktopPos: { top: "14%", left: "12%" },
       icon: <BarChart2 className="w-4 h-4 text-purple-400" />,
       shortDesc: "Exploratory analysis, statistical modeling, & high-throughput data processing pipelines.",
       fullDesc: "Specialized in extraction of actionable intelligence from complex structured/unstructured datasets using advanced statistical modeling, feature engineering, and high-performance tabular computation.",
@@ -114,7 +115,7 @@ export function Skills() {
       title: "MACHINE LEARNING",
       category: "ai_ml",
       defaultRotation: 2,
-      desktopPos: { top: "10%", left: "50%" },
+      desktopPos: { top: "7%", left: "44%" },
       icon: <Brain className="w-4 h-4 text-purple-400" />,
       shortDesc: "Supervised, unsupervised, & predictive models built for performance and scale.",
       fullDesc: "End-to-end predictive modeling workflows including hyperparameter tuning, ensemble methods, gradient boosting, and custom metric optimization for real-time production inference.",
@@ -137,7 +138,7 @@ export function Skills() {
       title: "DEEP LEARNING",
       category: "ai_ml",
       defaultRotation: -2,
-      desktopPos: { top: "16%", left: "84%" },
+      desktopPos: { top: "14%", left: "76%" },
       icon: <Network className="w-4 h-4 text-purple-400" />,
       shortDesc: "Convolutional neural networks, Transformers, & GPU-accelerated neural optimization.",
       fullDesc: "Building custom PyTorch neural architectures for vision, sequence modeling, and audio. Trained on distributed multi-GPU clusters with mixed precision.",
@@ -160,7 +161,7 @@ export function Skills() {
       title: "AI ENGINEERING",
       category: "ai_ml",
       defaultRotation: 3,
-      desktopPos: { top: "50%", left: "88%" },
+      desktopPos: { top: "41%", left: "76%" },
       icon: <Cpu className="w-4 h-4 text-purple-400" />,
       shortDesc: "Production ML pipelines, high-concurrency APIs, containerization, & autonomous agents.",
       fullDesc: "Productionizing ML models with Dockerized microservices, high-throughput FastAPI endpoints, vector index clustering, and fault-tolerant agent execution loops.",
@@ -184,7 +185,7 @@ export function Skills() {
       title: "GENERATIVE AI",
       category: "genai_rag",
       defaultRotation: -2,
-      desktopPos: { top: "84%", left: "84%" },
+      desktopPos: { top: "68%", left: "76%" },
       icon: <Sparkles className="w-4 h-4 text-purple-400" />,
       shortDesc: "LLM fine-tuning, prompt guardrails, multi-modal agents, & autonomous function calling.",
       fullDesc: "Harnessing state-of-the-art LLMs (Llama 3, Claude 3.5, GPT-4o), fine-tuning domain adapters (LoRA/QLoRA), and engineering multi-agent function calling workflows.",
@@ -207,7 +208,7 @@ export function Skills() {
       title: "RAG ARCHITECTURES",
       category: "genai_rag",
       defaultRotation: 4,
-      desktopPos: { top: "90%", left: "50%" },
+      desktopPos: { top: "76%", left: "44%" },
       icon: <Database className="w-4 h-4 text-purple-400" />,
       shortDesc: "Dense vector retrieval, hybrid BM25 indexing, reranking, & context grounding.",
       fullDesc: "Designing robust Retrieval-Augmented Generation architectures with Qdrant vector databases, semantic chunking, cross-encoder reranking, and zero-hallucination guardrails.",
@@ -229,7 +230,7 @@ export function Skills() {
       title: "COMPUTER VISION",
       category: "genai_rag",
       defaultRotation: -3,
-      desktopPos: { top: "84%", left: "16%" },
+      desktopPos: { top: "68%", left: "12%" },
       icon: <ScanEye className="w-4 h-4 text-purple-400" />,
       shortDesc: "Real-time edge pose tracking, object detection, & low-latency inferencing pipelines.",
       fullDesc: "Implementing real-time frame processing, MediaPipe pose tracking, YOLO object detection, and video stream inferencing pipelines with OpenCV.",
@@ -250,7 +251,7 @@ export function Skills() {
       title: "FULL-STACK AI",
       category: "fullstack",
       defaultRotation: 2,
-      desktopPos: { top: "50%", left: "12%" },
+      desktopPos: { top: "41%", left: "12%" },
       icon: <Code2 className="w-4 h-4 text-purple-400" />,
       shortDesc: "Reactive Web UIs, async backend microservices, & AI cloud infrastructure integrations.",
       fullDesc: "Building full-stack AI web products with Next.js 15, TypeScript, Tailwind CSS, FastAPI backends, and PostgreSQL vector database infrastructure.",
@@ -272,6 +273,9 @@ export function Skills() {
 
   const activeDomain = domains.find((d) => d.id === activeDomainId) || domains[0];
 
+  // Measured pixel positions — stores both center and nearest-edge point for each node
+  const [nodeEdgePoints, setNodeEdgePoints] = useState<{ [id: string]: { x: number; y: number } }>({});
+
   // Measure actual DOM positions so SVG lines are pixel-perfect
   useEffect(() => {
     function measure() {
@@ -280,24 +284,37 @@ export function Skills() {
       const cr = container.getBoundingClientRect();
       setSvgDims({ w: cr.width, h: cr.height });
 
+      let cx = cr.width / 2;
+      let cy = cr.height / 2;
       if (centerPanelRef.current) {
         const r = centerPanelRef.current.getBoundingClientRect();
-        setCenterPt({
-          x: r.left - cr.left + r.width / 2,
-          y: r.top - cr.top + r.height / 2,
-        });
+        cx = r.left - cr.left + r.width / 2;
+        cy = r.top - cr.top + r.height / 2;
+        setCenterPt({ x: cx, y: cy });
       }
 
       const pts: { [id: string]: { x: number; y: number } } = {};
+      const edgePts: { [id: string]: { x: number; y: number } } = {};   // card edge touching spoke wire
+
       for (const [id, el] of Object.entries(nodeRefs.current)) {
         if (!el) continue;
         const r = el.getBoundingClientRect();
-        pts[id] = {
-          x: r.left - cr.left + r.width / 2,
-          y: r.top - cr.top + r.height / 2,
-        };
+        const cardCx = r.left - cr.left + r.width / 2;
+        const cardCy = r.top - cr.top + r.height / 2;
+        pts[id] = { x: cardCx, y: cardCy };
+
+        const dx = cx - cardCx;  // vector from card center → panel center
+        const dy = cy - cardCy;
+        const hw = r.width / 2;
+        const hh = r.height / 2;
+        const scaleX = Math.abs(dx) > 0.001 ? hw / Math.abs(dx) : Infinity;
+        const scaleY = Math.abs(dy) > 0.001 ? hh / Math.abs(dy) : Infinity;
+        const scale = Math.min(scaleX, scaleY, 1);
+        // Edge point: exactly on card perimeter facing center panel
+        edgePts[id] = { x: cardCx + dx * scale, y: cardCy + dy * scale };
       }
       setNodePoints(pts);
+      setNodeEdgePoints(edgePts);
     }
 
     // Small delay so layout settles after first paint
@@ -319,9 +336,9 @@ export function Skills() {
           shouldReduceMotion
             ? {}
             : {
-                opacity: [0.15, 0.3, 0.15],
-                scale: [1, 1.05, 1]
-              }
+              opacity: [0.15, 0.3, 0.15],
+              scale: [1, 1.05, 1]
+            }
         }
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-950/30 via-transparent to-transparent pointer-events-none"
@@ -353,13 +370,15 @@ export function Skills() {
         {/* DESKTOP RADIAL CONSTELLATION VIEW (Hidden on Mobile/Tablet < lg) */}
         <div
           ref={containerRef}
-          className="hidden lg:block relative w-full h-[580px] my-2 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
+          className="hidden lg:block relative w-full h-[640px] my-2 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
         >
           {/* Subtle Grid Canvas Background Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e0f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e0f_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
           {/* SVG Constellation — positions measured from real DOM, pixel-perfect */}
           {svgDims.w > 1 && centerPt && Object.keys(nodePoints).length >= 8 && (() => {
+            // Ring passes through card CENTERS — smooth natural shape.
+            // Glow dots at outer edges mark where ring visibly touches each card.
             const ringPts = RING_ORDER.map(id => nodePoints[id]).filter(Boolean);
             const ringPath = smoothClosedPath(ringPts);
             const domainIds = ["ds", "ml", "dl", "ai_eng", "gen_ai", "rag", "cv", "fullstack"];
@@ -371,11 +390,11 @@ export function Skills() {
                 <defs>
                   <filter id="glow-ring" x="-40%" y="-40%" width="180%" height="180%">
                     <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                   <filter id="glow-spoke" x="-40%" y="-40%" width="180%" height="180%">
                     <feGaussianBlur stdDeviation="2" result="blur" />
-                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
 
@@ -395,21 +414,21 @@ export function Skills() {
                   }}
                 />
 
-                {/* Spoke lines — measured card center → measured center panel center */}
+                {/* Spoke lines — from nearest card edge toward center panel */}
                 {domainIds.map((id, i) => {
-                  const pt = nodePoints[id];
-                  if (!pt) return null;
+                  const edgePt = nodeEdgePoints[id];
+                  if (!edgePt) return null;
                   return (
                     <motion.line
                       key={id}
-                      x1={pt.x} y1={pt.y}
+                      x1={edgePt.x} y1={edgePt.y}
                       x2={centerPt.x} y2={centerPt.y}
                       stroke="#a855f7"
                       strokeWidth="0.8"
                       strokeLinecap="round"
                       filter="url(#glow-spoke)"
                       initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ pathLength: 1, opacity: 0.3 }}
+                      animate={{ pathLength: 1, opacity: 0.35 }}
                       transition={{
                         pathLength: { duration: 1.4, ease: [0.23, 1, 0.32, 1], delay: 0.9 + i * 0.09 },
                         opacity: { duration: 0.3, delay: 0.9 + i * 0.09 }
@@ -418,22 +437,23 @@ export function Skills() {
                   );
                 })}
 
-                {/* Node junction dots — exactly at each card's center */}
+                {/* Node junction dots — positioned precisely where the thread wire touches the card */}
                 {domainIds.map((id, i) => {
-                  const pt = nodePoints[id];
-                  if (!pt) return null;
+                  const edgePt = nodeEdgePoints[id];
+                  if (!edgePt) return null;
+
                   return (
                     <motion.circle
                       key={id}
-                      cx={pt.x} cy={pt.y} r={3.5}
+                      cx={edgePt.x} cy={edgePt.y} r={3.5}
                       fill="#c084fc"
                       filter="url(#glow-ring)"
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 1, 0.5, 1, 0.5] }}
+                      animate={{ opacity: [0, 1, 0.6, 1, 0.6] }}
                       transition={{
-                        duration: 5, repeat: Infinity, ease: "easeInOut",
-                        delay: 1.5 + i * 0.09,
-                        times: [0, 0.1, 0.5, 0.75, 1]
+                        duration: 4, repeat: Infinity, ease: "easeInOut",
+                        delay: 1.2 + i * 0.08,
+                        times: [0, 0.15, 0.5, 0.75, 1]
                       }}
                     />
                   );
@@ -460,16 +480,16 @@ export function Skills() {
           {/* CENTER DETAIL PANEL (Cyberpunk HUD style) */}
           <div
             ref={centerPanelRef}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[410px] bg-[#050608]/95 border border-purple-500/30 ring-1 ring-white/5 rounded-2xl p-5 sm:p-6 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3),inset_0_0_30px_rgba(168,85,247,0.05)] backdrop-blur-2xl flex flex-col gap-4 overflow-hidden"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[320px] h-[270px] bg-[#050608]/95 border border-purple-500/30 ring-1 ring-white/5 rounded-2xl p-3.5 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3),inset_0_0_30px_rgba(168,85,247,0.05)] backdrop-blur-2xl flex flex-col justify-between overflow-hidden"
           >
             {/* Ambient HUD grid overlay */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#a855f710_1px,transparent_1px),linear-gradient(to_bottom,#a855f710_1px,transparent_1px)] bg-[size:1rem_1rem] opacity-20 pointer-events-none mix-blend-screen" />
 
             {/* Corner Bracket Accents (HUD aesthetic) */}
-            <div className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t border-l border-purple-500/50 rounded-tl-sm pointer-events-none" />
-            <div className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t border-r border-purple-500/50 rounded-tr-sm pointer-events-none" />
-            <div className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b border-l border-purple-500/50 rounded-bl-sm pointer-events-none" />
-            <div className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b border-r border-purple-500/50 rounded-br-sm pointer-events-none" />
+            <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-purple-500/50 rounded-tl-sm pointer-events-none" />
+            <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-purple-500/50 rounded-tr-sm pointer-events-none" />
+            <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-purple-500/50 rounded-bl-sm pointer-events-none" />
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-purple-500/50 rounded-br-sm pointer-events-none" />
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -479,54 +499,49 @@ export function Skills() {
                 exit="exit"
                 variants={{
                   hidden: { opacity: 0, scale: 0.96 },
-                  visible: { 
-                    opacity: 1, 
+                  visible: {
+                    opacity: 1,
                     scale: 1,
-                    transition: { 
-                      duration: 0.3, 
+                    transition: {
+                      duration: 0.3,
                       ease: EASE_OUT_EXPRESSIVE,
-                      staggerChildren: 0.05,
-                      delayChildren: 0.05
+                      staggerChildren: 0.04,
+                      delayChildren: 0.03
                     }
                   },
-                  exit: { 
-                    opacity: 0, 
+                  exit: {
+                    opacity: 0,
                     scale: 0.98,
-                    transition: { duration: 0.2, ease: "easeOut" }
+                    transition: { duration: 0.15, ease: "easeOut" }
                   }
                 }}
-                className="space-y-4 relative z-10"
+                className="flex flex-col justify-between h-full relative z-10"
               >
                 {/* Domain Header */}
-                <motion.div 
+                <motion.div
                   variants={{
-                    hidden: { opacity: 0, x: -10 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                    hidden: { opacity: 0, x: -8 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
                     exit: { opacity: 0, transition: { duration: 0.1 } }
                   }}
-                  className="flex items-center gap-3.5"
+                  className="flex items-center gap-2.5"
                 >
-                  <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-400/30 text-purple-300 shadow-[inset_0_0_15px_rgba(168,85,247,0.2)]">
+                  <div className="p-1.5 rounded-lg bg-purple-500/10 border border-purple-400/30 text-purple-300 shadow-[inset_0_0_12px_rgba(168,85,247,0.2)]">
                     {activeDomain.icon}
                   </div>
-                  <div>
-                    <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-purple-400/80 uppercase block mb-0.5">
-                      // SYSTEM.DOMAIN
-                    </span>
-                    <h3 className="text-lg font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 tracking-tight">
-                      {activeDomain.title}
-                    </h3>
-                  </div>
+                  <h3 className="text-sm font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 tracking-tight">
+                    {activeDomain.title}
+                  </h3>
                 </motion.div>
 
                 {/* Full Description */}
-                <motion.p 
+                <motion.p
                   variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                    hidden: { opacity: 0, y: 6 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
                     exit: { opacity: 0, transition: { duration: 0.1 } }
                   }}
-                  className="text-xs text-slate-300 font-light leading-relaxed line-clamp-3"
+                  className="text-[10.5px] text-slate-300 font-light leading-relaxed"
                 >
                   {activeDomain.fullDesc}
                 </motion.p>
@@ -534,22 +549,22 @@ export function Skills() {
                 {/* Core Technologies Badges */}
                 <motion.div
                   variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                    hidden: { opacity: 0, y: 6 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
                     exit: { opacity: 0, transition: { duration: 0.1 } }
                   }}
                 >
-                  <span className="flex items-center gap-1.5 text-[9px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-2">
+                  <span className="flex items-center gap-1 text-[8px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
                     CORE.STACK
                   </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {activeDomain.technologies.map((tech) => (
                       <div
                         key={tech.name}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] text-[11px] font-mono text-slate-200 transition-all duration-300"
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 text-[8.5px] font-mono text-slate-200 transition-all duration-300"
                       >
-                        <TechIcon name={tech.name} className="w-3 h-3 opacity-80" />
+                        <TechIcon name={tech.name} className="w-2 h-2 opacity-80" />
                         <span>{tech.name}</span>
                       </div>
                     ))}
@@ -558,30 +573,24 @@ export function Skills() {
 
                 {/* Related Projects */}
                 {activeDomain.projects.length > 0 && (
-                  <motion.div 
+                  <motion.div
                     variants={{
-                      hidden: { opacity: 0, y: 10 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPRESSIVE } },
+                      hidden: { opacity: 0, y: 6 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
                       exit: { opacity: 0, transition: { duration: 0.1 } }
                     }}
-                    className="pt-3 border-t border-purple-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
+                    className="pt-2 border-t border-purple-500/20 flex flex-wrap gap-1.5"
                   >
-                    <span className="text-[9px] font-mono font-bold text-purple-400/70 uppercase flex items-center gap-1">
-                      <ShieldCheck className="w-3 h-3" />
-                      DEPLOYMENTS
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeDomain.projects.map((proj) => (
-                        <Link
-                          key={proj.id}
-                          href={`/work/${proj.id}`}
-                          className="group inline-flex items-center gap-1 text-[9.5px] font-mono font-bold text-purple-200 bg-purple-900/30 hover:bg-purple-600/50 border border-purple-500/30 hover:border-purple-400/80 hover:text-white px-2.5 py-1 rounded transition-all duration-300"
-                        >
-                          <span>{proj.name}</span>
-                          <ArrowUpRight className="w-3 h-3 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-                        </Link>
-                      ))}
-                    </div>
+                    {activeDomain.projects.map((proj) => (
+                      <Link
+                        key={proj.id}
+                        href={`/work/${proj.id}`}
+                        className="group inline-flex items-center gap-1 text-[8px] font-mono font-bold text-purple-200 bg-purple-900/30 hover:bg-purple-600/50 border border-purple-500/30 hover:border-purple-400/80 hover:text-white px-2 py-0.5 rounded transition-all duration-300"
+                      >
+                        <span>{proj.name}</span>
+                        <ArrowUpRight className="w-2 h-2 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                      </Link>
+                    ))}
                   </motion.div>
                 )}
               </motion.div>
@@ -628,13 +637,12 @@ export function Skills() {
                 }}
                 style={{
                   top: domain.desktopPos.top,
-                  left: domain.desktopPos.left
+                  left: domain.desktopPos.left,
                 }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 w-40 sm:w-44 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#0B0C10] border cursor-pointer transition-colors duration-200 origin-center ${
-                  isHovered
+                className={`absolute -translate-x-1/2 -translate-y-1/2 w-40 sm:w-44 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#0B0C10] border cursor-pointer transition-colors duration-200 origin-center ${isHovered
                     ? "border-purple-500 shadow-[0_10px_35px_rgba(168,85,247,0.4)] ring-1 ring-purple-400/50"
                     : "border-white/15 hover:border-purple-500/50 shadow-lg"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-[8.5px] font-mono font-bold text-purple-400 tracking-widest uppercase">
@@ -668,11 +676,10 @@ export function Skills() {
                 <button
                   key={domain.id}
                   onClick={() => setActiveDomainId(domain.id)}
-                  className={`p-3 rounded-2xl border transition-all text-left flex flex-col justify-between h-24 ${
-                    isSelected
+                  className={`p-3 rounded-2xl border transition-all text-left flex flex-col justify-between h-24 ${isSelected
                       ? "bg-purple-950/60 border-purple-500 text-white ring-1 ring-purple-400/50 shadow-[0_0_25px_rgba(168,85,247,0.3)]"
                       : "bg-[#0B0C10] border-white/10 text-slate-300 hover:border-purple-500/40"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between w-full">
                     <span className="text-[9px] font-mono font-bold text-purple-400">
@@ -693,7 +700,7 @@ export function Skills() {
           {/* Mobile Center Detail Card */}
           <div className="w-full bg-[#0B0C10] border border-purple-500/40 rounded-3xl p-5 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400" />
-            
+
             <AnimatePresence mode="wait">
               {activeDomain ? (
                 <motion.div

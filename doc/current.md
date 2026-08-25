@@ -13,7 +13,7 @@
 - **Navigation & Hero**: `<Navbar variant="dark" />` with streamlined height (`py-3 sm:py-3.5`), calibrated typography, hero section with interactive `<RobotAvatar />` mascot, Gaussian-blurred radial spotlight circle, and balanced proportional sizing (portrait, typography, HUD card) calibrated for standard 100% zoom.
 - **Experience Timeline (`components/Experience.tsx`)**: Career history with dynamic SVG connecting thread wires, compact timeline track, and proportional career dossier cards calibrated for 100% zoom.
 - **Projects Catalog (`components/Projects.tsx`)**: Asymmetrical bento grid with `<TechIcon />` technology badges, scaled-down blueprint media window, and compact stacked preview deck calibrated for 100% zoom.
-- **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG connectors, compact 580px constellation viewport, and refined Cyberpunk HUD panel calibrated for 100% zoom.
+- **Skill Constellation (`components/Skills.tsx`)**: Interactive 8-node radial matrix with Catmull-Rom SVG connectors, expanded 640px constellation viewport, calibrated octagonal orbital perimeter shifted left/upper with generous clearance, and compact Cyberpunk HUD detail panel.
 - **Contact Footer (`components/Contact.tsx`)**: Full-height neural particle canvas, 1-click email copy, 5-card social bento grid, glassmorphic sub-footer nav bar, and rocket back-to-top launch button, with compact vertical layout calibrated for 100% zoom viewports.
 
 ### 2. About Biography (`app/about/page.tsx`)
