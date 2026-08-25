@@ -20,7 +20,9 @@ import {
   ShieldCheck,
   Zap,
   Layers,
-  MousePointerClick
+  MousePointerClick,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
 
@@ -317,7 +319,6 @@ export function Skills() {
       setNodeEdgePoints(edgePts);
     }
 
-    // Small delay so layout settles after first paint
     const t = setTimeout(measure, 120);
     const obs = new ResizeObserver(measure);
     if (containerRef.current) obs.observe(containerRef.current);
@@ -330,7 +331,6 @@ export function Skills() {
       onMouseLeave={() => setActiveDomainId("ds")}
       className="w-full min-h-full min-h-screen bg-[#08080A] text-white flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 pb-8 sm:pb-10 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
     >
-      {/* Background Ambient Radial Lighting */}
       <motion.div
         animate={
           shouldReduceMotion
@@ -345,40 +345,28 @@ export function Skills() {
       />
 
       <div className="w-full mx-auto relative z-10">
-        {/* Section Headline Header */}
+        {/* Section Header */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.3, ease: EASE_OUT_EXPRESSIVE }}
-          className="mt-1 sm:mt-2 mb-4 sm:mb-6 pb-2.5 border-b border-white/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2"
+          className="mt-1 sm:mt-2 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-white/10 flex flex-col md:flex-row justify-between items-start md:items-end"
         >
           <div>
-            <span className="text-[9px] font-mono font-bold tracking-widest text-purple-400 uppercase block mb-0.5">
-              // KNOWLEDGE CONSTELLATION
-            </span>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
               INTERACTIVE <span className="font-black italic text-purple-400">SKILL MATRIX</span>
             </h2>
           </div>
-          <p className="text-xs text-slate-400 font-mono flex items-center gap-1.5 sm:mb-1">
-            <MousePointerClick className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
-            <span>Hover or tap any node to inspect technical architecture</span>
-          </p>
         </motion.div>
 
-        {/* DESKTOP RADIAL CONSTELLATION VIEW (Hidden on Mobile/Tablet < lg) */}
         <div
           ref={containerRef}
           className="hidden lg:block relative w-full h-[640px] my-2 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
         >
-          {/* Subtle Grid Canvas Background Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e0f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e0f_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
-          {/* SVG Constellation — positions measured from real DOM, pixel-perfect */}
           {svgDims.w > 1 && centerPt && Object.keys(nodePoints).length >= 8 && (() => {
-            // Ring passes through card CENTERS — smooth natural shape.
-            // Glow dots at outer edges mark where ring visibly touches each card.
             const ringPts = RING_ORDER.map(id => nodePoints[id]).filter(Boolean);
             const ringPath = smoothClosedPath(ringPts);
             const domainIds = ["ds", "ml", "dl", "ai_eng", "gen_ai", "rag", "cv", "fullstack"];
@@ -398,7 +386,6 @@ export function Skills() {
                   </filter>
                 </defs>
 
-                {/* Outer Orbital Ring — Catmull-Rom through measured card centers */}
                 <motion.path
                   d={ringPath}
                   fill="none"
@@ -414,7 +401,6 @@ export function Skills() {
                   }}
                 />
 
-                {/* Spoke lines — from nearest card edge toward center panel */}
                 {domainIds.map((id, i) => {
                   const edgePt = nodeEdgePoints[id];
                   if (!edgePt) return null;
@@ -437,7 +423,6 @@ export function Skills() {
                   );
                 })}
 
-                {/* Node junction dots — positioned precisely where the thread wire touches the card */}
                 {domainIds.map((id, i) => {
                   const edgePt = nodeEdgePoints[id];
                   if (!edgePt) return null;
@@ -448,105 +433,54 @@ export function Skills() {
                       cx={edgePt.x} cy={edgePt.y} r={3.5}
                       fill="#c084fc"
                       filter="url(#glow-ring)"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 1, 0.6, 1, 0.6] }}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
                       transition={{
-                        duration: 4, repeat: Infinity, ease: "easeInOut",
-                        delay: 1.2 + i * 0.08,
-                        times: [0, 0.15, 0.5, 0.75, 1]
+                        scale: { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.25 },
+                        opacity: { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }
                       }}
                     />
                   );
                 })}
-
-                {/* Center hub pulse dot */}
-                <motion.circle
-                  cx={centerPt.x} cy={centerPt.y} r={4.5}
-                  fill="#c084fc"
-                  filter="url(#glow-ring)"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 1, 0.5, 1, 0.5] }}
-                  transition={{
-                    duration: 4, repeat: Infinity, ease: "easeInOut",
-                    delay: 2.3,
-                    times: [0, 0.15, 0.5, 0.75, 1]
-                  }}
-                />
               </svg>
             );
           })()}
 
-
-          {/* CENTER DETAIL PANEL (Cyberpunk HUD style) */}
           <div
             ref={centerPanelRef}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[320px] h-[270px] bg-[#050608]/95 border border-purple-500/30 ring-1 ring-white/5 rounded-2xl p-3.5 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3),inset_0_0_30px_rgba(168,85,247,0.05)] backdrop-blur-2xl flex flex-col justify-between overflow-hidden"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[270px] z-30"
           >
-            {/* Ambient HUD grid overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#a855f710_1px,transparent_1px),linear-gradient(to_bottom,#a855f710_1px,transparent_1px)] bg-[size:1rem_1rem] opacity-20 pointer-events-none mix-blend-screen" />
-
-            {/* Corner Bracket Accents (HUD aesthetic) */}
-            <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-purple-500/50 rounded-tl-sm pointer-events-none" />
-            <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-purple-500/50 rounded-tr-sm pointer-events-none" />
-            <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-purple-500/50 rounded-bl-sm pointer-events-none" />
-            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-purple-500/50 rounded-br-sm pointer-events-none" />
-
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeDomain.id}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                variants={{
-                  hidden: { opacity: 0, scale: 0.96 },
-                  visible: {
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      duration: 0.3,
-                      ease: EASE_OUT_EXPRESSIVE,
-                      staggerChildren: 0.04,
-                      delayChildren: 0.03
-                    }
-                  },
-                  exit: {
-                    opacity: 0,
-                    scale: 0.98,
-                    transition: { duration: 0.15, ease: "easeOut" }
-                  }
-                }}
-                className="flex flex-col justify-between h-full relative z-10"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.2, ease: EASE_OUT_EXPRESSIVE }}
+                className="w-full h-full rounded-2xl bg-[#08080C] border border-purple-500/60 p-3.5 flex flex-col justify-between shadow-[0_0_50px_rgba(168,85,247,0.3)] relative overflow-hidden"
               >
-                {/* Domain Header */}
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, x: -8 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
-                    exit: { opacity: 0, transition: { duration: 0.1 } }
-                  }}
-                  className="flex items-center gap-2.5"
-                >
-                  <div className="p-1.5 rounded-lg bg-purple-500/10 border border-purple-400/30 text-purple-300 shadow-[inset_0_0_12px_rgba(168,85,247,0.2)]">
-                    {activeDomain.icon}
+                <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-purple-400 opacity-60" />
+                <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-purple-400 opacity-60" />
+                <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-purple-400 opacity-60" />
+                <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-purple-400 opacity-60" />
+
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <span className="text-[8.5px] font-mono font-bold text-purple-400 tracking-wider">
+                      {activeDomain.num} // ARCHITECTURE
+                    </span>
+                    <span className="text-[8.5px] font-mono text-slate-300 bg-purple-950/60 border border-purple-500/30 px-1.5 py-0.2 rounded">
+                      {activeDomain.metric}
+                    </span>
                   </div>
-                  <h3 className="text-sm font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 tracking-tight">
+                  <h3 className="text-sm font-black text-white tracking-tight leading-tight mb-1">
                     {activeDomain.title}
                   </h3>
-                </motion.div>
+                  <p className="text-[10px] text-slate-300 leading-snug line-clamp-3">
+                    {activeDomain.fullDesc}
+                  </p>
+                </div>
 
-                {/* Full Description */}
-                <motion.p
-                  variants={{
-                    hidden: { opacity: 0, y: 6 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
-                    exit: { opacity: 0, transition: { duration: 0.1 } }
-                  }}
-                  className="text-[10.5px] text-slate-300 font-light leading-relaxed"
-                >
-                  {activeDomain.fullDesc}
-                </motion.p>
-
-                {/* Core Technologies Badges */}
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, y: 6 },
@@ -570,42 +504,16 @@ export function Skills() {
                     ))}
                   </div>
                 </motion.div>
-
-                {/* Related Projects */}
-                {activeDomain.projects.length > 0 && (
-                  <motion.div
-                    variants={{
-                      hidden: { opacity: 0, y: 6 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
-                      exit: { opacity: 0, transition: { duration: 0.1 } }
-                    }}
-                    className="pt-2 border-t border-purple-500/20 flex flex-wrap gap-1.5"
-                  >
-                    {activeDomain.projects.map((proj) => (
-                      <Link
-                        key={proj.id}
-                        href={`/work/${proj.id}`}
-                        className="group inline-flex items-center gap-1 text-[8px] font-mono font-bold text-purple-200 bg-purple-900/30 hover:bg-purple-600/50 border border-purple-500/30 hover:border-purple-400/80 hover:text-white px-2 py-0.5 rounded transition-all duration-300"
-                      >
-                        <span>{proj.name}</span>
-                        <ArrowUpRight className="w-2 h-2 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* SURROUNDING RADIAL DOMAIN NODES (Desktop) */}
           {domains.map((domain) => {
             const isHovered = activeDomainId === domain.id;
             const isAnyHovered = activeDomainId !== null;
-
             let targetScale = 1.0;
             let targetFilter = "brightness(1)";
             let targetZIndex = 10;
-
             if (isAnyHovered) {
               if (isHovered) {
                 targetScale = 1.12;
@@ -666,115 +574,129 @@ export function Skills() {
           })}
         </div>
 
-        {/* MOBILE / TABLET RESPONSIVE VIEW (< lg) */}
-        <div className="block lg:hidden space-y-6 my-4">
-          {/* Node Selector Grid Buttons */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        {/* MOBILE SKILL TREE VERTICAL SPINE VIEW (< lg) */}
+        <div className="block lg:hidden w-full relative my-1">
+          {/* Vertical Timeline Tree Container */}
+          <div className="relative pl-5 sm:pl-7 space-y-2 pb-2 mt-3">
+            {/* Continuous Vertical Glowing Circuit Line */}
+            <div className="absolute left-[10px] sm:left-[14px] top-3 bottom-4 w-[1.5px] bg-gradient-to-b from-purple-500 via-purple-500/50 to-purple-600/30" />
+
             {domains.map((domain) => {
               const isSelected = activeDomainId === domain.id;
+
               return (
-                <button
-                  key={domain.id}
-                  onClick={() => setActiveDomainId(domain.id)}
-                  className={`p-3 rounded-2xl border transition-all text-left flex flex-col justify-between h-24 ${isSelected
-                      ? "bg-purple-950/60 border-purple-500 text-white ring-1 ring-purple-400/50 shadow-[0_0_25px_rgba(168,85,247,0.3)]"
-                      : "bg-[#0B0C10] border-white/10 text-slate-300 hover:border-purple-500/40"
+                <div key={domain.id} className="relative">
+                  {/* Timeline Node Circle on Spine */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveDomainId(domain.id)}
+                    aria-label={`Select ${domain.title}`}
+                    className={`absolute -left-[20px] sm:-left-[24px] top-3.5 -translate-y-1/2 z-20 transition-all duration-200 cursor-pointer ${
+                      isSelected
+                        ? "w-4 h-4 rounded-full border-2 border-purple-400 bg-purple-950 shadow-[0_0_10px_rgba(168,85,247,0.9)] ring-1 ring-purple-500/40 flex items-center justify-center"
+                        : "w-3 h-3 rounded-full border border-purple-500/40 bg-[#0B0C10] hover:border-purple-400 flex items-center justify-center"
                     }`}
-                >
-                  <div className="flex items-center justify-between w-full">
-                    <span className="text-[9px] font-mono font-bold text-purple-400">
-                      {domain.num}
-                    </span>
-                    <div className="p-1 rounded-lg bg-purple-500/10 text-purple-400">
-                      {domain.icon}
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold leading-tight">
-                    {domain.title}
-                  </span>
-                </button>
+                  >
+                    {isSelected && (
+                      <span className="w-1 h-1 rounded-full bg-purple-300 animate-ping" />
+                    )}
+                  </button>
+
+                  {/* Card: Expanded vs Collapsed */}
+                  <motion.div
+                    layout
+                    transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    {isSelected ? (
+                      /* EXPANDED ACTIVE HUD CARD (Micro-Calibrated Compact Sizing) */
+                      <div className="w-full bg-[#08080C] border border-purple-500/70 rounded-xl p-3 sm:p-3.5 shadow-[0_0_25px_rgba(168,85,247,0.2)] relative overflow-hidden text-left">
+                        {/* Top Row: Number/Architecture + Metric Badge */}
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-1 h-1 rounded-full bg-purple-400 animate-pulse" />
+                            <span className="text-[8px] font-mono font-bold text-purple-300 uppercase tracking-wider">
+                              {domain.num} // ARCHITECTURE
+                            </span>
+                          </div>
+                          <span className="text-[7.5px] font-mono font-bold text-purple-200 bg-purple-950/80 border border-purple-500/40 px-2 py-0.5 rounded shadow-2xs">
+                            {domain.metric}
+                          </span>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-sm sm:text-base font-black text-white tracking-tight mb-1">
+                          {domain.title}
+                        </h3>
+
+                        {/* Full Description */}
+                        <p className="text-[10px] sm:text-[10.5px] text-slate-300 leading-relaxed mb-2.5 font-normal">
+                          {domain.fullDesc}
+                        </p>
+
+                        {/* Core Stack (Single Inline Flow) */}
+                        <div className="flex items-center flex-wrap gap-1.5 mb-2.5">
+                          <span className="text-[8px] font-mono font-bold text-slate-400 uppercase tracking-wider inline-flex items-center gap-1 mr-0.5 flex-shrink-0">
+                            <span className="w-1 h-1 rounded-full bg-slate-400" />
+                            CORE.STACK
+                          </span>
+                          {domain.technologies.map((tech) => (
+                            <div
+                              key={tech.name}
+                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/10 text-[8.5px] font-mono text-slate-200"
+                            >
+                              <TechIcon name={tech.name} className="w-2.5 h-2.5 text-purple-300 opacity-90" />
+                              <span>{tech.name}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Projects Proof Links (Single Inline Flow) */}
+                        {domain.projects.length > 0 && (
+                          <div className="pt-2 border-t border-white/10 flex items-center flex-wrap gap-1.5">
+                            <span className="text-[7.5px] font-mono font-bold text-slate-400 uppercase tracking-wider flex-shrink-0 mr-0.5">
+                              PROVEN IN:
+                            </span>
+                            {domain.projects.map((proj) => (
+                              <Link
+                                key={proj.id}
+                                href={`/work/${proj.id}`}
+                                className="inline-flex items-center gap-1 text-[8px] font-mono font-bold text-white bg-purple-600/30 hover:bg-purple-600/60 border border-purple-400/40 px-2 py-0.5 rounded transition-all active:scale-95"
+                              >
+                                <span>{proj.name}</span>
+                                <ArrowUpRight className="w-2 h-2 text-purple-300" />
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      /* COLLAPSED COMPACT CARD (1-Line Sleek Bar) */
+                      <button
+                        type="button"
+                        onClick={() => setActiveDomainId(domain.id)}
+                        className="w-full bg-[#0B0C10]/90 hover:bg-[#0E0F15] border border-white/10 hover:border-purple-500/50 rounded-xl px-3 py-2.5 sm:py-3 text-left transition-all duration-200 cursor-pointer group/card flex items-center justify-between gap-2 shadow-2xs"
+                      >
+                        {/* Left: Icon + Title */}
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div className="text-purple-400 opacity-80 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all flex-shrink-0">
+                            {domain.icon}
+                          </div>
+                          <h4 className="text-xs sm:text-[13px] font-bold text-white tracking-tight truncate">
+                            {domain.title}
+                          </h4>
+                        </div>
+
+                        {/* Right: Core Techs Count */}
+                        <div className="flex items-center gap-1 text-[8px] sm:text-[8.5px] font-mono text-slate-400 flex-shrink-0">
+                          <span className="w-1 h-1 rounded-full bg-slate-500" />
+                          <span>{domain.technologies.length} CORE TECHS</span>
+                        </div>
+                      </button>
+                    )}
+                  </motion.div>
+                </div>
               );
             })}
-          </div>
-
-          {/* Mobile Center Detail Card */}
-          <div className="w-full bg-[#0B0C10] border border-purple-500/40 rounded-3xl p-5 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400" />
-
-            <AnimatePresence mode="wait">
-              {activeDomain ? (
-                <motion.div
-                  key={activeDomain.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-purple-500/20 border border-purple-400/40 text-purple-300">
-                      {activeDomain.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-white">
-                        {activeDomain.title}
-                      </h3>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {activeDomain.fullDesc}
-                  </p>
-
-                  {/* Technologies */}
-                  <div>
-                    <span className="text-[9px] font-mono font-bold text-purple-400 uppercase tracking-widest block mb-2">
-                      CORE TECHNOLOGIES
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeDomain.technologies.map((tech) => (
-                        <div
-                          key={tech.name}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-slate-200"
-                        >
-                          <TechIcon name={tech.name} className="w-3.5 h-3.5" />
-                          <span>{tech.name}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Projects */}
-                  {activeDomain.projects.length > 0 && (
-                    <div className="pt-3 border-t border-white/10 flex items-center justify-between flex-wrap gap-1.5">
-                      <span className="text-[9px] font-mono font-bold text-purple-400 uppercase">
-                        USED IN:
-                      </span>
-                      <div className="flex flex-wrap gap-1">
-                        {activeDomain.projects.map((proj) => (
-                          <Link
-                            key={proj.id}
-                            href={`/work/${proj.id}`}
-                            className="inline-flex items-center gap-1 text-[10px] font-mono text-white bg-purple-600/30 border border-purple-400/40 px-2 py-0.5 rounded-md"
-                          >
-                            <span>{proj.name}</span>
-                            <ArrowUpRight className="w-3 h-3 text-purple-300" />
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              ) : (
-                <div className="py-6 text-center space-y-2">
-                  <Layers className="w-6 h-6 text-purple-400 mx-auto" />
-                  <h4 className="text-sm font-bold text-white">SELECT A DOMAIN NODE ABOVE</h4>
-                  <p className="text-xs text-slate-400">
-                    Tap any of the 8 technical domain buttons to inspect its architecture, code, and production metrics.
-                  </p>
-                </div>
-              )}
-            </AnimatePresence>
           </div>
         </div>
       </div>

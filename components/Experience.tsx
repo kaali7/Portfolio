@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { 
   Zap, 
   CheckCircle2, 
   Clock,
-  ArrowRight
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Globe
 } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
 import { experienceData } from "@/lib/experienceDetailData";
@@ -17,6 +20,9 @@ export function Experience() {
   const gridRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [wirePoints, setWirePoints] = useState<{ x1: number; y1: number; x2: number; y2: number; w: number; h: number } | null>(null);
+
+  const mobileTabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const mobileTabsContainerRef = useRef<HTMLDivElement>(null);
 
   // Measure exact DOM anchor positions at the top corners of Card 0 and Card 1 for the connecting wire
   useEffect(() => {
@@ -68,6 +74,45 @@ export function Experience() {
 
   // Map the strict TS data to the UI structure required by the component
   const experiences = experienceData.map((exp, idx) => {
+    // Curate rich 3-box deliverables with complete descriptions and metrics
+    let achievements = [
+      {
+        title: "Building next-generation digital and AI-powered solutions",
+        detail: "Architecting end-to-end GenAI workflows, intelligent agent systems, and enterprise LLM integrations.",
+        metric: "RAG Architecture"
+      },
+      {
+        title: "Developing scalable applications across domains using GenAI & Full-Stack",
+        detail: "Engineered high-throughput FastAPI microservices and modern responsive interfaces for seamless AI integration.",
+        metric: "Full-Stack Dev"
+      },
+      {
+        title: "Rapid prototyping and continuous real-world problem solving",
+        detail: "Collaborated cross-functionally to design, benchmark, and deploy impactful production solutions.",
+        metric: "Team Leadership"
+      }
+    ];
+
+    if (exp.id.includes("aasha")) {
+      achievements = [
+        {
+          title: "Collected, cleaned, and analyzed structured and unstructured datasets",
+          detail: "Transformed raw social impact data into actionable intelligence to support data-driven decision-making across programs.",
+          metric: "Data Analysis"
+        },
+        {
+          title: "Built dashboards and visualizations to track program performance",
+          detail: "Designed and deployed interactive KPI dashboards to monitor outreach efficiency and volunteer metrics.",
+          metric: "Dashboard Dev"
+        },
+        {
+          title: "Identified trends and patterns to improve resource allocation",
+          detail: "Analyzed longitudinal program data to optimize operational budget distribution and improve workflow throughput.",
+          metric: "Data Visualization"
+        }
+      ];
+    }
+
     return {
       id: exp.id || idx,
       role: exp.role,
@@ -80,11 +125,7 @@ export function Experience() {
       status: exp.duration.end.toLowerCase() === "present" ? "CURRENT" as const : "PAST" as const,
       primaryImpact: exp.focus.length >= 2 ? `${exp.focus[0]} & ${exp.focus[1]}` : exp.focus[0] || "Impact",
       summary: exp.overview.shortDescription,
-      achievements: exp.overview.responsibilities.slice(0, 3).map((r, i) => ({
-        title: exp.work.contributions[i] || "Core Responsibility",
-        detail: r,
-        metric: exp.technical.skills[i] || "Skill"
-      })),
+      achievements,
       tags: exp.technical.technologies.slice(0, 6),
       highlights: [
         { label: "CORE FOCUS", val: exp.focus[0] || "Development" },
@@ -93,6 +134,28 @@ export function Experience() {
       ]
     };
   });
+
+  const activeExperience = experiences[activeExp] || experiences[0];
+
+  const handleMobileNext = () => {
+    setActiveExp((prev) => (prev + 1) % experiences.length);
+  };
+
+  const handleMobilePrev = () => {
+    setActiveExp((prev) => (prev - 1 + experiences.length) % experiences.length);
+  };
+
+  // Auto-scroll the mobile tab bar to keep the active experience centered
+  useEffect(() => {
+    const activeTabEl = mobileTabRefs.current[activeExp];
+    if (activeTabEl && mobileTabsContainerRef.current) {
+      activeTabEl.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeExp]);
 
   return (
     <section 
@@ -116,8 +179,8 @@ export function Experience() {
           </div>
         </div>
 
-        {/* ULTRA-CLEAN HIGH-CONTRAST TIMELINE TRACK */}
-        <div className="mb-6 sm:mb-8 bg-slate-900 text-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border-2 border-purple-500/40 shadow-xl relative overflow-hidden group">
+        {/* DESKTOP HIGH-CONTRAST TIMELINE TRACK (Hidden on Mobile < lg) */}
+        <div className="hidden lg:block mb-6 sm:mb-8 bg-slate-900 text-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border-2 border-purple-500/40 shadow-xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
 
           {/* Dedicated Text & Node Info Row */}
@@ -189,8 +252,8 @@ export function Experience() {
 
         </div>
 
-        {/* 2-COLUMN ROTATED WALL CARDS GRID WITH CONNECTING WIRE THREAD */}
-        <div className="relative pt-2" ref={gridRef}>
+        {/* DESKTOP 2-COLUMN ROTATED WALL CARDS GRID WITH CONNECTING WIRE (Hidden on Mobile < lg) */}
+        <div className="hidden lg:block relative pt-2" ref={gridRef}>
           {/* Dynamic SVG Connecting Thread Wire between Experience Cards */}
           {wirePoints && wirePoints.w > 0 && (
             <svg
@@ -289,7 +352,7 @@ export function Experience() {
             </svg>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-start">
+          <div className="grid grid-cols-2 gap-8 items-start">
             {experiences.map((exp, idx) => {
               const isSelected = activeExp === idx;
               const defaultRotate = idx === 0 ? -1.5 : 1.5;
@@ -309,7 +372,7 @@ export function Experience() {
                   }}
                   whileHover={{ rotate: 0, scale: 1.01, y: -4 }}
                   transition={{ type: "spring", stiffness: 550, damping: 25, mass: 0.15 }}
-                  className={`group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 cursor-pointer border-2 transition-all duration-150 flex flex-col justify-between overflow-hidden ${
+                  className={`group relative rounded-3xl p-5 lg:p-6 cursor-pointer border-2 transition-all duration-150 flex flex-col justify-between overflow-hidden ${
                     isSelected
                       ? "bg-slate-900 text-white border-purple-500 shadow-[0_25px_60px_rgba(147,51,234,0.22)] ring-2 ring-purple-500/30"
                       : "bg-slate-50 text-[#08080A] border-slate-200/90 hover:border-purple-300 hover:bg-white shadow-sm opacity-90 hover:opacity-100"
@@ -465,6 +528,236 @@ export function Experience() {
               );
             })}
           </div>
+        </div>
+
+        {/* MOBILE RESPONSIVE SWIPABLE SPOTLIGHT VIEW (< lg) */}
+        <div className="block lg:hidden w-full relative my-2">
+          
+          {/* 1. Mobile Stepper Tab Strip */}
+          <div
+            ref={mobileTabsContainerRef}
+            className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-2 w-full scroll-smooth"
+          >
+            {experiences.map((exp, idx) => {
+              const isSelected = activeExp === idx;
+              return (
+                <button
+                  key={exp.id}
+                  ref={(el) => { mobileTabRefs.current[idx] = el; }}
+                  onClick={() => setActiveExp(idx)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-2 flex-shrink-0 active:scale-95 ${
+                    isSelected
+                      ? "bg-purple-600 text-white shadow-md shadow-purple-950/40 ring-1 ring-purple-400/50 scale-[1.02]"
+                      : "bg-slate-900 text-slate-300 border border-slate-700/60 hover:border-purple-400/40"
+                  }`}
+                >
+                  <span className="text-[10px] text-purple-300 opacity-80">0{idx + 1}</span>
+                  <span>{exp.company}</span>
+                  {exp.status === "CURRENT" && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* 2. Interactive Swipable Cyberpunk Spotlight Dossier Card */}
+          <div className="w-full relative min-h-[460px]">
+            {/* Floating Left Switch Button (Centered on Side of Card) */}
+            <button
+              type="button"
+              onClick={handleMobilePrev}
+              aria-label="Previous experience"
+              className="absolute -left-2.5 sm:-left-3.5 top-1/2 -translate-y-1/2 z-40 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#08080C] hover:bg-purple-600 text-white border border-purple-500/40 backdrop-blur-xl flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.9)] hover:shadow-[0_0_20px_rgba(168,85,247,0.8)] active:scale-90 transition-all cursor-pointer ring-1 ring-purple-400/20"
+            >
+              <ChevronLeft className="w-4 h-4 text-white" />
+            </button>
+
+            {/* Floating Right Switch Button (Centered on Side of Card) */}
+            <button
+              type="button"
+              onClick={handleMobileNext}
+              aria-label="Next experience"
+              className="absolute -right-2.5 sm:-right-3.5 top-1/2 -translate-y-1/2 z-40 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#08080C] hover:bg-purple-600 text-white border border-purple-500/40 backdrop-blur-xl flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.9)] hover:shadow-[0_0_20px_rgba(168,85,247,0.8)] active:scale-90 transition-all cursor-pointer ring-1 ring-purple-400/20"
+            >
+              <ChevronRight className="w-4 h-4 text-white" />
+            </button>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeExperience.id}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipeThreshold = 35;
+                  const velocityThreshold = 250;
+                  if (offset.x < -swipeThreshold || velocity.x < -velocityThreshold) {
+                    handleMobileNext();
+                  } else if (offset.x > swipeThreshold || velocity.x > velocityThreshold) {
+                    handleMobilePrev();
+                  }
+                }}
+                initial={{ opacity: 0, scale: 0.97, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.97, y: -10 }}
+                transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+                className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-2xl p-4 sm:p-5 shadow-[0_30px_70px_rgba(0,0,0,0.8)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[440px] touch-pan-y cursor-grab active:cursor-grabbing"
+              >
+                {/* Header: Company, Logo, Duration & Status */}
+                <div className="flex items-center justify-between gap-2 mb-2 z-10">
+                  <div className="flex items-center gap-2 min-w-0">
+                    {activeExperience.logo && (
+                      <div className="w-6 h-6 rounded-full overflow-hidden border border-purple-500/50 flex-shrink-0 bg-white shadow-2xs">
+                        <img src={activeExperience.logo} alt={activeExperience.company} className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <span className="text-[7.5px] font-mono font-bold text-purple-400 uppercase tracking-wider block">
+                        {activeExperience.period}
+                      </span>
+                      <h4 className="text-[11px] sm:text-xs font-bold text-white tracking-tight truncate">
+                        {activeExperience.company}
+                      </h4>
+                    </div>
+                  </div>
+
+                  {activeExperience.status === "CURRENT" ? (
+                    <span className="text-[7.5px] font-mono font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 flex-shrink-0">
+                      <span className="w-1 h-1 rounded-full bg-emerald-400 animate-ping" />
+                      PRESENT
+                    </span>
+                  ) : (
+                    <span className="text-[7.5px] font-mono font-bold text-purple-300 bg-purple-950/80 border border-purple-500/40 px-2 py-0.5 rounded-full flex-shrink-0">
+                      {activeExperience.type}
+                    </span>
+                  )}
+                </div>
+
+                {/* Role Title & Primary Impact Badge */}
+                <div className="flex items-center justify-between gap-2 mb-1 z-10">
+                  <h3 className="text-sm sm:text-base font-black text-white tracking-tight">
+                    {activeExperience.role}
+                  </h3>
+                  <div className="text-[7.5px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-600/90 text-white border border-purple-400/30 flex items-center gap-1 flex-shrink-0 shadow-2xs">
+                    <Zap className="w-2 h-2" />
+                    <span>{activeExperience.primaryImpact}</span>
+                  </div>
+                </div>
+
+                {/* Full Untruncated Summary */}
+                <p className="text-[10px] sm:text-[10.5px] text-slate-300 leading-relaxed mb-2 z-10 font-normal">
+                  {activeExperience.summary}
+                </p>
+
+                {/* Highlights (2-Row Bento Grid) */}
+                <div className="grid grid-cols-2 gap-1.5 mb-2 z-10">
+                  {/* Row 1, Col 1: CORE FOCUS */}
+                  <div className="p-1.5 sm:p-2 rounded-xl bg-white/[0.04] border border-white/10 shadow-2xs text-left">
+                    <div className="text-[7px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-0.5">
+                      {activeExperience.highlights[0].label}
+                    </div>
+                    <div className="text-[10.5px] font-bold font-mono text-purple-300 truncate">
+                      {activeExperience.highlights[0].val}
+                    </div>
+                  </div>
+
+                  {/* Row 1, Col 2: STATUS */}
+                  <div className="p-1.5 sm:p-2 rounded-xl bg-white/[0.04] border border-white/10 shadow-2xs text-left">
+                    <div className="text-[7px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-0.5">
+                      {activeExperience.highlights[1].label}
+                    </div>
+                    <div className="text-[10.5px] font-bold font-mono text-purple-300 truncate">
+                      {activeExperience.highlights[1].val}
+                    </div>
+                  </div>
+
+                  {/* Row 2: Full Width LOCATION */}
+                  <div className="col-span-2 p-1.5 sm:p-2 rounded-xl bg-white/[0.04] border border-white/10 shadow-2xs flex items-center justify-between gap-2 text-left">
+                    <div>
+                      <div className="text-[7px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-0.5">
+                        {activeExperience.highlights[2].label}
+                      </div>
+                      <div className="text-[10.5px] font-bold font-mono text-purple-300">
+                        {activeExperience.highlights[2].val}
+                      </div>
+                    </div>
+                    <div className="w-5 h-5 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 flex-shrink-0">
+                      <Globe className="w-3 h-3" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Deliverables & Responsibilities (1st item + '+2 More' combined box) */}
+                <div className="space-y-1.5 mb-2 z-10">
+                  <div className="text-[8px] font-mono font-bold text-purple-400 tracking-widest uppercase">
+                    DELIVERABLES & RESPONSIBILITIES
+                  </div>
+                  {activeExperience.achievements.length > 0 && (
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-col gap-0.5 text-xs">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5 font-bold min-w-0">
+                          <CheckCircle2 className="w-3 h-3 text-purple-400 flex-shrink-0" />
+                          <span className="text-slate-100 font-bold text-[10.5px]">
+                            {activeExperience.achievements[0].title}
+                          </span>
+                        </div>
+                        <span className="text-[7px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-950/80 text-purple-300 border border-purple-500/30 flex-shrink-0">
+                          {activeExperience.achievements[0].metric}
+                        </span>
+                      </div>
+                      <p className="text-[9.5px] text-slate-400 leading-relaxed pl-4.5 font-normal">
+                        {activeExperience.achievements[0].detail}
+                      </p>
+                    </div>
+                  )}
+
+                  {activeExperience.achievements.length > 1 && (
+                    <Link
+                      href={`/experience/${activeExperience.id}`}
+                      className="w-full p-2 rounded-xl bg-white/[0.03] hover:bg-purple-600/10 border border-dashed border-purple-500/30 hover:border-purple-400/60 flex items-center justify-between gap-2 transition-all active:scale-98 group/more"
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                        <span className="text-[9.5px] font-mono font-bold text-slate-300 group-hover/more:text-white">
+                          +{activeExperience.achievements.length - 1} MORE RESPONSIBILITIES
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 text-[8.5px] font-mono font-bold text-purple-400 group-hover/more:text-purple-300">
+                        <span>VIEW ALL</span>
+                        <ArrowRight className="w-2.5 h-2.5 group-hover/more:translate-x-0.5 transition-transform" />
+                      </div>
+                    </Link>
+                  )}
+                </div>
+
+                {/* Tech Chips & Action Button */}
+                <div className="pt-2 border-t border-white/10 flex flex-col gap-2 z-10">
+                  <div className="flex flex-wrap gap-1">
+                    {activeExperience.tags.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx}
+                        className="text-[7.5px] font-mono px-1.5 py-0.5 rounded-md bg-white/10 border border-white/15 text-slate-200 font-medium flex items-center gap-1 shadow-2xs"
+                      >
+                        <TechIcon name={tag} className="w-2 h-2 text-purple-300 opacity-90" />
+                        <span>{tag}</span>
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/experience/${activeExperience.id}`}
+                    className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-98 text-white rounded-xl text-[10.5px] font-mono font-bold tracking-wider shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>EXPLORE FULL DOSSIER</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
 
       </div>

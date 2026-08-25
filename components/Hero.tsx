@@ -7,6 +7,7 @@ import { TransitionLink } from "@/components/TransitionLink";
 import { RobotAvatar } from "@/components/RobotAvatar";
 import { Navbar } from "@/components/Navbar";
 import { HeroHudCard } from "@/components/HeroHudCard";
+import { ArrowUpRight, Mail } from "lucide-react";
 
 export function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -116,7 +117,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#08080A]/70 to-[#08080A]" />
       </div>
 
-      {/* 2. Interactive Spotlight Layer (Soft Radial Blur Circle Reveal) */}
+      {/* 2. Interactive Spotlight Layer (Soft Radial Blur Circle Reveal - Desktop) */}
       <motion.div
         className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden md:block"
         style={{
@@ -133,7 +134,7 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* 3. Soft Ambient Radial Blur Glow Circle */}
+      {/* 3. Soft Ambient Radial Blur Glow Circle (Desktop) */}
       <motion.div
         className="absolute top-0 left-0 w-[360px] h-[360px] rounded-full pointer-events-none z-0 hidden md:block"
         style={{
@@ -177,10 +178,10 @@ export function Hero() {
       {/* Clean Transparent Top Navigation Bar */}
       <Navbar variant="dark" currentRoute="home" />
 
-      {/* Interactive Circular AI Robot Avatar (Mouse-Tracking Eyes) */}
+      {/* Interactive Circular AI Robot Avatar (Mouse-Tracking Eyes - Desktop) */}
       <div 
         data-interactive-zone="true"
-        className="absolute top-[16%] sm:top-[18%] lg:top-[20%] right-[4%] sm:right-[6%] lg:right-[8%] z-30 pointer-events-auto"
+        className="absolute top-[16%] sm:top-[18%] lg:top-[20%] right-[4%] sm:right-[6%] lg:right-[8%] z-30 pointer-events-auto hidden md:block"
       >
         <RobotAvatar mouseX={mouseX} mouseY={mouseY} />
       </div>
@@ -205,7 +206,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Optical Magnifying Lens Portrait Overlay (Magnified zoom & clarity under spotlight circle) */}
+      {/* Optical Magnifying Lens Portrait Overlay (Magnified zoom & clarity under spotlight circle - Desktop) */}
       <motion.div 
         className="absolute bottom-0 inset-x-0 flex justify-center pointer-events-none z-12 hidden md:flex"
         style={{
@@ -226,11 +227,11 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* Futuristic AI Glass HUD Card (Interactive 3D Animated Telemetry Node) */}
+      {/* Futuristic AI Glass HUD Card (Interactive 3D Animated Telemetry Node - Desktop/Tablet) */}
       <HeroHudCard />
 
-      {/* Main Hero Body Container */}
-      <div className="relative z-20 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
+      {/* Main Hero Body Container - Desktop (hidden on mobile) */}
+      <div className="relative z-20 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 hidden md:flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
 
         {/* LEFT HUD CONTENT: Name Heading (Bottom Left) */}
         <motion.div 
@@ -252,7 +253,7 @@ export function Hero() {
 
       </div>
 
-      {/* Optical Lens Text Reveal Layer (Magnified & Chromatic Holographic Glow inside Spotlight Circle) */}
+      {/* Optical Lens Text Reveal Layer (Magnified & Chromatic Holographic Glow inside Spotlight Circle - Desktop) */}
       <motion.div
         className="absolute inset-0 z-35 pointer-events-none hidden md:block"
         style={{
@@ -274,6 +275,98 @@ export function Hero() {
         </div>
       </motion.div>
 
+      {/* Bespoke Mobile Hero Experience (< 768px) */}
+      <div className="relative z-25 w-full flex-1 flex flex-col justify-between px-5 pt-1 pb-6 md:hidden pointer-events-auto">
+        {/* Top Mobile Row: System Status Pill & Integrated Tap-to-Talk Robot Mascot */}
+        <div className="flex items-center justify-between w-full z-30 pt-0.5 mb-2">
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B0C10]/85 backdrop-blur-xl border border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.9)]" />
+            </span>
+            <span className="text-[10px] font-mono font-bold text-emerald-400 tracking-wider">
+              SYS.ONLINE // 12ms
+            </span>
+          </motion.div>
+
+          {/* Tap-Interactive Compact Robot Avatar */}
+          <div data-interactive-zone="true" className="relative z-40">
+            <RobotAvatar 
+              mouseX={mouseX} 
+              mouseY={mouseY} 
+              size="sm" 
+              speechText="HELLO! 👋 TAP TO CHAT" 
+              bubblePosition="bottom" 
+            />
+          </div>
+        </div>
+
+        {/* Middle-Upper Mobile Identity: Eyebrow, Title & Core Pitch */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="z-20 text-left mb-auto"
+        >
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-purple-300 bg-purple-950/50 border border-purple-500/30 px-2.5 py-0.5 rounded-md inline-block mb-1.5 shadow-sm">
+            AI & DATA SCIENTIST
+          </span>
+          <h1 className="text-[38px] xs:text-[44px] font-black uppercase tracking-tight text-white leading-[0.88] drop-shadow-[0_12px_30px_rgba(0,0,0,0.9)] select-none">
+            <span className="block text-[11px] font-mono font-bold tracking-widest text-slate-400 mb-0.5">I AM</span>
+            <span className="bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
+              {name}
+            </span>
+          </h1>
+          <p className="text-[11.5px] text-slate-300 font-normal leading-relaxed mt-2 max-w-[270px]">
+            Architecting Autonomous AI Agents, Production LLM Pipelines & Deep Learning Systems.
+          </p>
+        </motion.div>
+
+        {/* Bottom Mobile Action Dock & Telemetry */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="relative z-30 w-full flex flex-col gap-2.5 mt-auto pt-2"
+        >
+          {/* High-Contrast Mobile CTAs */}
+          <div className="grid grid-cols-2 gap-2.5 w-full">
+            <TransitionLink
+              href="/work"
+              className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 active:scale-95 text-white text-xs font-mono font-bold tracking-wider shadow-[0_8px_25px_rgba(168,85,247,0.45)] transition-all"
+            >
+              <span>EXPLORE WORK</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </TransitionLink>
+            <TransitionLink
+              href="/#contact"
+              className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-[#12131A]/90 hover:bg-white/10 active:scale-95 border border-white/20 text-white text-xs font-mono font-bold tracking-wider backdrop-blur-md transition-all shadow-md"
+            >
+              <span>GET IN TOUCH</span>
+              <Mail className="w-3.5 h-3.5 text-purple-400" />
+            </TransitionLink>
+          </div>
+
+          {/* Micro Tech Tags Row */}
+          <div className="flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            {["Deep Learning", "GenAI & RAG", "Autonomous Agents"].map((tag) => (
+              <span
+                key={tag}
+                className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/10 text-slate-300 whitespace-nowrap shadow-sm"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
     </section>
   );
 };
+

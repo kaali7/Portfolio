@@ -1,18 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
 import { projectsDetailData } from "@/lib/projectsDetailData";
-import { Code2, Layers } from "lucide-react";
+import { Code2, Layers, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { TechIcon } from "@/components/TechIcon";
 
 export function Projects() {
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
 
   const projects = projectsDetailData.slice(0, 4);
+  const TOTAL_ITEMS = 5; // 4 Projects + 1 "More Projects" hub card
   const activeIndex = activeIdx;
-  const activeProject = projects[activeIndex];
+  const isMoreCard = activeIdx === 4;
+  const activeProject = projects[Math.min(activeIndex, 3)];
+
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev + 1) % TOTAL_ITEMS);
+  };
+
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev - 1 + TOTAL_ITEMS) % TOTAL_ITEMS);
+  };
+
+  // Auto-scroll the top mobile tabs into center view when active project changes
+  useEffect(() => {
+    const activeTabEl = tabRefs.current[activeIdx];
+    if (activeTabEl && tabsContainerRef.current) {
+      activeTabEl.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeIdx]);
 
   // Derive visual and metrics
   const activeImage = activeProject.visual?.heroImage || activeProject.visual?.thumbnail;
@@ -84,151 +108,297 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 sm:mb-8 pb-4 border-b border-slate-200/80"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-200/80"
         >
           <div>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#08080A] leading-tight">
               Featured <span className="font-black italic">Projects</span>
             </h2>
           </div>
-
-          <p className="max-w-md text-slate-600 text-xs sm:text-sm mt-3 md:mt-0 font-normal leading-relaxed">
-            Architecting scalable machine learning models, autonomous agent frameworks, and generative AI systems built for real-world impact.
-          </p>
         </motion.div>
 
         {/* Dynamic Interactive Projects Container */}
         <div className="w-full relative">
+          
+          {/* Mobile Project Selector Tabs (< lg) - Auto-scrolls with active project */}
+          <div 
+            ref={tabsContainerRef}
+            className="flex lg:hidden items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-2 w-full scroll-smooth"
+          >
+            {projects.map((project, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <button
+                  key={project.id}
+                  ref={(el) => { tabRefs.current[i] = el; }}
+                  onClick={() => setActiveIdx(i)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
+                    isActive
+                      ? "bg-purple-600 text-white shadow-md shadow-purple-950/40 ring-1 ring-purple-400/50 scale-[1.02]"
+                      : "bg-[#0B0C10] text-slate-300 border border-slate-700/60 hover:border-purple-400/40"
+                  }`}
+                >
+                  <span className="text-[10px] text-purple-300 opacity-80">{`0${i + 1}`}</span>
+                  <span>{project.title}</span>
+                </button>
+              );
+            })}
+
+            {/* 5th Tab: Selectable More Projects Link */}
+            <button
+              ref={(el) => { tabRefs.current[4] = el; }}
+              onClick={() => setActiveIdx(4)}
+              className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
+                activeIndex === 4
+                  ? "bg-purple-600 text-white shadow-md shadow-purple-950/40 ring-1 ring-purple-400/50 scale-[1.02]"
+                  : "bg-[#0B0C10] text-purple-300 border border-purple-500/50 hover:border-purple-400"
+              }`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+              <span>More Projects ↗</span>
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 w-full items-start">
             
             {/* LEFT SIDE: MAIN SPOTLIGHT SCREEN */}
-            <div className="lg:col-span-8 xl:col-span-8 w-full h-full min-h-[460px] relative">
+            <div className="lg:col-span-8 xl:col-span-8 w-full h-full min-h-[460px] relative group/spotlight">
+              
               <AnimatePresence mode="wait">
-                <motion.div 
-                  key={activeProject.id}
-                  initial={{ opacity: 0, scale: 0.97, y: 10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.97, y: -10 }}
-                  transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-                  className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-5 sm:p-6 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[460px]"
-                >
-                  {/* Atmospheric Ambient Glow */}
-                  <div className="absolute top-0 right-0 w-80 h-80 bg-purple-600/12 rounded-full blur-3xl pointer-events-none" />
-
-                  {/* 1. TOP HEADER ROW: TITLE (LEFT) & CATEGORY BADGE (TOP-RIGHT) */}
-                  <div className="mb-2 z-10 flex items-center justify-between gap-4">
-                    <Link href={`/work/${activeProject.id}`} className="group inline-block">
-                      <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-purple-300 transition-colors tracking-tight">
-                        {activeProject.title}
-                      </h3>
-                    </Link>
-
-                    {/* Category Badge */}
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider text-white bg-purple-600/90 border border-purple-400/30 px-3 py-0.5 rounded-full uppercase shadow-xs flex-shrink-0">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-200 animate-pulse" />
-                      <span>{activeProject.category}</span>
-                    </span>
-                  </div>
-
-                  {/* 2. PREMIUM MEDIA WINDOW */}
-                  <div className="w-full my-2 z-10">
-                    <div className="w-full bg-[#0c0c11] border border-slate-800 rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.8)] relative flex flex-col">
-                      
-                      {/* Window Frame Bar */}
-                      <div className="bg-slate-950/90 px-3 py-1.5 border-b border-slate-800 flex items-center justify-between">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-rose-500/80" />
-                          <span className="w-2 h-2 rounded-full bg-amber-500/80" />
-                          <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
-                        </div>
-                        <span className="text-[9px] font-mono text-slate-400 tracking-wider uppercase font-medium">
-                          {activeVideo ? "SYSTEM VIDEO DEMO" : "ARCHITECTURE BLUEPRINT"}
-                        </span>
-                      </div>
-
-                      {/* Uncropped Crisp Media Viewport */}
-                      <div className="relative w-full bg-[#0c0c11] flex items-center justify-center p-2 overflow-hidden min-h-[180px] max-h-[300px]">
-                        {activeVideo ? (
-                          <video 
-                            src={activeVideo} 
-                            autoPlay 
-                            loop 
-                            muted 
-                            playsInline 
-                            className="w-full h-full max-h-[280px] object-contain rounded-xl"
-                          />
-                        ) : activeImage ? (
-                          <img 
-                            src={activeImage} 
-                            alt={activeProject.title} 
-                            className="w-full h-full max-h-[280px] object-contain rounded-xl transition-transform duration-500 hover:scale-[1.01]"
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center p-6 text-slate-500 text-center">
-                            <Layers className="w-8 h-8 mb-2 stroke-1 text-purple-400" />
-                            <span className="text-xs font-mono">System Blueprint</span>
-                          </div>
-                        )}
-                      </div>
-
-                    </div>
-                  </div>
-
-                  {/* 3. SHORT DESCRIPTION */}
-                  <div className="my-1.5 z-10 max-w-3xl">
-                    <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed font-normal line-clamp-2">
-                      {activeProject.card?.shortDescription || activeProject.overview?.problem}
-                    </p>
-                  </div>
-
-                  {/* 4. ILLUMINATED KPI METRICS CARDS */}
-                  <div className="flex flex-wrap gap-2.5 my-2 z-10">
-                    {activeMetrics.map((m, idx) => (
-                      <div key={idx} className="bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-xl px-3.5 py-2 min-w-[100px] flex flex-col justify-center shadow-xs hover:border-purple-400/40 transition-colors">
-                        <span className="text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-0.5">{m.label}</span>
-                        <span className="text-sm sm:text-base font-black text-purple-300 tracking-tight whitespace-nowrap">{m.val}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* 5. BOTTOM ACTION ROW: TECH CHIPS + CTA */}
-                  <div className="pt-3.5 mt-2 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 z-10">
-                    
-                    {/* Tech Chips */}
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      {displayTags.map((tag, tIdx) => (
-                        <span key={tIdx} className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-200 bg-white/10 border border-white/15 px-2.5 py-0.5 rounded-md font-medium shadow-xs hover:border-purple-400/50 transition-colors">
-                          <TechIcon name={tag} className="w-3 h-3 flex-shrink-0 text-purple-300 opacity-90" />
-                          <span>{tag}</span>
-                        </span>
-                      ))}
-
-                      {/* "+X More" Badge */}
-                      {remainingCount > 0 && (
-                        <span className="text-[10px] font-mono font-bold text-purple-200 bg-purple-900/60 border border-purple-500/40 px-2 py-0.5 rounded-md shadow-xs">
-                          +{remainingCount} more
-                        </span>
-                      )}
-                    </div>
-
-                    <Link
-                      href={`/work/${activeProject.id}`}
-                      className="px-5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-full text-xs font-mono font-bold tracking-wider shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center gap-1.5 flex-shrink-0 cursor-pointer group"
+                {isMoreCard ? (
+                  /* 5TH SLIDE: MINIMALIST MORE PROJECTS CARD */
+                  <motion.div
+                    key="more-projects-hub"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={(e, { offset, velocity }) => {
+                      const swipeThreshold = 35;
+                      const velocityThreshold = 250;
+                      if (offset.x < -swipeThreshold || velocity.x < -velocityThreshold) {
+                        handleNext();
+                      } else if (offset.x > swipeThreshold || velocity.x > velocityThreshold) {
+                        handlePrev();
+                      }
+                    }}
+                    initial={{ opacity: 0, scale: 0.97, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.97, y: -10 }}
+                    transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+                    className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.8)] flex flex-col items-center justify-center text-center overflow-hidden relative z-30 min-h-[460px] touch-pan-y cursor-grab active:cursor-grabbing"
+                  >
+                    {/* Floating Previous Switch Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrev();
+                      }}
+                      aria-label="Previous project"
+                      className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-40 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0B0C10]/90 hover:bg-purple-600 text-white border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.9)] hover:shadow-[0_0_20px_rgba(168,85,247,0.8)] active:scale-90 transition-all cursor-pointer group/navbtn"
                     >
-                      <span>VIEW FULL CASE STUDY</span>
-                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover/navbtn:-translate-x-0.5 transition-transform text-white" />
+                    </button>
+
+                    {/* Floating Next Switch Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNext();
+                      }}
+                      aria-label="Next project"
+                      className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-40 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0B0C10]/90 hover:bg-purple-600 text-white border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.9)] hover:shadow-[0_0_20px_rgba(168,85,247,0.8)] active:scale-90 transition-all cursor-pointer group/navbtn"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover/navbtn:translate-x-0.5 transition-transform text-white" />
+                    </button>
+
+                    {/* Big Font "More" */}
+                    <div className="flex items-center gap-3 mb-8 z-10">
+                      <span className="w-3 h-3 rounded-full bg-purple-500 animate-ping" />
+                      <span className="text-6xl sm:text-7xl font-serif italic tracking-wide text-white select-none">
+                        more
+                      </span>
+                    </div>
+
+                    {/* Main Action Button */}
+                    <Link
+                      href="/work"
+                      className="z-10 px-8 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-95 text-white rounded-full text-xs sm:text-sm font-mono font-bold tracking-wider shadow-[0_0_25px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center gap-2 cursor-pointer group"
+                    >
+                      <span>VIEW ALL WORK</span>
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                         <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </Link>
 
-                  </div>
+                  </motion.div>
+                ) : (
+                  /* 1-4 STANDARD PROJECT SPOTLIGHT CARD */
+                  <motion.div 
+                    key={activeProject.id}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={(e, { offset, velocity }) => {
+                      const swipeThreshold = 35;
+                      const velocityThreshold = 250;
+                      if (offset.x < -swipeThreshold || velocity.x < -velocityThreshold) {
+                        handleNext();
+                      } else if (offset.x > swipeThreshold || velocity.x > velocityThreshold) {
+                        handlePrev();
+                      }
+                    }}
+                    initial={{ opacity: 0, scale: 0.97, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.97, y: -10 }}
+                    transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+                    className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-4 sm:p-6 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[460px] touch-pan-y cursor-grab active:cursor-grabbing"
+                  >
+                    {/* Floating Previous Switch Button (Centered over Media Window at top-[32%]) */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrev();
+                      }}
+                      aria-label="Previous project"
+                      className="absolute left-2 sm:left-3.5 top-[32%] -translate-y-1/2 z-40 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0B0C10]/90 hover:bg-purple-600 text-white border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.9)] hover:shadow-[0_0_20px_rgba(168,85,247,0.8)] active:scale-90 transition-all cursor-pointer group/navbtn"
+                    >
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover/navbtn:-translate-x-0.5 transition-transform text-white" />
+                    </button>
 
-                </motion.div>
+                    {/* Floating Next Switch Button (Centered over Media Window at top-[32%]) */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNext();
+                      }}
+                      aria-label="Next project"
+                      className="absolute right-2 sm:right-3.5 top-[32%] -translate-y-1/2 z-40 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0B0C10]/90 hover:bg-purple-600 text-white border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.9)] hover:shadow-[0_0_20px_rgba(168,85,247,0.8)] active:scale-90 transition-all cursor-pointer group/navbtn"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover/navbtn:translate-x-0.5 transition-transform text-white" />
+                    </button>
+
+                    {/* 1. TOP HEADER ROW: TITLE (LEFT) & CATEGORY BADGE (TOP-RIGHT) */}
+                    <div className="mb-2 z-10 flex items-center justify-between gap-3">
+                      <Link href={`/work/${activeProject.id}`} className="group inline-block min-w-0">
+                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white group-hover:text-purple-300 transition-colors tracking-tight truncate">
+                          {activeProject.title}
+                        </h3>
+                      </Link>
+
+                      {/* Category Badge */}
+                      <span className="inline-flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono font-bold tracking-wider text-white bg-purple-600/90 border border-purple-400/30 px-2.5 sm:px-3 py-0.5 rounded-full uppercase shadow-xs flex-shrink-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-200 animate-pulse" />
+                        <span>{activeProject.category}</span>
+                      </span>
+                    </div>
+
+                    {/* 2. PREMIUM MEDIA WINDOW */}
+                    <div className="w-full my-2 z-10">
+                      <div className="w-full bg-[#0c0c11] border border-slate-800 rounded-2xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.8)] relative flex flex-col">
+                        
+                        {/* Window Frame Bar */}
+                        <div className="bg-slate-950/90 px-3 py-1.5 border-b border-slate-800 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-rose-500/80" />
+                            <span className="w-2 h-2 rounded-full bg-amber-500/80" />
+                            <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                          </div>
+                          <span className="text-[9px] font-mono text-slate-400 tracking-wider uppercase font-medium">
+                            {activeVideo ? "SYSTEM VIDEO DEMO" : "ARCHITECTURE BLUEPRINT"}
+                          </span>
+                        </div>
+
+                        {/* Uncropped Crisp Media Viewport */}
+                        <div className="relative w-full bg-[#0c0c11] flex items-center justify-center p-2 overflow-hidden min-h-[160px] sm:min-h-[180px] max-h-[220px] sm:max-h-[300px]">
+                          {activeVideo ? (
+                            <video 
+                              src={activeVideo} 
+                              autoPlay 
+                              loop 
+                              muted 
+                              playsInline 
+                              className="w-full h-full max-h-[280px] object-contain rounded-xl"
+                            />
+                          ) : activeImage ? (
+                            <img 
+                              src={activeImage} 
+                              alt={activeProject.title} 
+                              className="w-full h-full max-h-[280px] object-contain rounded-xl transition-transform duration-500 hover:scale-[1.01]"
+                            />
+                          ) : (
+                            <div className="flex flex-col items-center justify-center p-6 text-slate-500 text-center">
+                              <Layers className="w-8 h-8 mb-2 stroke-1 text-purple-400" />
+                              <span className="text-xs font-mono">System Blueprint</span>
+                            </div>
+                          )}
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* 3. SHORT DESCRIPTION */}
+                    <div className="my-1.5 z-10 max-w-3xl">
+                      <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed font-normal line-clamp-2">
+                        {activeProject.card?.shortDescription || activeProject.overview?.problem}
+                      </p>
+                    </div>
+
+                    {/* 4. ILLUMINATED KPI METRICS CARDS (3-column grid on mobile, flex on desktop) */}
+                    <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-2.5 my-2.5 z-10 w-full">
+                      {activeMetrics.map((m, idx) => (
+                        <div 
+                          key={idx} 
+                          className="bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-xl p-2 sm:px-3.5 sm:py-2 min-w-0 flex flex-col justify-center text-center sm:text-left shadow-xs hover:border-purple-400/40 transition-colors"
+                        >
+                          <span className="text-[8.5px] sm:text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-0.5 truncate">{m.label}</span>
+                          <span className="text-xs sm:text-sm lg:text-base font-black text-purple-300 tracking-tight truncate">{m.val}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* 5. BOTTOM ACTION ROW: TECH CHIPS + CTA */}
+                    <div className="pt-3 mt-1.5 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-3 z-10">
+                      
+                      {/* Tech Chips */}
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {displayTags.map((tag, tIdx) => (
+                          <span key={tIdx} className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono text-slate-200 bg-white/10 border border-white/15 px-2 sm:px-2.5 py-0.5 rounded-md font-medium shadow-xs">
+                            <TechIcon name={tag} className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0 text-purple-300 opacity-90" />
+                            <span>{tag}</span>
+                          </span>
+                        ))}
+
+                        {/* "+X More" Badge */}
+                        {remainingCount > 0 && (
+                          <span className="text-[9px] sm:text-[10px] font-mono font-bold text-purple-200 bg-purple-900/60 border border-purple-500/40 px-2 py-0.5 rounded-md shadow-xs">
+                            +{remainingCount} more
+                          </span>
+                        )}
+                      </div>
+
+                      <Link
+                        href={`/work/${activeProject.id}`}
+                        className="w-full sm:w-auto px-5 py-2.5 sm:py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-95 text-white rounded-full text-xs font-mono font-bold tracking-wider shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center gap-1.5 flex-shrink-0 cursor-pointer group"
+                      >
+                        <span>VIEW FULL CASE STUDY</span>
+                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                          <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </Link>
+
+                    </div>
+
+                  </motion.div>
+                )}
               </AnimatePresence>
             </div>
 
-            {/* RIGHT SIDE: STACKED CARDS DECK */}
-            <div className="lg:col-span-4 xl:col-span-4 w-full h-full relative flex flex-col justify-start">
+            {/* RIGHT SIDE: STACKED CARDS DECK (Desktop Only) */}
+            <div className="hidden lg:flex lg:col-span-4 xl:col-span-4 w-full h-full relative flex-col justify-start">
               
               <div className="relative w-full space-y-0">
                 {projects.map((project, i) => {
@@ -377,6 +547,7 @@ export function Projects() {
 
             </div>
           </div>
+
         </div>
 
       </div>

@@ -32,3 +32,7 @@
 
 ## 5. Dataset Integrity
 - **Do Not Modify Datasets**: The data within `lib/experienceDetailData.ts` and `lib/projectsDetailData.ts` is considered the source of truth and must NOT be changed, modified, or altered by AI agents.
+
+## 6. Strict Mobile-Only Scoping Rule
+- **Mobile-Scoped Adjustments**: When tasked with fixing, improving, or redesigning mobile UI/UX or responsive views, all styling and layout changes MUST be scoped strictly to mobile/tablet breakpoints (`< 768px` / `< 640px` via Tailwind responsive modifiers like `max-md:`, `sm:`, `md:`, `lg:`, `hidden md:block`, `block md:hidden`).
+- **Desktop Integrity Guarantee**: The desktop layout, desktop visual structure, desktop typography, 3D HUD widgets, cursor spotlight physics, and desktop interactions MUST remain 100% untouched, uncompromised, and intact. Under no circumstances should desktop styling or behavior be altered or regressed when resolving mobile issues.

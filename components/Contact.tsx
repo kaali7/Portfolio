@@ -142,25 +142,25 @@ function ContactRobotAvatar({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
       ref={containerRef}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
-      className="relative z-30 group cursor-pointer flex flex-col items-center justify-center w-full max-w-sm sm:max-w-md lg:max-w-lg my-auto gap-4 sm:gap-5"
+      className="relative z-30 group cursor-pointer flex flex-col items-center justify-center w-full max-w-xs sm:max-w-md lg:max-w-lg my-auto gap-2.5 sm:gap-4 lg:gap-5"
     >
-      {/* Speech Balloon Card - Naturally positioned above Robot */}
+      {/* Speech Balloon Card - Fixed Height to prevent any layout shift during typing animation */}
       <div className="relative z-50 w-full text-left pointer-events-auto">
-        <div className="bg-[#060608] border-2 border-purple-500/40 p-4 sm:p-5 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative flex items-center justify-center min-h-[72px] sm:min-h-[84px]">
-          <p className="text-sm sm:text-base lg:text-lg text-slate-100 font-sans font-bold leading-relaxed text-center tracking-wide">
+        <div className="bg-[#060608] border-2 border-purple-500/40 p-2.5 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative flex items-center justify-center h-[64px] sm:h-[76px] lg:h-[84px] overflow-hidden">
+          <p className="text-[11px] sm:text-base lg:text-lg text-slate-100 font-sans font-bold leading-tight sm:leading-relaxed text-center tracking-tight sm:tracking-wide">
             {typedText}
-            <span className="inline-block w-2 h-4 sm:h-5 ml-1 bg-purple-400 animate-pulse align-middle" />
+            <span className="inline-block w-1.5 sm:w-2 h-3 sm:h-5 ml-1 bg-purple-400 animate-pulse align-middle" />
           </p>
 
           {/* Speech Balloon Tail */}
-          <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[11px] border-t-[#060608]" />
+          <div className="absolute -bottom-2 sm:-bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] sm:border-l-[9px] border-l-transparent border-r-[7px] sm:border-r-[9px] border-r-transparent border-t-[9px] sm:border-t-[11px] border-t-[#060608]" />
         </div>
       </div>
 
-      {/* Enlarged Circular AI Robot Avatar */}
+      {/* Circular AI Robot Avatar (Responsive Scaled for Mobile & Desktop) */}
       <motion.div 
         style={{ rotate: headRotate }}
-        className="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full bg-white text-[#08080A] shadow-[0_20px_60px_rgba(0,0,0,0.6)] border-4 sm:border-[5px] border-slate-200 flex items-center justify-center p-3.5 sm:p-4.5 relative transition-all duration-300 group-hover:border-purple-400 group-hover:shadow-[0_25px_80px_rgba(168,85,247,0.5)]"
+        className="w-24 h-24 sm:w-40 sm:h-40 lg:w-56 lg:h-56 rounded-full bg-white text-[#08080A] shadow-[0_20px_60px_rgba(0,0,0,0.6)] border-3 sm:border-4 lg:border-[5px] border-slate-200 flex items-center justify-center p-2.5 sm:p-3.5 lg:p-4.5 relative transition-all duration-300 group-hover:border-purple-400 group-hover:shadow-[0_25px_80px_rgba(168,85,247,0.5)]"
       >
         <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
           <line x1="50" y1="18" x2="50" y2="8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
@@ -413,7 +413,7 @@ export function Contact() {
       iconColor: "text-purple-300",
       rotateAngle: -4,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-purple-300">
+        <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-purple-300">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
         </svg>
       )
@@ -427,7 +427,7 @@ export function Contact() {
       iconColor: "text-blue-400",
       rotateAngle: 4,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-blue-400">
+        <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-blue-400">
           <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.74a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2z" />
         </svg>
       )
@@ -441,7 +441,7 @@ export function Contact() {
       iconColor: "text-amber-300",
       rotateAngle: -3,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-amber-300">
+        <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-amber-300">
           <path d={siHuggingface.path} />
         </svg>
       )
@@ -455,7 +455,7 @@ export function Contact() {
       iconColor: "text-cyan-300",
       rotateAngle: 3,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-cyan-300">
+        <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-cyan-300">
           <path d={siKaggle.path} />
         </svg>
       )
@@ -469,7 +469,7 @@ export function Contact() {
       iconColor: "text-slate-300",
       rotateAngle: -5,
       svg: (
-        <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-14 sm:h-14 fill-current text-slate-300">
+        <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-slate-300">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
         </svg>
       )
@@ -482,7 +482,7 @@ export function Contact() {
       id="contact" 
       onMouseMove={handleSectionMouseMove}
       onMouseLeave={handleSectionMouseLeave}
-      className="w-full h-auto lg:h-[100vh] min-h-[100dvh] lg:min-h-0 bg-[#060608] text-white flex flex-col justify-between px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 lg:pt-10 pb-4 sm:pb-6 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-30px_90px_rgba(0,0,0,0.85)] border-t border-purple-500/30 relative z-30 overflow-hidden"
+      className="w-full h-auto lg:h-[100vh] lg:min-h-0 bg-[#060608] text-white flex flex-col justify-between px-4 sm:px-8 lg:px-20 xl:px-28 2xl:px-36 pt-4 sm:pt-7 lg:pt-10 pb-4 sm:pb-6 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-30px_90px_rgba(0,0,0,0.85)] border-t border-purple-500/30 relative z-30 overflow-hidden"
     >
       {/* Background Neural Particle Canvas */}
       <canvas 
@@ -493,7 +493,7 @@ export function Contact() {
       {/* Top Ambient Glow Gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-purple-600/15 via-indigo-600/5 to-transparent blur-3xl pointer-events-none z-0" />
 
-      <div className="w-full mx-auto relative z-10 flex-1 flex flex-col justify-between">
+      <div className="w-full mx-auto relative z-10 lg:flex-1 flex flex-col lg:justify-between">
         
         {/* Section Header */}
         <motion.div 
@@ -501,18 +501,18 @@ export function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-          className="mt-1 sm:mt-2 mb-3 sm:mb-4 pb-2.5 border-b border-white/10 flex items-center justify-between"
+          className="mt-0.5 sm:mt-2 mb-2 sm:mb-4 pb-2 border-b border-white/10 flex items-center justify-between"
         >
           <h2 className="text-xl sm:text-3xl lg:text-4xl font-light tracking-tight text-white leading-tight">
             Initiate <span className="font-black italic bg-gradient-to-r from-purple-400 via-indigo-300 to-white bg-clip-text text-transparent">Data & AI</span> Collaboration
           </h2>
         </motion.div>
 
-        {/* 2-Column Bento Wireframe Layout - Compact Full-Viewport Expansion */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 lg:gap-4 items-stretch flex-1 my-1 sm:my-2">
+        {/* 2-Column Bento Wireframe Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3 lg:gap-4 items-stretch lg:flex-1 my-1 sm:my-2">
           
-          {/* LEFT COLUMN: Robot Mascot Character Card (Col 1-4) */}
-          <div className="lg:col-span-4 flex flex-col h-full">
+          {/* LEFT COLUMN: Robot Mascot Character Card (Col 1-4) - Fixed Height on Mobile to prevent layout shift */}
+          <div className="lg:col-span-4 flex flex-col h-[195px] sm:h-[240px] lg:h-full">
             <motion.div 
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -521,7 +521,7 @@ export function Contact() {
               transition={{ type: "spring", stiffness: 450, damping: 25 }}
               onMouseMove={(e) => handleCardMouseMove("robot-card", e)}
               onMouseLeave={() => handleCardMouseLeave("robot-card")}
-              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 relative overflow-hidden h-full flex flex-col justify-center items-center text-center group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)]"
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-6 relative overflow-hidden h-full flex flex-col justify-center items-center text-center group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)]"
             >
               {/* Mouse Spotlight Beam */}
               {spotlightPos["robot-card"] && (
@@ -543,7 +543,7 @@ export function Contact() {
           </div>
 
           {/* RIGHT COLUMN: Stacked Email to Contact (Top) & Social Media (Bottom) */}
-          <div className="lg:col-span-8 flex flex-col justify-between gap-3.5 lg:gap-4 h-full">
+          <div className="lg:col-span-8 flex flex-col justify-between gap-3 sm:gap-3.5 lg:gap-4 lg:h-full">
             
             {/* RIGHT TOP CARD: Email To Contact */}
             <motion.div 
@@ -554,7 +554,7 @@ export function Contact() {
               transition={{ type: "spring", stiffness: 450, damping: 25 }}
               onMouseMove={(e) => handleCardMouseMove("email-card", e)}
               onMouseLeave={() => handleCardMouseLeave("email-card")}
-              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 relative overflow-hidden group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)] flex-1 flex flex-col justify-between"
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 lg:p-6 relative overflow-hidden group transition-colors duration-200 shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.18)] lg:flex-1 flex flex-col lg:justify-between"
             >
               {/* Mouse Spotlight Beam */}
               {spotlightPos["email-card"] && (
@@ -567,15 +567,15 @@ export function Contact() {
                 />
               )}
 
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-2 tracking-tight relative z-10 group-hover:text-purple-200 transition-colors">
+              <h3 className="text-xs sm:text-sm lg:text-2xl font-bold font-mono text-white uppercase tracking-wider mb-2 sm:mb-2.5 relative z-10 group-hover:text-purple-200 transition-colors">
                 Contact
               </h3>
 
-              {/* 1-Click Email Copy Component (Larger typography & icon) */}
-              <div className="bg-[#060608] border border-white/15 group-hover:border-purple-500/40 rounded-xl p-3.5 sm:p-4.5 lg:p-5 flex items-center justify-between gap-3 relative z-10 transition-colors my-auto shadow-inner">
-                <div className="flex items-center gap-3 pl-1 truncate">
-                  <Mail className="w-6 h-6 sm:w-7 sm:h-7 text-purple-400 flex-shrink-0" />
-                  <span className="text-base sm:text-xl lg:text-2xl font-mono text-slate-100 font-bold truncate select-all tracking-tight">
+              {/* 1-Click Email Copy Component (Responsive typography & touch button) */}
+              <div className="bg-[#060608] border border-white/15 group-hover:border-purple-500/40 rounded-xl p-2.5 sm:p-4 lg:p-5 flex items-center justify-between gap-2 sm:gap-3 relative z-10 transition-colors my-1 lg:my-auto shadow-inner">
+                <div className="flex items-center gap-2 sm:gap-3 pl-0.5 sm:pl-1 min-w-0">
+                  <Mail className="w-4.5 h-4.5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-purple-400 flex-shrink-0" />
+                  <span className="text-xs sm:text-lg lg:text-2xl font-mono text-slate-100 font-bold truncate select-all tracking-tight">
                     ashwini@ai-architect.io
                   </span>
                 </div>
@@ -585,30 +585,30 @@ export function Contact() {
                   whileTap={{ scale: 0.95, rotate: 0 }}
                   transition={{ type: "spring", stiffness: 450, damping: 17 }}
                   onClick={handleCopyEmail}
-                  className="group/copybtn px-4.5 py-2.5 sm:px-5 sm:py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs sm:text-sm font-mono font-bold transition-colors duration-150 shadow-md flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                  className="group/copybtn px-2.5 py-1.5 sm:px-5 sm:py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-[10px] sm:text-sm font-mono font-bold transition-colors duration-150 shadow-md flex items-center gap-1 sm:gap-1.5 flex-shrink-0 cursor-pointer"
                 >
                   {copied ? (
                     <>
                       <span>COPIED!</span>
-                      <Check className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-emerald-300 group-hover/copybtn:rotate-12 transition-transform duration-200" />
+                      <Check className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-emerald-300 group-hover/copybtn:rotate-12 transition-transform duration-200" />
                     </>
                   ) : (
                     <>
-                      <span>COPY MAIL</span>
-                      <Copy className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover/copybtn:rotate-12 transition-transform duration-200" />
+                      <span>COPY</span>
+                      <Copy className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover/copybtn:rotate-12 transition-transform duration-200" />
                     </>
                   )}
                 </motion.button>
               </div>
 
               {/* Telemetry Row */}
-              <div className="flex items-center justify-start text-[11px] sm:text-xs font-mono text-slate-400 relative z-10 pt-2.5 border-t border-white/10">
-                <div className="flex items-center gap-5">
+              <div className="flex items-center justify-start text-[9.5px] sm:text-xs font-mono text-slate-400 relative z-10 pt-2 sm:pt-2.5 border-t border-white/10 mt-1 sm:mt-0">
+                <div className="flex items-center gap-4 sm:gap-5 flex-wrap">
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" /> San Francisco, CA
+                    <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" /> San Francisco, CA
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" /> PST (UTC-8)
+                    <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" /> PST (UTC-8)
                   </span>
                 </div>
               </div>
@@ -623,7 +623,7 @@ export function Contact() {
               transition={{ type: "spring", stiffness: 450, damping: 25 }}
               onMouseMove={(e) => handleCardMouseMove("social-container", e)}
               onMouseLeave={() => handleCardMouseLeave("social-container")}
-              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 relative overflow-hidden group transition-colors duration-200 shadow-xl flex-1 flex flex-col justify-center"
+              className="bg-[#0D0E14]/90 backdrop-blur-xl border border-white/15 hover:border-purple-500/50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 lg:p-6 relative overflow-hidden group transition-colors duration-200 shadow-xl lg:flex-1 flex flex-col lg:justify-center"
             >
               {/* Mouse Spotlight Beam */}
               {spotlightPos["social-container"] && (
@@ -636,34 +636,35 @@ export function Contact() {
                 />
               )}
 
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-2.5 tracking-tight relative z-10 group-hover:text-purple-200 transition-colors">
+              <h3 className="text-xs sm:text-sm lg:text-2xl font-bold font-mono text-white uppercase tracking-wider mb-2.5 sm:mb-3 relative z-10 group-hover:text-purple-200 transition-colors">
                 Social Media
               </h3>
 
-              {/* 5 Social Media Bento Cards Grid (Enlarged Height, Icons, and Typography) */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5 relative z-10 my-auto">
+              {/* 5 Social Media Bento Cards Grid: 1-Row Icon-Only on Mobile, Full Cards on Desktop */}
+              <div className="grid grid-cols-5 gap-2 sm:gap-2.5 lg:gap-3.5 relative z-10 my-0 lg:my-auto">
                 {SOCIAL_PLATFORMS.map((platform) => (
                   <motion.a
                     key={platform.name}
                     href={platform.url}
                     target="_blank"
                     rel="noreferrer"
+                    aria-label={platform.name}
                     whileHover={{ scale: 1.05, y: -3, rotate: platform.rotateAngle }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 16 }}
-                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-xl p-3 sm:p-4 lg:p-4.5 flex flex-col items-center justify-center text-center gap-3 group/tile transition-all duration-200 shadow-md cursor-pointer relative overflow-hidden min-h-[125px] sm:min-h-[140px] lg:min-h-[150px]`}
+                    className={`bg-[#060608] hover:bg-gradient-to-b ${platform.color} border border-white/10 ${platform.borderColor} rounded-xl p-2 sm:p-2.5 lg:p-4.5 flex flex-col items-center justify-center text-center gap-0 lg:gap-3 group/tile transition-all duration-200 shadow-md cursor-pointer relative overflow-hidden h-11 sm:h-12 lg:min-h-[150px] lg:h-auto`}
                   >
                     {/* Borderless Icon Container */}
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-110 group-hover/tile:rotate-12">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-12 lg:h-12 flex items-center justify-center transition-transform duration-300 group-hover/tile:scale-110 group-hover/tile:rotate-12 flex-shrink-0">
                       {platform.svg}
                     </div>
 
-                    {/* Centered Text Labels */}
-                    <div className="w-full">
+                    {/* Centered Text Labels (Desktop Only) */}
+                    <div className="w-full hidden lg:block">
                       <h4 className="text-xs sm:text-sm font-black text-white group-hover/tile:text-purple-200 transition-colors mb-0.5">
                         {platform.name}
                       </h4>
-                      <p className="text-[10px] sm:text-[11px] font-mono text-slate-300 font-medium truncate">
+                      <p className="text-[9px] sm:text-[11px] font-mono text-slate-300 font-medium truncate">
                         {platform.handle}
                       </p>
                     </div>
@@ -679,63 +680,70 @@ export function Contact() {
       </div>
 
       {/* Section Bottom Footer */}
-      <div className="w-full mx-auto pt-3 mt-3 sm:mt-4 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400 relative z-10">
-        <div className="flex flex-col sm:flex-row items-center gap-2.5 text-center sm:text-left">
-          <span className="font-signature text-xl sm:text-2xl text-white font-normal drop-shadow-md">Ashwini</span>
-          <span className="text-slate-400 text-[11px]">© {new Date().getFullYear()} — Engineered for Data & Neural Systems</span>
+      <div className="w-full mx-auto pt-3 mt-3 sm:mt-4 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-xs font-mono text-slate-400 relative z-10">
+        {/* Row 1 on Mobile: Signature & Copyright inline */}
+        <div className="flex items-center justify-center sm:justify-start gap-2.5 sm:gap-3 text-center sm:text-left flex-wrap">
+          <span className="font-signature text-xl sm:text-2xl text-white font-normal drop-shadow-md flex-shrink-0">Ashwini</span>
+          <span className="text-slate-400 text-[9.5px] sm:text-[11px]">© {new Date().getFullYear()} — Engineered for Data & Neural Systems</span>
         </div>
 
-        {/* Sleek Sub-Footer Quick Navigation Bar */}
-        <nav aria-label="Footer Quick Navigation" className="bg-[#0c0d14]/90 border border-white/15 backdrop-blur-md px-2 sm:px-3 py-1 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex items-center gap-1 relative z-10">
-          <TransitionLink 
-            href="/#hero" 
-            className="group px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5"
-          >
-            <Home className="w-3 h-3 text-purple-400 group-hover:scale-110 transition-transform" />
-            <span>HOME</span>
-          </TransitionLink>
+        {/* Row 2 on Mobile: Quick Navigation & Side-by-Side Back to Top Button */}
+        <div className="flex items-center justify-center md:justify-end gap-2 sm:gap-3">
+          {/* Sleek Sub-Footer Quick Navigation Bar */}
+          <nav aria-label="Footer Quick Navigation" className="bg-[#0c0d14]/90 border border-white/15 backdrop-blur-md px-2 sm:px-3 py-1 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex items-center gap-1 relative z-10">
+            <TransitionLink 
+              href="/#hero" 
+              className="group px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1 sm:gap-1.5"
+            >
+              <Home className="w-3 h-3 text-purple-400 group-hover:scale-110 transition-transform" />
+              <span>HOME</span>
+            </TransitionLink>
 
-          <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="w-1 h-1 rounded-full bg-white/20" />
 
-          <TransitionLink 
-            href="/about" 
-            className="group px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5"
-          >
-            <User className="w-3 h-3 text-purple-400 group-hover:scale-110 transition-transform" />
-            <span>ABOUT</span>
-          </TransitionLink>
+            <TransitionLink 
+              href="/about" 
+              className="group px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1 sm:gap-1.5"
+            >
+              <User className="w-3 h-3 text-purple-400 group-hover:scale-110 transition-transform" />
+              <span>ABOUT</span>
+            </TransitionLink>
 
-          <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="w-1 h-1 rounded-full bg-white/20" />
 
-          <TransitionLink 
-            href="/work" 
-            className="group px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5"
+            <TransitionLink 
+              href="/work" 
+              className="group px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1 sm:gap-1.5"
+            >
+              <Briefcase className="w-3 h-3 text-purple-400 group-hover:scale-110 transition-transform" />
+              <span>WORK</span>
+            </TransitionLink>
+          </nav>
+
+          {/* Back to Top Launch Button (Side-by-side with Nav on mobile) */}
+          <motion.a 
+            href="#top"
+            onClick={handleScrollTop}
+            aria-label="Back to top"
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            animate={isLaunchingTop ? { y: [-2, -25, 0], scale: [1, 1.2, 1] } : {}}
+            transition={{ type: "spring", stiffness: 400, damping: 18 }}
+            className="w-9 h-9 sm:w-11 sm:h-11 lg:w-14 lg:h-14 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-500 hover:from-purple-500 hover:to-indigo-400 text-white flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(168,85,247,0.5)] border-2 border-purple-300/50 relative z-20 group cursor-pointer overflow-hidden flex-shrink-0"
           >
-            <Briefcase className="w-3 h-3 text-purple-400 group-hover:scale-110 transition-transform" />
-            <span>WORK</span>
-          </TransitionLink>
-        </nav>
-        <motion.a 
-          href="#top"
-          onClick={handleScrollTop}
-          whileHover={{ scale: 1.1, y: -2 }}
-          whileTap={{ scale: 0.95 }}
-          animate={isLaunchingTop ? { y: [-2, -25, 0], scale: [1, 1.2, 1] } : {}}
-          transition={{ type: "spring", stiffness: 400, damping: 18 }}
-          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-500 hover:from-purple-500 hover:to-indigo-400 text-white flex flex-col items-center justify-center shadow-[0_10px_35px_rgba(168,85,247,0.6)] border-2 border-purple-300/50 relative -mt-6 sm:-mt-8 z-20 group cursor-pointer overflow-hidden"
-        >
-          {/* Animated Purple Pulse Ring */}
-          <span className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping pointer-events-none" />
-          
-          <motion.div
-            animate={isLaunchingTop ? { y: [-2, -40, 40, 0], opacity: [1, 0, 0, 1] } : {}}
-            transition={{ duration: 0.65, ease: "easeInOut" }}
-            className="flex flex-col items-center justify-center"
-          >
-            <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:-translate-y-0.5 transition-transform duration-200 ease-out" />
-            <span className="text-[8px] sm:text-[9px] font-mono font-black tracking-widest text-purple-100 uppercase -mt-0.5">TOP</span>
-          </motion.div>
-        </motion.a>
+            {/* Animated Purple Pulse Ring */}
+            <span className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping pointer-events-none" />
+            
+            <motion.div
+              animate={isLaunchingTop ? { y: [-2, -40, 40, 0], opacity: [1, 0, 0, 1] } : {}}
+              transition={{ duration: 0.65, ease: "easeInOut" }}
+              className="flex flex-col items-center justify-center"
+            >
+              <ArrowUp className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white group-hover:-translate-y-0.5 transition-transform duration-200 ease-out" />
+              <span className="text-[6.5px] sm:text-[8px] font-mono font-black tracking-widest text-purple-100 uppercase -mt-0.5 hidden sm:block">TOP</span>
+            </motion.div>
+          </motion.a>
+        </div>
       </div>
     </section>
   );

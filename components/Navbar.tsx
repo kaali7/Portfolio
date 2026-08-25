@@ -68,13 +68,13 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`sticky top-0 z-40 transition-colors duration-200 overflow-hidden border-b border-transparent ${
+      className={`sticky top-0 z-40 transition-colors duration-200 overflow-visible md:overflow-hidden border-b border-transparent ${
         isDark
           ? "bg-transparent backdrop-blur-md"
           : "bg-white/90 backdrop-blur-xl"
       }`}
     >
-      {/* Interactive Cursor Light Spotlight Layer */}
+      {/* Interactive Cursor Light Spotlight Layer (Desktop Only) */}
       <motion.div
         className="absolute inset-0 pointer-events-none z-0 hidden md:block"
         style={{
@@ -83,7 +83,7 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
       />
 
       {/* Main Navbar Bar (Spacious Layout: py-4 sm:py-5 lg:py-6) */}
-      <div className="relative z-10 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-4 sm:py-5 lg:py-6 flex justify-between items-center">
+      <div className="relative z-10 w-full mx-auto px-5 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-3.5 sm:py-5 lg:py-6 flex justify-between items-center">
         
         {/* Brand Logo Signature (Enlarged text-3xl sm:text-4xl) */}
         <Link
@@ -150,16 +150,42 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
             <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-300" />
           </Link>
 
-          {/* Mobile Hamburger Button */}
-          <button
+          {/* Cyberpunk Morphing Animated Hamburger Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2.5 rounded-xl focus:outline-none transition-colors ${
-              isDark ? "text-white/90 hover:text-white hover:bg-white/10" : "text-slate-800 hover:text-purple-600 hover:bg-slate-100"
+            className={`md:hidden relative w-10 h-10 rounded-xl flex flex-col items-center justify-center gap-1.5 focus:outline-none transition-all duration-300 overflow-hidden cursor-pointer group shadow-lg ${
+              isDark 
+                ? "bg-[#0B0C10]/90 border border-purple-500/30 hover:border-purple-400/70 text-white shadow-[0_4px_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]" 
+                : "bg-white/90 border border-purple-300 text-slate-900 shadow-md hover:border-purple-500"
             }`}
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            {/* Ambient Radial Hover Flare */}
+            <span className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+            {/* Line 1 (Top) */}
+            <motion.span
+              animate={mobileMenuOpen ? { rotate: 45, y: 8, width: 20 } : { rotate: 0, y: 0, width: 20 }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+              className="h-[2px] rounded-full bg-gradient-to-r from-purple-400 via-white to-purple-300 origin-center"
+            />
+
+            {/* Line 2 (Middle with Asymmetrical Tech Stagger) */}
+            <motion.span
+              animate={mobileMenuOpen ? { opacity: 0, x: -12, scale: 0 } : { opacity: 1, x: 0, scale: 1, width: 14 }}
+              transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+              className="h-[2px] rounded-full bg-purple-400 self-end mr-2.5 origin-center shadow-[0_0_8px_rgba(168,85,247,0.8)]"
+            />
+
+            {/* Line 3 (Bottom) */}
+            <motion.span
+              animate={mobileMenuOpen ? { rotate: -45, y: -8, width: 20 } : { rotate: 0, y: 0, width: 20 }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+              className="h-[2px] rounded-full bg-gradient-to-r from-white via-purple-300 to-purple-400 origin-center"
+            />
+          </motion.button>
         </div>
       </div>
 
