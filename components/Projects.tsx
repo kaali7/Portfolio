@@ -98,7 +98,7 @@ export function Projects() {
   return (
     <section 
       id="projects" 
-      className="w-full min-h-full min-h-screen bg-white text-[#08080A] flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-14 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_60px_rgba(0,0,0,0.18)] border-t border-slate-200/80 relative z-20 overflow-hidden"
+      className="w-full min-h-full min-h-screen bg-white text-[#08080A] flex flex-col justify-start px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-6 xs:pt-8 sm:pt-10 lg:pt-12 pb-8 xs:pb-10 sm:pb-14 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_60px_rgba(0,0,0,0.18)] border-t border-slate-200/80 relative z-20 overflow-hidden"
     >
       <div className="w-full mx-auto relative">
         
@@ -108,7 +108,7 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-200/80"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-3 xs:mb-4 sm:mb-6 pb-2.5 xs:pb-3 sm:pb-4 border-b border-slate-200/80"
         >
           <div>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#08080A] leading-tight">
@@ -123,7 +123,7 @@ export function Projects() {
           {/* Mobile Project Selector Tabs (< lg) - Auto-scrolls with active project */}
           <div 
             ref={tabsContainerRef}
-            className="flex lg:hidden items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-2 w-full scroll-smooth"
+            className="flex lg:hidden items-center gap-1.5 xs:gap-2 overflow-x-auto no-scrollbar px-1 pb-3 mb-2 w-full scroll-smooth"
           >
             {projects.map((project, i) => {
               const isActive = i === activeIndex;
@@ -132,13 +132,13 @@ export function Projects() {
                   key={project.id}
                   ref={(el) => { tabRefs.current[i] = el; }}
                   onClick={() => setActiveIdx(i)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
+                  className={`px-2.5 xs:px-3 py-1 xs:py-1.5 rounded-full text-[11px] xs:text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-1 xs:gap-1.5 flex-shrink-0 active:scale-95 ${
                     isActive
                       ? "bg-purple-600 text-white shadow-md shadow-purple-950/40 ring-1 ring-purple-400/50 scale-[1.02]"
                       : "bg-[#0B0C10] text-slate-300 border border-slate-700/60 hover:border-purple-400/40"
                   }`}
                 >
-                  <span className="text-[10px] text-purple-300 opacity-80">{`0${i + 1}`}</span>
+                  <span className="text-[9.5px] xs:text-[10px] text-purple-300 opacity-80">{`0${i + 1}`}</span>
                   <span>{project.title}</span>
                 </button>
               );
@@ -148,7 +148,7 @@ export function Projects() {
             <button
               ref={(el) => { tabRefs.current[4] = el; }}
               onClick={() => setActiveIdx(4)}
-              className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
+              className={`px-2.5 xs:px-3 py-1 xs:py-1.5 rounded-full text-[11px] xs:text-xs font-mono font-bold tracking-wider whitespace-nowrap transition-all flex items-center gap-1 xs:gap-1.5 flex-shrink-0 active:scale-95 ${
                 activeIndex === 4
                   ? "bg-purple-600 text-white shadow-md shadow-purple-950/40 ring-1 ring-purple-400/50 scale-[1.02]"
                   : "bg-[#0B0C10] text-purple-300 border border-purple-500/50 hover:border-purple-400"
@@ -162,7 +162,7 @@ export function Projects() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 w-full items-start">
             
             {/* LEFT SIDE: MAIN SPOTLIGHT SCREEN */}
-            <div className="lg:col-span-8 xl:col-span-8 w-full h-full min-h-[460px] relative group/spotlight">
+            <div className="lg:col-span-8 xl:col-span-8 w-full h-full min-h-[400px] xs:min-h-[440px] sm:min-h-[460px] xl:min-h-[500px] 3xl:min-h-[560px] relative group/spotlight">
               
               <AnimatePresence mode="wait">
                 {isMoreCard ? (
@@ -185,7 +185,7 @@ export function Projects() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.97, y: -10 }}
                     transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-                    className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.8)] flex flex-col items-center justify-center text-center overflow-hidden relative z-30 min-h-[460px] touch-pan-y cursor-grab active:cursor-grabbing"
+                    className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-5 xs:p-6 sm:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.8)] flex flex-col items-center justify-center text-center overflow-hidden relative z-30 min-h-[400px] xs:min-h-[440px] sm:min-h-[460px] xl:min-h-[500px] 3xl:min-h-[560px] touch-pan-y cursor-grab active:cursor-grabbing"
                   >
                     {/* Floating Previous Switch Button */}
                     <button
@@ -253,7 +253,7 @@ export function Projects() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.97, y: -10 }}
                     transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-                    className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-4 sm:p-6 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[460px] touch-pan-y cursor-grab active:cursor-grabbing"
+                    className="w-full h-full bg-[#08080C] text-white border border-slate-800/80 rounded-3xl p-3.5 xs:p-4 sm:p-6 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col justify-between overflow-hidden relative z-30 min-h-[400px] xs:min-h-[440px] sm:min-h-[460px] xl:min-h-[500px] 3xl:min-h-[560px] touch-pan-y cursor-grab active:cursor-grabbing"
                   >
                     {/* Floating Previous Switch Button (Centered over Media Window at top-[32%]) */}
                     <button

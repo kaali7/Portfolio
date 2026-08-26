@@ -83,12 +83,12 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
       />
 
       {/* Main Navbar Bar (Spacious Layout: py-4 sm:py-5 lg:py-6) */}
-      <div className="relative z-10 w-full mx-auto px-5 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 py-3.5 sm:py-5 lg:py-6 flex justify-between items-center">
+      <div className="relative z-10 w-full mx-auto px-3.5 xs:px-5 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 py-3 xs:py-3.5 sm:py-5 lg:py-6 flex justify-between items-center">
         
-        {/* Brand Logo Signature (Enlarged text-3xl sm:text-4xl) */}
+        {/* Brand Logo Signature (Responsive text-2xl xs:text-3xl sm:text-4xl) */}
         <Link
           href="/"
-          className={`font-signature text-3xl sm:text-4xl transition-all duration-300 hover:scale-105 ${
+          className={`font-signature text-2xl xs:text-3xl sm:text-4xl transition-all duration-300 hover:scale-105 ${
             isDark
               ? "text-white font-normal drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] hover:text-purple-300"
               : "text-[#08080A] font-normal hover:text-purple-600"
@@ -138,7 +138,7 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className={`relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-mono font-bold tracking-wider rounded-full transition-all duration-300 hidden sm:inline-flex items-center gap-2 group/btn shadow-md ${
+            className={`relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-mono font-bold tracking-wider rounded-full transition-all duration-300 hidden md:inline-flex items-center gap-2 group/btn shadow-md ${
               isDark
                 ? "text-[#08080A] bg-white border border-white/40 hover:bg-purple-600 hover:text-white hover:border-purple-400 hover:shadow-[0_0_30px_rgba(168,85,247,0.7)] hover:scale-105 active:scale-95"
                 : "text-white bg-[#08080A] hover:bg-purple-600 hover:shadow-[0_8px_25px_rgba(147,51,234,0.4)] hover:scale-105 active:scale-95"

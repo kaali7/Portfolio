@@ -329,7 +329,7 @@ export function Skills() {
     <section
       id="skills"
       onMouseLeave={() => setActiveDomainId("ds")}
-      className="w-full min-h-full min-h-screen bg-[#08080A] text-white flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 pb-8 sm:pb-10 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
+      className="w-full min-h-full min-h-screen bg-[#08080A] text-white flex flex-col justify-start px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-5 xs:pt-6 sm:pt-8 pb-6 xs:pb-8 sm:pb-10 rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-[0_-25px_70px_rgba(0,0,0,0.8)] border-t border-purple-500/40 relative z-30 overflow-hidden select-none"
     >
       <motion.div
         animate={
@@ -351,7 +351,7 @@ export function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.3, ease: EASE_OUT_EXPRESSIVE }}
-          className="mt-1 sm:mt-2 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-white/10 flex flex-col md:flex-row justify-between items-start md:items-end"
+          className="mt-0.5 xs:mt-1 sm:mt-2 mb-3 xs:mb-4 sm:mb-6 pb-2.5 xs:pb-3 sm:pb-4 border-b border-white/10 flex flex-col md:flex-row justify-between items-start md:items-end"
         >
           <div>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
@@ -362,7 +362,7 @@ export function Skills() {
 
         <div
           ref={containerRef}
-          className="hidden lg:block relative w-full h-[640px] my-2 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
+          className="hidden lg:block relative w-full h-[580px] xl:h-[640px] 2xl:h-[700px] 3xl:h-[780px] my-2 rounded-3xl bg-[#050508]/80 border border-white/5 backdrop-blur-md overflow-hidden"
         >
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e0f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e0f_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 

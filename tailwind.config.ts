@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+        "3xl": "1600px",
+      },
       colors: {
         background: "#FDFDFD", // Clean off-white
         foreground: "#111111", // Deep off-black

@@ -48,7 +48,7 @@ function CredentialPreviewButton({ certificate, role, company }: { certificate: 
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 4 }}
             transition={{ type: "spring", stiffness: 380, damping: 26 }}
-            className="absolute bottom-full right-0 mb-3 w-80 sm:w-96 md:w-[420px] bg-[#0c0c11] text-white border border-slate-800 rounded-2xl p-4 shadow-2xl z-50 pointer-events-auto"
+            className="absolute bottom-full right-0 mb-3 w-72 xs:w-80 sm:w-96 md:w-[420px] max-w-[calc(100vw-2rem)] bg-[#0c0c11] text-white border border-slate-800 rounded-2xl p-4 shadow-2xl z-50 pointer-events-auto"
           >
             <div className="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
               <span className="text-[10px] font-mono font-bold text-purple-300 uppercase tracking-wider flex items-center gap-1.5">
@@ -155,7 +155,7 @@ export default function AboutPage() {
       <Navbar variant="light" currentRoute="about" />
 
       {/* Editorial Hero Section */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-12 pb-10 sm:pb-12 relative">
+      <section className="w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-6 xs:pt-8 sm:pt-12 pb-8 xs:pb-10 sm:pb-12 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -163,7 +163,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-8"
           >
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#08080A] leading-[1.08]">
+            <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#08080A] leading-[1.08]">
               Architecting <span className="font-light italic text-purple-600">Generative AI</span> & Data Intelligence
             </h1>
 
@@ -233,7 +233,7 @@ export default function AboutPage() {
       </section>
 
       {/* Technical Competencies Bento Grid */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-4 pb-12 relative z-10">
+      <section className="w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-4 pb-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -332,7 +332,7 @@ export default function AboutPage() {
       </section>
 
       {/* Career Milestones Section */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-4 pb-16 relative z-10">
+      <section className="w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-4 pb-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -36,3 +36,13 @@
 ## 6. Strict Mobile-Only Scoping Rule
 - **Mobile-Scoped Adjustments**: When tasked with fixing, improving, or redesigning mobile UI/UX or responsive views, all styling and layout changes MUST be scoped strictly to mobile/tablet breakpoints (`< 768px` / `< 640px` via Tailwind responsive modifiers like `max-md:`, `sm:`, `md:`, `lg:`, `hidden md:block`, `block md:hidden`).
 - **Desktop Integrity Guarantee**: The desktop layout, desktop visual structure, desktop typography, 3D HUD widgets, cursor spotlight physics, and desktop interactions MUST remain 100% untouched, uncompromised, and intact. Under no circumstances should desktop styling or behavior be altered or regressed when resolving mobile issues.
+
+## 7. Developer Identity & Verified Profiles
+- **Developer Name:** Ashwini Prajapati
+- **Email:** ashwiniprajapati411@gmail.com
+- **GitHub:** https://github.com/kaali7 (`@kaali7`)
+- **LinkedIn:** https://www.linkedin.com/in/ashwini369
+- **Hugging Face:** https://huggingface.co/kali369 (`@kali369`)
+- **X (Twitter):** https://x.com/ashwinik369 (`@ashwinik369`)
+- **Kaggle:** https://www.kaggle.com/kali79 (`@kali79`)
+

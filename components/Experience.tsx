@@ -160,7 +160,7 @@ export function Experience() {
   return (
     <section 
       id="experience" 
-      className="w-full min-h-full min-h-screen bg-white text-[#08080A] flex flex-col justify-start px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-6 sm:pt-8 pb-12 sm:pb-16 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-25px_80px_rgba(0,0,0,0.16)] border-t border-slate-200 relative z-30 overflow-y-auto no-scrollbar"
+      className="w-full min-h-full min-h-screen bg-white text-[#08080A] flex flex-col justify-start px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-5 xs:pt-6 sm:pt-8 pb-8 xs:pb-12 sm:pb-16 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-25px_80px_rgba(0,0,0,0.16)] border-t border-slate-200 relative z-30 overflow-y-auto no-scrollbar"
     >
       {/* Background Decorative Grid Lines */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
@@ -168,7 +168,7 @@ export function Experience() {
       <div className="w-full mx-auto relative z-10">
         
         {/* Compact Clean Section Header */}
-        <div className="flex items-center justify-between gap-4 pb-3 border-b border-slate-200 mb-4 sm:mb-5">
+        <div className="flex items-center justify-between gap-4 pb-2.5 xs:pb-3 border-b border-slate-200 mb-3 xs:mb-4 sm:mb-5">
           <h2 className="text-xl sm:text-3xl lg:text-4xl font-light tracking-tight text-[#08080A] leading-none">
             Work <span className="font-black italic text-purple-600">Experience</span> & Impact
           </h2>

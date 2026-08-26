@@ -57,24 +57,24 @@ export default function WorkPage() {
       <Navbar variant="light" currentRoute="work" />
 
       {/* Hero Header Section */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pt-8 sm:pt-12 pb-6 sm:pb-8 relative">
+      <section className="w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-6 xs:pt-8 sm:pt-12 pb-5 xs:pb-6 sm:pb-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-6 sm:pb-8 border-b border-slate-200/90 gap-6"
+          className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-5 xs:pb-6 sm:pb-8 border-b border-slate-200/90 gap-5 xs:gap-6"
         >
           <div className="max-w-2xl">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black tracking-tight text-[#08080A] leading-[1.15]">
+            <h1 className="text-2xl xs:text-3xl md:text-4xl lg:text-[40px] font-black tracking-tight text-[#08080A] leading-[1.15]">
               Engineered <span className="font-light italic text-purple-600">Models</span> <br className="hidden sm:inline" />& Autonomous Systems
             </h1>
-            <p className="text-slate-600 text-xs sm:text-sm mt-2.5 max-w-xl leading-relaxed font-normal">
+            <p className="text-slate-600 text-xs sm:text-sm mt-2 xs:mt-2.5 max-w-xl leading-relaxed font-normal">
               An architectural index of real-time multi-agent reasoning graphs, high-frequency temporal predictors, vector RAG intelligence networks, and INT8 edge vision engines.
             </p>
           </div>
 
           {/* Right Hero Visual Area: Mascot + Metrics Box */}
-          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center lg:items-end xl:items-center gap-4 sm:gap-6 self-stretch lg:self-auto">
+          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center lg:items-end xl:items-center gap-3.5 sm:gap-6 self-stretch lg:self-auto">
             {/* AI Robot Avatar Mascot */}
             <div className="flex-shrink-0">
               <RobotAvatar mouseX={mouseX} mouseY={mouseY} speechText="HELLO!" size="lg" />
@@ -102,7 +102,7 @@ export default function WorkPage() {
       </section>
 
       {/* Filter Bar & Search Container */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pb-6 sm:pb-8 relative z-10">
+      <section className="w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pb-5 xs:pb-6 sm:pb-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -110,14 +110,14 @@ export default function WorkPage() {
           className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5 bg-slate-50/90 border border-slate-200/90 rounded-2xl p-2.5 sm:p-3 shadow-xs"
         >
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1 xs:gap-1.5">
             {categories.map((cat) => {
               const isSelected = selectedCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`text-[11px] font-mono font-bold tracking-wider px-3 py-1.5 rounded-full transition-all cursor-pointer ${
+                  className={`text-[10px] xs:text-[11px] font-mono font-bold tracking-wider px-2.5 xs:px-3 py-1 xs:py-1.5 rounded-full transition-all cursor-pointer ${
                     isSelected
                       ? "bg-purple-600 text-white shadow-sm shadow-purple-600/25 scale-[1.02]"
                       : "bg-white text-slate-700 hover:bg-[#08080A] hover:text-white border border-slate-200/90"
@@ -152,7 +152,7 @@ export default function WorkPage() {
       </section>
 
       {/* Projects Asymmetrical Bento Grid */}
-      <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 pb-16 relative z-10">
+      <section className="w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pb-16 relative z-10">
         <AnimatePresence mode="wait">
           {filteredProjects.length === 0 ? (
             <motion.div

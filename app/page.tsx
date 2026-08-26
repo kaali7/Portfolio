@@ -79,36 +79,36 @@ export default function Home() {
   return (
     <SmoothScroll>
       <main ref={containerRef} className="relative bg-[#08080A] min-h-screen">
-        {/* Slide 0: Hero Wrapper (180vh total scroll travel) */}
-        <div className="hero-wrapper relative h-[180vh] z-0">
-          <div className="hero-slide sticky top-0 h-[100vh] w-full overflow-hidden">
+        {/* Slide 0: Hero Wrapper (140vh mobile / 180vh desktop total scroll travel) */}
+        <div className="hero-wrapper relative h-[140vh] sm:h-[180vh] z-0">
+          <div className="hero-slide sticky top-0 h-[100dvh] w-full overflow-hidden">
             <Hero />
           </div>
         </div>
         
-        {/* Slide 1: Projects Wrapper (180vh total scroll travel) */}
-        <div className="projects-wrapper relative h-[180vh] z-10">
-          <div className="projects-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-white no-scrollbar">
+        {/* Slide 1: Projects Wrapper (140vh mobile / 180vh desktop total scroll travel) */}
+        <div className="projects-wrapper relative h-[140vh] sm:h-[180vh] z-10">
+          <div className="projects-slide sticky top-0 h-[100dvh] w-full overflow-y-auto overflow-x-hidden bg-white no-scrollbar">
             <Projects />
           </div>
         </div>
 
-        {/* Slide 2: Skills Wrapper (180vh total scroll travel) */}
-        <div className="skills-wrapper relative h-[180vh] z-20">
-          <div className="skills-slide sticky top-0 h-[100vh] w-full overflow-hidden bg-[#08080A]">
+        {/* Slide 2: Skills Wrapper (140vh mobile / 180vh desktop total scroll travel) */}
+        <div className="skills-wrapper relative h-[140vh] sm:h-[180vh] z-20">
+          <div className="skills-slide sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#08080A]">
             <Skills />
           </div>
         </div>
 
-        {/* Slide 3: Experience Wrapper (180vh total scroll travel) */}
-        <div className="experience-wrapper relative h-[180vh] z-30">
-          <div className="experience-slide sticky top-0 h-[100vh] w-full overflow-y-auto overflow-x-hidden bg-white no-scrollbar">
+        {/* Slide 3: Experience Wrapper (140vh mobile / 180vh desktop total scroll travel) */}
+        <div className="experience-wrapper relative h-[140vh] sm:h-[180vh] z-30">
+          <div className="experience-slide sticky top-0 h-[100dvh] w-full overflow-y-auto overflow-x-hidden bg-white no-scrollbar">
             <Experience />
           </div>
         </div>
 
         {/* Slide 4: Contact Wrapper */}
-        <div className="contact-wrapper relative z-40 bg-[#08080A] min-h-[100vh]">
+        <div className="contact-wrapper relative z-40 bg-[#08080A] min-h-[100dvh]">
           <div className="contact-slide relative w-full">
             <Contact />
           </div>

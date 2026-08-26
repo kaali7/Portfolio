@@ -59,7 +59,7 @@ export function HeroHudCard() {
       style={{
         perspective: 1000,
       }}
-      className="absolute top-[15%] sm:top-[17%] lg:top-[19%] left-[3%] sm:left-[5%] lg:left-[6%] z-30 w-[290px] sm:w-[325px] lg:w-[350px] pointer-events-auto group hidden sm:block select-none"
+      className="absolute top-[15%] md:top-[17%] lg:top-[19%] left-[3%] md:left-[5%] lg:left-[6%] z-30 w-[290px] md:w-[325px] lg:w-[350px] 2xl:w-[380px] 3xl:w-[420px] pointer-events-auto group hidden md:block select-none"
     >
       {/* 3D Tilted Card Body */}
       <motion.div

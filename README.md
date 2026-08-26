@@ -96,8 +96,8 @@ portfolio/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/ashwini-prajapati/portfolio.git
-   cd portfolio
+   git clone https://github.com/kaali7/Portfolio.git
+   cd Portfolio
    ```
 
 2. **Install dependencies**:
@@ -121,11 +121,12 @@ portfolio/
 ## 🌐 Connect & Socials
 
 - **Live Web App**: [https://portfolio-gules-seven-73.vercel.app/](https://portfolio-gules-seven-73.vercel.app/)
-- **GitHub**: [@ashwini-prajapati](https://github.com/ashwini-prajapati)
-- **LinkedIn**: [Ashwini Prajapati](https://linkedin.com/in/ashwini-prajapati)
-- **Hugging Face**: [@ashwini-prajapati](https://huggingface.co/ashwini-prajapati)
-- **Kaggle**: [@ashwiniprajapati](https://kaggle.com/ashwiniprajapati)
-- **Twitter / X**: [@ashwini_ai](https://twitter.com/ashwini_ai)
+- **Email**: [ashwiniprajapati411@gmail.com](mailto:ashwiniprajapati411@gmail.com)
+- **GitHub**: [@kaali7](https://github.com/kaali7)
+- **LinkedIn**: [Ashwini Prajapati](https://www.linkedin.com/in/ashwini369)
+- **Hugging Face**: [@kali369](https://huggingface.co/kali369)
+- **Kaggle**: [@kali79](https://www.kaggle.com/kali79)
+- **Twitter / X**: [@ashwinik369](https://x.com/ashwinik369)
 
 ---
 

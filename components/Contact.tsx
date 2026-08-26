@@ -228,7 +228,7 @@ export function Contact() {
 
   // 1-Click Email Copy Handler
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("ashwini@ai-architect.io");
+    navigator.clipboard.writeText("ashwiniprajapati411@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -406,8 +406,8 @@ export function Contact() {
   const SOCIAL_PLATFORMS = [
     {
       name: "GitHub",
-      handle: "@ashwini-prajapati",
-      url: "https://github.com/ashwini-prajapati",
+      handle: "@kaali7",
+      url: "https://github.com/kaali7",
       color: "from-purple-500/15 to-purple-900/10",
       borderColor: "group-hover/tile:border-purple-400/60",
       iconColor: "text-purple-300",
@@ -421,7 +421,7 @@ export function Contact() {
     {
       name: "LinkedIn",
       handle: "Ashwini Prajapati",
-      url: "https://linkedin.com/in/ashwini-prajapati",
+      url: "https://www.linkedin.com/in/ashwini369",
       color: "from-blue-500/15 to-indigo-900/10",
       borderColor: "group-hover/tile:border-blue-400/60",
       iconColor: "text-blue-400",
@@ -434,8 +434,8 @@ export function Contact() {
     },
     {
       name: "Hugging Face",
-      handle: "@ashwini-prajapati",
-      url: "https://huggingface.co/ashwini-prajapati",
+      handle: "@kali369",
+      url: "https://huggingface.co/kali369",
       color: "from-amber-500/15 to-amber-900/10",
       borderColor: "group-hover/tile:border-amber-400/60",
       iconColor: "text-amber-300",
@@ -448,8 +448,8 @@ export function Contact() {
     },
     {
       name: "Kaggle",
-      handle: "@ashwiniprajapati",
-      url: "https://kaggle.com/ashwiniprajapati",
+      handle: "@kali79",
+      url: "https://www.kaggle.com/kali79",
       color: "from-cyan-500/15 to-blue-900/10",
       borderColor: "group-hover/tile:border-cyan-400/60",
       iconColor: "text-cyan-300",
@@ -462,8 +462,8 @@ export function Contact() {
     },
     {
       name: "Twitter / X",
-      handle: "@ashwini_ai",
-      url: "https://twitter.com/ashwini_ai",
+      handle: "@ashwinik369",
+      url: "https://x.com/ashwinik369",
       color: "from-slate-500/15 to-slate-900/10",
       borderColor: "group-hover/tile:border-slate-400/60",
       iconColor: "text-slate-300",
@@ -482,7 +482,7 @@ export function Contact() {
       id="contact" 
       onMouseMove={handleSectionMouseMove}
       onMouseLeave={handleSectionMouseLeave}
-      className="w-full h-auto lg:h-[100vh] lg:min-h-0 bg-[#060608] text-white flex flex-col justify-between px-4 sm:px-8 lg:px-20 xl:px-28 2xl:px-36 pt-4 sm:pt-7 lg:pt-10 pb-4 sm:pb-6 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-30px_90px_rgba(0,0,0,0.85)] border-t border-purple-500/30 relative z-30 overflow-hidden"
+      className="w-full h-auto lg:min-h-[100dvh] bg-[#060608] text-white flex flex-col justify-between px-3 xs:px-4 sm:px-8 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 pt-3.5 xs:pt-4 sm:pt-7 lg:pt-10 pb-4 sm:pb-6 rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4rem] shadow-[0_-30px_90px_rgba(0,0,0,0.85)] border-t border-purple-500/30 relative z-30 overflow-hidden"
     >
       {/* Background Neural Particle Canvas */}
       <canvas 
@@ -575,8 +575,8 @@ export function Contact() {
               <div className="bg-[#060608] border border-white/15 group-hover:border-purple-500/40 rounded-xl p-2.5 sm:p-4 lg:p-5 flex items-center justify-between gap-2 sm:gap-3 relative z-10 transition-colors my-1 lg:my-auto shadow-inner">
                 <div className="flex items-center gap-2 sm:gap-3 pl-0.5 sm:pl-1 min-w-0">
                   <Mail className="w-4.5 h-4.5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-purple-400 flex-shrink-0" />
-                  <span className="text-xs sm:text-lg lg:text-2xl font-mono text-slate-100 font-bold truncate select-all tracking-tight">
-                    ashwini@ai-architect.io
+                  <span className="text-[10px] xs:text-xs sm:text-base md:text-lg lg:text-2xl font-mono text-slate-100 font-bold truncate select-all tracking-tight">
+                    ashwiniprajapati411@gmail.com
                   </span>
                 </div>
 

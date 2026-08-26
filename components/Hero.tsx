@@ -192,7 +192,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="relative w-[280px] h-[380px] sm:w-[380px] sm:h-[490px] md:w-[460px] md:h-[580px] lg:w-[540px] lg:h-[680px] xl:w-[620px] xl:h-[760px] flex-shrink-0 -mb-1 sm:-mb-2"
+          className="relative w-[240px] h-[330px] xs:w-[280px] xs:h-[380px] sm:w-[380px] sm:h-[490px] md:w-[460px] md:h-[580px] lg:w-[540px] lg:h-[680px] xl:w-[620px] xl:h-[760px] 3xl:w-[700px] 3xl:h-[840px] flex-shrink-0 -mb-1 sm:-mb-2"
         >
           <Image
             src="/me.png"
@@ -214,7 +214,7 @@ export function Hero() {
           maskImage: maskStyle,
         }}
       >
-        <div className="relative w-[280px] h-[380px] sm:w-[380px] sm:h-[490px] md:w-[460px] md:h-[580px] lg:w-[540px] lg:h-[680px] xl:w-[620px] xl:h-[760px] flex-shrink-0 -mb-1 sm:-mb-2 scale-[1.05] origin-center">
+        <div className="relative w-[240px] h-[330px] xs:w-[280px] xs:h-[380px] sm:w-[380px] sm:h-[490px] md:w-[460px] md:h-[580px] lg:w-[540px] lg:h-[680px] xl:w-[620px] xl:h-[760px] 3xl:w-[700px] 3xl:h-[840px] flex-shrink-0 -mb-1 sm:-mb-2 scale-[1.05] origin-center">
           <Image
             src="/me.png"
             alt="Ashwini Portrait Magnified"
@@ -231,7 +231,7 @@ export function Hero() {
       <HeroHudCard />
 
       {/* Main Hero Body Container - Desktop (hidden on mobile) */}
-      <div className="relative z-20 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 hidden md:flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
+      <div className="relative z-20 w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 flex-1 hidden md:flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] pointer-events-none">
 
         {/* LEFT HUD CONTENT: Name Heading (Bottom Left) */}
         <motion.div 
@@ -261,7 +261,7 @@ export function Hero() {
           maskImage: maskStyle,
         }}
       >
-        <div className="relative z-35 w-full mx-auto px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] h-full">
+        <div className="relative z-35 w-full mx-auto px-4 xs:px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36 3xl:px-44 flex-1 flex flex-col lg:flex-row items-center justify-between pt-2 pb-0 sm:py-0 min-h-[calc(100dvh-120px)] h-full">
           <div className="relative flex flex-col items-start text-left w-full lg:w-auto mb-3 sm:mb-6 lg:mb-8 lg:self-end -ml-1 sm:-ml-3 lg:-ml-4 scale-[1.04] origin-bottom-left">
             <h2 className="flex flex-col items-start font-black tracking-tighter uppercase leading-[0.86] select-none drop-shadow-[0_0_35px_rgba(192,132,252,0.9)]">
               <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-widest text-purple-300 mb-1">
@@ -276,7 +276,7 @@ export function Hero() {
       </motion.div>
 
       {/* Bespoke Mobile Hero Experience (< 768px) */}
-      <div className="relative z-25 w-full flex-1 flex flex-col justify-between px-5 pt-1 pb-6 md:hidden pointer-events-auto">
+      <div className="relative z-25 w-full flex-1 flex flex-col justify-between px-4 xs:px-5 pt-1 pb-4 xs:pb-6 md:hidden pointer-events-auto">
         {/* Top Mobile Row: System Status Pill & Integrated Tap-to-Talk Robot Mascot */}
         <div className="flex items-center justify-between w-full z-30 pt-0.5 mb-2">
           <motion.div 
@@ -287,7 +287,7 @@ export function Hero() {
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.9)]" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(168,85,247,0.9)]" />
             </span>
             <span className="text-[10px] font-mono font-bold text-emerald-400 tracking-wider">
               SYS.ONLINE // 12ms
@@ -316,13 +316,13 @@ export function Hero() {
           <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-purple-300 bg-purple-950/50 border border-purple-500/30 px-2.5 py-0.5 rounded-md inline-block mb-1.5 shadow-sm">
             AI & DATA SCIENTIST
           </span>
-          <h1 className="text-[38px] xs:text-[44px] font-black uppercase tracking-tight text-white leading-[0.88] drop-shadow-[0_12px_30px_rgba(0,0,0,0.9)] select-none">
+          <h1 className="text-[32px] xs:text-[40px] sm:text-[44px] font-black uppercase tracking-tight text-white leading-[0.88] drop-shadow-[0_12px_30px_rgba(0,0,0,0.9)] select-none">
             <span className="block text-[11px] font-mono font-bold tracking-widest text-slate-400 mb-0.5">I AM</span>
             <span className="bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
               {name}
             </span>
           </h1>
-          <p className="text-[11.5px] text-slate-300 font-normal leading-relaxed mt-2 max-w-[270px]">
+          <p className="text-[11px] xs:text-[11.5px] text-slate-300 font-normal leading-relaxed mt-2 max-w-[240px] xs:max-w-[270px]">
             Architecting Autonomous AI Agents, Production LLM Pipelines & Deep Learning Systems.
           </p>
         </motion.div>

@@ -52,7 +52,7 @@
 ## 🧩 Shared Core Components
 
 ### `components/Contact.tsx`
-- Neural particle gravity canvas, 1-click email copy with prominent typography, centered enlarged robot avatar with mouse eye-tracking & typing balloon, 5-card social bento grid (GitHub, LinkedIn, Hugging Face, Kaggle, Twitter/X) with enlarged brand icons, glassmorphic sub-footer nav bar (`HOME` • `ABOUT` • `WORK`), and rocket back-to-top launch physics.
+- Neural particle gravity canvas, 1-click email copy card (`ashwiniprajapati411@gmail.com`) with prominent typography, centered enlarged robot avatar with mouse eye-tracking & typing balloon, 5-card social bento grid (GitHub `@kaali7`, LinkedIn `ashwini369`, Hugging Face `@kali369`, Kaggle `@kali79`, Twitter/X `@ashwinik369`) with enlarged brand icons, glassmorphic sub-footer nav bar (`HOME` • `ABOUT` • `WORK`), and rocket back-to-top launch physics.
 
 ### `components/TechIcon.tsx`
 - Standardized brand logos via `simple-icons` and UI/conceptual tags via `lucide-react`. Strictly zero raw emojis.
@@ -67,6 +67,7 @@
 
 ## 🚀 System Status & Documentation
 - **Build Status**: 100% clean production build (`npm run build` static generation 6/6).
-- **Layout & Scaling**: Full-bleed responsive view with generous, balanced side margins/gutters (`px-6 sm:px-10 lg:px-20 xl:px-28 2xl:px-36`) across all landing sections and detail pages.
-- **Documentation**: Updated `doc/current.md` and `README.md` following guidelines in `doc/rule.md`.
+- **Layout & Scaling**: Multi-breakpoint responsive grid system (`xs` 375px, `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px, `3xl` 1600px+) across all landing sections, interactive widgets, modal overlays, and sub-pages.
+- **Verified Identity**: Real developer email (`ashwiniprajapati411@gmail.com`), handles & profile links integrated across `doc/rule.md`, `components/Contact.tsx`, and `README.md`.
+- **Documentation**: Updated `doc/current.md`, `doc/rule.md`, and `README.md` following guidelines in `doc/rule.md`.
 - **Git Branch**: `main`.
