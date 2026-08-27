@@ -493,35 +493,37 @@ export function Experience() {
                     </div>
                   </div>
 
-                  {/* Tech Chips & Action Button Footer */}
-                  <div className="relative z-10 pt-2.5 border-t border-current/10 flex items-center justify-between flex-wrap gap-2 mt-1">
-                    <div className="flex flex-wrap gap-1">
+                  {/* Tech Chips (Left) & Action Button (Right) Footer */}
+                  <div className="relative z-10 pt-3 border-t border-current/10 flex items-center justify-between gap-3 mt-auto">
+                    <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
                       {exp.tags.map((tag, tIdx) => (
                         <span 
                           key={tIdx}
-                          className={`text-[9px] font-mono px-2 py-0.5 rounded-md border font-medium flex items-center gap-1 ${
+                          className={`text-[9.5px] font-mono px-2 py-0.5 rounded-md border font-medium flex items-center gap-1.5 ${
                             isSelected 
                               ? "bg-slate-800 text-slate-200 border-slate-700" 
                               : "bg-white text-slate-800 border-slate-200 shadow-2xs"
                           }`}
                         >
-                          <TechIcon name={tag} className="w-2.5 h-2.5" />
+                          <TechIcon name={tag} className="w-3 h-3" />
                           <span>{tag}</span>
                         </span>
                       ))}
                     </div>
 
-                    <Link
-                      href={`/experience/${exp.id}`}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 shadow-xs cursor-pointer group/link ${
-                        isSelected
-                          ? "bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/30"
-                          : "bg-slate-900 hover:bg-purple-600 text-white"
-                      }`}
-                    >
-                      <span>EXPLORE DOSSIER</span>
-                      <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
-                    </Link>
+                    <div className="flex-shrink-0">
+                      <Link
+                        href={`/experience/${exp.id}`}
+                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-200 shadow-xs cursor-pointer group/link ${
+                          isSelected
+                            ? "bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/30"
+                            : "bg-slate-900 hover:bg-purple-600 text-white"
+                        }`}
+                      >
+                        <span>EXPLORE DOSSIER</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
                   </div>
 
                 </motion.div>
@@ -731,27 +733,29 @@ export function Experience() {
                   )}
                 </div>
 
-                {/* Tech Chips & Action Button */}
-                <div className="pt-2 border-t border-white/10 flex flex-col gap-2 z-10">
-                  <div className="flex flex-wrap gap-1">
+                {/* Tech Chips (Left) & Action Button (Right) Footer */}
+                <div className="pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 z-10">
+                  <div className="flex flex-wrap gap-1 flex-1">
                     {activeExperience.tags.map((tag, tIdx) => (
                       <span 
                         key={tIdx}
-                        className="text-[7.5px] font-mono px-1.5 py-0.5 rounded-md bg-white/10 border border-white/15 text-slate-200 font-medium flex items-center gap-1 shadow-2xs"
+                        className="text-[8px] font-mono px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-slate-200 font-medium flex items-center gap-1 shadow-2xs"
                       >
-                        <TechIcon name={tag} className="w-2 h-2 text-purple-300 opacity-90" />
+                        <TechIcon name={tag} className="w-2.5 h-2.5 text-purple-300 opacity-90" />
                         <span>{tag}</span>
                       </span>
                     ))}
                   </div>
 
-                  <Link
-                    href={`/experience/${activeExperience.id}`}
-                    className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-98 text-white rounded-xl text-[10.5px] font-mono font-bold tracking-wider shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <span>EXPLORE FULL DOSSIER</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
+                  <div className="w-full sm:w-auto flex-shrink-0">
+                    <Link
+                      href={`/experience/${activeExperience.id}`}
+                      className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-98 text-white rounded-full text-xs font-mono font-bold tracking-wider shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>EXPLORE DOSSIER</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
 
               </motion.div>
