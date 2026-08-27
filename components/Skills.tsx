@@ -450,7 +450,7 @@ export function Skills() {
 
           <div
             ref={centerPanelRef}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[330px] min-h-[285px] z-30 pointer-events-auto"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[370px] min-h-[300px] z-30 pointer-events-auto"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -459,31 +459,31 @@ export function Skills() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.2, ease: EASE_OUT_EXPRESSIVE }}
-                className="w-full h-full rounded-2xl bg-[#08080C] border border-purple-500/60 p-4 flex flex-col justify-between shadow-[0_0_50px_rgba(168,85,247,0.3)] relative overflow-hidden"
+                className="w-full h-full rounded-2xl bg-[#08080C] border border-purple-500/60 p-5 flex flex-col justify-between shadow-[0_0_50px_rgba(168,85,247,0.3)] relative overflow-hidden"
               >
-                <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-purple-400 opacity-60" />
-                <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-purple-400 opacity-60" />
-                <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-purple-400 opacity-60" />
-                <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-purple-400 opacity-60" />
+                <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t-2 border-l-2 border-purple-400 opacity-70" />
+                <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 border-t-2 border-r-2 border-purple-400 opacity-70" />
+                <div className="absolute bottom-1.5 left-1.5 w-2.5 h-2.5 border-b-2 border-l-2 border-purple-400 opacity-70" />
+                <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b-2 border-r-2 border-purple-400 opacity-70" />
 
                 <div>
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="text-[8.5px] font-mono font-bold text-purple-400 tracking-wider">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[10px] sm:text-[11px] font-mono font-bold text-purple-400 tracking-wider">
                       {activeDomain.num} // ARCHITECTURE
                     </span>
-                    <span className="text-[8.5px] font-mono text-slate-300 bg-purple-950/60 border border-purple-500/30 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] sm:text-[11px] font-mono font-bold text-purple-200 bg-purple-950/80 border border-purple-500/40 px-2.5 py-0.5 rounded-md shadow-2xs">
                       {activeDomain.metric}
                     </span>
                   </div>
-                  <h3 className="text-sm font-black text-white tracking-tight leading-tight mb-1">
+                  <h3 className="text-base sm:text-lg lg:text-xl font-black text-white tracking-tight leading-tight mb-2">
                     {activeDomain.title}
                   </h3>
-                  <p className="text-[10px] text-slate-300 leading-snug line-clamp-3 mb-2">
+                  <p className="text-xs sm:text-[13px] text-slate-200 leading-relaxed mb-4">
                     {activeDomain.fullDesc}
                   </p>
                 </div>
 
-                <div className="space-y-2">
+                <div>
                   <motion.div
                     variants={{
                       hidden: { opacity: 0, y: 6 },
@@ -491,49 +491,22 @@ export function Skills() {
                       exit: { opacity: 0, transition: { duration: 0.1 } }
                     }}
                   >
-                    <span className="flex items-center gap-1 text-[8px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+                    <span className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                       CORE.STACK
                     </span>
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1.5">
                       {activeDomain.technologies.map((tech) => (
                         <div
                           key={tech.name}
-                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 text-[8.5px] font-mono text-slate-200 transition-all duration-300"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#12131A] border border-white/10 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 text-xs font-mono font-medium text-slate-100 transition-all duration-300"
                         >
-                          <TechIcon name={tech.name} className="w-2.5 h-2.5 opacity-80" />
+                          <TechIcon name={tech.name} className="w-3.5 h-3.5 opacity-90 text-purple-400" />
                           <span>{tech.name}</span>
                         </div>
                       ))}
                     </div>
                   </motion.div>
-
-                  {/* Production Proof / Proven In on Desktop */}
-                  {activeDomain.projects && activeDomain.projects.length > 0 && (
-                    <motion.div
-                      variants={{
-                        hidden: { opacity: 0, y: 6 },
-                        visible: { opacity: 1, y: 0, transition: { duration: 0.3, delay: 0.05, ease: EASE_OUT_EXPRESSIVE } },
-                        exit: { opacity: 0, transition: { duration: 0.1 } }
-                      }}
-                      className="pt-2 border-t border-white/10 flex items-center flex-wrap gap-1.5"
-                    >
-                      <span className="text-[7.5px] font-mono font-bold text-slate-400 uppercase tracking-wider flex-shrink-0 mr-0.5 flex items-center gap-1">
-                        <span className="w-1 h-1 rounded-full bg-emerald-400 animate-ping" />
-                        PROVEN IN:
-                      </span>
-                      {activeDomain.projects.map((proj) => (
-                        <Link
-                          key={proj.id}
-                          href={`/work/${proj.id}`}
-                          className="inline-flex items-center gap-1 text-[8.5px] font-mono font-bold text-purple-200 hover:text-white bg-purple-950/70 hover:bg-purple-600 border border-purple-600/50 hover:border-purple-400 px-2 py-0.5 rounded-md transition-all active:scale-95 shadow-2xs group/pill"
-                        >
-                          <span>{proj.name}</span>
-                          <ArrowUpRight className="w-2.5 h-2.5 text-purple-400 group-hover/pill:text-white transition-colors" />
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -578,13 +551,13 @@ export function Skills() {
                   top: domain.desktopPos.top,
                   left: domain.desktopPos.left,
                 }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 w-40 sm:w-44 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#0B0C10] border cursor-pointer transition-colors duration-200 origin-center ${isHovered
+                className={`absolute -translate-x-1/2 -translate-y-1/2 w-44 sm:w-48 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#0B0C10] border cursor-pointer transition-colors duration-200 origin-center ${isHovered
                     ? "border-purple-500 shadow-[0_10px_35px_rgba(168,85,247,0.4)] ring-1 ring-purple-400/50"
                     : "border-white/15 hover:border-purple-500/50 shadow-lg"
                   }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[8.5px] font-mono font-bold text-purple-400 tracking-widest uppercase">
+                  <span className="text-[9.5px] font-mono font-bold text-purple-400 tracking-widest uppercase">
                     {domain.num} // DOMAIN
                   </span>
                   <div className="p-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400">
@@ -592,11 +565,11 @@ export function Skills() {
                   </div>
                 </div>
 
-                <h4 className="text-[11px] sm:text-xs font-bold text-white tracking-tight leading-snug mb-0.5">
+                <h4 className="text-xs sm:text-[13px] font-bold text-white tracking-tight leading-snug mb-1">
                   {domain.title}
                 </h4>
 
-                <div className="inline-flex items-center gap-1 text-[8.5px] font-mono text-slate-400">
+                <div className="inline-flex items-center gap-1.5 text-[9.5px] font-mono text-slate-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping" />
                   <span>{domain.technologies.length} CORE TECHS</span>
                 </div>
@@ -640,87 +613,68 @@ export function Skills() {
                   >
                     {isSelected ? (
                       /* EXPANDED ACTIVE HUD CARD (Micro-Calibrated Compact Sizing) */
-                      <div className="w-full bg-[#08080C] border border-purple-500/70 rounded-xl p-3 sm:p-3.5 shadow-[0_0_25px_rgba(168,85,247,0.2)] relative overflow-hidden text-left">
+                      <div className="w-full bg-[#08080C] border border-purple-500/70 rounded-xl p-4 sm:p-5 shadow-[0_0_25px_rgba(168,85,247,0.2)] relative overflow-hidden text-left">
                         {/* Top Row: Number/Architecture + Metric Badge */}
-                        <div className="flex items-center justify-between gap-2 mb-1">
+                        <div className="flex items-center justify-between gap-2 mb-1.5">
                           <div className="flex items-center gap-1.5">
-                            <span className="w-1 h-1 rounded-full bg-purple-400 animate-pulse" />
-                            <span className="text-[8px] font-mono font-bold text-purple-300 uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                            <span className="text-[9.5px] sm:text-[10px] font-mono font-bold text-purple-300 uppercase tracking-wider">
                               {domain.num} // ARCHITECTURE
                             </span>
                           </div>
-                          <span className="text-[7.5px] font-mono font-bold text-purple-200 bg-purple-950/80 border border-purple-500/40 px-2 py-0.5 rounded shadow-2xs">
+                          <span className="text-[9px] sm:text-[10px] font-mono font-bold text-purple-200 bg-purple-950/80 border border-purple-500/40 px-2.5 py-0.5 rounded shadow-2xs">
                             {domain.metric}
                           </span>
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-sm sm:text-base font-black text-white tracking-tight mb-1">
+                        <h3 className="text-base sm:text-lg font-black text-white tracking-tight mb-1.5">
                           {domain.title}
                         </h3>
 
                         {/* Full Description */}
-                        <p className="text-[10px] sm:text-[10.5px] text-slate-300 leading-relaxed mb-2.5 font-normal">
+                        <p className="text-xs sm:text-[13px] text-slate-200 leading-relaxed mb-3 font-normal">
                           {domain.fullDesc}
                         </p>
 
                         {/* Core Stack (Single Inline Flow) */}
-                        <div className="flex items-center flex-wrap gap-1.5 mb-2.5">
-                          <span className="text-[8px] font-mono font-bold text-slate-400 uppercase tracking-wider inline-flex items-center gap-1 mr-0.5 flex-shrink-0">
-                            <span className="w-1 h-1 rounded-full bg-slate-400" />
+                        <div className="flex items-center flex-wrap gap-1.5">
+                          <span className="text-[9px] sm:text-[9.5px] font-mono font-bold text-slate-400 uppercase tracking-wider inline-flex items-center gap-1 mr-1 flex-shrink-0">
+                            <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
                             CORE.STACK
                           </span>
                           {domain.technologies.map((tech) => (
                             <div
                               key={tech.name}
-                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/10 text-[8.5px] font-mono text-slate-200"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.08] border border-white/10 text-xs font-mono font-medium text-slate-100"
                             >
-                              <TechIcon name={tech.name} className="w-2.5 h-2.5 text-purple-300 opacity-90" />
+                              <TechIcon name={tech.name} className="w-3.5 h-3.5 text-purple-300 opacity-90" />
                               <span>{tech.name}</span>
                             </div>
                           ))}
                         </div>
-
-                        {/* Projects Proof Links (Single Inline Flow) */}
-                        {domain.projects.length > 0 && (
-                          <div className="pt-2 border-t border-white/10 flex items-center flex-wrap gap-1.5">
-                            <span className="text-[7.5px] font-mono font-bold text-slate-400 uppercase tracking-wider flex-shrink-0 mr-0.5">
-                              PROVEN IN:
-                            </span>
-                            {domain.projects.map((proj) => (
-                              <Link
-                                key={proj.id}
-                                href={`/work/${proj.id}`}
-                                className="inline-flex items-center gap-1 text-[8px] font-mono font-bold text-white bg-purple-600/30 hover:bg-purple-600/60 border border-purple-400/40 px-2 py-0.5 rounded transition-all active:scale-95"
-                              >
-                                <span>{proj.name}</span>
-                                <ArrowUpRight className="w-2 h-2 text-purple-300" />
-                              </Link>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     ) : (
                       /* COLLAPSED COMPACT CARD (1-Line Sleek Bar) */
                       <button
                         type="button"
                         onClick={() => setActiveDomainId(domain.id)}
-                        className="w-full bg-[#0B0C10]/90 hover:bg-[#0E0F15] border border-white/10 hover:border-purple-500/50 rounded-xl px-3 py-2.5 sm:py-3 text-left transition-all duration-200 cursor-pointer group/card flex items-center justify-between gap-2 shadow-2xs"
+                        className="w-full bg-[#0B0C10]/90 hover:bg-[#0E0F15] border border-white/10 hover:border-purple-500/50 rounded-xl px-3.5 py-3 text-left transition-all duration-200 cursor-pointer group/card flex items-center justify-between gap-2 shadow-2xs"
                       >
                         {/* Left: Icon + Title */}
-                        <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex items-center gap-2.5 min-w-0">
                           <div className="text-purple-400 opacity-80 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all flex-shrink-0">
                             {domain.icon}
                           </div>
-                          <h4 className="text-xs sm:text-[13px] font-bold text-white tracking-tight truncate">
+                          <h4 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
                             {domain.title}
                           </h4>
                         </div>
 
                         {/* Right: Core Techs Count */}
-                        <div className="flex items-center gap-1 text-[8px] sm:text-[8.5px] font-mono text-slate-400 flex-shrink-0">
-                          <span className="w-1 h-1 rounded-full bg-slate-500" />
-                          <span>{domain.technologies.length} CORE TECHS</span>
+                        <div className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] font-mono text-slate-400 flex-shrink-0">
+                          <span className="w-1.5 h-1.5 rounded-full bg-purple-400/80" />
+                          <span>{domain.technologies.length} TECHS</span>
                         </div>
                       </button>
                     )}
