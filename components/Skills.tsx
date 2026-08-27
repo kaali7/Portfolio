@@ -201,6 +201,7 @@ export function Skills() {
       ],
       projects: [
         { name: "Netran AI", id: "netran-ai" },
+        { name: "Auto Dash", id: "ai-powered-hr-dashboard" },
         { name: "ResumeBuilder", id: "resumebuilder" }
       ]
     },
@@ -268,7 +269,8 @@ export function Skills() {
       ],
       projects: [
         { name: "FinanceFlow", id: "financeflow" },
-        { name: "GoLift Ecosystem", id: "golift" }
+        { name: "GoLift Ecosystem", id: "golift" },
+        { name: "Auto Dash", id: "ai-powered-hr-dashboard" }
       ]
     }
   ];
@@ -448,7 +450,7 @@ export function Skills() {
 
           <div
             ref={centerPanelRef}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[270px] z-30"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[330px] min-h-[285px] z-30 pointer-events-auto"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -457,7 +459,7 @@ export function Skills() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.2, ease: EASE_OUT_EXPRESSIVE }}
-                className="w-full h-full rounded-2xl bg-[#08080C] border border-purple-500/60 p-3.5 flex flex-col justify-between shadow-[0_0_50px_rgba(168,85,247,0.3)] relative overflow-hidden"
+                className="w-full h-full rounded-2xl bg-[#08080C] border border-purple-500/60 p-4 flex flex-col justify-between shadow-[0_0_50px_rgba(168,85,247,0.3)] relative overflow-hidden"
               >
                 <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-purple-400 opacity-60" />
                 <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-purple-400 opacity-60" />
@@ -469,41 +471,70 @@ export function Skills() {
                     <span className="text-[8.5px] font-mono font-bold text-purple-400 tracking-wider">
                       {activeDomain.num} // ARCHITECTURE
                     </span>
-                    <span className="text-[8.5px] font-mono text-slate-300 bg-purple-950/60 border border-purple-500/30 px-1.5 py-0.2 rounded">
+                    <span className="text-[8.5px] font-mono text-slate-300 bg-purple-950/60 border border-purple-500/30 px-1.5 py-0.5 rounded">
                       {activeDomain.metric}
                     </span>
                   </div>
                   <h3 className="text-sm font-black text-white tracking-tight leading-tight mb-1">
                     {activeDomain.title}
                   </h3>
-                  <p className="text-[10px] text-slate-300 leading-snug line-clamp-3">
+                  <p className="text-[10px] text-slate-300 leading-snug line-clamp-3 mb-2">
                     {activeDomain.fullDesc}
                   </p>
                 </div>
 
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 6 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
-                    exit: { opacity: 0, transition: { duration: 0.1 } }
-                  }}
-                >
-                  <span className="flex items-center gap-1 text-[8px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
-                    CORE.STACK
-                  </span>
-                  <div className="flex flex-wrap gap-1">
-                    {activeDomain.technologies.map((tech) => (
-                      <div
-                        key={tech.name}
-                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 text-[8.5px] font-mono text-slate-200 transition-all duration-300"
-                      >
-                        <TechIcon name={tech.name} className="w-2 h-2 opacity-80" />
-                        <span>{tech.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
+                <div className="space-y-2">
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 6 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE_OUT_EXPRESSIVE } },
+                      exit: { opacity: 0, transition: { duration: 0.1 } }
+                    }}
+                  >
+                    <span className="flex items-center gap-1 text-[8px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+                      CORE.STACK
+                    </span>
+                    <div className="flex flex-wrap gap-1">
+                      {activeDomain.technologies.map((tech) => (
+                        <div
+                          key={tech.name}
+                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#12131A] border border-white/5 shadow-inner hover:border-purple-500/50 hover:bg-purple-500/10 text-[8.5px] font-mono text-slate-200 transition-all duration-300"
+                        >
+                          <TechIcon name={tech.name} className="w-2.5 h-2.5 opacity-80" />
+                          <span>{tech.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Production Proof / Proven In on Desktop */}
+                  {activeDomain.projects && activeDomain.projects.length > 0 && (
+                    <motion.div
+                      variants={{
+                        hidden: { opacity: 0, y: 6 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.3, delay: 0.05, ease: EASE_OUT_EXPRESSIVE } },
+                        exit: { opacity: 0, transition: { duration: 0.1 } }
+                      }}
+                      className="pt-2 border-t border-white/10 flex items-center flex-wrap gap-1.5"
+                    >
+                      <span className="text-[7.5px] font-mono font-bold text-slate-400 uppercase tracking-wider flex-shrink-0 mr-0.5 flex items-center gap-1">
+                        <span className="w-1 h-1 rounded-full bg-emerald-400 animate-ping" />
+                        PROVEN IN:
+                      </span>
+                      {activeDomain.projects.map((proj) => (
+                        <Link
+                          key={proj.id}
+                          href={`/work/${proj.id}`}
+                          className="inline-flex items-center gap-1 text-[8.5px] font-mono font-bold text-purple-200 hover:text-white bg-purple-950/70 hover:bg-purple-600 border border-purple-600/50 hover:border-purple-400 px-2 py-0.5 rounded-md transition-all active:scale-95 shadow-2xs group/pill"
+                        >
+                          <span>{proj.name}</span>
+                          <ArrowUpRight className="w-2.5 h-2.5 text-purple-400 group-hover/pill:text-white transition-colors" />
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
