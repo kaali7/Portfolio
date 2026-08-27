@@ -389,7 +389,7 @@ export const projectsDetailData: ProjectDetail[] = [
         "year": 2026,
         "featured": false,
         "card": {
-            "shortDescription": "An advanced, high-fidelity AI-powered HR dashboard application that allows users to upload datasets and automatically generates interactive workspaces featuring deep data insights, KPIs, and predictive workforce telemetry using Gemini AI.",
+            "shortDescription": "Engineered during the GarunaCDX GenAI Developer internship—Auto Dash is an advanced AI-powered HR analytics platform that processes raw CSV datasets with Google Gemini AI to auto-generate interactive Bento-grid workspaces, KPIs, and predictive workforce telemetry.",
             "tags": [
                 "Next.js",
                 "React",
@@ -412,7 +412,7 @@ export const projectsDetailData: ProjectDetail[] = [
         },
         "overview": {
             "problem": "Traditional HR data analysis and dashboard creation require tedious, manual steps such as cleaning raw data, processing metrics, and manually building charts, making it slow and inefficient to extract actionable insights.",
-            "motivation": "Streamline executive decision-making by eliminating manual data preparation workflows and enabling instant dataset-to-intelligence conversion simply by uploading a CSV file.",
+            "motivation": "Engineered during the GarunaCDX GenAI Developer internship to streamline executive decision-making by eliminating manual data preparation workflows and enabling instant dataset-to-intelligence conversion simply by uploading a CSV file.",
             "solution": "An AI-powered dashboard application that processes raw CSV dataset uploads using Gemini AI to automatically generate custom interactive layouts, technical charts, data insights, and statistical workforce telemetry.",
             "outcome": "Achieved 91% completion status (43/47 issues resolved) with precomputed aggregations reducing complex chart loading times down to ~150ms."
         },
@@ -734,7 +734,7 @@ export const projectsDetailData: ProjectDetail[] = [
         "number": "",
         "title": "Animal GUI Explorer",
         "category": "Desktop Applications",
-        "subcategory": "Interactive Multimedia GUI",
+        "subcategory": "Multimedia GUI",
         "type": "Desktop Application",
         "status": "completed",
         "year": 2022,
@@ -844,6 +844,283 @@ export const projectsDetailData: ProjectDetail[] = [
             "github": "[https://github.com/kaali7/animal](https://github.com/kaali7/animal)",
             "live": "",
             "demo": "/projects/video/animal.mp4",
+            "paper": ""
+        }
+    },
+    {
+        "id": "golift",
+        "number": "",
+        "title": "GoLift Ecosystem",
+        "category": "Full-Stack AI",
+        "subcategory": "Fitness AI",
+        "type": "Full-Stack Ecosystem",
+        "status": "in-progress",
+        "year": 2025,
+        "featured": false,
+        "card": {
+            "shortDescription": "GoLift is a professional, AI-powered health and fitness platform with automated workout plan generation, live training tracking, and cross-platform clients across Web, Desktop (Tauri v2), Mobile (React Native), and MLOps recommendation engines.",
+            "tags": [
+                "Python",
+                "FastAPI",
+                "React 19",
+                "Vite 7",
+                "Tailwind CSS 4",
+                "Tauri v2",
+                "Rust",
+                "React Native 0.84",
+                "Next.js 15",
+                "PostgreSQL",
+                "SQLAlchemy",
+                "Alembic",
+                "Docker",
+                "Scikit-Learn",
+                "MLFlow"
+            ]
+        },
+        "visual": {
+            "thumbnail": "/projects/img/gym_active_workout_view.png",
+            "heroImage": "/projects/img/gym_insights_dashboard.png",
+            "gallery": [
+                "/projects/img/gym_insights_dashboard.png",
+                "/projects/img/gym_active_workout_view.png",
+                "/projects/img/gym_session_start.png",
+                "/projects/img/gym_user_profile.png",
+                "/projects/img/gym_tauri_window_show_app.png"
+            ],
+            "video": "/projects/video/gym.mp4"
+        },
+        "overview": {
+            "problem": "Traditional workout tracking applications are either static, fragmented across devices, or lack personalized progression intelligence to dynamically adjust exercise volume, reps, and weights based on individual athlete performance and recovery.",
+            "motivation": "Engineered to bridge the gap between static fitness logs and data-driven AI workout recommendations, delivering a seamless, unified premium experience across Web, Desktop, and Mobile native clients.",
+            "solution": "Built a decoupled, modular ecosystem with a high-performance FastAPI & PostgreSQL backend, automated CSV database seeding (1,400+ exercises & splits), a modern React 19 / Vite 7 frontend, a Tauri v2 Rust desktop shell, a React Native 0.84 mobile app, and an MLOps research pipeline for volume prediction & exercise scoring.",
+            "outcome": "Delivered an end-to-end fitness platform supporting multi-platform access, real-time exercise set tracking, rest timers with feedback loops, automatic database schema migrations with Alembic, and AI recommendation engines."
+        },
+        "features": [
+            "AI-Powered Workout Generator & Plan Builder",
+            "Real-Time Workout Session Tracking & Interactive Rest Timers with Feedback Loops",
+            "Cross-Platform Multi-Client Support (Web, Tauri v2 Desktop, React Native Mobile)",
+            "Automated Exercise & Split Seeding from 1,400+ Exercise Database",
+            "Interactive Exercise Demonstration & YouTube Technique Video Integration",
+            "MLOps Intelligence Pipeline for Volume Prediction & Progression Logic"
+        ],
+        "technical": {
+            "techStack": [
+                "FastAPI (Async Python 3.14)",
+                "PostgreSQL & SQLAlchemy ORM",
+                "Alembic Migrations",
+                "React 19 & Vite 7",
+                "Tailwind CSS 4 & Radix UI",
+                "Tauri v2 (Rust Shell)",
+                "React Native 0.84 & TypeScript",
+                "Next.js 15 (Landing Page)",
+                "Scikit-Learn, Pandas, NumPy, MLFlow"
+            ],
+            "concepts": [
+                "Decoupled Modular Architecture",
+                "JWT & Refresh Token Authentication",
+                "Unit of Work Database Pattern",
+                "Automated CSV Data Seeding",
+                "Multi-Client State Synchronization",
+                "Hybrid Rule & ML Recommendation Engine"
+            ],
+            "models": [
+                "Scikit-Learn Volume Prediction Regression",
+                "Hybrid Rule-Based & ML Workout Generator",
+                "Exercise Ranking & Selection Model"
+            ],
+            "datasets": [
+                "ExerciseDB Dataset (1,400+ exercises)",
+                "GoLift Workout Templates CSV",
+                "All Workout Plans & Split CSVs"
+            ],
+            "apis": [
+                "GoLift FastAPI /v1 REST Endpoints",
+                "Google OAuth & Gmail API",
+                "YouTube Embed & Video Search API"
+            ],
+            "infrastructure": [
+                "Docker & Docker Compose",
+                "PostgreSQL 16 Container",
+                "Uvicorn ASGI Server",
+                "Vite Development Server",
+                "Tauri Native Rust Shell"
+            ]
+        },
+        "architecture": {
+            "type": "Decoupled Multi-Client Micro-Architecture with Centralized API & Database Layer",
+            "diagram": "",
+            "workflow": [
+                "User registers / logs in via JWT authentication.",
+                "FastAPI backend initializes PostgreSQL database and seeds default templates and 1,400+ exercises from CSV datasets.",
+                "User selects or customizes a workout split on Web, Desktop, or Mobile client.",
+                "User starts a live training session; real-time set tracking, rest timers, and difficulty feedback are logged.",
+                "Session metrics and exercise feedback update user profile stats and feed the MLOps volume prediction engine."
+            ]
+        },
+        "research": {
+            "researchQuestion": "",
+            "methodology": "",
+            "experiments": [],
+            "findings": [],
+            "references": []
+        },
+        "engineering": {
+            "challenges": [
+                "Ensuring database schemas and seed datasets (1,400+ exercises) populate automatically across fresh PostgreSQL/Docker environments.",
+                "Rendering exercise technique videos for over 1,400 exercises without broken media links.",
+                "Providing seamless desktop and mobile experiences alongside web without duplicating business logic."
+            ],
+            "solutions": [
+                "Engineered backend/app/database/seed.py integrated directly into FastAPI lifespan startup, parsing CSV files into relational models seamlessly.",
+                "Built a multi-tier media fallthrough supporting YouTube embeds, direct ExerciseDB animated GIFs, and dynamic YouTube video search embeds.",
+                "Wrapped the unified React 19 frontend in Tauri v2 for desktop, built React Native 0.84 for mobile, and connected all clients to a centralized FastAPI backend."
+            ],
+            "performance": [
+                "< 50ms API response latency for workout template & exercise retrieval",
+                "1,400+ exercise database indexed and queryable in real-time",
+                "100% test pass rate across core service and auth endpoints"
+            ],
+            "scalability": []
+        },
+        "learnings": [],
+        "links": {
+            "github": "https://github.com/kaali7/GoLift",
+            "live": "",
+            "demo": "http://localhost:8000/docs",
+            "paper": ""
+        }
+    },
+    {
+        "id": "financeflow",
+        "number": "",
+        "title": "FinanceFlow",
+        "category": "Full-Stack AI",
+        "subcategory": "FinTech AI",
+        "type": "Full-Stack Web Application",
+        "status": "completed",
+        "year": 2025,
+        "featured": true,
+        "card": {
+            "shortDescription": "Engineered as the flagship capstone project during the CSRBOX Applied AI Internship (AICTE & IBM SkillsBuild)—FinanceFlow is a modern, full-stack personal finance platform with real-time tracking, 50/30/20 budget planning, and Gemini AI financial literacy guidance in INR (₹).",
+            "tags": [
+                "Python",
+                "FastAPI",
+                "React 18",
+                "Vite",
+                "Google Gemini AI",
+                "LangChain",
+                "Supabase",
+                "PostgreSQL",
+                "Tailwind CSS",
+                "Argon2",
+                "JWT"
+            ]
+        },
+        "visual": {
+            "thumbnail": "/projects/img/financeflow_dashbaord.png",
+            "heroImage": "/projects/img/financeflow_dashbaord.png",
+            "gallery": [
+                "/projects/img/financeflow_dashbaord.png",
+                "/projects/img/financeflow_budget_planner.png",
+                "/projects/img/financeflow_ai_chat.png",
+                "/projects/img/financeflow_month_summary.png"
+            ],
+            "video": "/projects/video/financeflow.mp4"
+        },
+        "overview": {
+            "problem": "Traditional personal finance tools are either rigid spreadsheets or complex paid software that lack real-time insights, interactive financial education, and intelligent budget allocation based on individual spending habits.",
+            "motivation": "Built as the capstone deliverable for the CSRBOX Applied AI Internship in association with AICTE & IBM SkillsBuild. Designed to empower users to track income and expenses in Indian Rupees (₹), receive automated 50/30/20 budget recommendations, and converse with an AI financial literacy assistant for personalized guidance.",
+            "solution": "Engineered a full-stack solution featuring a FastAPI backend integrated with Supabase PostgreSQL and Google Gemini AI via LangChain, paired with a modern React + Vite frontend styled with Tailwind CSS. Incorporates secure Argon2 password hashing and JWT authentication.",
+            "outcome": "Delivered an interactive personal finance dashboard with real-time income/expense management, smart budget allocation calculations, dynamic multi-month history trend analysis, and a context-aware AI chat assistant."
+        },
+        "features": [
+            "Real-time financial dashboard with total balance, income, expense, and budget status metrics in INR (₹).",
+            "AI Financial Literacy Assistant powered by Google Gemini AI (via LangChain) providing context-aware educational insights.",
+            "Smart Budget Planner implementing automated 50/30/20 rule allocation (Needs 50%, Wants 30%, Savings 20%).",
+            "Comprehensive History & Trends module with dynamic multi-month filter options (1, 3, 6, 12 Months).",
+            "Secure JWT-based authentication system with Argon2 password hashing and user profiles.",
+            "Category-wise spending breakdowns, overspending alerts, and 3-month emergency fund recommendations."
+        ],
+        "technical": {
+            "techStack": [
+                "Python 3.10+",
+                "FastAPI",
+                "React 18",
+                "Vite",
+                "Tailwind CSS",
+                "Supabase",
+                "PostgreSQL",
+                "LangChain",
+                "Google Gemini AI",
+                "Lucide React",
+                "Framer Motion",
+                "Argon2",
+                "PyJWT"
+            ],
+            "concepts": [
+                "50/30/20 Budgeting Rule",
+                "Context-Aware AI Generation",
+                "JWT Session Management",
+                "Argon2 Password Hashing",
+                "Relational Database Schema",
+                "Dynamic Month Aggregation"
+            ],
+            "models": [
+                "models/gemini-2.5-flash"
+            ],
+            "datasets": [
+                "User Financial Logs (Income, Expenses, Budgets, Profiles, Chat History)"
+            ],
+            "apis": [
+                "Google Gemini API",
+                "Supabase REST API / PostgREST"
+            ],
+            "infrastructure": [
+                "Supabase Cloud PostgreSQL Database",
+                "Vercel Frontend Hosting",
+                "FastAPI Uvicorn Backend"
+            ]
+        },
+        "architecture": {
+            "type": "Client-Server RESTful Architecture with AI Service Integration",
+            "diagram": "",
+            "workflow": [
+                "User authenticates via JWT-protected FastAPI endpoints with Argon2 hashed credentials.",
+                "Frontend sends transaction inputs (income/expenses) stored directly in Supabase PostgreSQL.",
+                "Budget service calculates 50/30/20 rule allocations and tracks active monthly balances in INR (₹).",
+                "AI Chat router passes monthly financial context to LangChain + Google Gemini AI for tailored financial literacy answers.",
+                "History router dynamically aggregates distinct user active months for multi-period trend reporting."
+            ]
+        },
+        "research": {
+            "researchQuestion": "",
+            "methodology": "",
+            "experiments": [],
+            "findings": [],
+            "references": []
+        },
+        "engineering": {
+            "challenges": [
+                "PGRST205 database schema cache missing table error during fresh initial setup.",
+                "Hardcoded 31-day date string filtering breaking non-31-day months (e.g. February, April).",
+                "History endpoint ignoring active income/expense months without pre-existing budget records."
+            ],
+            "solutions": [
+                "Executed comprehensive database_schema.sql creating users, sessions, profiles, income, expenses, budgets, and chat_history tables with schema reload.",
+                "Implemented Python calendar.monthrange for exact last-day month bounds calculations.",
+                "Refactored history router to dynamically aggregate distinct active months across budgets, income, and expenses tables."
+            ],
+            "performance": [
+                "< 100ms API response time for financial calculations and summary metrics.",
+                "< 1s AI response latency for Gemini 2.5 Flash financial literacy generation."
+            ],
+            "scalability": []
+        },
+        "learnings": [],
+        "links": {
+            "github": "https://github.com/kaali7/FinanceFlow",
+            "live": "",
+            "demo": "/projects/video/financeflow.mp4",
             "paper": ""
         }
     }

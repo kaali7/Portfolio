@@ -28,7 +28,10 @@ import {
   Wrench,
   Target,
   Compass,
-  Trophy
+  Trophy,
+  ArrowRight,
+  Boxes,
+  Github
 } from "lucide-react";
 
 export default function ExperienceDetailPage({ params }: { params: { id: string } }) {
@@ -168,8 +171,9 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
                     CORE FOCUS:
                   </span>
                   {exp.focus.map((fItem, fIdx) => (
-                    <span key={fIdx} className="text-xs font-mono font-bold text-purple-900 bg-purple-50 border border-purple-200 px-3 py-1 rounded-lg">
-                      {fItem}
+                    <span key={fIdx} className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-purple-900 bg-purple-50 border border-purple-200 px-3 py-1 rounded-lg">
+                      <TechIcon name={fItem} size={13} className="text-purple-600 flex-shrink-0" />
+                      <span>{fItem}</span>
                     </span>
                   ))}
                 </div>
@@ -284,21 +288,45 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {exp.work.projects.map((p, pIdx) => (
-                    <div key={pIdx} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col justify-between hover:border-purple-400/40 transition-colors">
-                      <div>
-                        {p.role && (
-                          <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-950/80 border border-purple-800/50 px-2.5 py-0.5 rounded-full uppercase block w-fit mb-2.5">
-                            {p.role}
-                          </span>
-                        )}
-                        <h3 className="text-base sm:text-lg font-black text-white mb-2">{p.name}</h3>
-                        {p.description && (
-                          <p className="text-xs text-slate-300 leading-relaxed font-normal">{p.description}</p>
+                  {exp.work.projects.map((p, pIdx) => {
+                    const projectLink = (() => {
+                      const lower = p.name.toLowerCase();
+                      if (lower.includes("golift")) return "/work/golift";
+                      if (lower.includes("auto dash") || lower.includes("hr")) return "/work/ai-powered-hr-dashboard";
+                      if (lower.includes("financeflow") || lower.includes("finance")) return "/work/financeflow";
+                      if (lower.includes("netran")) return "/work/netran-ai";
+                      if (lower.includes("resume")) return "/work/resumebuilder";
+                      return null;
+                    })();
+
+                    return (
+                      <div key={pIdx} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col justify-between hover:border-purple-400/40 transition-colors">
+                        <div>
+                          {p.role && (
+                            <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-950/80 border border-purple-800/50 px-2.5 py-0.5 rounded-full uppercase block w-fit mb-2.5">
+                              {p.role}
+                            </span>
+                          )}
+                          <h3 className="text-base sm:text-lg font-black text-white mb-2">{p.name}</h3>
+                          {p.description && (
+                            <p className="text-xs text-slate-300 leading-relaxed font-normal">{p.description}</p>
+                          )}
+                        </div>
+
+                        {projectLink && (
+                          <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
+                            <Link
+                              href={projectLink}
+                              className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-purple-300 hover:text-white bg-purple-900/40 hover:bg-purple-600 border border-purple-700/60 px-3 py-1.5 rounded-full transition-all"
+                            >
+                              <span>VIEW CASE STUDY</span>
+                              <ArrowRight className="w-3 h-3" />
+                            </Link>
+                          </div>
                         )}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </motion.div>
             )}
@@ -389,13 +417,26 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
                         </p>
                       </div>
 
-                      <Link
-                        href={`/work/${rp.id}`}
-                        className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 group-hover:text-purple-300 transition-all pt-2 border-t border-white/10"
-                      >
-                        <span>EXPLORE CASE STUDY</span>
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
+                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                        <Link
+                          href={`/work/${rp.id}`}
+                          className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 group-hover:text-purple-300 transition-all"
+                        >
+                          <span>EXPLORE CASE STUDY</span>
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                        {rp.links?.github && (
+                          <a
+                            href={rp.links.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                            title="View GitHub Repository"
+                          >
+                            <Github className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -480,11 +521,83 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
                 <ul className="space-y-2.5">
                   {exp.technical.concepts.map((concept, cIdx) => (
                     <li key={cIdx} className="flex items-center gap-2.5 text-xs text-slate-200 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-400 flex-shrink-0" />
+                      <TechIcon name={concept} size={14} className="text-purple-400 flex-shrink-0" />
                       <span>{concept}</span>
                     </li>
                   ))}
                 </ul>
+              </motion.div>
+            )}
+
+            {/* Related Production Systems & Project Links on Right Side */}
+            {relatedProjectsList && relatedProjectsList.length > 0 && (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-slate-900 border border-purple-900/50 rounded-3xl p-5 text-white shadow-xl space-y-4 relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/10 rounded-full blur-2xl pointer-events-none" />
+                
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <h3 className="text-xs font-mono font-bold tracking-widest text-purple-300 uppercase flex items-center gap-2">
+                    <Boxes className="w-4 h-4 text-purple-400" />
+                    <span>BUILT SYSTEMS & CASE STUDIES</span>
+                  </h3>
+                  <span className="text-[10px] font-mono text-purple-300 bg-purple-950/90 border border-purple-800/60 px-2 py-0.5 rounded-full font-bold">
+                    {relatedProjectsList.length} PROJECTS
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  {relatedProjectsList.map((rp) => (
+                    <div 
+                      key={rp.id}
+                      className="bg-white/5 border border-white/10 hover:border-purple-400/60 rounded-2xl p-4 transition-all group/rp"
+                    >
+                      <div className="flex items-start justify-between gap-2 mb-1.5">
+                        <span className="text-[9px] font-mono font-bold text-purple-300 bg-purple-950/90 border border-purple-800/60 px-2 py-0.5 rounded-full uppercase">
+                          {rp.subcategory || rp.category}
+                        </span>
+                        {rp.year && (
+                          <span className="text-[10px] font-mono text-slate-400 flex-shrink-0">
+                            {rp.year}
+                          </span>
+                        )}
+                      </div>
+
+                      <h4 className="text-sm font-bold text-white group-hover/rp:text-purple-300 transition-colors mb-1.5 leading-snug">
+                        {rp.title}
+                      </h4>
+
+                      <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed mb-3 font-normal">
+                        {rp.card?.shortDescription}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-xs font-mono">
+                        <Link
+                          href={`/work/${rp.id}`}
+                          className="inline-flex items-center gap-1.5 text-[10.5px] font-bold text-purple-300 group-hover/rp:text-white transition-colors group/lnk"
+                        >
+                          <span>Explore Case Study</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover/lnk:translate-x-1 transition-transform text-purple-400" />
+                        </Link>
+                        {rp.links?.github && (
+                          <a
+                            href={rp.links.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer flex items-center justify-center"
+                            title="View GitHub Repository"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             )}
 

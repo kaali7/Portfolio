@@ -150,35 +150,54 @@ export const experienceData: Experience[] = [
     work: {
       projects: [
         {
-          name: "Website Development Company Navi Mumbai",
-          description: "",
-          role: ""
+          name: "Auto Dash - AI-Powered HR Dashboard",
+          description: "Full-stack AI analytics application with automated CSV dataset profiling, interactive Bento-grid dashboards, and Gemini AI query assistants.",
+          role: "GenAI Developer"
         }
       ],
-      contributions: [],
-      impact: []
+      contributions: [
+        "Engineered automated CSV dataset profiling and column distribution detection using Google Gemini AI",
+        "Developed interactive Bento-grid telemetry dashboards with custom charts, KPIs, and insight cards",
+        "Built Supabase PostgreSQL database architecture with Row-Level Security (RLS) and precomputed aggregations"
+      ],
+      impact: [
+        "Reduced complex workforce analytics and chart loading times down to ~150ms",
+        "Streamlined executive decision-making with automated dataset-to-intelligence workflows",
+        "Delivered production AI query assistant with 91% milestone completion (43/47 resolved issues)"
+      ]
     },
     technical: {
       technologies: [
-        "Artificial Intelligence",
-        "Generative AI"
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL",
+        "Google Gemini API",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Recharts"
       ],
       skills: [
-        "Retrieval-Augmented Generation (RAG)",
-        "Team Leadership",
-        "full-stack development"
+        "Generative AI",
+        "Full-Stack AI",
+        "HR Analytics",
+        "Automated Data Profiling",
+        "Row-Level Security (RLS)"
       ],
       concepts: [
         "Generative AI",
-        "Retrieval-Augmented Generation (RAG)",
+        "Automated Data Profiling",
         "Artificial Intelligence",
-        "Full-Stack Development"
+        "Full-Stack Development",
+        "Interactive Telemetry Dashboards"
       ]
     },
     focus: [
       "Generative AI",
       "AI Engineering",
-      "RAG"
+      "Full-Stack AI",
+      "Data Analytics"
     ],
     visual: {
       companyLogo: "/experience/garunacdx_logo.jpg",

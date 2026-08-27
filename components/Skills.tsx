@@ -107,8 +107,8 @@ export function Skills() {
         { name: "Scikit-learn", level: 92 }
       ],
       projects: [
-        { name: "StockMind AI", id: "1" },
-        { name: "Medical RAG Chatbot", id: "2" }
+        { name: "StockMind AI", id: "stockmind-ai" },
+        { name: "Netran AI", id: "netran-ai" }
       ]
     },
     {
@@ -130,8 +130,8 @@ export function Skills() {
         { name: "SQL", level: 90 }
       ],
       projects: [
-        { name: "StockMind AI", id: "1" },
-        { name: "AI Gym Workout Planner", id: "4" }
+        { name: "StockMind AI", id: "stockmind-ai" },
+        { name: "GoLift Ecosystem", id: "golift" }
       ]
     },
     {
@@ -153,8 +153,8 @@ export function Skills() {
         { name: "Python", level: 98 }
       ],
       projects: [
-        { name: "Speech-to-Speech AI", id: "3" },
-        { name: "StockMind AI", id: "1" }
+        { name: "Netran AI", id: "netran-ai" },
+        { name: "StockMind AI", id: "stockmind-ai" }
       ]
     },
     {
@@ -177,8 +177,8 @@ export function Skills() {
         { name: "LangChain", level: 90 }
       ],
       projects: [
-        { name: "Medical RAG Chatbot", id: "2" },
-        { name: "Speech-to-Speech AI", id: "3" }
+        { name: "Netran AI", id: "netran-ai" },
+        { name: "GoLift Ecosystem", id: "golift" }
       ]
     },
     {
@@ -200,8 +200,8 @@ export function Skills() {
         { name: "Qdrant", level: 92 }
       ],
       projects: [
-        { name: "Medical RAG Chatbot", id: "2" },
-        { name: "Speech-to-Speech AI", id: "3" }
+        { name: "Netran AI", id: "netran-ai" },
+        { name: "ResumeBuilder", id: "resumebuilder" }
       ]
     },
     {
@@ -223,7 +223,7 @@ export function Skills() {
         { name: "FastAPI", level: 95 }
       ],
       projects: [
-        { name: "Medical RAG Chatbot", id: "2" }
+        { name: "Netran AI", id: "netran-ai" }
       ]
     },
     {
@@ -244,7 +244,7 @@ export function Skills() {
         { name: "Docker", level: 90 }
       ],
       projects: [
-        { name: "AI Gym Workout Planner", id: "4" }
+        { name: "GoLift Ecosystem", id: "golift" }
       ]
     },
     {
@@ -267,8 +267,8 @@ export function Skills() {
         { name: "PostgreSQL", level: 88 }
       ],
       projects: [
-        { name: "StockMind AI", id: "1" },
-        { name: "AI Gym Workout Planner", id: "4" }
+        { name: "FinanceFlow", id: "financeflow" },
+        { name: "GoLift Ecosystem", id: "golift" }
       ]
     }
   ];

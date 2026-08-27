@@ -128,6 +128,64 @@ function getArchitectureBlueprint(project: any): string {
 +--------------------------------------------------------------------------------------------------------+`;
   }
 
+  if (project.id === "golift") {
+    return `+--------------------------------------------------------------------------------------------------------+
+|                                    GOLIFT ECOSYSTEM ARCHITECTURE                                       |
++--------------------------------------------------------------------------------------------------------+
+[ Multi-Platform Client Layer ]
+  - Web Client (React 19, Vite 7, Tailwind CSS 4)
+  - Desktop Shell (Tauri v2, Rust Native Wrapper)
+  - Mobile Client (React Native 0.84, Native CLI)
+  - Landing Portal (Next.js 15 App Router)
+                                         |
+                                    HTTPS / REST API
+                                         v
++--------------------------------------------------------------------------------------------------------+
+|                                  FastAPI (Async Python 3.14) Backend                                   |
+|   - JWT & Refresh Token Auth Middleware                                                                |
+|   - Automated CSV Seeding Engine (1,400+ ExerciseDB Records & Multi-Day Splits)                        |
+|   - Dynamic YouTube Embed Fallthrough & Technique Demonstration Engine                                 |
++--------------------------------------------------------------------------------------------------------+
+                                         |
+                 +-----------------------+-----------------------+
+                 v                                               v
++----------------------------------+           +----------------------------------+
+|    PostgreSQL 16 Database       |           |     MLOps Intelligence Engine    |
+|  - SQLAlchemy 2.0 ORM Binds      |           |  - Scikit-Learn Volume Prediction|
+|  - Alembic Schema Migrations     |           |  - Hybrid Rule & ML Generator    |
+|  - Real-Time Session Telemetry   |           |  - MLFlow Pipeline Tracking      |
++----------------------------------+           +----------------------------------+`;
+  }
+
+  if (project.id === "financeflow") {
+    return `+--------------------------------------------------------------------------------------------------------+
+|                                  FINANCEFLOW SYSTEM ARCHITECTURE                                       |
++--------------------------------------------------------------------------------------------------------+
+[ React 18 + Vite (Tailwind CSS) Client ]
+  - Interactive Financial Dashboard (INR ₹ Telemetry)
+  - 50/30/20 Rule Smart Budget Allocation Planner
+  - Multi-Month History & Dynamic Filter Trends
+  - AI Financial Literacy Chat Assistant UI
+                                         |
+                                    HTTPS / JWT Auth
+                                         v
++--------------------------------------------------------------------------------------------------------+
+|                                   FastAPI REST Backend (Uvicorn)                                       |
+|   - Argon2 Password Hashing & JWT Session Middleware                                                    |
+|   - Dynamic calendar.monthrange Bounds & Multi-Table Month Aggregator                                   |
+|   - LangChain Prompt & Financial Context Orchestrator                                                  |
++--------------------------------------------------------------------------------------------------------+
+                                         |
+                 +-----------------------+-----------------------+
+                 v                                               v
++----------------------------------+           +----------------------------------+
+|    Supabase PostgreSQL Database  |           |     Google Gemini AI Engine      |
+|  - Users, Sessions & Profiles    |           |  - gemini-2.5-flash Model        |
+|  - Income, Expenses & Budgets    |           |  - Context-Aware Financial Advice|
+|  - Chat History & Aggregations   |           |  - Sub-1s Interactive Latency    |
++----------------------------------+           +----------------------------------+`;
+  }
+
   return `+--------------------------------------------------------------------------------------------------------+
 |                                SYSTEM ARCHITECTURE SCHEMATIC                                           |
 +--------------------------------------------------------------------------------------------------------+
@@ -987,7 +1045,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                   <ul className="space-y-2">
                     {project.technical.datasets.map((ds, dIdx) => (
                       <li key={dIdx} className="flex items-center gap-2 text-xs text-zinc-800 font-mono font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-purple-600 flex-shrink-0" />
+                        <TechIcon name={ds} size={13} className="text-purple-600 flex-shrink-0" />
                         <span>{ds}</span>
                       </li>
                     ))}
@@ -1032,7 +1090,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                   <ul className="space-y-2">
                     {project.technical.concepts.map((concept, cIdx) => (
                       <li key={cIdx} className="flex items-center gap-2 text-xs text-zinc-200 font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400 flex-shrink-0" />
+                        <TechIcon name={concept} size={13} className="text-purple-400 flex-shrink-0" />
                         <span>{concept}</span>
                       </li>
                     ))}

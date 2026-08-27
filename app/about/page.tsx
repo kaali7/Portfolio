@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Sparkles, ArrowRight, Award, ExternalLink, Terminal, Code2, Cpu, GraduationCap, BookOpen, CheckCircle2 } from "lucide-react";
+import { Sparkles, ArrowRight, Award, ExternalLink, Terminal, Code2, Cpu, GraduationCap, BookOpen, CheckCircle2, Maximize2, Download, X, Eye } from "lucide-react";
 import { Contact } from "@/components/Contact";
 import { Navbar } from "@/components/Navbar";
 import { experienceData } from "@/lib/experienceDetailData";
@@ -444,24 +444,61 @@ export default function AboutPage() {
             className="lg:col-span-5 bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-50 border border-purple-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-xs flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="w-5 h-5 text-purple-600" />
-                <h3 className="text-lg font-black text-[#08080A] uppercase font-mono tracking-wide">CERTIFICATIONS</h3>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-purple-600" />
+                  <h3 className="text-lg font-black text-[#08080A] uppercase font-mono tracking-wide">CERTIFICATIONS</h3>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-purple-700 bg-purple-100 border border-purple-300 px-2 py-0.5 rounded-full">
+                  VERIFIED PROOF
+                </span>
               </div>
 
-              <div className="bg-white border border-purple-200 rounded-xl p-4 shadow-2xs space-y-2">
+              <div className="bg-white border border-purple-200 rounded-xl p-4 shadow-2xs space-y-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h4 className="text-sm font-bold text-[#08080A] leading-snug">CSRBOX Applied AI Internship</h4>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#08080A] leading-snug">CSRBOX Applied AI Internship</h4>
+                    <span className="text-[11px] font-mono text-purple-700 font-medium block mt-0.5">In association with AICTE & IBM SkillsBuild</span>
+                  </div>
                   <span className="text-[9.5px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex-shrink-0">
-                    2025
+                    2025 – 2026
                   </span>
                 </div>
+
                 <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                  Applied Artificial Intelligence program in association with <strong className="text-slate-800 font-semibold">AICTE & IBM SkillsBuild</strong> (6 Weeks).
+                  6-week Applied Artificial Intelligence program in association with <strong className="text-slate-800 font-semibold">AICTE & IBM SkillsBuild</strong>. Developed <strong className="text-purple-900 font-bold">FinanceFlow</strong> as the official capstone AI project.
                 </p>
-                <div className="pt-2 flex items-center gap-1.5 text-[10.5px] font-mono text-purple-700 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />
-                  <span>Practical ML & AI System Deployment</span>
+
+                {/* Capstone Project Showcase Pill */}
+                <div className="bg-purple-50/80 border border-purple-200/90 rounded-xl p-2.5 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-[9px] font-mono font-bold text-purple-700 bg-purple-200/80 px-2 py-0.5 rounded-md uppercase flex-shrink-0">
+                      CAPSTONE
+                    </span>
+                    <span className="text-xs font-bold text-[#08080A] truncate">
+                      FinanceFlow — Personal Finance AI
+                    </span>
+                  </div>
+                  <Link
+                    href="/work/financeflow"
+                    className="inline-flex items-center gap-1 text-[9.5px] sm:text-[10px] font-mono font-bold text-purple-700 hover:text-purple-900 bg-white hover:bg-purple-100 border border-purple-300 px-2.5 py-1 rounded-full shadow-2xs transition-colors flex-shrink-0"
+                  >
+                    <span>VIEW PROJECT</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <div className="pt-1 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-purple-100/80">
+                  <div className="flex items-center gap-1.5 text-[10.5px] font-mono text-purple-700 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
+                    <span>Practical ML & AI System Deployment</span>
+                  </div>
+
+                  <CredentialPreviewButton 
+                    certificate="/experience/csrbox_internship_certificate.png"
+                    role="CSRBOX Applied AI Internship"
+                    company="AICTE & IBM SkillsBuild"
+                  />
                 </div>
               </div>
             </div>

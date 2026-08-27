@@ -204,6 +204,8 @@ export default function WorkPage() {
   const systemTypeOptions = [
     "AI System",
     "Full-Stack Application",
+    "Full-Stack Web Application",
+    "Full-Stack Ecosystem",
     "Desktop GUI Application",
     "AI Recommendation Engine",
   ];

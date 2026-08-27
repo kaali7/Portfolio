@@ -55,7 +55,7 @@
 - Neural particle gravity canvas, 1-click email copy card (`ashwiniprajapati411@gmail.com`) with prominent typography, centered enlarged robot avatar with mouse eye-tracking & typing balloon, 5-card social bento grid (GitHub `@kaali7`, LinkedIn `ashwini369`, Hugging Face `@kali369`, Kaggle `@kali79`, Twitter/X `@ashwinik369`) with enlarged brand icons, glassmorphic sub-footer nav bar (`HOME` • `ABOUT` • `WORK`), and rocket back-to-top launch physics.
 
 ### `components/TechIcon.tsx`
-- Standardized brand logos via `simple-icons` and UI/conceptual tags via `lucide-react`. Strictly zero raw emojis.
+- **100% Comprehensive Tech Icon Coverage**: Standardized brand logos via `simple-icons` (Python, Pandas, NumPy, Scikit-learn, PyTorch, TensorFlow, OpenCV, ONNX, React, Next.js, TypeScript, JavaScript, Node.js, Vite, Tailwind CSS, CSS Modules, Framer Motion, FastAPI, Flask, SQLAlchemy, Pydantic, OpenAPI, Scalar, PostgreSQL, SQLite, MongoDB, Supabase, Qdrant, Google Gemini, Ollama, Hugging Face, LangChain, Spotify, Docker, Git, GitHub, Vercel, n8n, Pytest, Vitest, React Testing Library, Zod, Ruff, LaTeX, Google Docs, Google Sheets, Linux, Apple, Bash), `@tabler/icons-react` (AWS, OpenAI), and semantic `lucide-react` (Voice AI, STT/TTS, ECAPA speaker verification, Groq, LLaMA, FAISS, search APIs, Kivy/GUI, multimedia, backend servers, and architecture concepts). Integrated across project cards, case study technical specifications, architecture concepts, experience dossiers, and skills constellations. Strictly zero raw emojis.
 
 ### `components/RobotAvatar.tsx`
 - Interactive AI Robot Avatar mascot with mouse pupil tracking, typewriter speech bubble, spring physics, and elevated z-index (`z-[60]` / `z-[70]` tooltip) ensuring speech bubbles overlap smoothly on top of navbars without clipping.
@@ -67,6 +67,8 @@
 
 ## 🚀 System Status & Documentation
 - **Build Status**: 100% clean production build (`npm run build` static generation 6/6).
+- **Projects Catalog & Case Studies**: 8 comprehensive projects integrated (`netran-ai`, `resumebuilder`, `ai-powered-hr-dashboard`, `stockmind-ai`, `auraflow-music-recommendation`, `animal-gui`, `golift` GoLift Ecosystem, `financeflow` FinanceFlow).
+- **Experience & Education Dossiers**: Linked real project case studies including Auto Dash HR Dashboard under the GarunaCDX experience dossier, GarunaCDX certificate proof, and officially converted high-res CSRBOX Applied AI Internship Certificate (`2250x3175` px) with interactive `CredentialPreviewButton` floating hover preview on the `/about` page.
 - **Layout & Scaling**: Multi-breakpoint responsive grid system (`xs` 375px, `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px, `3xl` 1600px+) across all landing sections, interactive widgets, modal overlays, and sub-pages.
 - **Verified Identity**: Real developer email (`ashwiniprajapati411@gmail.com`), handles & profile links integrated across `doc/rule.md`, `components/Contact.tsx`, and `README.md`.
 - **Documentation**: Updated `doc/current.md`, `doc/rule.md`, and `README.md` following guidelines in `doc/rule.md`.
