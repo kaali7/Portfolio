@@ -86,7 +86,7 @@ export const projectsDetailData: ProjectDetail[] = [
         "type": "AI System",
         "status": "in-progress",
         "year": 2026,
-        "featured": false,
+        "featured": true,
         "card": {
             "shortDescription": "Netran AI is an autonomous, web-augmented, multimodal AI technical interviewer system that simulates corporate interview loops using continuous real-time voice interaction and multi-branch evaluation.",
             "tags": [
@@ -595,6 +595,255 @@ export const projectsDetailData: ProjectDetail[] = [
             "github": "[https://github.com/kaali7/stockmind-ai](https://github.com/kaali7/stockmind-ai)",
             "live": "[https://stockmind-ai-six.vercel.app/](https://stockmind-ai-six.vercel.app/)",
             "demo": "",
+            "paper": ""
+        }
+    },
+    {
+        "id": "auraflow-music-recommendation",
+        "number": "",
+        "title": "AuraFlow - AI Music Recommendation & Mood Transition Engine",
+        "category": "AI Engineering",
+        "subcategory": "Recommendation Systems",
+        "type": "AI Recommendation System",
+        "status": "completed",
+        "year": 2025,
+        "featured": false,
+        "card": {
+            "shortDescription": "Autonomous music curation and emotional state transition engine generating multi-step audio playlists using vector feature similarity over 30,000+ Spotify tracks.",
+            "tags": [
+                "Python",
+                "Flask",
+                "Next.js",
+                "Scikit-Learn",
+                "Pandas",
+                "SQLite",
+                "Tailwind CSS",
+                "TypeScript"
+            ]
+        },
+        "visual": {
+            "thumbnail": "/projects/img/music (1).png",
+            "heroImage": "/projects/img/music (1).png",
+            "gallery": [
+                "/projects/img/music (1).png",
+                "/projects/img/music (2).png"
+            ],
+            "video": "/projects/video/music.mp4"
+        },
+        "overview": {
+            "problem": "Standard music streaming platforms recommend tracks based solely on static genres or top chart metrics, failing to account for a listener's active emotional state or support smooth audio transitions from negative/high-stress states to positive/calm states.",
+            "motivation": "Engineered a dynamic ML recommendation engine that maps audio feature dimensions (valence, energy, danceability, acousticness, tempo) to build 6-stage emotional pathways and custom genre recommendations.",
+            "solution": "Built a Flask ML backend powered by Scikit-Learn (RobustScaler, PCA, Cosine & Euclidean distance metrics) paired with a modern Next.js 14 TypeScript frontend featuring interactive mood dashboards, genre explorers, and SQLite-backed listening history.",
+            "outcome": "Achieved sub-50ms mood pathway computation across 30,000+ tracks, seamless CORS-enabled REST API integration, and automated favorite/history tracking."
+        },
+        "features": [
+            "6-Step Dynamic Mood Pathway Progression using Euclidean feature space interpolation",
+            "Mood Normalization Engine with alias mapping (Happy -> Cheerful, Excited -> Energetic, etc.)",
+            "Genre Explorer & Top-30 Popularity Curation across 35+ distinct musical genres",
+            "Dual-Database SQLite Storage (Flask-SQLAlchemy binds for user history and favorite tracks)",
+            "Modern Next.js 14 UI with dark mode, interactive audio player widgets, and mood sliders"
+        ],
+        "technical": {
+            "techStack": [
+                "Python",
+                "Flask",
+                "Flask-SQLAlchemy",
+                "Flask-CORS",
+                "Next.js 14",
+                "React 18",
+                "TypeScript",
+                "Tailwind CSS",
+                "Scikit-Learn",
+                "Pandas",
+                "NumPy",
+                "SQLite"
+            ],
+            "concepts": [
+                "Cosine Similarity",
+                "Euclidean Distance Matrix",
+                "RobustScaler & PCA Dimensionality Reduction",
+                "Audio Feature Space Interpolation",
+                "Multi-Bind ORM Architecture",
+                "REST API Protocols"
+            ],
+            "models": [
+                "Scikit-Learn RobustScaler & PCA Pipeline",
+                "Euclidean & Cosine Similarity Distance Engine",
+                "Spotify Audio Feature Embeddings"
+            ],
+            "datasets": [
+                "Spotify 30,000+ Track Audio Features Dataset",
+                "Emotional State Feature Matrix (mood.csv)"
+            ],
+            "apis": [
+                "AuraFlow Flask REST API"
+            ],
+            "infrastructure": [
+                "Flask WSGI Web Server",
+                "Next.js Node Server",
+                "SQLite Database Binds"
+            ]
+        },
+        "architecture": {
+            "type": "Feature-Distance Mood Transition & Recommendation Pipeline",
+            "diagram": "+---------------------------------------------------------------------------------+\n|                               Next.js 14 Frontend                               |\n|         [ Mood Dashboard ]   |   [ Genre Browser ]   |   [ History/Favs ]       |\n+---------------------------------------------------------------------------------+\n                                         |\n                                    HTTP / JSON\n                                         v\n+---------------------------------------------------------------------------------+\n|                                 Flask REST API                                  |\n|   /api/playlist/mood-transition   |   /api/genres   |   /api/favorite/...       |\n+---------------------------------------------------------------------------------+\n                                         |\n                 +-----------------------+-----------------------+\n                 v                                               v\n+----------------------------------+           +----------------------------------+\n|     ML Mood Recommendation       |           |     Flask-SQLAlchemy ORM        |\n|  - Mood Normalization            |           |  - history.db (History)          |\n|  - Euclidean Pathway Distance    |           |  - favorite.db (Favorites)       |\n|  - RobustScaler + PCA            |           +----------------------------------+\n|  - Cosine Track Matching         |\n+----------------------------------+\n                 |\n                 v\n+----------------------------------+\n|      Spotify Audio Datasets      |\n|  (spotify.csv, mood.csv, etc)    |\n+----------------------------------+",
+            "workflow": [
+                "User selects start mood (e.g. Stressed/Happy) and target mood (e.g. Calm/Relaxed) in the Next.js UI.",
+                "Frontend sends POST request to Flask endpoint /api/playlist/mood-transition.",
+                "MoodEngine normalizes input moods and computes multi-dimensional Euclidean distances across audio feature vectors.",
+                "Algorithm constructs a 6-stage emotional pathway, picking optimal intermediate mood states.",
+                "Scikit-Learn RobustScaler & PCA pipeline finds top cosine-similar tracks for each stage from 30,000+ Spotify songs.",
+                "Structured playlist JSON is returned to the UI and automatically saved to listening history."
+            ]
+        },
+        "research": {
+            "researchQuestion": "",
+            "methodology": "",
+            "experiments": [],
+            "findings": [],
+            "references": []
+        },
+        "engineering": {
+            "challenges": [
+                "Flask-SQLAlchemy 3.x automatic instance_path prepending caused relative SQLite URIs to append duplicate instance directories, throwing sqlite3.OperationalError.",
+                "Pandas 3.x tuple grouping in DataFrame.groupby(['playlist_genre']) broke string scalar key lookups for genre queries.",
+                "Mismatch between frontend UI mood labels (Happy, Excited) and backend dataset emotional states (Cheerful, Energetic) caused 400 Bad Request errors."
+            ],
+            "solutions": [
+                "Standardized .env database bind URLs to sqlite:///history.db and sqlite:///favorite.db, allowing Flask-SQLAlchemy to resolve paths correctly.",
+                "Refactored top_30_genre and get_genre_stats to use case-insensitive Pandas string boolean masking instead of groupby keys.",
+                "Implemented normalize_mood() in MoodEngine with an explicit alias mapping dictionary and case-insensitive fallback."
+            ],
+            "performance": [
+                "Algorithmic Recommendation Latency: < 50ms for 6-step pathway calculation",
+                "Dataset Processing Speed: Real-time similarity indexing over 30,000+ tracks",
+                "API Response Latency: < 120ms total end-to-end payload delivery"
+            ],
+            "scalability": []
+        },
+        "learnings": [],
+        "links": {
+            "github": "[https://github.com/kaali7/music_recommendation_mode](https://github.com/kaali7/music_recommendation_mode)",
+            "live": "",
+            "demo": "/projects/video/music.mp4",
+            "paper": ""
+        }
+    },
+    {
+        "id": "animal-gui",
+        "number": "",
+        "title": "Animal GUI Explorer",
+        "category": "Desktop Applications",
+        "subcategory": "Interactive Multimedia GUI",
+        "type": "Desktop Application",
+        "status": "completed",
+        "year": 2022,
+        "featured": false,
+        "card": {
+            "shortDescription": "Built by Ashwini at age 16 (10th grade) as their first Python GUI milestone—an interactive desktop encyclopedia for 31+ animal species featuring multimedia facts, dietary guides, and realistic mood-based voice playback.",
+            "tags": [
+                "Python",
+                "Kivy",
+                "KivyMD",
+                "SDL2",
+                "Pillow",
+                "ffpyplayer",
+                "Desktop GUI",
+                "Multimedia"
+            ]
+        },
+        "visual": {
+            "thumbnail": "/projects/img/animal (2).PNG",
+            "heroImage": "/projects/img/animal (2).PNG",
+            "gallery": [
+                "/projects/img/animal (1).PNG",
+                "/projects/img/animal (2).PNG",
+                "/projects/img/animal (3).PNG",
+                "/projects/img/animal (4).PNG",
+                "/projects/img/animal (5).PNG",
+                "/projects/img/animal (6).PNG",
+                "/projects/img/animal (7).PNG"
+            ],
+            "video": "/projects/video/animal.mp4"
+        },
+        "overview": {
+            "problem": "Static encyclopedias and traditional textbooks lack engaging, multisensory interfaces for understanding animal behaviors, dietary requirements, and acoustic vocalizations in an intuitive visual medium.",
+            "motivation": "Created by Ashwini at age 16 while in 10th grade as their first major Python GUI programming milestone. Driven by a passion for crafting user-friendly interfaces, the goal was to build an interactive, tactile desktop application where users can easily browse diverse animal species, learn about their habits and diets, and hear their distinctive voices across multiple moods with a single click.",
+            "solution": "Architected an event-driven desktop GUI using Python, Kivy, and KivyMD with declarative .kv layout trees, dynamic asset loaders for audio and high-resolution images, and seamless multi-screen state transitions.",
+            "outcome": "Successfully marked an exciting first GUI programming milestone by independently designing and building a comprehensive 31-species catalog with biological taxonomy, custom diet guides, photo carousels, and 9-channel mood vocalization playback."
+        },
+        "features": [
+            "31+ Detailed Animal Species Profiles with kingdom, lifespan, habitat, and dietary information.",
+            "Mood-Based Audio Vocalizations (happy, sad, hungry, angry, playful, normal sounds) using asynchronous audio loaders.",
+            "Dynamic Species Image Gallery displaying breed variations and authentic wildlife photographs.",
+            "Personalized Collection Management with Likes, Favorites, and Exploration History tabs.",
+            "Modern Dark-Themed Material Design UI built with custom KivyMD cards, bottom navigation, and fluid animations."
+        ],
+        "technical": {
+            "techStack": [
+                "Python",
+                "Kivy",
+                "KivyMD",
+                "Kivy Language (.kv)",
+                "SDL2",
+                "Pillow",
+                "ffpyplayer"
+            ],
+            "concepts": [
+                "Event-Driven GUI Architecture",
+                "Declarative UI Modeling (.kv)",
+                "Screen Management & Navigation Transitions",
+                "Asynchronous Multimedia & Audio Loading",
+                "State Management (Favorites, Likes, History)",
+                "Dynamic Asset Binding & Layout Optimization"
+            ],
+            "models": [],
+            "datasets": [
+                "Curated 31-species taxonomy facts, dietary datasets, and multi-mood sound archives"
+            ],
+            "apis": [],
+            "infrastructure": [
+                "Cross-platform Desktop Runtime (Windows / macOS / Linux)"
+            ]
+        },
+        "architecture": {
+            "type": "State-Driven Model-View GUI Architecture",
+            "diagram": "+---------------------------------------------------+\n|                   Animal MDApp                    |\n+---------------------------------------------------+\n                          |\n             +------------+------------+\n             |                         |\n             v                         v\n    +------------------+     +-------------------+\n    |    desing.kv     |     |   ScreenManager   |\n    | (Declarative UI) |     +-------------------+\n    +------------------+               |\n             |            +------------+------------+\n             |            |            |            |\n             v            v            v            v\n       [ Material   [  Main      [   Animal    [  Navbar   ]\n         Cards ]      Feed ]       Details ]    Profile  ]\n                          |            |            |\n                          v            v            v\n                     [ Category   [ Multi-Mood  [ History  ]\n                       Albums ]     Audio &       & Likes  ]\n                                    Facts ]                 ",
+            "workflow": [
+                "Application boots via MDApp and registers custom Material Design top bars and components in Kivy Factory.",
+                "Kivy Builder compiles declarative desing.kv layout hierarchy, styling tokens, and navigation tabs.",
+                "ScreenManager initializes and manages transitions between Main home feed, Animal deep-dive view, and Navbar profile screen.",
+                "User card selections trigger dynamic file I/O to parse biological taxonomy, audio stream paths, and photo galleries on the fly.",
+                "Audio subsystem utilizes SoundLoader with dedicated play, loop, and stop state handlers across multi-mood sound channels."
+            ]
+        },
+        "research": {
+            "researchQuestion": "",
+            "methodology": "",
+            "experiments": [],
+            "findings": [],
+            "references": []
+        },
+        "engineering": {
+            "challenges": [
+                "Maintaining responsive UI rendering while dynamically loading large galleries of high-resolution images and audio assets.",
+                "Handling KivyMD version evolutions (MDToolbar -> MDTopAppBar and FitImage namespace migrations) without breaking legacy markup."
+            ],
+            "solutions": [
+                "Implemented lazy on-demand asset resolution and optimized widget hierarchy inside ScrollViews to avoid unnecessary texture allocations.",
+                "Integrated dynamic Factory fallback registrations in animal_ap.py to guarantee seamless backwards and forwards compatibility."
+            ],
+            "performance": [
+                "Sub-50ms audio playback trigger latency via SDL2 / ffpyplayer sound engine",
+                "Steady 60 FPS scrolling across 30+ animal cards and multi-column grid layouts"
+            ],
+            "scalability": []
+        },
+        "learnings": [],
+        "links": {
+            "github": "[https://github.com/kaali7/animal](https://github.com/kaali7/animal)",
+            "live": "",
+            "demo": "/projects/video/animal.mp4",
             "paper": ""
         }
     }

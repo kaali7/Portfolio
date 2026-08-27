@@ -20,10 +20,10 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
   const mouseY = useMotionValue(-1000);
   const opacityVal = useMotionValue(0);
 
-  // Ultra-smooth spring physics for fluid cursor tracking & light glow
-  const smoothX = useSpring(mouseX, { stiffness: 140, damping: 20, mass: 0.6 });
-  const smoothY = useSpring(mouseY, { stiffness: 140, damping: 20, mass: 0.6 });
-  const smoothOpacity = useSpring(opacityVal, { stiffness: 120, damping: 18 });
+  // Buttery-smooth spring physics for fluid inertia & zero-jitter cursor tracking
+  const smoothX = useSpring(mouseX, { stiffness: 65, damping: 26, mass: 0.8 });
+  const smoothY = useSpring(mouseY, { stiffness: 65, damping: 26, mass: 0.8 });
+  const smoothOpacity = useSpring(opacityVal, { stiffness: 80, damping: 24 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (shouldReduceMotion || !headerRef.current) return;
@@ -51,14 +51,14 @@ export function Navbar({ variant = "light", currentRoute }: NavbarProps) {
 
   const isDark = variant === "dark";
 
-  // Dynamic light spotlight background
+  // Dynamic light spotlight background with multi-stop soft diffusion
   const lightGlowBg = useTransform(
     [smoothX, smoothY, smoothOpacity],
     ([x, y, op]) => {
       if (isDark) {
-        return `radial-gradient(circle 280px at ${x}px ${y}px, rgba(168, 85, 247, ${Number(op) * 0.22}) 0%, rgba(168, 85, 247, ${Number(op) * 0.06}) 45%, transparent 75%)`;
+        return `radial-gradient(circle 320px at ${x}px ${y}px, rgba(168, 85, 247, ${Number(op) * 0.22}) 0%, rgba(168, 85, 247, ${Number(op) * 0.08}) 35%, transparent 80%)`;
       }
-      return `radial-gradient(circle 280px at ${x}px ${y}px, rgba(147, 51, 234, ${Number(op) * 0.15}) 0%, rgba(147, 51, 234, ${Number(op) * 0.03}) 45%, transparent 75%)`;
+      return `radial-gradient(circle 320px at ${x}px ${y}px, rgba(147, 51, 234, ${Number(op) * 0.16}) 0%, rgba(168, 85, 247, ${Number(op) * 0.06}) 35%, transparent 80%)`;
     }
   );
 
