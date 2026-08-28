@@ -102,13 +102,17 @@ export const projectsDetailData: ProjectDetail[] = [
             ]
         },
         "visual": {
-            "thumbnail": "/projects/img/netran-ai_1.png",
-            "heroImage": "/projects/img/netran-ai_2.jpeg",
+            "thumbnail": "/projects/img/netrain_dashbaord_page.png",
+            "heroImage": "/projects/img/netrain_dashbaord_page.png",
             "gallery": [
-                "/projects/img/netran-ai_1.png",
-                "/projects/img/netran-ai_2.jpeg"
+                "/projects/img/netrain_dashbaord_page.png",
+                "/projects/img/netrain_audio_recode_interview.png",
+                "/projects/img/netrain_evalution_proces.png",
+                "/projects/img/netrain_report_page.png",
+                "/projects/img/netrain_analytics_page.png",
+                "/projects/img/netrain_history_page.png"
             ],
-            "video": ""
+            "video": "/projects/video/netrain.mp4"
         },
         "overview": {
             "problem": "Existing mock interview tools fail to contextualize technical interviews around candidate resumes and specific Job Descriptions (JDs), leaving job seekers unprepared for targeted question types.",
@@ -225,7 +229,7 @@ export const projectsDetailData: ProjectDetail[] = [
         "links": {
             "github": "[https://github.com/kaali7/netran-ai](https://github.com/kaali7/netran-ai/blob/main/backend)",
             "live": "",
-            "demo": "",
+            "demo": "/projects/video/netrain.mp4",
             "paper": ""
         }
     },

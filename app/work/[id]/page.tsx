@@ -203,6 +203,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
   const [copiedBlueprint, setCopiedBlueprint] = useState(false);
   const [activeMediaTab, setActiveMediaTab] = useState<"diagram" | "blueprint">("diagram");
   const [activeSection, setActiveSection] = useState<string>("overview");
+  const [activeMediaView, setActiveMediaView] = useState<"video" | "image">("video");
 
   const shouldReduceMotion = useReducedMotion();
 
@@ -228,12 +229,17 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
   const prevProject = projectsDetailData[projectIndex === 0 ? projectsDetailData.length - 1 : projectIndex - 1];
   const nextProject = projectsDetailData[projectIndex === projectsDetailData.length - 1 ? 0 : projectIndex + 1];
 
-  // Derive initial active image
+  // Derive initial active image and media view
   useEffect(() => {
     if (project.visual?.heroImage) {
       setCurrentActiveImage(project.visual.heroImage);
     } else if (project.visual?.thumbnail) {
       setCurrentActiveImage(project.visual.thumbnail);
+    }
+    if (project.visual?.video) {
+      setActiveMediaView("video");
+    } else {
+      setActiveMediaView("image");
     }
   }, [project]);
 
@@ -571,8 +577,8 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                 {/* Tab 1: Visual Image / Video Display (Expanded Canvas Height) */}
                 {activeMediaTab === "diagram" && (
                   <div className="space-y-3">
-                    {/* Video (if present) */}
-                    {project.visual?.video ? (
+                    {/* Active Media Viewer: Video or Image */}
+                    {activeMediaView === "video" && project.visual?.video ? (
                       <div className="rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 relative h-80 sm:h-96 md:h-[410px] lg:h-[430px] flex items-center justify-center">
                         <video
                           src={project.visual.video}
@@ -602,17 +608,41 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                       </div>
                     )}
 
-                    {/* Thumbnail Gallery */}
-                    {project.visual?.gallery && project.visual.gallery.length > 0 && (
+                    {/* Thumbnail / Media Switcher Gallery */}
+                    {((project.visual?.gallery && project.visual.gallery.length > 0) || project.visual?.video) && (
                       <div className="flex items-center gap-2.5 pt-1 overflow-x-auto no-scrollbar">
-                        {project.visual.gallery.map((gImg, gIdx) => (
+                        {/* Video Thumbnail Button if video exists */}
+                        {project.visual?.video && (
+                          <button
+                            type="button"
+                            onClick={() => setActiveMediaView("video")}
+                            className={`relative rounded-xl overflow-hidden border flex-shrink-0 w-24 h-14 bg-zinc-950 cursor-pointer transition-all flex flex-col items-center justify-center gap-1 ${
+                              activeMediaView === "video"
+                                ? "border-purple-500 ring-2 ring-purple-500/40 opacity-100 scale-102 bg-purple-950/40"
+                                : "border-zinc-800 hover:border-zinc-700 opacity-70 hover:opacity-100"
+                            }`}
+                          >
+                            <div className="w-5 h-5 rounded-full bg-purple-600/80 flex items-center justify-center">
+                              <Play className="w-2.5 h-2.5 text-white fill-white ml-0.5" />
+                            </div>
+                            <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-zinc-300">Demo Video</span>
+                          </button>
+                        )}
+
+                        {/* Image Gallery Thumbnails */}
+                        {project.visual?.gallery?.map((gImg, gIdx) => (
                           <button
                             key={gIdx}
-                            onClick={() => setCurrentActiveImage(gImg)}
-                            className={`relative rounded-xl overflow-hidden border flex-shrink-0 w-20 h-14 bg-zinc-950 cursor-pointer transition-all ${currentActiveImage === gImg
+                            type="button"
+                            onClick={() => {
+                              setCurrentActiveImage(gImg);
+                              setActiveMediaView("image");
+                            }}
+                            className={`relative rounded-xl overflow-hidden border flex-shrink-0 w-20 h-14 bg-zinc-950 cursor-pointer transition-all ${
+                              activeMediaView === "image" && currentActiveImage === gImg
                                 ? "border-purple-500 ring-2 ring-purple-500/40 opacity-100 scale-102"
                                 : "border-zinc-800 hover:border-zinc-700 opacity-65 hover:opacity-100"
-                              }`}
+                            }`}
                           >
                             <img src={gImg} alt={`Screen ${gIdx + 1}`} className="w-full h-full object-cover" />
                           </button>
