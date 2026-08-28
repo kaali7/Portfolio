@@ -5,6 +5,7 @@ import { TransitionLink as Link } from "@/components/TransitionLink";
 import { notFound } from "next/navigation";
 import { motion, AnimatePresence, useMotionValue, useReducedMotion } from "framer-motion";
 import { projectsDetailData } from "@/lib/projectsDetailData";
+import { cleanUrl } from "@/lib/urlUtils";
 import { TechIcon } from "@/components/TechIcon";
 import { RobotAvatar } from "@/components/RobotAvatar";
 import { Navbar } from "@/components/Navbar";
@@ -413,9 +414,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
               {/* Primary External Action Buttons */}
               <motion.div variants={fadeInVariants} className="flex flex-wrap items-center gap-2 pt-0.5">
-                {project.links?.github && (
+                {cleanUrl(project.links?.github) && (
                   <a
-                    href={project.links.github}
+                    href={cleanUrl(project.links.github)!}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-zinc-900 hover:bg-purple-600 text-white rounded-lg text-[11px] font-semibold tracking-wide transition-all shadow-2xs hover:shadow-purple-500/20 group cursor-pointer"
@@ -424,9 +425,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                     <span>View Repository</span>
                   </a>
                 )}
-                {project.links?.live && (
+                {cleanUrl(project.links?.live) && (
                   <a
-                    href={project.links.live}
+                    href={cleanUrl(project.links.live)!}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-[11px] font-semibold tracking-wide transition-all shadow-2xs flex items-center cursor-pointer"
@@ -435,9 +436,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                     <span>Live App</span>
                   </a>
                 )}
-                {project.links?.demo && (
+                {cleanUrl(project.links?.demo) && (
                   <a
-                    href={project.links.demo}
+                    href={cleanUrl(project.links.demo)!}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-zinc-100 text-zinc-900 border border-zinc-200 rounded-lg text-[11px] font-semibold tracking-wide transition-all shadow-2xs cursor-pointer"
@@ -446,9 +447,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                     <span>Demo Video</span>
                   </a>
                 )}
-                {project.links?.paper && (
+                {cleanUrl(project.links?.paper) && (
                   <a
-                    href={project.links.paper}
+                    href={cleanUrl(project.links.paper)!}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-200 rounded-lg text-[11px] font-semibold tracking-wide transition-all shadow-2xs cursor-pointer"

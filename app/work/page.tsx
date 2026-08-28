@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { projectsDetailData } from "@/lib/projectsDetailData";
+import { cleanUrl } from "@/lib/urlUtils";
 import { Search, ArrowUpRight, Sparkles, ChevronDown, Layers, Cpu, SlidersHorizontal, ArrowUpDown, RotateCcw, Filter, X, Check } from "lucide-react";
 import { Contact } from "@/components/Contact";
 import { Navbar } from "@/components/Navbar";
@@ -524,8 +525,7 @@ export default function WorkPage() {
               {filteredProjects.map((project, idx) => {
                 const isFeatured = idx === 0;
                 const projectImage = project.visual?.heroImage || project.visual?.thumbnail;
-                const githubMatch = project.links?.github?.match(/\]\((https?:\/\/[^\)]+)\)/);
-                const cleanGithubUrl = githubMatch ? githubMatch[1] : (project.links?.github?.startsWith("http") ? project.links.github : null);
+                const cleanGithubUrl = cleanUrl(project.links?.github);
 
                 return (
                   <motion.div

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { experienceData } from "@/lib/experienceDetailData";
 import { projectsDetailData } from "@/lib/projectsDetailData";
+import { cleanUrl } from "@/lib/urlUtils";
 import { TechIcon } from "@/components/TechIcon";
 import { RobotAvatar } from "@/components/RobotAvatar";
 import { Navbar } from "@/components/Navbar";
@@ -187,9 +188,9 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
 
             {/* Primary Action CTAs */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3.5">
-              {exp.links?.company && (
+              {cleanUrl(exp.links?.company) && (
                 <a
-                  href={exp.links.company}
+                  href={cleanUrl(exp.links.company)!}
                   target="_blank"
                   rel="noreferrer"
                   className="px-6 py-3 bg-[#08080A] hover:bg-purple-600 text-white rounded-full text-xs font-mono font-bold tracking-wider transition-all shadow-md hover:shadow-purple-500/25 flex items-center gap-2 group cursor-pointer"
@@ -425,9 +426,9 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
                           <span>EXPLORE CASE STUDY</span>
                           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        {rp.links?.github && (
+                        {cleanUrl(rp.links?.github) && (
                           <a
-                            href={rp.links.github}
+                            href={cleanUrl(rp.links.github)!}
                             target="_blank"
                             rel="noreferrer"
                             className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
@@ -583,9 +584,9 @@ export default function ExperienceDetailPage({ params }: { params: { id: string 
                           <span>Explore Case Study</span>
                           <ArrowRight className="w-3.5 h-3.5 group-hover/lnk:translate-x-1 transition-transform text-purple-400" />
                         </Link>
-                        {rp.links?.github && (
+                        {cleanUrl(rp.links?.github) && (
                           <a
-                            href={rp.links.github}
+                            href={cleanUrl(rp.links.github)!}
                             target="_blank"
                             rel="noreferrer"
                             className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer flex items-center justify-center"
